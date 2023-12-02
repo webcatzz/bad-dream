@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=2 format=3 uid="uid://cki8mu2er652e"]
+
+[ext_resource type="Script" path="res://data/actor/actor.gd" id="1_exe37"]
+
+[resource]
+script = ExtResource("1_exe37")
+name = "Woodcarver"
+description = ""
+controlled = true
+max_health = 1
+speed = 10
+weak_against = Array[int]([])
+strong_against = Array[int]([])
+knockback_resist = 0

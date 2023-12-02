@@ -1,0 +1,10 @@
+# useless
+*.import
+.DS_STORE
+push.command
+
+# other godot stuff
+.godot/
+.import/
+export.cfg
+export_presets.cfg

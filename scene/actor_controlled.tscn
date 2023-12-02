@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbsp8otdhuoty"]
+
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://scene/actor.tscn" id="1_mic32"]
+[ext_resource type="Script" path="res://scene/actor_controlled.gd" id="2_0pyd1"]
+[ext_resource type="FontVariation" uid="uid://dtqbde3q47w8e" path="res://asset/ui/small.tres" id="3_eojm4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l43t2"]
+line_spacing = 0.0
+font = ExtResource("3_eojm4")
+
+[node name="ActorControlled" instance=ExtResource("1_mic32")]
+script = ExtResource("2_0pyd1")
+
+[node name="Camera" type="Camera2D" parent="." index="3"]
+position_smoothing_enabled = true
+
+[node name="Path" type="Line2D" parent="." index="4"]
+top_level = true
+width = 4.0
+default_color = Color(1, 1, 1, 0.501961)
+
+[node name="StepsLabel" type="Label" parent="." index="5"]
+offset_left = -8.0
+offset_top = -56.0
+offset_right = 8.0
+offset_bottom = -49.0
+label_settings = SubResource("LabelSettings_l43t2")
+horizontal_alignment = 1

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://bmngjl5na2lvk"]
+
+[ext_resource type="Script" path="res://data/action/action.gd" id="2_7q48l"]
+
+[resource]
+script = ExtResource("2_7q48l")
+damage = 0
+delay = 0
+splash_shape = "Square"
+splash_size = 1
+splash_offset = Vector2(0, 0)
+knockback_shape = "Line"
+knockback_strength = 0
+knockback_point = Vector2(0, 0)

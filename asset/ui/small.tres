@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dtqbde3q47w8e"]
+
+[ext_resource type="FontFile" uid="uid://db8mhmrp6pnch" path="res://asset/ui/improv-gold.ttf" id="1_0nxj7"]
+
+[resource]
+base_font = ExtResource("1_0nxj7")
+spacing_top = -5
