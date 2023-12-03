@@ -1,10 +1,11 @@
-# useless
-*.import
+# mac + my stuff (shh)
 .DS_STORE
 push.command
 
-# other godot stuff
+# godot
+*.import
 .godot/
 .import/
+addons/
 export.cfg
 export_presets.cfg

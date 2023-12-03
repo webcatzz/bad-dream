@@ -1,8 +1,20 @@
 extends Node
 
-var player: Resource = load("res://data/actor/woodcarver.tres")
-var party: Array[Resource] = [player]
+var player: Resource
+var party: Array[Resource] = []
 
 
 func _ready():
-	pass
+	load_data()
+
+
+func save_data():
+	ResourceSaver.save(player)
+	for actor: Resource in party:
+		ResourceSaver.save(actor)
+
+
+func load_data():
+	player = load("res://data/player.tres")
+	for actor_name: String in player.party:
+		party.append(load("res://data/actor/" + actor_name + ".tres"))

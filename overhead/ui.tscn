@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bu5e6u4o61sc0"]
 
 [ext_resource type="Script" path="res://overhead/ui.gd" id="1_s2858"]
-[ext_resource type="Script" path="res://scene/ui/battle.gd" id="2_b0k5h"]
+[ext_resource type="Script" path="res://scene/ui/battle.gd" id="2_7dsao"]
 
 [sub_resource type="Animation" id="Animation_dvbj0"]
 length = 0.001
@@ -137,7 +137,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_b0k5h")
+script = ExtResource("2_7dsao")
 
 [node name="BarTop" type="ColorRect" parent="Battle"]
 clip_contents = true
@@ -154,10 +154,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Space" type="PanelContainer" parent="Battle"]
+[node name="Space" type="Control" parent="Battle"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1000.0
+mouse_filter = 2
 
 [node name="BarBottom" type="ColorRect" parent="Battle"]
 custom_minimum_size = Vector2(0, 60)

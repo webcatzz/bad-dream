@@ -1,6 +1,6 @@
 class_name Action extends Resource
 
-enum Type {BLAZE, DEPTHS, HOLY, PROFANE}
+enum Type {BLAZE, BENTHIC, HOLY, PROFANE}
 
 @export var damage: int
 @export var delay: int
@@ -22,5 +22,5 @@ func calculate_knockback(pos: Vector2) -> Vector2:
 		"Line": pos += Vector2(16, 8) * knockback_point * knockback_strength
 		"Circle":
 			var offset: Vector2 = pos - knockback_point
-			# code
+			# todo: code area knockback
 	return pos

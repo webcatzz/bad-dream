@@ -24,9 +24,12 @@ signal defeated
 @export var strong_against: Array[Action.Type]
 @export var knockback_resist: int
 # runtime
-var health: int = max_health
-var position: Vector2i
-var facing: Vector2i
+var health: int = max_health:
+	set(value): health_changed_by.emit(value - health); health = value; health_changed.emit(health)
+var position: Vector2i:
+	set(value): position = value; position_changed.emit(position)
+var facing: Vector2i:
+	set(value): facing = value; facing_changed.emit(facing)
 var order: int
 var node: ActorNode
 
@@ -44,29 +47,14 @@ func take_turn():
 func move(new_pos: Vector2i):
 	facing = Iso.get_direction(new_pos - position)
 	position = new_pos
-	position_changed.emit(position)
-	facing_changed.emit(facing)
 
 
 func damage(amount: int, type: Action.Type):
 	if weak_against.has(type): amount *= 2
 	elif strong_against.has(type): amount /= 2
 	health -= amount
-	health_changed.emit(health)
-	health_changed_by.emit(amount)
 	if health <= 0: defeated.emit()
 
 
 func heal(amount: int):
 	health += amount
-	health_changed.emit(health)
-	health_changed_by.emit(amount)
-
-
-func create_node() -> Node2D:
-	var node = load("res://scene/actor.tscn").instantiate()
-	node.data = self
-	return node
-
-
-func _to_string(): return name + "(" + str(health) + "/" + str(max_health) + ")"
