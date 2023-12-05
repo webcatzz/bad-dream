@@ -1,26 +1,52 @@
 class_name Action extends Resource
 
-enum Type {BLAZE, BENTHIC, HOLY, PROFANE}
+signal delay_changed(value: int)
+signal delay_ended
 
-@export var damage: int
+enum Type {NORMAL, FERVENT, BENTHIC, WHORLED, HOLY, PROFANE, HEALING}
+enum Shape {SQUARE, CIRCLE}
+enum Knockback {LINE, CIRCLE}
+enum Effect {ON_FIRE, POISONED}
+
+@export var name: String
+@export var strength: int
+@export var type: Type
 @export var delay: int
 
 @export_group("Splash", "splash_")
-@export_enum("Square", "Circle") var splash_shape: String = "Square"
+@export var splash_shape: Shape
 @export var splash_size: int = 1
-@export var splash_offset: Vector2
+@export var splash_offset: Vector2i
 
 @export_group("Knockback", "knockback_")
-@export_enum("Line", "Circle") var knockback_shape: String = "Line"
+@export var knockback_shape: Knockback
 @export var knockback_strength: int
-@export var knockback_point: Vector2
+@export var knockback_point: Vector2i
+
+@export_group("Effect", "effect_")
+@export var effect_type: Effect
+@export var effect_duration: int
 
 
+func start_counting(): Battle.turn_ended.connect(decrement_delay)
 
-func calculate_knockback(pos: Vector2) -> Vector2:
-	if knockback_strength: match knockback_shape:
-		"Line": pos += Vector2(16, 8) * knockback_point * knockback_strength
-		"Circle":
-			var offset: Vector2 = pos - knockback_point
+func decrement_delay(): delay -= 1
+
+
+func calculate_knockback(pos: Vector2i, resist: int) -> Vector2i:
+	var strength: int = knockback_strength - resist
+	if strength > 0: match knockback_shape:
+		Knockback.LINE: pos += Iso.VECTOR * knockback_point * strength
+		Knockback.CIRCLE:
+			var offset: Vector2i = pos - knockback_point
 			# todo: code area knockback
 	return pos
+
+
+func run_status():
+	pass
+
+
+func get_node() -> Splash: return Splash.new(self)
+
+func get_status_string() -> String: return Effect.keys()[effect_type]

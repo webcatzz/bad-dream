@@ -1,29 +1,30 @@
 class_name Splash extends Area2D
 
-enum Shape {SQUARE}
-
-var shape: Shape
-var size: int
+var data: Action
 
 
-func _init(shape: Shape = Shape.SQUARE, size: int = 1, pos: Vector2 = Vector2.ZERO):
-	self.shape = shape
-	self.size = size
-	position = Iso.to_iso(pos)
+func _init(data: Action):
+	self.data = data
+	data.delay_ended.connect(trigger)
+	position = Iso.to_iso(data.splash_offset)
 	
-	var tile = load("res://scene/tile_highlight.tscn")
-	match shape:
-		Shape.SQUARE:
-			var area: Array = range(-size/2, size - size/2)
+	var tile: PackedScene = load("res://scene/tile_highlight.tscn")
+	match data.splash_shape:
+		data.Shape.SQUARE:
+			var area: Array = range(-data.splash_size/2, data.splash_size - data.splash_size/2)
 			for y in area: for x in area:
 				var t = tile.instantiate()
 				t.position = Iso.to_iso(Vector2i(x, y))
 				add_child(t)
 
 
-func _ready():
-	get_parent().data.facing_changed.connect(turn)
+func start():
+	if data.delay:
+		data.start_counting()
+	else: trigger()
 
 
-func turn(direction: Vector2):
-	Iso.turn_vector(position, direction)
+func trigger():
+	for body in get_overlapping_bodies():
+		body.data.affect(data)
+	queue_free()

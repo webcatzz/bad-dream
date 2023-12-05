@@ -19,32 +19,38 @@ offset_right = 8.0
 offset_bottom = -49.0
 horizontal_alignment = 1
 
-[node name="ActionUI" type="VBoxContainer" parent="WhileSelected" index="3"]
+[node name="ActionMenu" type="TabContainer" parent="WhileSelected" index="3"]
 visible = false
 z_index = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 16.0
-offset_top = -45.0
-offset_right = 57.0
-offset_bottom = 4.0
-grow_vertical = 2
+offset_left = 15.0
+offset_top = -46.0
+offset_right = 55.0
+offset_bottom = -6.0
+tabs_visible = false
+
+[node name="0" type="VBoxContainer" parent="WhileSelected/ActionMenu" index="1"]
+layout_mode = 2
 theme_override_constants/separation = 2
 script = ExtResource("3_68da3")
 offset = 6
 
-[node name="Attack" type="Button" parent="WhileSelected/ActionUI" index="0"]
+[node name="Attack" type="Button" parent="WhileSelected/ActionMenu/0" index="0"]
 layout_mode = 2
 text = "attack!"
 
-[node name="Guard" type="Button" parent="WhileSelected/ActionUI" index="1"]
+[node name="Guard" type="Button" parent="WhileSelected/ActionMenu/0" index="1"]
 layout_mode = 2
-text = "Guard"
+text = "guard"
 
-[node name="EndTurn" type="Button" parent="WhileSelected/ActionUI" index="2"]
+[node name="EndTurn" type="Button" parent="WhileSelected/ActionMenu/0" index="2"]
 layout_mode = 2
 text = "end turn"
+
+[node name="ActionList" type="ItemList" parent="WhileSelected/ActionMenu" index="2"]
+visible = false
+layout_mode = 2
+allow_search = false
+text_overrun_behavior = 0
 
 [node name="CollisionChecker" type="RayCast2D" parent="." index="4"]
 target_position = Vector2(16, 8)
@@ -52,5 +58,13 @@ target_position = Vector2(16, 8)
 [node name="Camera" type="Camera2D" parent="." index="5"]
 position_smoothing_enabled = true
 
-[connection signal="pressed" from="WhileSelected/ActionUI/Guard" to="." method="end_turn"]
-[connection signal="pressed" from="WhileSelected/ActionUI/EndTurn" to="." method="end_turn"]
+[connection signal="draw" from="WhileSelected/ActionMenu" to="." method="focus_action_menu"]
+[connection signal="hidden" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [0]]
+[connection signal="pressed" from="WhileSelected/ActionMenu/0/Attack" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="WhileSelected/ActionMenu/0/Guard" to="." method="end_turn"]
+[connection signal="pressed" from="WhileSelected/ActionMenu/0/EndTurn" to="." method="end_turn"]
+[connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="." method="action_selected" binds= [0]]
+[connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu/ActionList" method="select" binds= [0]]
+[connection signal="hidden" from="WhileSelected/ActionMenu/ActionList" to="." method="action_list_closed"]
+[connection signal="item_activated" from="WhileSelected/ActionMenu/ActionList" to="." method="take_action"]
+[connection signal="item_selected" from="WhileSelected/ActionMenu/ActionList" to="." method="action_selected"]

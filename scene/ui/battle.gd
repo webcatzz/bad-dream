@@ -18,4 +18,4 @@ func add_portrait(actor: Resource, idx: int):
 
 
 func remove_portrait(idx: int):
-	$BarTop/Order.children[idx].queue_free()
+	$BarTop/Order.get_child(idx).queue_free()
