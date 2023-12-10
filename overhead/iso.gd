@@ -8,9 +8,9 @@ const LEFT: Vector2i = Vector2(-16, 8)
 const RIGHT: Vector2i = Vector2(16, -8)
 
 
-static func turn_vector(vector: Vector2i, direction: Vector2i) -> Vector2i:
+static func turn(vector: Vector2i, direction: Vector2i) -> Vector2i:
 	vector.x = abs(vector.x) if direction in [RIGHT, DOWN] else -abs(vector.x)
-	vector.y = abs(vector.y) if direction in [UP, RIGHT] else -abs(vector.y)
+	vector.y = abs(vector.y) if direction in [LEFT, DOWN] else -abs(vector.y)
 	return vector
 
 

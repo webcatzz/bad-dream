@@ -22,7 +22,6 @@ offset = Vector2(0, -24)
 polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
 
 [node name="Facing" type="Line2D" parent="."]
-visible = false
 points = PackedVector2Array(0, 0, 16, 8)
 width = 2.0
 default_color = Color(0.501961, 1, 1, 0.501961)

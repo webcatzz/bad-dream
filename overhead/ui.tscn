@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu5e6u4o61sc0"]
+[gd_scene load_steps=8 format=3 uid="uid://bu5e6u4o61sc0"]
 
 [ext_resource type="Script" path="res://overhead/ui.gd" id="1_s2858"]
 [ext_resource type="Script" path="res://scene/ui/battle.gd" id="2_7dsao"]
@@ -120,11 +120,15 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_hv4bc"]
+resource_name = "modulate_dark"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8715n"]
 _data = {
 "RESET": SubResource("Animation_dvbj0"),
 "battle_close": SubResource("Animation_ped0u"),
-"battle_open": SubResource("Animation_jilgl")
+"battle_open": SubResource("Animation_jilgl"),
+"modulate_dark": SubResource("Animation_hv4bc")
 }
 
 [node name="UI" type="CanvasLayer"]

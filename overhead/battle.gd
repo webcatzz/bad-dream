@@ -1,18 +1,18 @@
 extends Node
 
 signal started
-signal actor_added(actor: Resource, idx: int)
+signal actor_added(actor: Actor, idx: int)
 signal actor_removed(idx: int)
-signal turn_started(actor: Resource)
-signal turn_ended(actor: Resource)
+signal turn_started(actor: Actor)
+signal turn_ended(actor: Actor)
 signal ended
 
 var active: bool
-var current: Resource
-var order: Array[Resource]
+var current: Actor
+var order: Array[Actor]
 
 
-func start(actors: Array[Resource]):
+func start(actors: Array[Actor]) -> void:
 	active = true
 	randomize()
 	for actor in Data.party + actors: add_actor(actor) # constructing order
@@ -20,14 +20,14 @@ func start(actors: Array[Resource]):
 	run_order()
 
 
-func run_order():
+func run_order() -> void:
 	for actor in order:
 		current = actor
 		await actor.take_turn()
 	run_order()
 
 
-func add_actor(actor: Resource):
+func add_actor(actor: Actor) -> void:
 	actor.order = randi_range(0, 75) + actor.speed
 	var idx: int
 	# in case of lowest order, jumps to end:
@@ -48,7 +48,7 @@ func add_actor(actor: Resource):
 	actor_added.emit(actor, idx)
 
 
-func remove_actor(actor: Resource):
+func remove_actor(actor: Actor) -> void:
 	var idx: int = order.find(actor)
 	# signals
 	actor.defeated.disconnect(remove_actor)
@@ -59,7 +59,7 @@ func remove_actor(actor: Resource):
 	actor_removed.emit(idx)
 
 
-func stop():
+func stop() -> void:
 	active = false
 	order = []
 	ended.emit()

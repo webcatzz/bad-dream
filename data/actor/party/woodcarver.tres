@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=5 format=3 uid="uid://cki8mu2er652e"]
 
-[ext_resource type="Script" path="res://data/action/action.gd" id="1_00qhf"]
-[ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://data/action/default.tres" id="1_blebx"]
-[ext_resource type="Script" path="res://data/actor/actor.gd" id="1_exe37"]
+[ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://data/action/default.tres" id="1_s48fg"]
+[ext_resource type="Script" path="res://data/action/action.gd" id="2_plfuh"]
+[ext_resource type="Script" path="res://data/actor/actor.gd" id="3_4fjlo"]
 
 [sub_resource type="Resource" id="Resource_pqsi2"]
-script = ExtResource("1_00qhf")
-name = ""
+script = ExtResource("2_plfuh")
+name = "ow"
 strength = 1
 type = 0
 delay = 0
@@ -20,8 +20,8 @@ effect_type = 0
 effect_duration = 0
 
 [resource]
-script = ExtResource("1_exe37")
-name = "Woodcarver"
+script = ExtResource("3_4fjlo")
+name = "woodcarver"
 description = ""
 controlled = true
 max_health = 10
@@ -29,4 +29,4 @@ speed = 10
 weak_against = Array[int]([])
 strong_against = Array[int]([])
 knockback_resist = 0
-actions = Array[ExtResource("1_00qhf")]([ExtResource("1_blebx"), SubResource("Resource_pqsi2")])
+actions = Array[ExtResource("2_plfuh")]([ExtResource("1_s48fg"), SubResource("Resource_pqsi2")])

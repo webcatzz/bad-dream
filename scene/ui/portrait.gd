@@ -1,9 +1,9 @@
 extends PanelContainer
 
-var data: Resource
+var data: Actor
 
 
-func set_actor(actor: Resource):
+func set_actor(actor: Actor) -> void:
 	$VBox/Art.texture = actor.portrait
 	$VBox/Health.max_value = actor.max_health
 	$VBox/Health.value = actor.health

@@ -7,7 +7,7 @@ class_name SlantedVBoxContainer extends VBoxContainer
 		notification(NOTIFICATION_SORT_CHILDREN)
 
 
-func _notification(what: int):
+func _notification(what: int) -> void:
 	if what == NOTIFICATION_SORT_CHILDREN:
 		var i: int = 0
 		for c in get_children():

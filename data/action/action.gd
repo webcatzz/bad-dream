@@ -27,10 +27,13 @@ enum Effect {ON_FIRE, POISONED}
 @export var effect_type: Effect
 @export var effect_duration: int
 
+@export_group("Cause")
+@export var cause: Actor
 
-func start_counting(): Battle.turn_ended.connect(decrement_delay)
 
-func decrement_delay(): delay -= 1
+func start_counting() -> void: Battle.turn_ended.connect(decrement_delay)
+
+func decrement_delay() -> void: delay -= 1
 
 
 func calculate_knockback(pos: Vector2i, resist: int) -> Vector2i:
@@ -43,7 +46,7 @@ func calculate_knockback(pos: Vector2i, resist: int) -> Vector2i:
 	return pos
 
 
-func run_status():
+func run_status() -> void:
 	pass
 
 
