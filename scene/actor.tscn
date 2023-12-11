@@ -1,8 +1,68 @@
-[gd_scene load_steps=4 format=3 uid="uid://bey6fhrbn55h0"]
+[gd_scene load_steps=7 format=3 uid="uid://bey6fhrbn55h0"]
 
 [ext_resource type="Script" path="res://scene/actor.gd" id="1_j5pgg"]
 [ext_resource type="Texture2D" uid="uid://dodbbof8hfs5t" path="res://asset/sprite/default.png" id="1_o5xpc"]
 [ext_resource type="Texture2D" uid="uid://bs2v0kgdl3lrd" path="res://asset/selected_tile.png" id="3_hyvnx"]
+
+[sub_resource type="Animation" id="Animation_rbjyw"]
+resource_name = "damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.501961, 0.498039, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, -24), Vector2(-4, -24), Vector2(0, -24)]
+}
+
+[sub_resource type="Animation" id="Animation_itah3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -24)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pg0xa"]
+_data = {
+"RESET": SubResource("Animation_itah3"),
+"damaged": SubResource("Animation_rbjyw")
+}
 
 [node name="Actor" type="CharacterBody2D"]
 motion_mode = 1
@@ -27,3 +87,8 @@ width = 2.0
 default_color = Color(0.501961, 1, 1, 0.501961)
 begin_cap_mode = 2
 end_cap_mode = 2
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pg0xa")
+}

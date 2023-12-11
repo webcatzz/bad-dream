@@ -39,7 +39,7 @@ func decrement_delay() -> void: delay -= 1
 func calculate_knockback(pos: Vector2i, resist: int) -> Vector2i:
 	var strength: int = knockback_strength - resist
 	if strength > 0: match knockback_shape:
-		Knockback.LINE: pos += Iso.VECTOR * knockback_point * strength
+		Knockback.LINE: pos += cause.facing * strength
 		Knockback.CIRCLE:
 			var offset: Vector2i = pos - knockback_point
 			# todo: code area knockback

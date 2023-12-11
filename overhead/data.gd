@@ -28,6 +28,7 @@ func res_to_dict(res: Resource, properties: PackedStringArray) -> Dictionary:
 func load_data() -> bool:
 	var file: ConfigFile = ConfigFile.new()
 	if file.load("res://data/saved.cfg") == OK:
+		party = []
 		for key in file.get_section_keys("party"):
 			var actor: Actor = load("res://data/actor/party/" + key + ".tres")
 			var properties: Dictionary = file.get_value("party", key)

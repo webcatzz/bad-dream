@@ -27,7 +27,9 @@ func start() -> void:
 
 
 func trigger() -> void:
-	data.cause.node.add_child(SFX.new("bam!", data.cause.facing)) # fix: hacky. waiting for sfx's finished signal and then queue_free()ing doesnt seem to work it just queue_free()s immediately???
+	# fix regarding data.cause.node.get_parent(): hacky. waiting for sfx's finished signal and then queue_free()ing doesnt seem to work it just queue_free()s immediately???
+	if has_overlapping_bodies(): data.cause.node.get_parent().add_child(SFX.new("bam!", data.cause.facing, data.cause.position))
+	else: data.cause.node.get_parent().add_child(SFX.new("...?", data.cause.facing, data.cause.position))
 	for body in get_overlapping_bodies():
 		body.data.affect(data)
 	queue_free()

@@ -19,7 +19,6 @@ signal effect_removed(type: Action.Effect)
 @export var sprite: Texture2D = load("res://asset/sprite/default.png")
 @export var portrait: Texture2D = load("res://asset/portrait/default.png")
 @export_multiline var description: String
-@export var controlled: bool
 # stats
 @export var max_health: int = 10
 @export var speed: int = 1
@@ -46,23 +45,19 @@ func _init() -> void:
 
 func take_turn() -> void:
 	turn_started.emit()
-	if controlled:
-		node.take_turn()
-		await turn_ended
-	else:
-		await UI.get_tree().create_timer(0.5).timeout
-		turn_ended.emit()
+	node.take_turn()
+	await turn_ended
 
 
-func move(new_pos: Vector2i, face_back: bool = false) -> void:
-	facing = Iso.get_direction(new_pos - position if not face_back else position - new_pos)
+func move(new_pos: Vector2i) -> void:
+	facing = Iso.get_direction(new_pos - position)
 	position = new_pos
 
 
 func affect(action: Action) -> void:
 	if action.type == action.Type.HEALING: heal(action.strength)
 	else: damage(action.strength, action.type)
-	if action.knockback_strength: move(action.calculate_knockback(position, knockback_resist), true)
+	if action.knockback_strength: move(action.calculate_knockback(position, knockback_resist))
 	if action.effect_duration: add_effect(action.effect_type, action.effect_duration)
 
 

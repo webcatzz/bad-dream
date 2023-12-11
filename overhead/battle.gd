@@ -24,6 +24,7 @@ func run_order() -> void:
 	for actor in order:
 		current = actor
 		await actor.take_turn()
+		if is_won(): stop(); return
 	run_order()
 
 
@@ -59,7 +60,14 @@ func remove_actor(actor: Actor) -> void:
 	actor_removed.emit(idx)
 
 
+func is_won() -> bool:
+	for actor in order:
+		if actor not in Data.party:
+			return false
+	return true
+
+
 func stop() -> void:
 	active = false
-	order = []
+	for actor in order: remove_actor(actor)
 	ended.emit()

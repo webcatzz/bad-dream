@@ -15,3 +15,7 @@ func on_body_entered(body: PhysicsBody2D) -> void:
 		for node in actors: array.append(get_node(node).data)
 		Battle.start(array)
 		queue_free()
+
+
+func _draw():
+	draw_polyline([get_child(0).shape.a, get_child(0).shape.b], Color("#ff000040"), 4)

@@ -60,6 +60,7 @@ position_smoothing_enabled = true
 
 [connection signal="draw" from="WhileSelected/ActionMenu" to="." method="focus_action_menu"]
 [connection signal="hidden" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [0]]
+[connection signal="tab_changed" from="WhileSelected/ActionMenu" to="." method="focus_action_menu" unbinds=1]
 [connection signal="pressed" from="WhileSelected/ActionMenu/0/Attack" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="WhileSelected/ActionMenu/0/Guard" to="." method="end_turn"]
 [connection signal="pressed" from="WhileSelected/ActionMenu/0/EndTurn" to="." method="end_turn"]
