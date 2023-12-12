@@ -4,33 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dodbbof8hfs5t" path="res://asset/sprite/default.png" id="1_o5xpc"]
 [ext_resource type="Texture2D" uid="uid://bs2v0kgdl3lrd" path="res://asset/selected_tile.png" id="3_hyvnx"]
 
-[sub_resource type="Animation" id="Animation_rbjyw"]
-resource_name = "damaged"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0.501961, 0.498039, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(4, -24), Vector2(-4, -24), Vector2(0, -24)]
-}
-
 [sub_resource type="Animation" id="Animation_itah3"]
 length = 0.001
 tracks/0/type = "value"
@@ -56,6 +29,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -24)]
+}
+
+[sub_resource type="Animation" id="Animation_rbjyw"]
+resource_name = "damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.501961, 0.498039, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, -24), Vector2(-4, -24), Vector2(0, -24)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pg0xa"]

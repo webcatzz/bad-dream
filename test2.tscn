@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://eibwhxi0mg3g"]
+
+[ext_resource type="Script" path="res://test2.gd" id="1_fvcm8"]
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://scene/actor.tscn" id="1_v7wwl"]
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_fvcm8")
+
+[node name="Actor" parent="." instance=ExtResource("1_v7wwl")]
+position = Vector2(48, 0)
+
+[node name="Camera2D" type="Camera2D" parent="Actor"]
+
+[node name="Actor2" parent="." instance=ExtResource("1_v7wwl")]
+position = Vector2(64, 8)
+
+[node name="Actor3" parent="." instance=ExtResource("1_v7wwl")]
+position = Vector2(48, 16)

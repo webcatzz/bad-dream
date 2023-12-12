@@ -27,7 +27,7 @@ signal effect_removed(type: Action.Effect)
 @export var knockback_resist: int
 @export var actions: Array[Action]
 # runtime
-var health: int = max_health:
+var health: int:
 	set(value): health_changed_by.emit(value - health); health = value; health_changed.emit(health)
 var position: Vector2i:
 	set(value): position = value; position_changed.emit(position)
@@ -41,6 +41,11 @@ var node: ActorNode
 
 func _init() -> void:
 	turn_started.connect(decrement_effects)
+	ready.call_deferred() # once export properties are initialized
+
+
+func ready() -> void:
+	health = max_health
 
 
 func take_turn() -> void:

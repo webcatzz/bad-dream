@@ -1,37 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://bd1icjnssc1ml"]
+[gd_scene load_steps=8 format=3 uid="uid://bd1icjnssc1ml"]
 
 [ext_resource type="TileSet" uid="uid://b543bth8uy8as" path="res://asset/tile/set.tres" id="2_65ojj"]
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://scene/actor.tscn" id="3_7ff50"]
 [ext_resource type="PackedScene" uid="uid://cbsp8otdhuoty" path="res://scene/actor_controlled.tscn" id="3_e2foj"]
 [ext_resource type="Resource" uid="uid://cki8mu2er652e" path="res://data/actor/party/woodcarver.tres" id="4_blhb8"]
 [ext_resource type="Script" path="res://scene/battle_trigger.gd" id="4_jo84s"]
-[ext_resource type="Script" path="res://data/actor/actor.gd" id="7_s8wda"]
+[ext_resource type="Resource" uid="uid://cpbeekkw0nc7j" path="res://data/actor/dummy.tres" id="6_8ihdy"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_5dd37"]
 a = Vector2(16, -16)
 b = Vector2(-32, 8)
-
-[sub_resource type="Resource" id="Resource_qbu0f"]
-script = ExtResource("7_s8wda")
-name = "Actor"
-description = ""
-max_health = 10
-speed = 1
-weak_against = Array[int]([])
-strong_against = Array[int]([])
-knockback_resist = 0
-actions = Array[Resource("res://data/action/action.gd")]([])
-
-[sub_resource type="Resource" id="Resource_ifjqo"]
-script = ExtResource("7_s8wda")
-name = "Actor2"
-description = ""
-max_health = 10
-speed = 1
-weak_against = Array[int]([])
-strong_against = Array[int]([])
-knockback_resist = 0
-actions = Array[Resource("res://data/action/action.gd")]([])
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
@@ -59,8 +37,7 @@ shape = SubResource("SegmentShape2D_5dd37")
 
 [node name="Actor" parent="." instance=ExtResource("3_7ff50")]
 position = Vector2(240, 104)
-data = SubResource("Resource_qbu0f")
+data = ExtResource("6_8ihdy")
 
 [node name="Actor2" parent="." instance=ExtResource("3_7ff50")]
-position = Vector2(128, 128)
-data = SubResource("Resource_ifjqo")
+position = Vector2(208, 104)

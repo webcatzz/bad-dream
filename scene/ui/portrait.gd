@@ -4,6 +4,8 @@ var data: Actor
 
 
 func set_actor(actor: Actor) -> void:
+	print(actor.name, ",", actor.health, ",", actor.max_health)
+	
 	$VBox/Art.texture = actor.portrait
 	$VBox/Art/Label.text = actor.name
 	$VBox/Health.max_value = actor.max_health

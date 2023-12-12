@@ -1,6 +1,6 @@
 class_name ActorNode extends CharacterBody2D
 
-@export var data: Actor
+@export var data: Actor = Actor.new()
 
 
 func _ready() -> void:

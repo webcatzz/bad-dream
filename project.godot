@@ -24,6 +24,7 @@ Audio="*res://overhead/audio.gd"
 
 [debug]
 
+gdscript/warnings/unassigned_variable_op_assign=0
 gdscript/warnings/shadowed_variable=0
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/integer_division=0
