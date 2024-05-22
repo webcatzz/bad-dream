@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bey6fhrbn55h0"]
+[gd_scene load_steps=8 format=3 uid="uid://bey6fhrbn55h0"]
 
-[ext_resource type="Script" path="res://scene/actor.gd" id="1_j5pgg"]
-[ext_resource type="Texture2D" uid="uid://dodbbof8hfs5t" path="res://asset/sprite/default.png" id="1_o5xpc"]
-[ext_resource type="Texture2D" uid="uid://bs2v0kgdl3lrd" path="res://asset/selected_tile.png" id="3_hyvnx"]
+[ext_resource type="Script" path="res://node/actor.gd" id="1_j5pgg"]
+[ext_resource type="Texture2D" uid="uid://copdlec5nxfb4" path="res://asset/sprite/default.png" id="1_o5xpc"]
+[ext_resource type="Texture2D" uid="uid://d0m6dgogojcui" path="res://asset/selected_tile.png" id="3_hyvnx"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g3gpk"]
+polygon = PackedVector2Array(-8, 0, 0, -4, 8, 0, 0, 4)
 
 [sub_resource type="Animation" id="Animation_itah3"]
 length = 0.001
@@ -77,11 +80,16 @@ texture = ExtResource("3_hyvnx")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_o5xpc")
 offset = Vector2(0, -24)
+hframes = 4
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
 
+[node name="Occluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_g3gpk")
+
 [node name="Facing" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 16, 8)
 width = 2.0
 default_color = Color(0.501961, 1, 1, 0.501961)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://rpyj2hvrbh2u"]
 
-[ext_resource type="Script" path="res://scene/ui/portrait.gd" id="1_0thac"]
-[ext_resource type="Texture2D" uid="uid://cvtfwr65va1h4" path="res://asset/portrait/default.png" id="2_x8iul"]
+[ext_resource type="Script" path="res://node/ui/portrait.gd" id="1_0thac"]
+[ext_resource type="Texture2D" uid="uid://b6whmvx8l1sgn" path="res://asset/portrait/default.png" id="2_x8iul"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kcc7u"]
 
@@ -26,26 +26,31 @@ offset_right = 32.0
 offset_bottom = 50.0
 script = ExtResource("1_0thac")
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Art" type="TextureRect" parent="VBox"]
+[node name="Label" type="Label" parent="HBox"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = -1
+text = "woodcarver"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 1
+clip_text = true
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+
+[node name="Art" type="TextureRect" parent="HBox/VBox"]
 layout_mode = 2
 texture = ExtResource("2_x8iul")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="VBox/Art"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-vertical_alignment = 2
-clip_text = true
-
-[node name="Health" type="ProgressBar" parent="VBox"]
+[node name="Health" type="ProgressBar" parent="HBox/VBox"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_kcc7u")

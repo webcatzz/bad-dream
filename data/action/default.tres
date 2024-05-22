@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://c520hdu6q2tad"]
 
-[ext_resource type="Script" path="res://data/action/action.gd" id="1_lin7e"]
+[ext_resource type="Script" path="res://logic/action.gd" id="1_lin7e"]
 
 [resource]
 script = ExtResource("1_lin7e")

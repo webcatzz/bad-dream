@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-var portrait_template: PackedScene = load("res://scene/ui/portrait.tscn")
+var portrait_template: PackedScene = load("res://node/ui/portrait.tscn")
 
 
 func _ready() -> void:

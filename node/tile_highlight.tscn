@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://wv3263ktdjnw"]
+
+[ext_resource type="Script" path="res://node/tile_highlight.gd" id="1_kcqyp"]
+
+[node name="TileHighlight" type="Area2D"]
+script = ExtResource("1_kcqyp")
+
+[node name="Texture" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.25098)
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]

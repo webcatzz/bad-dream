@@ -1,4 +1,5 @@
 class_name ActorNode extends CharacterBody2D
+## Node representation of an [Actor].
 
 @export var data: Actor = Actor.new()
 
@@ -20,8 +21,11 @@ func move(pos: Vector2, update_data: bool = true) -> void:
 	create_tween().tween_property(self, "position", pos, 0.05)
 
 
+## Faces the collision raycast in [param direction].
+## Updates the sprite to use correctly facing sprites.
 func set_facing(direction: Vector2) -> void:
 	$Facing.set_point_position(1, direction)
+	$Sprite.frame_coords.x = Iso.to_idx(direction)
 
 
 func take_turn():

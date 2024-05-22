@@ -12,30 +12,24 @@ var rot_val: float = 26.6
 var skew_val: float = 36.8
 
 
-func _init(text: String, direction: Vector2i, pos: Vector2i) -> void:
+func _init(text: String, opts) -> void:
 	self.text = text
-	position = pos
+	position = opts.position
 	y_sort_enabled = true
 	
 	if vertical:
 		skew_val = -26.7
-		if direction.y > 0: position.y += 8
-		else: position.x += 16 * signi(direction.x)
-	if direction in [Iso.LEFT, Iso.RIGHT]:
+		if opts.facing.y > 0: position.y += 8
+		else: position.x += 16 * signi(opts.facing.x)
+	if opts.facing in [Iso.LEFT, Iso.RIGHT]:
 		is_x_axis = true
 		rot_val = -rot_val
 		skew_val = -skew_val
-	if direction.x < 0:
+	if opts.facing.x < 0:
 		anchor_right = true
 	
 	rot_val = deg_to_rad(rot_val)
 	skew_val = deg_to_rad(skew_val)
-	
-	print("---")
-	print("vertical: ", vertical)
-	for property in ["anchor_right", "is_x_axis", "reverse_skew"]:
-		print(property, ": ", get(property))
-	print("---")
 
 
 func _ready() -> void:

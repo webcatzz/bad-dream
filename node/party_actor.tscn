@@ -1,16 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbsp8otdhuoty"]
+[gd_scene load_steps=5 format=3 uid="uid://cbsp8otdhuoty"]
 
-[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://scene/actor.tscn" id="1_mic32"]
-[ext_resource type="Script" path="res://scene/actor_controlled.gd" id="2_0pyd1"]
-[ext_resource type="Script" path="res://scene/ui/vbox_slanted.gd" id="3_68da3"]
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="1_mic32"]
+[ext_resource type="Script" path="res://node/party_actor.gd" id="2_0pyd1"]
+[ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
+[ext_resource type="Script" path="res://node/action_menu.gd" id="3_g0sg8"]
 
-[node name="ActorControlled" instance=ExtResource("1_mic32")]
+[node name="PartyActor" instance=ExtResource("1_mic32")]
 script = ExtResource("2_0pyd1")
 
 [node name="Path" type="Line2D" parent="WhileSelected" index="1"]
 top_level = true
 width = 4.0
-default_color = Color(1, 1, 1, 0.501961)
+default_color = Color(1, 1, 1, 0.25098)
 
 [node name="Steps" type="Label" parent="WhileSelected" index="2"]
 offset_left = -8.0
@@ -27,6 +28,7 @@ offset_top = -46.0
 offset_right = 55.0
 offset_bottom = -6.0
 tabs_visible = false
+script = ExtResource("3_g0sg8")
 
 [node name="0" type="VBoxContainer" parent="WhileSelected/ActionMenu" index="1"]
 layout_mode = 2
@@ -58,14 +60,14 @@ target_position = Vector2(16, 8)
 [node name="Camera" type="Camera2D" parent="." index="5"]
 position_smoothing_enabled = true
 
-[connection signal="draw" from="WhileSelected/ActionMenu" to="." method="focus_action_menu"]
+[connection signal="draw" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="focus_tab"]
 [connection signal="hidden" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [0]]
-[connection signal="tab_changed" from="WhileSelected/ActionMenu" to="." method="focus_action_menu" unbinds=1]
+[connection signal="tab_changed" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="focus_tab" unbinds=1]
 [connection signal="pressed" from="WhileSelected/ActionMenu/0/Attack" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [1]]
-[connection signal="pressed" from="WhileSelected/ActionMenu/0/Guard" to="." method="end_turn"]
-[connection signal="pressed" from="WhileSelected/ActionMenu/0/EndTurn" to="." method="end_turn"]
-[connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="." method="action_selected" binds= [0]]
+[connection signal="pressed" from="WhileSelected/ActionMenu/0/Guard" to="WhileSelected/ActionMenu" method="end_turn"]
+[connection signal="pressed" from="WhileSelected/ActionMenu/0/EndTurn" to="WhileSelected/ActionMenu" method="end_turn"]
+[connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="on_action_selected" binds= [0]]
 [connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu/ActionList" method="select" binds= [0]]
-[connection signal="hidden" from="WhileSelected/ActionMenu/ActionList" to="." method="action_list_closed"]
-[connection signal="item_activated" from="WhileSelected/ActionMenu/ActionList" to="." method="take_action"]
-[connection signal="item_selected" from="WhileSelected/ActionMenu/ActionList" to="." method="action_selected"]
+[connection signal="hidden" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="free_splash"]
+[connection signal="item_activated" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="take_action"]
+[connection signal="item_selected" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="on_action_selected"]

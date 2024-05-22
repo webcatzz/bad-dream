@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhcyc3hers7cu"]
-
-[ext_resource type="Texture2D" uid="uid://rogorbl5ag8f" path="res://asset/tile_highlight.png" id="1_5r8js"]
-
-[node name="TileHighlight" type="CollisionPolygon2D"]
-polygon = PackedVector2Array(0, -8, 16, 0, 0, 8, -16, 0)
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_5r8js")
