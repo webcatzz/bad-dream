@@ -41,7 +41,9 @@ func trigger() -> void:
 	
 	# fix regarding data.cause.node.get_parent(): hacky. waiting for sfx's finished signal and then queue_free()ing doesnt seem to work it just queue_free()s immediately???
 	# ^ no idea what i was trying to say here
-	action.cause.node.get_parent().add_child(
-		SFX.new("bam!" if did_affect_actors else "...?", action.cause)
-	)
+	action.cause.node.get_parent().add_child(SFX.new(
+		"bam!" if did_affect_actors else "...?",
+		Vector2(action.cause.position) + area.position + area.polygon[0],
+		action.cause.facing
+	))
 	queue_free()

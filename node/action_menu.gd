@@ -6,9 +6,15 @@ extends TabContainer
 var splash: Splash
 
 
+func _ready():
+	var actionlist: ItemList = get_child(1)
+	for action in actor.actions: actionlist.add_item(action.name)
+
+
 ## Focuses the first valid [Control] in the current tab.
 func focus_tab() -> void:
 	get_current_tab_control().find_next_valid_focus().grab_focus()
+
 
 ## Previews the currently selected [Action]'s [Splash].
 func on_action_selected(idx: int) -> void:
@@ -17,11 +23,13 @@ func on_action_selected(idx: int) -> void:
 	splash.action.cause = actor
 	actor.node.add_child(splash)
 
+
 ## Starts the currently selected [Action] and closes the menu.
 func take_action(idx: int) -> void:
 	splash.action.start()
 	splash = null
 	visible = false
+
 
 ## Frees the current [Splash] preview.
 func free_splash() -> void:
@@ -29,5 +37,7 @@ func free_splash() -> void:
 		splash.queue_free()
 		splash = null
 
+
 func end_turn():
 	actor.end_turn()
+	visible = false

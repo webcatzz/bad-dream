@@ -1,76 +1,105 @@
 class_name SFX extends Node2D
+## Comic-book SFX animation.
+
 
 signal finished
 
 var text: String
 
-var vertical: bool = true#randf() > 0.5
-var anchor_right: bool
+var upright: bool = true
 var is_x_axis: bool
+var align_right: bool
 
 var rot_val: float = 26.6
-var skew_val: float = 36.8
+var skew_val: float
 
 
-func _init(text: String, opts) -> void:
+
+# letter styling
+
+static var letter_style: LabelSettings = LabelSettings.new()
+
+static func _static_init():
+	letter_style.font = load("res://asset/ui/crang.ttf")
+	letter_style.outline_color = Color.BLACK
+	letter_style.outline_size = 4
+
+
+
+# setting up variables
+
+func _init(text: String, pos: Vector2, facing: Vector2i) -> void:
 	self.text = text
-	position = opts.position
+	position = pos
 	y_sort_enabled = true
 	
-	if vertical:
+	# text orientation
+	if upright:
 		skew_val = -26.7
-		if opts.facing.y > 0: position.y += 8
-		else: position.x += 16 * signi(opts.facing.x)
-	if opts.facing in [Iso.LEFT, Iso.RIGHT]:
+		if facing.y < 0:
+			position.x += 16 * signi(facing.x)
+			position.y -= 8
+	else:
+		skew_val = 36.8
+	
+	# transform axis
+	if Iso.is_x_axis(facing):
 		is_x_axis = true
 		rot_val = -rot_val
 		skew_val = -skew_val
-	if opts.facing.x < 0:
-		anchor_right = true
+	
+	# text align
+	align_right = facing.x < 0
 	
 	rot_val = deg_to_rad(rot_val)
 	skew_val = deg_to_rad(skew_val)
 
 
 func _ready() -> void:
+	# tween
 	var tween: Tween = get_tree().create_tween().set_parallel()
-	var settings: LabelSettings = LabelSettings.new()
-	settings.font = load("res://asset/ui/crang.ttf")
-	settings.outline_color = Color.BLACK
-	settings.outline_size = 4
 	
-	var x_offset: int = 0
+	# letters
+	var letter_x: int = 0
 	for i: int in text.length():
-		var label_wrapper: Node2D = Node2D.new()
-		label_wrapper.position = Vector2(x_offset, x_offset/2 if not is_x_axis else -x_offset/2)
-		label_wrapper.rotation = rot_val
-		label_wrapper.skew = skew_val
+		# wrapper (carries transform, simplifies animating letters)
+		var wrapper: Node2D = Node2D.new()
+		wrapper.position = Vector2(letter_x, letter_x/2)
+		if is_x_axis: wrapper.position.y *= -1
+		wrapper.rotation = rot_val
+		wrapper.skew = skew_val
 		
+		# label
 		var label: Label = Label.new()
+		label.label_settings = letter_style
 		label.text = text[i]
-		label.label_settings = settings
+		
 		label.reset_size()
-		var label_offset = -label.size.y if vertical else 8
+		var label_offset = -label.size.y if upright else 8
 		label.position.y = label_offset - 16
 		label.modulate.a = 0
 		
-		label_wrapper.add_child(label)
-		add_child(label_wrapper)
+		# adding to tree
+		wrapper.add_child(label)
+		add_child(wrapper)
 		
+		# animation
 		var delay: float = i * 0.05
 		tween.tween_property(label, "modulate:a", 1, 0.125).set_delay(delay)
 		tween.tween_property(label, "position:y", label_offset, 0.125).set_delay(delay)
 		tween.tween_property(label, "modulate:a", 0, 0.125).set_delay(delay + 1)
 		tween.tween_property(label, "position:y", label_offset + 4, 0.125).set_delay(delay + 1)
 		
-		x_offset += label.size.x - 2
+		letter_x += label.size.x - 2
 	
-	if anchor_right: for letter in get_children():
-		letter.position = Vector2(-x_offset, x_offset/2 if is_x_axis else -x_offset/2)
-		x_offset -= letter.get_child(0).size.x - 2
+	# positioning from right instead
+	if align_right:
+		for letter: Node2D in get_children():
+			letter.position = Vector2(-letter_x, letter_x/2)
+			if not is_x_axis: letter.position.y *= -1
+			letter_x -= letter.get_child(0).size.x - 2
 	
 	tween.finished.connect(on_finished)
-
 
 
 func on_finished() -> void:

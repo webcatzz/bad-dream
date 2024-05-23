@@ -7,11 +7,14 @@ signal facing_changed(value: Vector2)
 # battle
 signal health_changed(value: int)
 signal health_changed_by(value: int)
-signal effect_added(type: Action.Effect, duration: int)
-signal effect_removed(type: Action.Effect)
+signal defeated
+# turns
 signal turn_started
 signal turn_ended
-signal defeated
+signal action_taken
+# effects
+signal effect_added(effect: Effect)
+signal effect_removed(effect: Effect)
 
 
 @export var name: String = "Actor"
@@ -39,12 +42,19 @@ var health: int:
 ## The maximum number of actions the actor can take in a single turn.
 @export var actions_per_turn: int = 1
 ## The number of tiles the actor has traveled this turn.
-var tiles_traveled: int = 0
+var tiles_traveled: int = 0:
+	set(value):
+		tiles_traveled = value
+		end_turn_if_exhausted()
 ## The number of actions the actor has taken this turn.
-var actions_taken: int = 0
+var actions_taken: int = 0:
+	set(value):
+		if value > actions_taken: action_taken.emit()
+		actions_taken = value
+		end_turn_if_exhausted()
 
 # type affinities
-@export_group("Type affinities")
+@export_group("Affinities")
 ## The actor recieves doubled damage from these damage types.
 @export var weak_against: Array[Action.Type]
 ## The actor recieves halved damage from these damage types.
@@ -71,13 +81,13 @@ var facing: Vector2i = Iso.VECTOR:
 		facing = value
 		facing_changed.emit(facing)
 
-var effects: Dictionary
+## A list of [Effect]s the actor is affected by. Add effects using [method add_effect].
+var effects: Array
 
 var node: ActorNode
 
 
 func _init() -> void:
-	turn_started.connect(decrement_effects)
 	(func(): health = max_health).call_deferred() # once export properties are initialized
 
 
@@ -87,7 +97,8 @@ func move(new_pos: Vector2i) -> void:
 	position = new_pos
 
 
-# battle
+
+# battle turns
 
 ## Starts the actor's turn.
 func take_turn() -> void:
@@ -97,25 +108,30 @@ func take_turn() -> void:
 	node.take_turn()
 	await turn_ended
 
+
 ## Ends the actor's turn.
 func end_turn() -> void:
 	turn_ended.emit()
 
 
+## Returns true if the actor has not exhausted its [member actions_per_turn].
 func can_act() -> bool:
 	return actions_taken < actions_per_turn
 
+
+## Returns true if the actor has not exhausted its [member tiles_per_turn].
 func can_move() -> bool:
 	return tiles_traveled < tiles_per_turn
 
-func is_turn_exhausted() -> bool:
-	return !(can_act() or can_move())
+
+## Ends the actor's turn if the actor cannot do anything else.
+func end_turn_if_exhausted() -> void:
+	if not (can_act() or can_move()):
+		end_turn()
 
 
 
-
-
-
+# health
 
 ## Modifies [param amount] according to the actor's type affinities,
 ## then subtracts it from [member health].
@@ -125,24 +141,29 @@ func damage(amount: int, type: Action.Type) -> void:
 	health -= amount
 	if health <= 0: defeated.emit()
 
+
 ## Increases [member health] by [param amount].
 func heal(amount: int) -> void:
 	health += amount
 
 
-func add_effect(type: Action.Effect, duration: int) -> void:
-	if effects.has(type) and duration <= effects[type]: return
-	effects[type] = duration
-	effect_added.emit(type, duration)
+
+# effects
+
+## Adds an [Effect]. Active effects are stored in [member effects].
+func add_effect(effect: Effect) -> void:
+	effect.target = self
+	effect.start()
+	
+	effects.append(effect)
+	effect_added.emit(effect)
+	effect.ended.connect(remove_effect.bind(effect))
 
 
-func decrement_effects() -> void:
-	for effect: String in effects:
-		effects[effect] -= 1
-		await turn_ended
-		if effects[effect] == 0:
-			effects.erase(effect)
-			effect_removed.emit(effect)
+## Removes an [Effect]. Called when an effect ends.
+func remove_effect(effect: Effect) -> void:
+	effects.erase(effect)
+	effect_removed.emit(effect)
 
 
 

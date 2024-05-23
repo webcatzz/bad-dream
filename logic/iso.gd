@@ -19,10 +19,23 @@ func turn(vector: Vector2i, direction: Vector2i) -> Vector2i:
 	vector.y = abs(vector.y) if direction in [LEFT, DOWN] else -abs(vector.y)
 	return vector
 
+
 ## Returns the direction a vector is facing.
 func get_direction(vector: Vector2i) -> Vector2i:
-	if vector.x < 0: return UP if vector.y < 0 else LEFT
-	else: return RIGHT if vector.y < 0 else DOWN
+	if vector.x < 0:
+		return UP if vector.y < 0 else LEFT
+	else:
+		return RIGHT if vector.y < 0 else DOWN
+
+
+
+
+# axis
+
+func is_x_axis(vector: Vector2i) -> bool:
+	vector = get_direction(vector)
+	return vector == LEFT or vector == RIGHT
+
 
 
 
@@ -31,6 +44,7 @@ func get_direction(vector: Vector2i) -> Vector2i:
 ## Converts cartesian coordinates to isometric coordinates.
 func from_cart(coord: Vector2i) -> Vector2i:
 	return Vector2i(coord.x + coord.y, coord.y - coord.x) * VECTOR
+
 
 ## Converts isometric coordinates to cartesian coordinates.
 func to_cart(vector: Vector2i) -> Vector2i:

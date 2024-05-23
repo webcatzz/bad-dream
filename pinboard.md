@@ -1,12 +1,14 @@
 # todo
 
-- [ ] status effects
-- [ ] attacks
+- [ ] improve action menu ui
 - [ ] enemy ai
+- [ ] party members
 - [ ] verticality & cliffs
 - [ ] inventory & party screen
 - [ ] title screen
 - [ ] multiple saves
+- [x] status effects
+- [x] attacks
 
 
 # milestones
@@ -21,6 +23,12 @@
 - [x] knockback
 - [x] comicbook sfx
 - [x] barebones attacks
+
+
+# bugs
+
+- [ ] fix Iso.normalize()
+- [ ] fix spotlight sometimes rendering over other actors
 
 
 

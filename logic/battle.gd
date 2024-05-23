@@ -17,6 +17,17 @@ var current_actor: Actor
 ## [Actor]s take turns according to this order.
 var order: Array[Actor]
 
+var _modulator: CanvasModulate = CanvasModulate.new()
+
+
+
+# setup
+
+func _ready() -> void:
+	_modulator.color = Color.WHITE
+	_modulator.visible = false
+	add_child(_modulator)
+
 
 
 # battle starting + stopping
@@ -25,11 +36,13 @@ var order: Array[Actor]
 func start(actors: Array[Actor]) -> void:
 	active = true
 	randomize()
-	for actor in Game.data.party + actors: add_actor(actor) # constructing order
+	for actor: Actor in Game.data.party + actors: add_actor(actor) # constructing order
 	started.emit()
 	run_order()
 	
-	prints("Started battle with order:", order)
+	_modulator.visible = true
+	get_tree().create_tween().tween_property(_modulator, "color:v", 0.8, 2)
+
 
 ## Loops through [member order] until [method is_won] returns true.
 func run_order() -> void:
@@ -43,6 +56,7 @@ func run_order() -> void:
 	
 	run_order()
 
+
 ## Returns true if there are no non-party [Actor]s in [member order].
 func is_won() -> bool:
 	for actor in order:
@@ -50,11 +64,15 @@ func is_won() -> bool:
 			return false
 	return true
 
+
 ## Ends the current battle.
 func stop() -> void:
 	active = false
 	for actor in order: remove_actor(actor)
 	ended.emit()
+	
+	await get_tree().create_tween().tween_property(_modulator, "color:v", 1, 2).finished
+	_modulator.visible = false
 
 
 
@@ -82,6 +100,7 @@ func add_actor(actor: Actor) -> void:
 	# adding to order
 	order.insert(idx, actor)
 	actor_added.emit(actor, idx)
+
 
 ## Removes an actor from the current battle's [member order].
 func remove_actor(actor: Actor) -> void:
