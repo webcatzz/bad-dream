@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bey6fhrbn55h0"]
+[gd_scene load_steps=14 format=3 uid="uid://bey6fhrbn55h0"]
 
 [ext_resource type="Script" path="res://node/actor.gd" id="1_j5pgg"]
 [ext_resource type="Texture2D" uid="uid://copdlec5nxfb4" path="res://asset/sprite/default.png" id="1_o5xpc"]
+[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="2_j32pu"]
 [ext_resource type="Script" path="res://node/spotlight.gd" id="2_wd4nt"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rndl4"]
-light_mode = 1
+[ext_resource type="AudioStream" uid="uid://b0pwyevl8fgtr" path="res://asset/sfx/move.mp3" id="5_mlp70"]
+[ext_resource type="AudioStream" uid="uid://c8d4dpg2oxhid" path="res://asset/sfx/spotlight_on.mp3" id="6_ql4jc"]
+[ext_resource type="AudioStream" uid="uid://blxh2fo38mxsd" path="res://asset/sfx/spotlight_off.mp3" id="7_cqwoq"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g3gpk"]
 polygon = PackedVector2Array(-8, 0, 0, -4, 8, 0, 0, 4)
@@ -99,6 +100,13 @@ _data = {
 "defeated": SubResource("Animation_k0lrh")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vyyqk"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("5_mlp70")
+stream_0/weight = 1.0
+
 [node name="Actor" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_j5pgg")
@@ -107,7 +115,8 @@ script = ExtResource("1_j5pgg")
 visible = false
 
 [node name="Spotlight" type="Node2D" parent="WhileSelected"]
-material = SubResource("CanvasItemMaterial_rndl4")
+z_index = -1
+material = ExtResource("2_j32pu")
 scale = Vector2(2, 1)
 script = ExtResource("2_wd4nt")
 
@@ -123,7 +132,6 @@ polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
 occluder = SubResource("OccluderPolygon2D_g3gpk")
 
 [node name="Facing" type="Line2D" parent="."]
-visible = false
 points = PackedVector2Array(0, 0, 16, 8)
 width = 2.0
 default_color = Color(0.501961, 1, 1, 0.501961)
@@ -134,3 +142,14 @@ end_cap_mode = 2
 libraries = {
 "": SubResource("AnimationLibrary_pg0xa")
 }
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Move" type="AudioStreamPlayer2D" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_vyyqk")
+
+[node name="SpotlightOn" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("6_ql4jc")
+
+[node name="SpotlightOff" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("7_cqwoq")

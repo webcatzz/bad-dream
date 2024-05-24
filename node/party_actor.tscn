@@ -1,17 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbsp8otdhuoty"]
+[gd_scene load_steps=7 format=3 uid="uid://cbsp8otdhuoty"]
 
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="1_mic32"]
 [ext_resource type="Script" path="res://node/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/action_menu.gd" id="3_g0sg8"]
+[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="3_osft0"]
+
+[sub_resource type="Gradient" id="Gradient_beljk"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 script = ExtResource("2_0pyd1")
 
-[node name="Path" type="Line2D" parent="WhileSelected" index="1"]
+[node name="Path" type="Line2D" parent="WhileSelected" index="0"]
 top_level = true
+z_index = -1
+material = ExtResource("3_osft0")
 width = 4.0
-default_color = Color(1, 1, 1, 0.25098)
+gradient = SubResource("Gradient_beljk")
 
 [node name="Steps" type="Label" parent="WhileSelected" index="2"]
 offset_left = -8.0

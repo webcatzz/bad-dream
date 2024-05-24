@@ -15,12 +15,16 @@ run/main_scene="res://retest.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://asset/audio_buses.tres"
+
 [autoload]
 
 Game="*res://logic/game.gd"
 Iso="*res://logic/iso.gd"
 Battle="*res://logic/battle.gd"
-Audio="*res://logic/audio.gd"
+Music="*res://logic/music.gd"
 UI="*res://logic/ui.tscn"
 
 [debug]

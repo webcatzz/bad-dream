@@ -11,7 +11,8 @@ static func node() -> Area2D:
 
 func _ready() -> void:
 	self.monitorable = false
-	$Texture.polygon = polygon
+	$Border.points = polygon
+	$Fill.polygon = polygon
 	$Collision.polygon = polygon
 
 

@@ -1,12 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://wv3263ktdjnw"]
+[gd_scene load_steps=3 format=3 uid="uid://wv3263ktdjnw"]
 
 [ext_resource type="Script" path="res://node/tile_highlight.gd" id="1_kcqyp"]
+[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="2_jhysw"]
 
 [node name="TileHighlight" type="Area2D"]
-z_index = 1
+z_index = -1
 script = ExtResource("1_kcqyp")
 
-[node name="Texture" type="Polygon2D" parent="."]
-color = Color(1, 1, 1, 0.25098)
+[node name="Border" type="Line2D" parent="."]
+material = ExtResource("2_jhysw")
+closed = true
+width = 2.0
+default_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="Fill" type="Polygon2D" parent="."]
+material = ExtResource("2_jhysw")
+color = Color(1, 1, 1, 0.1)
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]

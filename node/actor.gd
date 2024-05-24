@@ -8,11 +8,14 @@ func _ready() -> void:
 	data.node = self
 	data.position = position
 	
-	data.position_changed.connect(move.bind(false))
+	data.position_changed.connect(tween_position)
+	data.position_changed.connect($SFX/Move.play.unbind(1))
 	data.facing_changed.connect(_set_facing)
 	
 	data.turn_started.connect($WhileSelected.set_visible.bind(true))
+	data.turn_started.connect($SFX/SpotlightOn.play)
 	data.turn_ended.connect($WhileSelected.set_visible.bind(false))
+	data.turn_ended.connect($SFX/SpotlightOff.play)
 	data.health_changed_by.connect(_on_health_changed_by)
 	data.defeated.connect(_on_defeated)
 
@@ -22,8 +25,8 @@ func take_turn():
 	data.turn_ended.emit()
 
 
-func move(pos: Vector2, update_data: bool = true) -> void:
-	if update_data: data.move(pos)
+## Smoothly moves the node to a new position.
+func tween_position(pos: Vector2) -> void:
 	create_tween().tween_property(self, "position", pos, 0.05)
 
 

@@ -241,3 +241,6 @@ step = 0.01
 [connection signal="hidden" from="Pause" to="Pause" method="set_current_tab" binds= [0]]
 [connection signal="pressed" from="Pause/Buttons/Continue" to="Pause" method="hide"]
 [connection signal="pressed" from="Pause/Buttons/Settings" to="Pause" method="set_current_tab" binds= [1]]
+[connection signal="value_changed" from="Pause/Settings/MasterVolumeSlider" to="Pause" method="_set_volume" binds= ["master"]]
+[connection signal="value_changed" from="Pause/Settings/MusicVolumeSlider" to="Pause" method="_set_volume" binds= ["music"]]
+[connection signal="value_changed" from="Pause/Settings/SfxVolumeSlider" to="Pause" method="_set_volume" binds= ["sfx"]]

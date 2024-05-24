@@ -1,7 +1,18 @@
 extends Node2D
 
 
+const _RADIUS: float = 12
+const _CHANGE: float = 0.25
 
-func _draw():
-	draw_circle(Vector2.ZERO, 12, Color.WHITE)
-	
+var _radius: float = _RADIUS
+var _time: float = 0
+
+
+func _draw() -> void:
+	draw_circle(Vector2.ZERO, _radius, Color.from_hsv(0, 0, 1, 0.9))
+
+
+func _process(delta: float) -> void:
+	_time += delta
+	_radius = _RADIUS + sin(_time) * _CHANGE
+	queue_redraw()

@@ -8,6 +8,11 @@ var input_state: InputState
 var input: Vector2
 var listening: bool = true
 
+# battle
+signal battle_state_changed
+enum BattleState {MOVING, CHOOSING_ACTION}
+var battle_state: BattleState
+
 # path
 var path: Array
 @onready var path_node: Line2D = $WhileSelected/Path
@@ -26,11 +31,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if listening: match input_state:
 		
 		InputState.FREE:
-			input = Iso.normalize(Iso.from_cart(Vector2(
+			input = Vector2(Iso.from_cart(Vector2(
 				Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 				Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-			))) * 8
-			if input: data.facing = Iso.get_direction(input)
+			))).normalized() * 128
+			if input:
+				data.facing = Iso.get_direction(input)
+				get_viewport().set_input_as_handled()
 		
 		InputState.GRID:
 			_handle_battle_input(event)
@@ -77,7 +84,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 				collision_checker.target_position = vector
 				collision_checker.force_raycast_update()
 				if not collision_checker.is_colliding():
-					move(data.position + vector)
+					data.move(data.position + vector)
 					data.tiles_traveled += 1
 					_extend_path()
 				
@@ -88,7 +95,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift") and data.tiles_traveled:
 		data.tiles_traveled -= 1
 		_backtrack_path()
-		move(path[-1].position)
+		data.position = path[-1].position
 		data.facing = path[-1].facing
 		
 		get_viewport().set_input_as_handled()

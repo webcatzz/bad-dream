@@ -65,14 +65,6 @@ func snap(vector: Vector2i) -> Vector2i:
 	return snapped
 
 
-## Isometric equivalent to [method Vector2.normalize].
-func normalize(vector: Vector2) -> Vector2i:
-	vector.x /= 2
-	vector.normalized()
-	vector.x *= 2
-	return vector
-
-
 
 # index conversion
 

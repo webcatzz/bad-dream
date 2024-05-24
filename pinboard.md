@@ -4,11 +4,14 @@
 - [ ] enemy ai
 - [ ] party members
 - [ ] verticality & cliffs
-- [ ] inventory & party screen
+- [ ] inventory ui
+- [ ] party ui
 - [ ] title screen
 - [ ] multiple saves
 - [x] status effects
-- [x] attacks
+- [x] knockback
+- [x] comicbook sfx
+- [x] barebones attacks
 
 
 # milestones
@@ -18,17 +21,10 @@
 - [ ] itch demo (DA BIG ONE)
 
 
-# completed
-
-- [x] knockback
-- [x] comicbook sfx
-- [x] barebones attacks
-
-
 # bugs
 
-- [ ] fix Iso.normalize()
-- [ ] fix spotlight sometimes rendering over other actors
+- [x] fix Iso.normalize()
+- [x] fix spotlight sometimes rendering over other actors
 
 
 

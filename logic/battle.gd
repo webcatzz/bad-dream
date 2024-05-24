@@ -17,6 +17,8 @@ var current_actor: Actor
 ## [Actor]s take turns according to this order.
 var order: Array[Actor]
 
+# extras
+var _timer: Timer = Timer.new()
 var _modulator: CanvasModulate = CanvasModulate.new()
 
 
@@ -24,6 +26,8 @@ var _modulator: CanvasModulate = CanvasModulate.new()
 # setup
 
 func _ready() -> void:
+	add_child(_timer)
+	
 	_modulator.color = Color.WHITE
 	_modulator.visible = false
 	add_child(_modulator)
@@ -42,6 +46,7 @@ func start(actors: Array[Actor]) -> void:
 	
 	_modulator.visible = true
 	get_tree().create_tween().tween_property(_modulator, "color:v", 0.8, 2)
+	Music.play("quarky_puzzle")
 
 
 ## Loops through [member order] until [method is_won] returns true.
@@ -49,6 +54,9 @@ func run_order() -> void:
 	for actor in order:
 		current_actor = actor
 		await actor.take_turn()
+		
+		_timer.start(0.25)
+		await _timer.timeout
 		
 		if is_won():
 			stop()
@@ -73,6 +81,7 @@ func stop() -> void:
 	
 	await get_tree().create_tween().tween_property(_modulator, "color:v", 1, 2).finished
 	_modulator.visible = false
+	Music.stop()
 
 
 
