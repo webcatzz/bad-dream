@@ -7,26 +7,27 @@
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="3_osft0"]
 
 [sub_resource type="Gradient" id="Gradient_beljk"]
+offsets = PackedFloat32Array(0, 0.9)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 script = ExtResource("2_0pyd1")
 
-[node name="Path" type="Line2D" parent="WhileSelected" index="0"]
+[node name="Path" type="Line2D" parent="DuringTurn" index="1"]
 top_level = true
 z_index = -1
 material = ExtResource("3_osft0")
 width = 4.0
 gradient = SubResource("Gradient_beljk")
 
-[node name="Steps" type="Label" parent="WhileSelected" index="2"]
+[node name="Steps" type="Label" parent="DuringTurn" index="2"]
 offset_left = -8.0
 offset_top = -56.0
 offset_right = 8.0
 offset_bottom = -49.0
 horizontal_alignment = 1
 
-[node name="ActionMenu" type="TabContainer" parent="WhileSelected" index="3"]
+[node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="3"]
 visible = false
 z_index = 1
 offset_left = 15.0
@@ -36,44 +37,44 @@ offset_bottom = -6.0
 tabs_visible = false
 script = ExtResource("3_g0sg8")
 
-[node name="0" type="VBoxContainer" parent="WhileSelected/ActionMenu" index="1"]
+[node name="TypeChooser" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="1"]
 layout_mode = 2
 theme_override_constants/separation = 2
 script = ExtResource("3_68da3")
 offset = 6
 
-[node name="Attack" type="Button" parent="WhileSelected/ActionMenu/0" index="0"]
+[node name="Attack" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="0"]
 layout_mode = 2
 text = "attack!"
 
-[node name="Guard" type="Button" parent="WhileSelected/ActionMenu/0" index="1"]
+[node name="Guard" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="1"]
 layout_mode = 2
 text = "guard"
 
-[node name="EndTurn" type="Button" parent="WhileSelected/ActionMenu/0" index="2"]
+[node name="EndTurn" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="2"]
 layout_mode = 2
 text = "end turn"
 
-[node name="ActionList" type="ItemList" parent="WhileSelected/ActionMenu" index="2"]
+[node name="ActionList" type="ItemList" parent="DuringTurn/ActionMenu" index="2"]
 visible = false
 layout_mode = 2
 allow_search = false
 text_overrun_behavior = 0
 
-[node name="CollisionChecker" type="RayCast2D" parent="." index="4"]
+[node name="CollisionChecker" type="RayCast2D" parent="." index="1"]
 target_position = Vector2(16, 8)
 
-[node name="Camera" type="Camera2D" parent="." index="5"]
+[node name="Camera" type="Camera2D" parent="." index="2"]
 position_smoothing_enabled = true
 
-[connection signal="draw" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="focus_tab"]
-[connection signal="hidden" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [0]]
-[connection signal="tab_changed" from="WhileSelected/ActionMenu" to="WhileSelected/ActionMenu" method="focus_tab" unbinds=1]
-[connection signal="pressed" from="WhileSelected/ActionMenu/0/Attack" to="WhileSelected/ActionMenu" method="set_current_tab" binds= [1]]
-[connection signal="pressed" from="WhileSelected/ActionMenu/0/Guard" to="WhileSelected/ActionMenu" method="end_turn"]
-[connection signal="pressed" from="WhileSelected/ActionMenu/0/EndTurn" to="WhileSelected/ActionMenu" method="end_turn"]
-[connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="on_action_selected" binds= [0]]
-[connection signal="focus_entered" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu/ActionList" method="select" binds= [0]]
-[connection signal="hidden" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="free_splash"]
-[connection signal="item_activated" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="take_action"]
-[connection signal="item_selected" from="WhileSelected/ActionMenu/ActionList" to="WhileSelected/ActionMenu" method="on_action_selected"]
+[connection signal="hidden" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [0]]
+[connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
+[connection signal="visibility_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_visibility_changed"]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="end_turn"]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="end_turn"]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu/ActionList" method="select" binds= [0]]
+[connection signal="hidden" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="free_splash"]
+[connection signal="item_activated" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
+[connection signal="item_selected" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]

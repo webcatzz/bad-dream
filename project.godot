@@ -25,7 +25,6 @@ Game="*res://logic/game.gd"
 Iso="*res://logic/iso.gd"
 Battle="*res://logic/battle.gd"
 Music="*res://logic/music.gd"
-UI="*res://logic/ui.tscn"
 
 [debug]
 
@@ -49,6 +48,9 @@ enabled=PackedStringArray()
 [gui]
 
 theme/custom="res://asset/ui/theme.tres"
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_subpixel_positioning=0
 
 [input]
 
@@ -133,3 +135,4 @@ pause={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

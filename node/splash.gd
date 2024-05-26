@@ -6,7 +6,7 @@ class_name Splash extends Node2D
 var action: Action
 
 ## A [TileHighlight] used to display area of effect and fetch [Actor]s in range.
-var area: TileHighlight
+var area: TileHighlight = TileHighlight.node()
 
 
 func _init(action: Action) -> void:
@@ -14,19 +14,11 @@ func _init(action: Action) -> void:
 
 
 func _ready() -> void:
-	position = Iso.turn(Iso.from_cart(action.splash_offset), action.cause.facing)
+	#position = Iso.turn(Iso.from_cart(action.shape_offset), action.cause.facing)
 	action.triggered.connect(trigger)
 	
-	if not area: area = TileHighlight.node()
-	match action.splash_shape:
-		action.Shape.SQUARE:
-			var size: Vector2 = Vector2(action.splash_size, action.splash_size)
-			area.position = -Iso.from_cart(size) / 2
-			
-			var bitmap: BitMap = BitMap.new()
-			bitmap.create(size)
-			bitmap.set_bit_rect(Rect2i(Vector2.ZERO, size), true)
-			area.from_bitmap(bitmap)
+	area.from_bitshape(action.get_bitshape())
+	
 	add_child(area)
 
 
@@ -39,8 +31,6 @@ func trigger() -> void:
 			action.affect(body.data)
 			did_affect_actors = true
 	
-	# fix regarding data.cause.node.get_parent(): hacky. waiting for sfx's finished signal and then queue_free()ing doesnt seem to work it just queue_free()s immediately???
-	# ^ no idea what i was trying to say here
 	action.cause.node.get_parent().add_child(SFX.new(
 		"bam!" if did_affect_actors else "...?",
 		Vector2(action.cause.position) + area.position + area.polygon[0],

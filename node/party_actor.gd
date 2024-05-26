@@ -14,11 +14,11 @@ enum BattleState {MOVING, CHOOSING_ACTION}
 var battle_state: BattleState
 
 # path
-var path: Array
-@onready var path_node: Line2D = $WhileSelected/Path
+var path: Array[Dictionary]
+@onready var path_node: Line2D = $DuringTurn/Path
 
 @onready var collision_checker: RayCast2D = $CollisionChecker
-@onready var action_menu: Control = $WhileSelected/ActionMenu
+@onready var action_menu: Control = $DuringTurn/ActionMenu
 
 
 func _ready() -> void:
@@ -124,7 +124,7 @@ func _backtrack_path() -> void:
 
 # Displays the remaining number of travelable tiles.
 func _update_traveled_counter() -> void:
-	$WhileSelected/Steps.text = str(data.tiles_per_turn - data.tiles_traveled)
+	$DuringTurn/Steps.text = str(data.tiles_per_turn - data.tiles_traveled)
 
 
 func _on_battle_entered() -> void:

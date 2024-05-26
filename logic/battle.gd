@@ -31,6 +31,8 @@ func _ready() -> void:
 	_modulator.color = Color.WHITE
 	_modulator.visible = false
 	add_child(_modulator)
+	
+	add_child(load("res://node/ui/battle.tscn").instantiate())
 
 
 

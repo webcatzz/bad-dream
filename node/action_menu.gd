@@ -11,24 +11,12 @@ func _ready():
 	for action in actor.actions: actionlist.add_item(action.name)
 
 
-## Focuses the first valid [Control] in the current tab.
-func focus_tab() -> void:
-	get_current_tab_control().find_next_valid_focus().grab_focus()
-
-
-## Previews the currently selected [Action]'s [Splash].
-func on_action_selected(idx: int) -> void:
+## Adds a new [Splash] preview.
+func set_splash(action: Action) -> void:
 	free_splash()
-	splash = Splash.new(actor.actions[idx])
+	splash = Splash.new(action)
 	splash.action.cause = actor
 	actor.node.add_child(splash)
-
-
-## Starts the currently selected [Action] and closes the menu.
-func take_action(idx: int) -> void:
-	splash.action.start()
-	splash = null
-	visible = false
 
 
 ## Frees the current [Splash] preview.
@@ -38,6 +26,42 @@ func free_splash() -> void:
 		splash = null
 
 
+## Focuses the first valid [Control] in the current tab.
+func focus_tab():
+	get_current_tab_control().find_next_valid_focus().grab_focus()
+
+
+## Ends the [member actor]'s turn.
 func end_turn():
 	actor.end_turn()
 	visible = false
+
+
+
+# signal connections
+
+
+func _on_visibility_changed():
+	if visible:
+		await get_tree().process_frame
+		focus_tab()
+
+
+func _on_tab_changed(idx: int) -> void:
+	actor.node.set_spotlight(idx != 1)
+	if visible:
+		await get_tree().process_frame
+		focus_tab()
+
+
+# Previews the currently selected [Action]'s [Splash].
+func _on_actionlist_item_selected(idx: int) -> void:
+	set_splash(actor.actions[idx])
+
+
+# Starts the currently selected [Action] and closes the menu.
+func _on_actionlist_item_activated(idx: int) -> void:
+	var action: Action = splash.action
+	splash = null
+	visible = false
+	action.start()

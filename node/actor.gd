@@ -7,21 +7,22 @@ class_name ActorNode extends CharacterBody2D
 func _ready() -> void:
 	data.node = self
 	data.position = position
-	
+	# orientation
 	data.position_changed.connect(tween_position)
 	data.position_changed.connect($SFX/Move.play.unbind(1))
 	data.facing_changed.connect(_set_facing)
-	
-	data.turn_started.connect($WhileSelected.set_visible.bind(true))
-	data.turn_started.connect($SFX/SpotlightOn.play)
-	data.turn_ended.connect($WhileSelected.set_visible.bind(false))
-	data.turn_ended.connect($SFX/SpotlightOff.play)
+	# turns
+	data.turn_started.connect($DuringTurn.set_visible.bind(true))
+	data.turn_started.connect(set_spotlight.bind(true))
+	data.turn_ended.connect($DuringTurn.set_visible.bind(false))
+	data.turn_ended.connect(set_spotlight.bind(false))
+	# health
 	data.health_changed_by.connect(_on_health_changed_by)
 	data.defeated.connect(_on_defeated)
 
 
 func take_turn():
-	await UI.get_tree().create_timer(0.5).timeout
+	await Game.get_tree().create_timer(0.5).timeout
 	data.turn_ended.emit()
 
 
@@ -30,9 +31,14 @@ func tween_position(pos: Vector2) -> void:
 	create_tween().tween_property(self, "position", pos, 0.05)
 
 
+func set_spotlight(value: bool) -> void:
+	$DuringTurn/Spotlight.visible = value
+	if value: $SFX/SpotlightOn.play()
+	else: $SFX/SpotlightOff.play()
+
+
 ## Faces the sprite and collision raycast toward [param direction].
 func _set_facing(direction: Vector2) -> void:
-	$Facing.set_point_position(1, direction)
 	$Sprite.frame_coords.x = Iso.to_idx(direction)
 
 

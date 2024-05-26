@@ -1,11 +1,11 @@
-extends VBoxContainer
+extends CanvasLayer
 
 var portrait_template: PackedScene = load("res://node/ui/portrait.tscn")
 
 
 func _ready() -> void:
-	Battle.started.connect(UI.open.bind("battle"))
-	Battle.ended.connect(UI.close.bind("battle"))
+	Battle.started.connect($Animator.play.bind("open"))
+	Battle.ended.connect($Animator.play.bind("close"))
 	Battle.actor_added.connect(add_portrait)
 	Battle.actor_removed.connect(remove_portrait)
 
@@ -13,9 +13,9 @@ func _ready() -> void:
 func add_portrait(actor: Actor, idx: int) -> void:
 	var portrait: Control = portrait_template.instantiate()
 	portrait.set_actor(actor)
-	$BarTop/Order.add_child(portrait)
-	$BarTop/Order.move_child(portrait, idx)
+	$VBox/BarTop/Order.add_child(portrait)
+	$VBox/BarTop/Order.move_child(portrait, idx)
 
 
 func remove_portrait(idx: int) -> void:
-	$BarTop/Order.get_child(idx).queue_free()
+	$VBox/BarTop/Order.get_child(idx).queue_free()

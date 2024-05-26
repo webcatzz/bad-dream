@@ -11,9 +11,14 @@ static func node() -> Area2D:
 
 func _ready() -> void:
 	self.monitorable = false
-	$Border.points = polygon
 	$Fill.polygon = polygon
 	$Collision.polygon = polygon
+
+
+var _time: float = 0
+func _process(delta: float) -> void:
+	_time += delta
+	$Fill.texture_rotation = sin(_time / 240) * 180
 
 
 ## Sets the highlighted area according to a [Rect2i].
@@ -34,6 +39,12 @@ func from_bitmap(bitmap: BitMap) -> void:
 	
 	for i: int in polygon.size():
 		polygon[i] = Vector2(Iso.from_cart(polygon[i]))
+
+
+## Sets the highlighted area according to a [BitShape].
+func from_bitshape(bitshape: BitShape) -> void:
+	from_bitmap(bitshape)
+	position = Iso.from_cart(bitshape.offset) - Vector2i(16, 0)
 
 
 ## Sets the highlighted area according to a [PackedVector2Array] of points.

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://de4ye0lpftwfk"]
+
+[ext_resource type="Script" path="res://data/action/strike_out.gd" id="2_1rdc5"]
+
+[resource]
+script = ExtResource("2_1rdc5")
+name = "Strike Out"
+description = "Deals damage around your path equal to half its length."
+strength = 1
+type = 0
+delay = 0
+ends_turn = false
+shape_type = 2
+shape_size = 1
+shape_offset = Vector2i(0, 0)
+knockback_shape = 0
+knockback_strength = 0
+knockback_point = Vector2i(0, 0)

@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_lin7e")
 name = "Action"
+description = ""
 strength = 1
 type = 0
 delay = 0

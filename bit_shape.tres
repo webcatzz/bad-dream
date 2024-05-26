@@ -1,0 +1,11 @@
+[gd_resource type="BitMap" script_class="BitShape" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/bit_shape.gd" id="1_4qvax"]
+
+[resource]
+data = {
+"data": PackedByteArray(0, 0),
+"size": Vector2i(3, 3)
+}
+script = ExtResource("1_4qvax")
+offset = Vector2i(-1, -2)

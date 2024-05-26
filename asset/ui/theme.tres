@@ -1,6 +1,16 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://7ctt2uptjn52"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://7ctt2uptjn52"]
 
 [ext_resource type="FontVariation" uid="uid://dtqbde3q47w8e" path="res://asset/ui/small.tres" id="1_4r4g7"]
+[ext_resource type="Texture2D" uid="uid://d0gsjju6sjgwy" path="res://asset/ui/button.png" id="1_l7eex"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ag63l"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+texture = ExtResource("1_l7eex")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5h510"]
 
@@ -9,6 +19,7 @@
 [resource]
 default_font = ExtResource("1_4r4g7")
 BoxContainer/constants/separation = 0
+Button/styles/normal = SubResource("StyleBoxTexture_ag63l")
 Label/constants/line_spacing = 0
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_5h510")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_33s38")

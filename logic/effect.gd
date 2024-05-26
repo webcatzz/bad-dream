@@ -6,7 +6,7 @@ signal ended
 enum Type {BURNING, POISONED}
 
 @export var type: Type
-## The number of turns this effect lasts.
+## The effect lasts for this many turns.
 ## This value is decremented every time the [member target] ends their turn.
 ## When it hits 0, the effect ends.
 @export var duration: int = 1
@@ -21,9 +21,9 @@ func start() -> void:
 	
 	match type:
 		Type.BURNING:
-			target.action_taken.connect(target.damage.bind(1, Action.Type.FERVENT))
+			target.action_taken.connect(target.damage.bind(1, Action.Type.FIRE), CONNECT_REFERENCE_COUNTED)
 		Type.POISONED:
-			target.turn_ended.connect(target.damage.bind(1, Action.Type.WHORLED))
+			target.turn_ended.connect(target.damage.bind(1, Action.Type.SPIRAL), CONNECT_REFERENCE_COUNTED)
 
 
 func _decrement_duration() -> void:

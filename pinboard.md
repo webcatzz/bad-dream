@@ -23,6 +23,7 @@
 
 # bugs
 
+- [x] delayed actions' splashes are freed prematurely by action menu
 - [x] fix Iso.normalize()
 - [x] fix spotlight sometimes rendering over other actors
 

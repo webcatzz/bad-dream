@@ -22,15 +22,8 @@ func trigger() -> void:
 
 func _ready() -> void:
 	monitorable = false
-	body_entered.connect(on_body_entered)
+	body_entered.connect(_on_body_entered)
 
-## Calls [method trigger] if [param body] represents the party leader.
-func on_body_entered(body: PhysicsBody2D) -> void:
+# Calls [method trigger] if [param body] represents the party leader.
+func _on_body_entered(body: PhysicsBody2D) -> void:
 	if body.data == Game.data.leader: trigger()
-
-
-
-# temp
-
-func _draw():
-	draw_polyline([get_child(0).shape.a, get_child(0).shape.b], Color("#ff000040"), 4)

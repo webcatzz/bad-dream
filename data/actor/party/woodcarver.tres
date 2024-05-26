@@ -1,19 +1,21 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://cki8mu2er652e"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://cki8mu2er652e"]
 
 [ext_resource type="Script" path="res://logic/action.gd" id="1_mfw3p"]
 [ext_resource type="Script" path="res://logic/effect.gd" id="2_hx4jl"]
 [ext_resource type="Script" path="res://logic/actor.gd" id="3_4fjlo"]
+[ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://data/action/strike_out.tres" id="3_e2ejy"]
 
 [sub_resource type="Resource" id="Resource_i2slf"]
 script = ExtResource("1_mfw3p")
-name = "Action"
+name = "Long"
+description = ""
 strength = 1
 type = 0
 delay = 0
 ends_turn = false
-splash_shape = 0
-splash_size = 1
-splash_offset = Vector2i(0, 1)
+shape_type = 0
+shape_size = 1
+shape_offset = Vector2i(0, 2)
 knockback_shape = 0
 knockback_strength = 0
 knockback_point = Vector2i(0, 0)
@@ -21,13 +23,14 @@ knockback_point = Vector2i(0, 0)
 [sub_resource type="Resource" id="Resource_dj1a0"]
 script = ExtResource("1_mfw3p")
 name = "push"
+description = ""
 strength = 1
 type = 0
 delay = 0
 ends_turn = false
-splash_shape = 0
-splash_size = 1
-splash_offset = Vector2i(0, 1)
+shape_type = 0
+shape_size = 1
+shape_offset = Vector2i(0, 1)
 knockback_shape = 0
 knockback_strength = 1
 knockback_point = Vector2i(0, 0)
@@ -36,22 +39,23 @@ knockback_point = Vector2i(0, 0)
 script = ExtResource("2_hx4jl")
 type = 1
 duration = 5
-strength = 1
+strength = null
 
 [sub_resource type="Resource" id="Resource_ceoxb"]
 script = ExtResource("1_mfw3p")
-name = "Action"
+name = "Poison"
+description = ""
 strength = 1
 type = 0
-delay = 0
-ends_turn = false
-splash_shape = 0
-splash_size = 3
-splash_offset = Vector2i(0, 1)
+delay = 4
+ends_turn = true
+effect = SubResource("Resource_w53hv")
+shape_type = 0
+shape_size = 3
+shape_offset = Vector2i(0, 1)
 knockback_shape = 0
 knockback_strength = 0
 knockback_point = Vector2i(0, 0)
-effect = SubResource("Resource_w53hv")
 
 [resource]
 script = ExtResource("3_4fjlo")
@@ -63,4 +67,4 @@ tiles_per_turn = 10
 actions_per_turn = 1
 weak_against = Array[int]([])
 strong_against = Array[int]([])
-actions = Array[ExtResource("1_mfw3p")]([SubResource("Resource_i2slf"), SubResource("Resource_dj1a0"), SubResource("Resource_ceoxb")])
+actions = Array[ExtResource("1_mfw3p")]([SubResource("Resource_i2slf"), SubResource("Resource_dj1a0"), SubResource("Resource_ceoxb"), ExtResource("3_e2ejy")])

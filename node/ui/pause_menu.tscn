@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu5e6u4o61sc0"]
+
+[ext_resource type="Script" path="res://node/ui/pause_menu.gd" id="1_7d1m0"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+visible = false
+script = ExtResource("1_7d1m0")
+
+[node name="Centerer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tabs" type="TabContainer" parent="Centerer"]
+process_mode = 3
+layout_mode = 2
+tabs_visible = false
+
+[node name="Buttons" type="VBoxContainer" parent="Centerer/Tabs"]
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="Centerer/Tabs/Buttons"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Settings" type="Button" parent="Centerer/Tabs/Buttons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Exit" type="Button" parent="Centerer/Tabs/Buttons"]
+layout_mode = 2
+text = "Save and exit"
+
+[node name="Settings" type="GridContainer" parent="Centerer/Tabs"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+columns = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+text = "Master volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="MusicVolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+text = "Music volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="SfxVolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+text = "SFX volume"
+
+[node name="SfxVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[connection signal="hidden" from="Centerer/Tabs" to="Centerer/Tabs" method="set_current_tab" binds= [0]]
+[connection signal="visibility_changed" from="Centerer/Tabs" to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Centerer/Tabs/Buttons/Continue" to="Centerer/Tabs" method="hide"]
+[connection signal="pressed" from="Centerer/Tabs/Buttons/Settings" to="Centerer/Tabs" method="set_current_tab" binds= [1]]

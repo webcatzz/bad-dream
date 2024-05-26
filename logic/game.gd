@@ -4,6 +4,8 @@ extends Node
 var data: Resource
 const DATA_PATH: String = "user://save.tres"
 
+var pause_menu: CanvasLayer
+
 
 
 # data
@@ -27,3 +29,19 @@ func load() -> void:
 
 func _ready() -> void:
 	Game.load()
+	
+	pause_menu = load("res://node/ui/pause_menu.tscn").instantiate()
+	add_child(pause_menu)
+
+
+
+# pausing
+
+func pause():
+	get_tree().paused = true
+	pause_menu.visible = true
+
+
+func unpause():
+	get_tree().paused = false
+	pause_menu.visible = false
