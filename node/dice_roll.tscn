@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkcvlj3ybfd6b"]
+
+[ext_resource type="Script" path="res://node/dice_roll.gd" id="1_adehc"]
+[ext_resource type="Texture2D" uid="uid://cg7jqh1fd6yhu" path="res://asset/dice.png" id="2_cvhig"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10r2y"]
+atlas = ExtResource("2_cvhig")
+region = Rect2(0, 0, 16, 16)
+
+[node name="DiceRoll" type="Node2D"]
+visible = false
+script = ExtResource("1_adehc")
+
+[node name="Grid" type="GridContainer" parent="."]
+use_parent_material = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dice" type="TextureRect" parent="Grid"]
+use_parent_material = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_10r2y")

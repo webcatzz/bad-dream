@@ -1,5 +1,8 @@
 # todo
 
+- [ ] party members following the leader
+- [ ] party members in battle
+- [ ] 
 - [ ] improve action menu ui
 - [ ] enemy ai
 - [ ] party members
@@ -23,6 +26,7 @@
 
 # bugs
 
+- [ ] fix path bitshape
 - [x] delayed actions' splashes are freed prematurely by action menu
 - [x] fix Iso.normalize()
 - [x] fix spotlight sometimes rendering over other actors
@@ -35,6 +39,11 @@
 
 # ideas
 
+- attack animation:
+	1. perform windup, start the strike
+	2. halt abruptly right before collision
+	3. roll dice for damage
+	4. smash into the target, deal damage
 - draw a shape with an actor's path to execute certain attacks
 	- a la persona 5 tactica's triangle for all out attacks
 - move that causes the grid to "disappear" for a few seconds, actors can move freely

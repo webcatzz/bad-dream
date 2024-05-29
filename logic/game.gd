@@ -22,6 +22,7 @@ func load() -> void:
 		data = Resource.new()
 		data.set_script(load("res://data/save.gd"))
 		data.take_over_path(DATA_PATH)
+	randomize()
 
 
 
@@ -37,11 +38,33 @@ func _ready() -> void:
 
 # pausing
 
-func pause():
+func pause() -> void:
 	get_tree().paused = true
 	pause_menu.visible = true
 
 
-func unpause():
+func unpause() -> void:
 	get_tree().paused = false
 	pause_menu.visible = false
+
+
+
+# misc
+
+func tween_dither(item: CanvasItem, from: float, to: float, duration: float) -> void:
+	item.material = preload("res://asset/dither.tres")
+	
+	if from == 1:
+		item.visible = true
+	
+	await get_tree().create_tween().tween_method(
+		func(value: float) -> void:
+			item.material.set_shader_parameter("intensity", value),
+		from, to, duration
+	).finished
+	
+	if to == 0:
+		item.material = null
+	if to == 1:
+		item.visible = false
+		item.material = null

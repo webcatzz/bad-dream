@@ -5,10 +5,7 @@
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/action_menu.gd" id="3_g0sg8"]
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="3_osft0"]
-
-[sub_resource type="Gradient" id="Gradient_beljk"]
-offsets = PackedFloat32Array(0, 0.9)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+[ext_resource type="Texture2D" uid="uid://dfojp4r45l1b5" path="res://asset/gradient.png" id="4_ppnbo"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 script = ExtResource("2_0pyd1")
@@ -18,7 +15,8 @@ top_level = true
 z_index = -1
 material = ExtResource("3_osft0")
 width = 4.0
-gradient = SubResource("Gradient_beljk")
+texture = ExtResource("4_ppnbo")
+texture_mode = 2
 
 [node name="Steps" type="Label" parent="DuringTurn" index="2"]
 offset_left = -8.0

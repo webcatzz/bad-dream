@@ -41,7 +41,6 @@ y_sort_enabled = true
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
 tile_set = ExtResource("1_qtdia")
-collision_visibility_mode = 1
 format = 2
 layer_0/name = "floor"
 layer_0/y_sort_enabled = true
@@ -65,6 +64,7 @@ actors = Array[NodePath]([NodePath("../Actor"), NodePath("../Dummy")])
 shape = SubResource("SegmentShape2D_hh3lc")
 
 [node name="Light" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(110, 149)
 color = Color(0.761401, 0.119076, 0.442925, 1)
 shadow_enabled = true

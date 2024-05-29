@@ -1,15 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0kct1fkokq0k"]
+[gd_scene load_steps=3 format=3 uid="uid://bivqi6qr6q31a"]
 
-[ext_resource type="Script" path="res://node/tile_highlight.gd" id="1_w3tlj"]
-[ext_resource type="Texture2D" uid="uid://ucrkffrxwee5" path="res://asset/tile/gradient_5.png" id="2_xyjwi"]
+[ext_resource type="Script" path="res://node/tile_highlight.gd" id="1_6edxl"]
+[ext_resource type="Texture2D" uid="uid://ucrkffrxwee5" path="res://asset/gradient_5.png" id="2_agwmu"]
 
 [node name="TileHighlight" type="Area2D"]
-z_index = -1
-script = ExtResource("1_w3tlj")
+script = ExtResource("1_6edxl")
 
 [node name="Fill" type="Polygon2D" parent="."]
+z_index = -1
 texture_repeat = 2
-texture = ExtResource("2_xyjwi")
-polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
+texture = ExtResource("2_agwmu")
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]

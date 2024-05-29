@@ -28,7 +28,8 @@ func free_splash() -> void:
 
 ## Focuses the first valid [Control] in the current tab.
 func focus_tab():
-	get_current_tab_control().find_next_valid_focus().grab_focus()
+	if get_current_tab_control().find_next_valid_focus():
+		get_current_tab_control().find_next_valid_focus().grab_focus()
 
 
 ## Ends the [member actor]'s turn.

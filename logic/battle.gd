@@ -18,7 +18,6 @@ var current_actor: Actor
 var order: Array[Actor]
 
 # extras
-var _timer: Timer = Timer.new()
 var _modulator: CanvasModulate = CanvasModulate.new()
 
 
@@ -26,8 +25,6 @@ var _modulator: CanvasModulate = CanvasModulate.new()
 # setup
 
 func _ready() -> void:
-	add_child(_timer)
-	
 	_modulator.color = Color.WHITE
 	_modulator.visible = false
 	add_child(_modulator)
@@ -57,8 +54,7 @@ func run_order() -> void:
 		current_actor = actor
 		await actor.take_turn()
 		
-		_timer.start(0.25)
-		await _timer.timeout
+		await get_tree().create_timer(0.25).timeout
 		
 		if is_won():
 			stop()

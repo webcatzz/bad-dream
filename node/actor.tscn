@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b0pwyevl8fgtr" path="res://asset/sfx/move.mp3" id="5_mlp70"]
 [ext_resource type="AudioStream" uid="uid://c8d4dpg2oxhid" path="res://asset/sfx/spotlight_on.mp3" id="6_ql4jc"]
 [ext_resource type="AudioStream" uid="uid://blxh2fo38mxsd" path="res://asset/sfx/spotlight_off.mp3" id="7_cqwoq"]
+[ext_resource type="PackedScene" uid="uid://dkcvlj3ybfd6b" path="res://node/dice_roll.tscn" id="8_b6iue"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g3gpk"]
 polygon = PackedVector2Array(-8, 0, 0, -4, 8, 0, 0, 4)
@@ -77,27 +78,10 @@ tracks/1/keys = {
 "values": [Vector2(4, -24), Vector2(-4, -24), Vector2(0, -24)]
 }
 
-[sub_resource type="Animation" id="Animation_k0lrh"]
-resource_name = "defeated"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pg0xa"]
 _data = {
 "RESET": SubResource("Animation_itah3"),
-"damaged": SubResource("Animation_rbjyw"),
-"defeated": SubResource("Animation_k0lrh")
+"damaged": SubResource("Animation_rbjyw")
 }
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vyyqk"]
@@ -130,6 +114,9 @@ polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
 
 [node name="Occluder" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_g3gpk")
+
+[node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
+position = Vector2(0, -64)
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {

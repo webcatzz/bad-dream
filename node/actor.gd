@@ -1,7 +1,10 @@
 class_name ActorNode extends CharacterBody2D
 ## Node representation of an [Actor].
 
+
 @export var data: Actor = Actor.new()
+
+@onready var dice: Node2D = $DiceRoll
 
 
 func _ready() -> void:
@@ -49,6 +52,5 @@ func _on_health_changed_by(value: int):
 func _on_defeated():
 	$Collision.disabled = true
 	await $Animator.animation_finished
-	$Animator.play("defeated")
-	await $Animator.animation_finished
+	await Game.tween_dither($Sprite, 0, 1, 0.5)
 	queue_free()
