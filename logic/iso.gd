@@ -39,18 +39,30 @@ func is_x_axis(vector: Vector2i) -> bool:
 
 
 
-# coordinate conversion
+# grid coordinates
 
 ## Converts cartesian coordinates to isometric coordinates.
-func from_cart(coord: Vector2i) -> Vector2i:
+func from_grid(coord: Vector2i) -> Vector2:
 	return Vector2i(coord.x + coord.y, coord.y - coord.x) * VECTOR
 
 
 ## Converts isometric coordinates to cartesian coordinates.
-func to_cart(vector: Vector2i) -> Vector2i:
+func to_grid(vector: Vector2i) -> Vector2i:
 	vector /= VECTOR
 	var x: int = (vector.x - vector.y) / 2
 	return Vector2i(x, vector.x - x)
+
+
+func rotate_grid_vector(vector: Vector2i, to: Vector2i) -> Vector2i:
+	match to:
+		Vector2i.LEFT:
+			return Vector2i(-vector.y, vector.x)
+		Vector2i.RIGHT:
+			return Vector2i(vector.y, -vector.x)
+		Vector2i.UP:
+			return -vector
+		_:
+			return vector
 
 
 

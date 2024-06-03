@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkcvlj3ybfd6b"]
+[gd_scene load_steps=5 format=3 uid="uid://dkcvlj3ybfd6b"]
 
+[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/dither_opacity.tres" id="1_0em7i"]
 [ext_resource type="Script" path="res://node/dice_roll.gd" id="1_adehc"]
 [ext_resource type="Texture2D" uid="uid://cg7jqh1fd6yhu" path="res://asset/dice.png" id="2_cvhig"]
 
@@ -8,7 +9,7 @@ atlas = ExtResource("2_cvhig")
 region = Rect2(0, 0, 16, 16)
 
 [node name="DiceRoll" type="Node2D"]
-visible = false
+material = ExtResource("1_0em7i")
 script = ExtResource("1_adehc")
 
 [node name="Grid" type="GridContainer" parent="."]

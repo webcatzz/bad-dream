@@ -1,8 +1,9 @@
 extends Resource
 
 
-@export var leader: Actor = load("res://data/actor/party/woodcarver.tres")
-@export var party: Array[Actor] = [leader]
+@export var party: Array[Actor] = [load("res://data/actor/party/woodcarver.tres")]
+var leader: Actor:
+	get: return party[0]
 
 # volume
 @export var master_volume: float = 1:
@@ -19,7 +20,7 @@ extends Resource
 		AudioServer.set_bus_volume_db(2, linear_to_db(value))
 
 
-func _init():
+func _init() -> void:
 	master_volume = master_volume
 	music_volume = music_volume
 	sfx_volume = sfx_volume

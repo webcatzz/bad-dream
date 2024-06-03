@@ -4,13 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://copdlec5nxfb4" path="res://asset/sprite/default.png" id="1_o5xpc"]
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="2_j32pu"]
 [ext_resource type="Script" path="res://node/spotlight.gd" id="2_wd4nt"]
+[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/dither_opacity.tres" id="4_vvns7"]
 [ext_resource type="AudioStream" uid="uid://b0pwyevl8fgtr" path="res://asset/sfx/move.mp3" id="5_mlp70"]
 [ext_resource type="AudioStream" uid="uid://c8d4dpg2oxhid" path="res://asset/sfx/spotlight_on.mp3" id="6_ql4jc"]
 [ext_resource type="AudioStream" uid="uid://blxh2fo38mxsd" path="res://asset/sfx/spotlight_off.mp3" id="7_cqwoq"]
 [ext_resource type="PackedScene" uid="uid://dkcvlj3ybfd6b" path="res://node/dice_roll.tscn" id="8_b6iue"]
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g3gpk"]
-polygon = PackedVector2Array(-8, 0, 0, -4, 8, 0, 0, 4)
 
 [sub_resource type="Animation" id="Animation_itah3"]
 length = 0.001
@@ -104,18 +102,17 @@ material = ExtResource("2_j32pu")
 scale = Vector2(2, 1)
 script = ExtResource("2_wd4nt")
 
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
+
 [node name="Sprite" type="Sprite2D" parent="."]
+material = ExtResource("4_vvns7")
 texture = ExtResource("1_o5xpc")
 offset = Vector2(0, -24)
 hframes = 4
 
-[node name="Collision" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
-
-[node name="Occluder" type="LightOccluder2D" parent="."]
-occluder = SubResource("OccluderPolygon2D_g3gpk")
-
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
+visible = false
 position = Vector2(0, -64)
 
 [node name="Animator" type="AnimationPlayer" parent="."]

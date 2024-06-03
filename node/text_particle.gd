@@ -9,7 +9,7 @@ class TextParticle:
 	var start_angle: float = 0
 	var existed_for: float = 0
 	
-	func _init(text: String): text = text
+	func _init(text: String): self.text = text
 
 
 func emit(text: String) -> void:

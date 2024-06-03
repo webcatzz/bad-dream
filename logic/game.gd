@@ -2,7 +2,6 @@ extends Node
 
 
 var data: Resource
-const DATA_PATH: String = "user://save.tres"
 
 var pause_menu: CanvasLayer
 
@@ -10,26 +9,33 @@ var pause_menu: CanvasLayer
 
 # data
 
-## Saves user data.
-func save() -> void:
-	ResourceSaver.save(data, data.resource_path)
+## Saves game data to the specified file.
+func save(file: int) -> void:
+	ResourceSaver.save(data, get_save_path(file))
 
-## Loads user data.
-func load() -> void:
-	if ResourceLoader.exists(DATA_PATH):
-		data = load(DATA_PATH)
+
+## Loads game data from the specified file.
+func load(file: int) -> void:
+	var path: String = get_save_path(file)
+	if ResourceLoader.exists(path):
+		data = load(path)
 	else:
 		data = Resource.new()
 		data.set_script(load("res://data/save.gd"))
-		data.take_over_path(DATA_PATH)
+		data.take_over_path(path)
 	randomize()
+
+
+## Returns a savefile path.
+func get_save_path(file: int) -> String:
+	return "user://save_" + str(file) + ".tres"
 
 
 
 # initializing
 
 func _ready() -> void:
-	Game.load()
+	Game.load(1)
 	
 	pause_menu = load("res://node/ui/pause_menu.tscn").instantiate()
 	add_child(pause_menu)
@@ -51,20 +57,13 @@ func unpause() -> void:
 
 # misc
 
-func tween_dither(item: CanvasItem, from: float, to: float, duration: float) -> void:
-	item.material = preload("res://asset/dither.tres")
-	
-	if from == 1:
+
+func tween_opacity(item: CanvasItem, from: float, to: float, duration: float) -> void:
+	if from == 0:
 		item.visible = true
 	
-	await get_tree().create_tween().tween_method(
-		func(value: float) -> void:
-			item.material.set_shader_parameter("intensity", value),
-		from, to, duration
-	).finished
+	item.modulate.a = from
+	await get_tree().create_tween().tween_property(item, "modulate:a", to, duration).finished
 	
 	if to == 0:
-		item.material = null
-	if to == 1:
 		item.visible = false
-		item.material = null

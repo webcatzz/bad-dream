@@ -33,45 +33,67 @@ text = "Settings"
 
 [node name="Exit" type="Button" parent="Centerer/Tabs/Buttons"]
 layout_mode = 2
-text = "Save and exit"
+text = "Exit"
 
-[node name="Settings" type="GridContainer" parent="Centerer/Tabs"]
+[node name="ConfirmExit" type="ConfirmationDialog" parent="Centerer/Tabs/Buttons"]
+title = "Are you sure you want to exit?"
+initial_position = 2
+size = Vector2i(288, 80)
+ok_button_text = "Yes"
+dialog_text = "Any unsaved progress will be lost."
+cancel_button_text = "No"
+
+[node name="Settings" type="VBoxContainer" parent="Centerer/Tabs"]
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
+text = "Volume"
+
+[node name="Volume" type="GridContainer" parent="Centerer/Tabs/Settings"]
+layout_mode = 2
 columns = 2
 
-[node name="MasterVolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+[node name="MasterVolumeLabel" type="Label" parent="Centerer/Tabs/Settings/Volume"]
 layout_mode = 2
+theme_type_variation = &"LabelSmall"
 text = "Master volume"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings"]
+[node name="MasterVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings/Volume"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="MusicVolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+[node name="MusicVolumeLabel" type="Label" parent="Centerer/Tabs/Settings/Volume"]
 layout_mode = 2
+theme_type_variation = &"LabelSmall"
 text = "Music volume"
 
-[node name="MusicVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings"]
+[node name="MusicVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings/Volume"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="SfxVolumeLabel" type="Label" parent="Centerer/Tabs/Settings"]
+[node name="SfxVolumeLabel" type="Label" parent="Centerer/Tabs/Settings/Volume"]
 layout_mode = 2
+theme_type_variation = &"LabelSmall"
 text = "SFX volume"
 
-[node name="SfxVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings"]
+[node name="SfxVolumeSlider" type="HSlider" parent="Centerer/Tabs/Settings/Volume"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
 [connection signal="hidden" from="Centerer/Tabs" to="Centerer/Tabs" method="set_current_tab" binds= [0]]
-[connection signal="visibility_changed" from="Centerer/Tabs" to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Centerer/Tabs/Buttons/Continue" to="Centerer/Tabs" method="hide"]
 [connection signal="pressed" from="Centerer/Tabs/Buttons/Settings" to="Centerer/Tabs" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="Centerer/Tabs/Buttons/Exit" to="Centerer/Tabs/Buttons/ConfirmExit" method="popup_centered"]
+[connection signal="confirmed" from="Centerer/Tabs/Buttons/ConfirmExit" to="." method="_exit"]
+[connection signal="value_changed" from="Centerer/Tabs/Settings/Volume/MasterVolumeSlider" to="." method="_set_volume" binds= ["master"]]
+[connection signal="value_changed" from="Centerer/Tabs/Settings/Volume/MusicVolumeSlider" to="." method="_set_volume" binds= ["music"]]
+[connection signal="value_changed" from="Centerer/Tabs/Settings/Volume/SfxVolumeSlider" to="." method="_set_volume" binds= ["sfx"]]

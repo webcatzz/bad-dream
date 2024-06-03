@@ -12,10 +12,12 @@ signal turn_ended(actor: Actor)
 
 ## Whether there is a battle currently active.
 var active: bool
+## The order in which [Actor]s take turns.
+var order: Array[Actor]
+## The current index in [member order].
+var current_idx: int
 ## The [Actor] currently taking their turn.
 var current_actor: Actor
-## [Actor]s take turns according to this order.
-var order: Array[Actor]
 
 # extras
 var _modulator: CanvasModulate = CanvasModulate.new()
@@ -25,10 +27,12 @@ var _modulator: CanvasModulate = CanvasModulate.new()
 # setup
 
 func _ready() -> void:
+	# modulator (darkens scene when active)
 	_modulator.color = Color.WHITE
 	_modulator.visible = false
 	add_child(_modulator)
 	
+	# ui
 	add_child(load("res://node/ui/battle.tscn").instantiate())
 
 
@@ -38,29 +42,19 @@ func _ready() -> void:
 ## Starts a battle between the party and [member actors].
 func start(actors: Array[Actor]) -> void:
 	active = true
-	randomize()
-	for actor: Actor in Game.data.party + actors: add_actor(actor) # constructing order
-	started.emit()
-	run_order()
 	
+	# adding actors
+	for actor: Actor in Game.data.party: add_actor(actor)
+	for actor: Actor in actors: add_actor(actor)
+	
+	# starting order
+	started.emit()
+	run_turn()
+	
+	# sound/visual
+	Music.play("quarky_puzzle")
 	_modulator.visible = true
 	get_tree().create_tween().tween_property(_modulator, "color:v", 0.8, 2)
-	Music.play("quarky_puzzle")
-
-
-## Loops through [member order] until [method is_won] returns true.
-func run_order() -> void:
-	for actor in order:
-		current_actor = actor
-		await actor.take_turn()
-		
-		await get_tree().create_timer(0.25).timeout
-		
-		if is_won():
-			stop()
-			return
-	
-	run_order()
 
 
 ## Returns true if there are no non-party [Actor]s in [member order].
@@ -74,12 +68,35 @@ func is_won() -> bool:
 ## Ends the current battle.
 func stop() -> void:
 	active = false
-	for actor in order: remove_actor(actor)
+	
+	# ending battle
 	ended.emit()
 	
+	# removing actors
+	for actor in order: remove_actor(actor)
+	
+	# sound/visual
+	Music.stop()
 	await get_tree().create_tween().tween_property(_modulator, "color:v", 1, 2).finished
 	_modulator.visible = false
-	Music.stop()
+
+
+
+# turns
+
+## Loops through [member order] until [method is_won] returns true.
+func run_turn() -> void:
+	current_idx = (current_idx + 1) % order.size()
+	current_actor = order[current_idx]
+	
+	if current_actor.health > 0:
+		turn_started.emit()
+		await current_actor.take_turn()
+		turn_ended.emit()
+	
+	await get_tree().create_timer(0.25).timeout
+	if is_won(): stop()
+	else: run_turn()
 
 
 
@@ -99,12 +116,8 @@ func add_actor(actor: Actor) -> void:
 				idx = i
 				break
 	
-	# connecting signals
-	actor.defeated.connect(remove_actor.bind(actor))
-	actor.turn_started.connect(emit_signal.bind("turn_started", actor))
-	actor.turn_ended.connect(emit_signal.bind("turn_ended", actor))
-	
 	# adding to order
+	actor.in_battle = true
 	order.insert(idx, actor)
 	actor_added.emit(actor, idx)
 
@@ -113,11 +126,7 @@ func add_actor(actor: Actor) -> void:
 func remove_actor(actor: Actor) -> void:
 	var idx: int = order.find(actor)
 	
-	# disconnecting signals
-	actor.defeated.disconnect(remove_actor)
-	actor.turn_started.disconnect(emit_signal)
-	actor.turn_ended.disconnect(emit_signal)
-	
 	# removing from order
+	actor.in_battle = false
 	order.erase(actor)
 	actor_removed.emit(idx)

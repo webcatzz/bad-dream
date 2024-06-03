@@ -19,7 +19,7 @@ var skew_val: float
 
 static var letter_style: LabelSettings = LabelSettings.new()
 
-static func _static_init():
+static func _static_init() -> void:
 	letter_style.font = load("res://asset/ui/crang.ttf")
 	letter_style.outline_color = Color.BLACK
 	letter_style.outline_size = 4
@@ -75,7 +75,7 @@ func _ready() -> void:
 		label.text = text[i]
 		
 		label.reset_size()
-		var label_offset = -label.size.y if upright else 8
+		var label_offset: float = -label.size.y if upright else 8
 		label.position.y = label_offset - 16
 		label.modulate.a = 0
 		
@@ -90,7 +90,7 @@ func _ready() -> void:
 		tween.tween_property(label, "modulate:a", 0, 0.125).set_delay(delay + 1)
 		tween.tween_property(label, "position:y", label_offset + 4, 0.125).set_delay(delay + 1)
 		
-		letter_x += label.size.x - 2
+		letter_x += label.size.x - 2.0
 	
 	# positioning from right instead
 	if align_right:

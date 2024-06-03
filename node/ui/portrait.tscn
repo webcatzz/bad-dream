@@ -30,15 +30,14 @@ script = ExtResource("1_0thac")
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBox"]
-custom_minimum_size = Vector2(4, 0)
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/line_spacing = -1
+theme_type_variation = &"LabelSmall"
+theme_override_constants/line_spacing = -4
 text = "woodcarver"
 horizontal_alignment = 1
-vertical_alignment = 2
 autowrap_mode = 1
 clip_text = true
 

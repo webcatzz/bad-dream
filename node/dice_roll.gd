@@ -7,28 +7,35 @@ var dice_num: int = 1
 var rolls: PackedInt32Array = []
 
 
-## Performs a rolling animation, then returns a [PackedInt32Array]
-## containing the values of [param dice_num] rolled dice.
-func roll(dice_num: int) -> PackedInt32Array:
-	_prep(dice_num)
+## Performs a dice-rolling animation, then populates [member rolls]
+## with the values of [param num] rolled dice.
+func roll(num: int) -> void:
+	_prep(num)
 	
-	Game.tween_dither(self, 1, 0, 0.5)
+	await Game.tween_opacity(self, 0, 1, 0.5)
 	await _animate()
 	
 	_randomize()
 	
 	await get_tree().create_timer(2).timeout
-	await Game.tween_dither(self, 0, 1, 0.5)
-	
-	return rolls
+	Game.tween_opacity(self, 1, 0, 0.5)
 
-func _ready(): roll(2)
+
+## Returns the sum of [param num] dice plus [param modifier].
+func sum(num: int, modifier: int = 0) -> int:
+	await roll(num)
+	
+	var sum: int = 0
+	for roll: int in rolls: sum += roll
+	return sum + modifier
+
+
 
 # internal
 
 # Readies the node for a dice roll.
-func _prep(dice_num: int) -> void:
-	self.dice_num = dice_num
+func _prep(num: int) -> void:
+	dice_num = num
 	rolls.resize(dice_num)
 	
 	# grid columns

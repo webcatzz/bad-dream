@@ -1,3 +1,5 @@
-- improv-gold font by somepx @ somepx.itch.io
-- crang font by caveras @ caveras.net
+- improv_gold.ttf, sins_gold.ttf by somepx @ somepx.itch.io
+- crang.ttf by caveras @ caveras.net
+- dico.ttf by yannic kötter @ https://www.dafont.com/dico.font
+
 - dithering shader from https://godotshaders.com/shader/dithering-screen-door-transparency/

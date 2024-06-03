@@ -1,18 +1,25 @@
-[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://c520hdu6q2tad"]
+[gd_resource type="Resource" script_class="Action" load_steps=4 format=3 uid="uid://c520hdu6q2tad"]
 
 [ext_resource type="Script" path="res://logic/action.gd" id="1_lin7e"]
+[ext_resource type="Script" path="res://data/bitshape.gd" id="2_80blr"]
+
+[sub_resource type="BitMap" id="BitMap_3obga"]
+data = {
+"data": PackedByteArray(15),
+"size": Vector2i(4, 1)
+}
+script = ExtResource("2_80blr")
+offset = Vector2i(0, 0)
 
 [resource]
 script = ExtResource("1_lin7e")
-name = "Action"
-description = ""
-strength = 1
-type = 0
-delay = 0
-ends_turn = false
-splash_shape = 0
-splash_size = 1
-splash_offset = Vector2i(0, 1)
-knockback_shape = 0
-knockback_strength = 0
-knockback_point = Vector2i(0, 0)
+name = null
+description = null
+dice = null
+modifier = null
+type = null
+shape = SubResource("BitMap_3obga")
+delay = null
+ends_turn = null
+knockback_type = null
+knockback_vector = null

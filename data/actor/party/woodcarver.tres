@@ -1,61 +1,51 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://cki8mu2er652e"]
 
-[ext_resource type="Script" path="res://logic/action.gd" id="1_mfw3p"]
-[ext_resource type="Script" path="res://logic/effect.gd" id="2_hx4jl"]
+[ext_resource type="Script" path="res://logic/action.gd" id="1_p1l6h"]
+[ext_resource type="Script" path="res://data/bitshape.gd" id="2_hjj72"]
 [ext_resource type="Script" path="res://logic/actor.gd" id="3_4fjlo"]
-[ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://data/action/strike_out.tres" id="3_e2ejy"]
+[ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://data/action/strike_out.tres" id="3_e4qcd"]
 
-[sub_resource type="Resource" id="Resource_i2slf"]
-script = ExtResource("1_mfw3p")
-name = "Long"
+[sub_resource type="BitMap" id="BitMap_ogmef"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
+script = ExtResource("2_hjj72")
+offset = Vector2i(0, 1)
+
+[sub_resource type="Resource" id="Resource_fjmsr"]
+script = ExtResource("1_p1l6h")
+name = "Action"
 description = ""
-strength = 1
+dice = 1
+modifier = 0
 type = 0
+shape = SubResource("BitMap_ogmef")
 delay = 0
 ends_turn = false
-shape_type = 0
-shape_size = 1
-shape_offset = Vector2i(0, 2)
-knockback_shape = 0
-knockback_strength = 0
-knockback_point = Vector2i(0, 0)
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_dj1a0"]
-script = ExtResource("1_mfw3p")
-name = "push"
+[sub_resource type="BitMap" id="BitMap_g6kjn"]
+data = {
+"data": PackedByteArray(45),
+"size": Vector2i(2, 3)
+}
+script = ExtResource("2_hjj72")
+offset = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_s6s5c"]
+script = ExtResource("1_p1l6h")
+name = "Action"
 description = ""
-strength = 1
+dice = 1
+modifier = 0
 type = 0
+shape = SubResource("BitMap_g6kjn")
 delay = 0
 ends_turn = false
-shape_type = 0
-shape_size = 1
-shape_offset = Vector2i(0, 1)
-knockback_shape = 0
-knockback_strength = 1
-knockback_point = Vector2i(0, 0)
-
-[sub_resource type="Resource" id="Resource_w53hv"]
-script = ExtResource("2_hx4jl")
-type = 1
-duration = 5
-strength = null
-
-[sub_resource type="Resource" id="Resource_ceoxb"]
-script = ExtResource("1_mfw3p")
-name = "Poison"
-description = ""
-strength = 1
-type = 0
-delay = 4
-ends_turn = true
-effect = SubResource("Resource_w53hv")
-shape_type = 0
-shape_size = 3
-shape_offset = Vector2i(0, 1)
-knockback_shape = 0
-knockback_strength = 0
-knockback_point = Vector2i(0, 0)
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)
 
 [resource]
 script = ExtResource("3_4fjlo")
@@ -63,8 +53,9 @@ name = "woodcarver"
 description = ""
 max_health = 10
 resistance = 0
+evasion = 0.0
 tiles_per_turn = 10
 actions_per_turn = 1
 weak_against = Array[int]([])
 strong_against = Array[int]([])
-actions = Array[ExtResource("1_mfw3p")]([SubResource("Resource_i2slf"), SubResource("Resource_dj1a0"), SubResource("Resource_ceoxb"), ExtResource("3_e2ejy")])
+actions = Array[ExtResource("1_p1l6h")]([SubResource("Resource_fjmsr"), SubResource("Resource_s6s5c"), ExtResource("3_e4qcd")])

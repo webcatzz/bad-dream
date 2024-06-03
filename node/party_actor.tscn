@@ -3,18 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="1_mic32"]
 [ext_resource type="Script" path="res://node/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
-[ext_resource type="Script" path="res://node/action_menu.gd" id="3_g0sg8"]
+[ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="3_osft0"]
 [ext_resource type="Texture2D" uid="uid://dfojp4r45l1b5" path="res://asset/gradient.png" id="4_ppnbo"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
+wall_min_slide_angle = 0.0
 script = ExtResource("2_0pyd1")
 
 [node name="Path" type="Line2D" parent="DuringTurn" index="1"]
 top_level = true
 z_index = -1
 material = ExtResource("3_osft0")
-width = 4.0
+width = 3.0
 texture = ExtResource("4_ppnbo")
 texture_mode = 2
 
@@ -65,12 +66,20 @@ target_position = Vector2(16, 8)
 [node name="Camera" type="Camera2D" parent="." index="2"]
 position_smoothing_enabled = true
 
+[node name="InteractionArea" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
+polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
+
 [connection signal="hidden" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [0]]
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
 [connection signal="visibility_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_visibility_changed"]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="end_turn"]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="end_turn"]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_end_turn"]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="_end_turn"]
 [connection signal="focus_entered" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
 [connection signal="focus_entered" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu/ActionList" method="select" binds= [0]]
 [connection signal="hidden" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="free_splash"]

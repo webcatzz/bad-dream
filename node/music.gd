@@ -9,6 +9,8 @@ func _ready() -> void:
 	player.bus = "Music"
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	play("gnossiene_4")
 
 
 ## Loads an audio file from /asset/music/ and plays it.

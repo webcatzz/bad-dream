@@ -3,7 +3,11 @@ class_name Effect extends Resource
 
 signal ended
 
-enum Type {BURNING, POISONED}
+enum Type {
+	BURN,
+	POISON,
+	VANISH,
+}
 
 @export var type: Type
 ## The effect lasts for this many turns.
@@ -20,10 +24,12 @@ func start() -> void:
 	target.turn_ended.connect(_decrement_duration)
 	
 	match type:
-		Type.BURNING:
+		Type.BURN:
 			target.action_taken.connect(target.damage.bind(1, Action.Type.FIRE), CONNECT_REFERENCE_COUNTED)
-		Type.POISONED:
+		Type.POISON:
 			target.turn_ended.connect(target.damage.bind(1, Action.Type.SPIRAL), CONNECT_REFERENCE_COUNTED)
+		Type.VANISH:
+			pass
 
 
 func _decrement_duration() -> void:
@@ -33,9 +39,11 @@ func _decrement_duration() -> void:
 
 func end() -> void:
 	match type:
-		Type.BURNING:
+		Type.BURN:
 			target.action_taken.disconnect(target.damage)
-		Type.POISONED:
+		Type.POISON:
 			target.turn_ended.disconnect(target.damage)
+		Type.VANISH:
+			pass
 	
 	ended.emit()

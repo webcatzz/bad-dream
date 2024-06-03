@@ -13,34 +13,48 @@ signal battle_state_changed
 enum BattleState {MOVING, CHOOSING_ACTION}
 var battle_state: BattleState
 
-# path
-var path: Array[Dictionary]
-@onready var path_node: Line2D = $DuringTurn/Path
-
+# nodes
+@onready var path: Line2D = $DuringTurn/Path
 @onready var collision_checker: RayCast2D = $CollisionChecker
 @onready var action_menu: Control = $DuringTurn/ActionMenu
+@onready var interaction_area: Area2D = $InteractionArea
 
 
 func _ready() -> void:
 	super()
+	# battle
 	Battle.started.connect(_on_battle_entered)
 	Battle.ended.connect(_on_battle_exited)
+	# path
+	data.path_extended.connect(_on_path_extended)
+	data.path_backtracked.connect(_on_path_backtracked)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if listening: match input_state:
+		InputState.FREE: _handle_free_input(event)
+		InputState.GRID: _handle_battle_input(event)
+
+
+
+# free movement
+
+func _handle_free_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept"):
+		for area: Area2D in interaction_area.get_overlapping_areas():
+			if area is Trigger:
+				area.trigger()
+				break
+	
+	else:
+		input = Vector2(Iso.from_grid(Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		))).normalized() * 128
 		
-		InputState.FREE:
-			input = Vector2(Iso.from_cart(Vector2(
-				Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-				Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-			))).normalized() * 128
-			if input:
-				data.facing = Iso.get_direction(input)
-				get_viewport().set_input_as_handled()
-		
-		InputState.GRID:
-			_handle_battle_input(event)
+		if input:
+			data.facing = Iso.to_grid(Iso.get_direction(input))
+			get_viewport().set_input_as_handled()
 
 
 # Handles movement outside of battle.
@@ -56,12 +70,11 @@ func _physics_process(_delta: float) -> void:
 ## Starts the actor's turn. Called by [member data].
 func take_turn() -> void:
 	listening = true
-	_extend_path()
+	data.extend_path()
 	
 	await data.turn_ended
+	path.clear_points()
 	listening = false
-	path.clear()
-	path_node.clear_points()
 
 
 # Handles movement and other input inside of battle.
@@ -77,27 +90,26 @@ func _handle_battle_input(event: InputEvent) -> void:
 	
 	# movement
 	if data.can_move():
-		for direction: String in ["up", "down", "left", "right"]:
-			if event.is_action_pressed("move_" + direction):
-				var vector: Vector2i = Iso.from_string(direction)
-				
-				collision_checker.target_position = vector
-				collision_checker.force_raycast_update()
-				if not collision_checker.is_colliding():
-					data.move(data.position + vector)
-					data.tiles_traveled += 1
-					_extend_path()
-				
-				get_viewport().set_input_as_handled()
-				return
+		var vector: Vector2i = Vector2i.ZERO
+		
+		if event.is_action_pressed("move_up"): vector = Vector2i.UP
+		elif event.is_action_pressed("move_down"): vector = Vector2i.DOWN
+		elif event.is_action_pressed("move_left"): vector = Vector2i.LEFT
+		elif event.is_action_pressed("move_right"): vector = Vector2i.RIGHT
+		
+		if vector:
+			collision_checker.target_position = Iso.from_grid(vector)
+			collision_checker.force_raycast_update()
+			if not collision_checker.is_colliding():
+				data.extend_path()
+				data.move(data.position + vector)
+			
+			get_viewport().set_input_as_handled()
+			return
 	
 	# backtracking
 	if event.is_action_pressed("shift") and data.tiles_traveled:
-		data.tiles_traveled -= 1
-		_backtrack_path()
-		data.position = path[-1].position
-		data.facing = path[-1].facing
-		
+		data.backtrack_path()
 		get_viewport().set_input_as_handled()
 	
 	# opening action menu / ending turn
@@ -108,28 +120,26 @@ func _handle_battle_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-# Extends [member path] to include the current position.
-func _extend_path() -> void:
-	path.append({"position": data.position, "facing": data.facing})
-	path_node.add_point(data.position)
-	_update_traveled_counter()
-
-
-# Shortens [member path] by one and updates [member position] accordingly.
-func _backtrack_path() -> void:
-	path.remove_at(path.size() - 1)
-	path_node.remove_point(path.size())
-	_update_traveled_counter()
-
-
-# Displays the remaining number of travelable tiles.
-func _update_traveled_counter() -> void:
+# Updates [member path] to match the path in [member data].
+func _on_path_changed() -> void:
+	path.clear_points()
+	for point: Dictionary in data.path:
+		path.add_point(Iso.from_grid(point.position))
+	
 	$DuringTurn/Steps.text = str(data.tiles_per_turn - data.tiles_traveled)
+
+
+func _on_path_extended() -> void:
+	path.add_point(Iso.from_grid(data.path[-1].position))
+
+
+func _on_path_backtracked() -> void:
+	path.remove_point(data.path.size())
 
 
 func _on_battle_entered() -> void:
 	listening = false
-	data.position = Iso.snap(position)
+	data.position = Iso.to_grid(position)
 	input_state = InputState.GRID
 
 

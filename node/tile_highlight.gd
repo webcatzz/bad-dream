@@ -23,8 +23,8 @@ func _process(delta: float) -> void:
 
 ## Sets the highlighted area according to a [Rect2i].
 func from_rect(rect: Rect2i) -> void:
-	rect.position = Iso.from_cart(rect.position)
-	rect.end = Iso.from_cart(rect.end)
+	rect.position = Iso.from_grid(rect.position)
+	rect.end = Iso.from_grid(rect.end)
 	polygon = [
 		rect.position,
 		Vector2(rect.end.x, rect.position.y),
@@ -38,13 +38,13 @@ func from_bitmap(bitmap: BitMap) -> void:
 	polygon = bitmap.opaque_to_polygons(Rect2i(Vector2i.ZERO, bitmap.get_size()))[0]
 	
 	for i: int in polygon.size():
-		polygon[i] = Vector2(Iso.from_cart(polygon[i]))
+		polygon[i] = Vector2(Iso.from_grid(polygon[i]))
 
 
 ## Sets the highlighted area according to a [BitShape].
 func from_bitshape(bitshape: BitShape) -> void:
 	from_bitmap(bitshape)
-	position = Iso.from_cart(bitshape.offset) - Vector2i(16, 0)
+	position = Iso.from_grid(bitshape.offset) - Vector2(16, 0)
 
 
 ## Sets the highlighted area according to a [PackedVector2Array] of points.

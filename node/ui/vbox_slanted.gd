@@ -9,7 +9,11 @@ class_name SlantedVBoxContainer extends VBoxContainer
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_SORT_CHILDREN:
-		var i: int = 0
+		
+		var current_offset: float
+		
 		for c in get_children():
-			c.position.x += i
-			i += offset
+			c.position.x += current_offset
+			current_offset += offset
+		
+		# custom_minimum_size.x = current_offset + get_child(-1).size.x

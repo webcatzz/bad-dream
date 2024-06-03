@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dxr5k2skqn2ub"]
-
-[ext_resource type="Shader" path="res://asset/dither.gdshader" id="1_m3ae6"]
-
-[resource]
-shader = ExtResource("1_m3ae6")
-shader_parameter/intensity = 0.0
