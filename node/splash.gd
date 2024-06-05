@@ -23,6 +23,12 @@ func get_actors() -> Array[Actor]:
 
 # internal
 
+var _sfx_messages = {
+	Action.Result.HIT: "bam!",
+	Action.Result.MISSED: "...?",
+}
+
+
 func _init(action: Action) -> void:
 	self.action = action
 	action.splash = self
@@ -41,12 +47,12 @@ func _ready() -> void:
 		add_child(area)
 
 
-func _on_finished(successful: bool) -> void:
-	if area:
-		action.cause.node.get_parent().add_child(SFX.new(
-			"bam!" if successful else "...?",
-			Iso.from_grid(action.cause.position) + area.position + area.polygon[0],
-			action.cause.facing
-		))
+func _on_finished() -> void:
+	#if area:
+		#action.cause.node.get_parent().add_child(SFX.new(
+			#"bam!" if successful else "...?",
+			#Iso.from_grid(action.cause.position) + area.position + area.polygon[0],
+			#action.cause.facing
+		#))
 	
 	queue_free()

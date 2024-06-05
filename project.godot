@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="res://asset/audio_buses.tres"
+buses/default_bus_layout="res://audio_buses.tres"
 
 [autoload]
 
@@ -29,7 +29,6 @@ Music="*res://node/music.gd"
 
 [debug]
 
-gdscript/warnings/unassigned_variable_op_assign=0
 gdscript/warnings/shadowed_variable=0
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/integer_division=0
@@ -49,6 +48,14 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/bitmap_editor/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://asset/": "green",
+"res://data/": "blue",
+"res://logic/": "orange"
+}
 
 [gui]
 

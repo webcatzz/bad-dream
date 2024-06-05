@@ -10,23 +10,12 @@ var upright: bool = true
 var is_x_axis: bool
 var align_right: bool
 
-var rot_val: float = 26.6
-var skew_val: float
+var rot_val: float = 26.6 ## Letter nodes' rotation.
+var skew_val: float ## Letter nodes' skew.
 
 
 
-# letter styling
-
-static var letter_style: LabelSettings = LabelSettings.new()
-
-static func _static_init() -> void:
-	letter_style.font = load("res://asset/ui/crang.ttf")
-	letter_style.outline_color = Color.BLACK
-	letter_style.outline_size = 4
-
-
-
-# setting up variables
+# internal
 
 func _init(text: String, pos: Vector2, facing: Vector2i) -> void:
 	self.text = text
@@ -36,20 +25,20 @@ func _init(text: String, pos: Vector2, facing: Vector2i) -> void:
 	# text orientation
 	if upright:
 		skew_val = -26.7
-		if facing.y < 0:
+		if facing > Vector2i.ZERO:
 			position.x += 16 * signi(facing.x)
 			position.y -= 8
 	else:
 		skew_val = 36.8
 	
 	# transform axis
-	if Iso.is_x_axis(facing):
+	if facing % 2:
 		is_x_axis = true
 		rot_val = -rot_val
 		skew_val = -skew_val
 	
 	# text align
-	align_right = facing.x < 0
+	align_right = facing < Vector2i.ZERO
 	
 	rot_val = deg_to_rad(rot_val)
 	skew_val = deg_to_rad(skew_val)
@@ -71,7 +60,7 @@ func _ready() -> void:
 		
 		# label
 		var label: Label = Label.new()
-		label.label_settings = letter_style
+		label.theme_type_variation = &"SFXLabel"
 		label.text = text[i]
 		
 		label.reset_size()

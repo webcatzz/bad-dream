@@ -1,7 +1,5 @@
 # todo
 
-- [ ] party members following the leader
-- [ ] party members in battle
 - [ ] improve action menu ui
 - [ ] enemy ai
 - [ ] party members
@@ -9,7 +7,9 @@
 - [ ] inventory ui
 - [ ] party ui
 - [ ] title screen
-- [ ] multiple saves
+- [x] party members following the leader
+- [x] party members in battle
+- [x] multiple saves
 - [x] status effects
 - [x] knockback
 - [x] comicbook sfx
@@ -27,7 +27,7 @@
 # bugs
 
 - [ ] spotlight doesn't come back after closing action menu
-- [ ] fix path bitshape
+- [ ] path bitshape is broken
 - [x] splashes do not rotate with actor
 - [x] delayed actions' splashes are freed prematurely by action menu
 - [x] fix Iso.normalize()

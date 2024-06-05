@@ -4,12 +4,26 @@
 [ext_resource type="Script" path="res://node/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
-[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="3_osft0"]
+[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="3_osft0"]
 [ext_resource type="Texture2D" uid="uid://dfojp4r45l1b5" path="res://asset/gradient.png" id="4_ppnbo"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 wall_min_slide_angle = 0.0
 script = ExtResource("2_0pyd1")
+
+[node name="Collision" parent="." index="0"]
+disabled = true
+
+[node name="CollisionChecker" type="RayCast2D" parent="." index="1"]
+target_position = Vector2(16, 8)
+
+[node name="InteractionArea" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
+polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
 
 [node name="Path" type="Line2D" parent="DuringTurn" index="1"]
 top_level = true
@@ -19,14 +33,7 @@ width = 3.0
 texture = ExtResource("4_ppnbo")
 texture_mode = 2
 
-[node name="Steps" type="Label" parent="DuringTurn" index="2"]
-offset_left = -8.0
-offset_top = -56.0
-offset_right = 8.0
-offset_bottom = -49.0
-horizontal_alignment = 1
-
-[node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="3"]
+[node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="2"]
 visible = false
 z_index = 1
 offset_left = 15.0
@@ -59,20 +66,6 @@ visible = false
 layout_mode = 2
 allow_search = false
 text_overrun_behavior = 0
-
-[node name="CollisionChecker" type="RayCast2D" parent="." index="1"]
-target_position = Vector2(16, 8)
-
-[node name="Camera" type="Camera2D" parent="." index="2"]
-position_smoothing_enabled = true
-
-[node name="InteractionArea" type="Area2D" parent="." index="4"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
-polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
 
 [connection signal="hidden" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [0]]
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]

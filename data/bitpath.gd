@@ -18,6 +18,9 @@ func update() -> void:
 	grow_mask(1, Rect2i(Vector2i.ZERO, get_size()))
 
 
+
+# internal
+
 func _get_path_data() -> Dictionary:
 	var path: Array[Dictionary] = Battle.current_actor.path
 	

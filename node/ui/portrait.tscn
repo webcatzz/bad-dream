@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://rpyj2hvrbh2u"]
 
 [ext_resource type="Script" path="res://node/ui/portrait.gd" id="1_0thac"]
-[ext_resource type="Texture2D" uid="uid://b6whmvx8l1sgn" path="res://asset/portrait/default.png" id="2_x8iul"]
+[ext_resource type="Texture2D" uid="uid://b6whmvx8l1sgn" path="res://asset/actor/portrait/default.png" id="2_x8iul"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kcc7u"]
 

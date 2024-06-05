@@ -13,13 +13,6 @@ const RIGHT: Vector2i = Vector2i(16, -8)
 
 # directions
 
-## Rotates a vector to face one of the direction vectors.
-func turn(vector: Vector2i, direction: Vector2i) -> Vector2i:
-	vector.x = abs(vector.x) if direction in [RIGHT, DOWN] else -abs(vector.x)
-	vector.y = abs(vector.y) if direction in [LEFT, DOWN] else -abs(vector.y)
-	return vector
-
-
 ## Returns the direction a vector is facing.
 func get_direction(vector: Vector2i) -> Vector2i:
 	if vector.x < 0:
@@ -29,13 +22,11 @@ func get_direction(vector: Vector2i) -> Vector2i:
 
 
 
-
 # axis
 
 func is_x_axis(vector: Vector2i) -> bool:
 	vector = get_direction(vector)
 	return vector == LEFT or vector == RIGHT
-
 
 
 
@@ -63,39 +54,3 @@ func rotate_grid_vector(vector: Vector2i, to: Vector2i) -> Vector2i:
 			return -vector
 		_:
 			return vector
-
-
-
-# movement
-
-# bug: does not snap to closest point when moving diagonally along a tile boundary
-## Snaps a vector to the isometric grid.
-func snap(vector: Vector2i) -> Vector2i:
-	var snapped: Vector2i = vector.snapped(VECTOR)
-	if snapped.y % 16 == 0: snapped.x = snappedi(snapped.x, 32)
-	else: snapped.x = snappedi(snapped.x - 16, 32) + 16
-	return snapped
-
-
-
-# index conversion
-
-func to_idx(direction: Vector2i) -> int:
-	if direction == Iso.DOWN: return 0
-	if direction == Iso.UP: return 1
-	if direction == Iso.LEFT: return 2
-	if direction == Iso.RIGHT: return 3
-	return -1
-
-
-
-# string conversion
-
-## Converts a string to a direction vector.
-func from_string(direction: String) -> Vector2i:
-	match direction.to_lower():
-		"up": return UP
-		"down": return DOWN
-		"left": return LEFT
-		"right": return RIGHT
-		_: return Vector2i.ZERO

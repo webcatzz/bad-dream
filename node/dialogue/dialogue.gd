@@ -1,8 +1,7 @@
 extends CanvasLayer
 
 
-## Emitted when a new line is begun.
-signal progressed
+signal progressed ## Emitted when a new line is begun.
 
 
 func small(string: String, position: Vector2) -> void:

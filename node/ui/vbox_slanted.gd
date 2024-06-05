@@ -15,5 +15,3 @@ func _notification(what: int) -> void:
 		for c in get_children():
 			c.position.x += current_offset
 			current_offset += offset
-		
-		# custom_minimum_size.x = current_offset + get_child(-1).size.x

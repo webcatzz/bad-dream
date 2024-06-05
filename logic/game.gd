@@ -1,13 +1,10 @@
 extends Node
 
 
+# data
+
 var data: Resource
 
-var pause_menu: CanvasLayer
-
-
-
-# data
 
 ## Saves game data to the specified file.
 func save(file: int) -> void:
@@ -32,31 +29,23 @@ func get_save_path(file: int) -> String:
 
 
 
-# initializing
-
-func _ready() -> void:
-	Game.load(1)
-	
-	pause_menu = load("res://node/ui/pause_menu.tscn").instantiate()
-	add_child(pause_menu)
-
-
-
 # pausing
+
+var _pause_menu: CanvasLayer = load("res://node/ui/pause_menu.tscn").instantiate()
+
 
 func pause() -> void:
 	get_tree().paused = true
-	pause_menu.visible = true
+	_pause_menu.visible = true
 
 
 func unpause() -> void:
 	get_tree().paused = false
-	pause_menu.visible = false
+	_pause_menu.visible = false
 
 
 
 # misc
-
 
 func tween_opacity(item: CanvasItem, from: float, to: float, duration: float) -> void:
 	if from == 0:
@@ -67,3 +56,12 @@ func tween_opacity(item: CanvasItem, from: float, to: float, duration: float) ->
 	
 	if to == 0:
 		item.visible = false
+
+
+
+# internal
+
+func _ready() -> void:
+	Game.load(1)
+	
+	add_child(_pause_menu)

@@ -4,7 +4,8 @@ extends Node2D
 static var texture: Texture2D = load("res://asset/dice.png")
 
 var dice_num: int = 1
-var rolls: PackedInt32Array = []
+var rolls: PackedInt32Array
+var animating: bool
 
 
 ## Performs a dice-rolling animation, then populates [member rolls]
@@ -65,9 +66,10 @@ func _create_dice() -> TextureRect:
 
 # Animates dice nodes to flicker through random faces.
 func _animate() -> void:
-	var steps: int = 32
+	animating = true
 	
-	for i: int in steps:
+	var steps: int = 32
+	for i: int in steps: if animating:
 		
 		for die: TextureRect in $Grid.get_children():
 			var face: int = randi() % 5 * 16
@@ -75,6 +77,8 @@ func _animate() -> void:
 			die.texture.region.position.x = face
 		
 		await get_tree().create_timer(0.05 + (i/steps)).timeout
+	
+	animating = false
 
 
 # Randomizes the values of [member rolls]. Also updates the textures of dice nodes.
@@ -82,3 +86,9 @@ func _randomize() -> void:
 	for i: int in dice_num:
 		rolls[i] = randi_range(1, 6)
 		$Grid.get_child(i).texture.region.position.x = (rolls[i] - 1) * 16
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if animating and event.is_action_pressed("ui_accept"):
+		animating = false
+		get_viewport().set_input_as_handled()

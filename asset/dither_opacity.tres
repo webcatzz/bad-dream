@@ -1,6 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfvbajr6t5dre"]
-
-[ext_resource type="Shader" path="res://asset/dither_opacity.gdshader" id="1_m3ae6"]
-
-[resource]
-shader = ExtResource("1_m3ae6")

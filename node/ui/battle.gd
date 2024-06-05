@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-var portrait_template: PackedScene = load("res://node/ui/portrait.tscn")
-
 
 func _ready() -> void:
 	Battle.started.connect($Animator.play.bind("open"))
@@ -11,7 +9,7 @@ func _ready() -> void:
 
 
 func add_portrait(actor: Actor, idx: int) -> void:
-	var portrait: Control = portrait_template.instantiate()
+	var portrait: Control = preload("res://node/ui/portrait.tscn").instantiate()
 	portrait.set_actor(actor)
 	$VBox/BarTop/Order.add_child(portrait)
 	$VBox/BarTop/Order.move_child(portrait, idx)

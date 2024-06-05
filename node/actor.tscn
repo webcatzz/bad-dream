@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bey6fhrbn55h0"]
 
+[ext_resource type="Material" uid="uid://bq43vygjxb02f" path="res://asset/shader/dither_sprite.tres" id="1_10cs5"]
 [ext_resource type="Script" path="res://node/actor.gd" id="1_j5pgg"]
-[ext_resource type="Texture2D" uid="uid://copdlec5nxfb4" path="res://asset/sprite/default.png" id="1_o5xpc"]
-[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/unshaded.tres" id="2_j32pu"]
 [ext_resource type="Script" path="res://node/spotlight.gd" id="2_wd4nt"]
-[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/dither_opacity.tres" id="4_vvns7"]
+[ext_resource type="Texture2D" uid="uid://copdlec5nxfb4" path="res://asset/actor/sprite/default.png" id="3_4t8iq"]
+[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="4_7ieqm"]
 [ext_resource type="AudioStream" uid="uid://b0pwyevl8fgtr" path="res://asset/sfx/move.mp3" id="5_mlp70"]
 [ext_resource type="AudioStream" uid="uid://c8d4dpg2oxhid" path="res://asset/sfx/spotlight_on.mp3" id="6_ql4jc"]
 [ext_resource type="AudioStream" uid="uid://blxh2fo38mxsd" path="res://asset/sfx/spotlight_off.mp3" id="7_cqwoq"]
@@ -90,35 +90,41 @@ stream_0/stream = ExtResource("5_mlp70")
 stream_0/weight = 1.0
 
 [node name="Actor" type="CharacterBody2D"]
+material = ExtResource("1_10cs5")
 motion_mode = 1
 script = ExtResource("1_j5pgg")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("3_4t8iq")
+offset = Vector2(0, -24)
+hframes = 4
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pg0xa")
+}
+
+[node name="Camera" type="Camera2D" parent="."]
+enabled = false
+position_smoothing_enabled = true
+editor_draw_screen = false
 
 [node name="DuringTurn" type="Node2D" parent="."]
 visible = false
 
 [node name="Spotlight" type="Node2D" parent="DuringTurn"]
 z_index = -1
-material = ExtResource("2_j32pu")
+material = ExtResource("4_7ieqm")
 scale = Vector2(2, 1)
 script = ExtResource("2_wd4nt")
-
-[node name="Collision" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
-
-[node name="Sprite" type="Sprite2D" parent="."]
-material = ExtResource("4_vvns7")
-texture = ExtResource("1_o5xpc")
-offset = Vector2(0, -24)
-hframes = 4
 
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
 visible = false
 position = Vector2(0, -64)
-
-[node name="Animator" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_pg0xa")
-}
 
 [node name="SFX" type="Node2D" parent="."]
 

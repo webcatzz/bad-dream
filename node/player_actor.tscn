@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgdepxkib62o7"]
+
+[ext_resource type="PackedScene" uid="uid://cbsp8otdhuoty" path="res://node/party_actor.tscn" id="1_8poer"]
+[ext_resource type="Script" path="res://node/player_actor.gd" id="2_lw7y8"]
+[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_control.tres" id="3_tmvfi"]
+
+[node name="PlayerActor" instance=ExtResource("1_8poer")]
+wall_min_slide_angle = 1.0472
+script = ExtResource("2_lw7y8")
+
+[node name="Collision" parent="." index="0"]
+disabled = false
+
+[node name="Sprite" parent="." index="3"]
+material = ExtResource("3_tmvfi")
+use_parent_material = false
+
+[node name="Camera" parent="." index="5"]
+enabled = true
+editor_draw_screen = true

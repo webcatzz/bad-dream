@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://cki8mu2er652e"]
+
+[ext_resource type="Script" path="res://logic/action.gd" id="1_yij80"]
+[ext_resource type="Script" path="res://data/bitshape.gd" id="2_0qhr1"]
+[ext_resource type="Script" path="res://logic/actor.gd" id="3_4fjlo"]
+
+[sub_resource type="BitMap" id="BitMap_bts3t"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
+script = ExtResource("2_0qhr1")
+offset = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_pj1d6"]
+script = ExtResource("1_yij80")
+name = "Action"
+description = ""
+dice = 1
+modifier = 0
+type = 0
+shape = SubResource("BitMap_bts3t")
+delay = 0
+ends_turn = false
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)
+
+[resource]
+script = ExtResource("3_4fjlo")
+name = "woodcarver"
+description = null
+max_health = null
+resistance = null
+evasion = null
+tiles_per_turn = 10
+actions_per_turn = null
+actions = Array[ExtResource("1_yij80")]([SubResource("Resource_pj1d6")])
+attributes = null
+weak_against = null
+strong_against = null

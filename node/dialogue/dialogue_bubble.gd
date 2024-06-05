@@ -18,12 +18,11 @@ func run(string: String) -> void:
 
 # internal
 
-
 func _init() -> void:
 	super()
 	size.x = 200
 	theme_type_variation = &"DialogueBubble"
-	material = preload("res://asset/dither_opacity.tres")
+	material = preload("res://asset/shader/dither_control.tres")
 
 
 func _draw() -> void:

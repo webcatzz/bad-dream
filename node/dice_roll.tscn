@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dkcvlj3ybfd6b"]
 
-[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/dither_opacity.tres" id="1_0em7i"]
+[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_control.tres" id="1_0em7i"]
 [ext_resource type="Script" path="res://node/dice_roll.gd" id="1_adehc"]
 [ext_resource type="Texture2D" uid="uid://cg7jqh1fd6yhu" path="res://asset/dice.png" id="2_cvhig"]
 

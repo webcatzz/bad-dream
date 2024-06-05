@@ -5,12 +5,13 @@
 [resource]
 script = ExtResource("1_pkvtx")
 name = "Dummy!"
-description = ""
+description = "..."
 max_health = 100000
 resistance = 0
 evasion = 0.0
 tiles_per_turn = 1
 actions_per_turn = 1
+actions = Array[Resource("res://logic/action.gd")]([])
+attributes = []
 weak_against = Array[int]([])
 strong_against = Array[int]([])
-actions = Array[Resource("res://logic/action.gd")]([])

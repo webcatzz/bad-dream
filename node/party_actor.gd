@@ -1,17 +1,9 @@
-extends ActorNode
+class_name PartyActorNode extends ActorNode
 ## Controllable node representation of an [Actor].
 
 
 # input
-enum InputState {FREE, GRID}
-var input_state: InputState
-var input: Vector2
-var listening: bool = true
-
-# battle
-signal battle_state_changed
-enum BattleState {MOVING, CHOOSING_ACTION}
-var battle_state: BattleState
+var listening: bool
 
 # nodes
 @onready var path: Line2D = $DuringTurn/Path
@@ -20,61 +12,38 @@ var battle_state: BattleState
 @onready var interaction_area: Area2D = $InteractionArea
 
 
+
+# data
+
 func _ready() -> void:
+	_on_data_set()
+
+
+func _on_data_set() -> void:
 	super()
-	# battle
-	Battle.started.connect(_on_battle_entered)
-	Battle.ended.connect(_on_battle_exited)
 	# path
 	data.path_extended.connect(_on_path_extended)
 	data.path_backtracked.connect(_on_path_backtracked)
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if listening: match input_state:
-		InputState.FREE: _handle_free_input(event)
-		InputState.GRID: _handle_battle_input(event)
+	# battle
+	data.battle_entered.connect(_on_battle_entered)
 
 
 
-# free movement
-
-func _handle_free_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		for area: Area2D in interaction_area.get_overlapping_areas():
-			if area is Trigger:
-				area.trigger()
-				break
-	
-	else:
-		input = Vector2(Iso.from_grid(Vector2(
-			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-		))).normalized() * 128
-		
-		if input:
-			data.facing = Iso.to_grid(Iso.get_direction(input))
-			get_viewport().set_input_as_handled()
-
-
-# Handles movement outside of battle.
-func _physics_process(_delta: float) -> void:
-	if input_state == InputState.FREE:
-		velocity = input if listening else Vector2.ZERO
-		move_and_slide()
-
-
-
-# in battle
+# battle
 
 ## Starts the actor's turn. Called by [member data].
 func take_turn() -> void:
 	listening = true
-	data.extend_path()
+	camera.make_current()
 	
 	await data.turn_ended
+	
 	path.clear_points()
 	listening = false
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if listening: _handle_battle_input(event)
 
 
 # Handles movement and other input inside of battle.
@@ -120,13 +89,8 @@ func _handle_battle_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-# Updates [member path] to match the path in [member data].
-func _on_path_changed() -> void:
-	path.clear_points()
-	for point: Dictionary in data.path:
-		path.add_point(Iso.from_grid(point.position))
-	
-	$DuringTurn/Steps.text = str(data.tiles_per_turn - data.tiles_traveled)
+func _on_battle_entered() -> void:
+	data.position = Iso.to_grid(position)
 
 
 func _on_path_extended() -> void:
@@ -135,14 +99,3 @@ func _on_path_extended() -> void:
 
 func _on_path_backtracked() -> void:
 	path.remove_point(data.path.size())
-
-
-func _on_battle_entered() -> void:
-	listening = false
-	data.position = Iso.to_grid(position)
-	input_state = InputState.GRID
-
-
-func _on_battle_exited() -> void:
-	input_state = InputState.FREE
-	listening = true

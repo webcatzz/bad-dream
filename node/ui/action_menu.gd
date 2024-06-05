@@ -11,7 +11,8 @@ func set_splash(action: Action) -> void:
 	free_splash()
 	splash = Splash.new(action)
 	splash.action.cause = actor
-	actor.node.add_child(splash)
+	splash.position = actor.node.position
+	actor.node.get_parent().add_child(splash)
 
 
 ## Frees the current [Splash] preview.
@@ -26,7 +27,11 @@ func free_splash() -> void:
 
 func _ready() -> void:
 	var actionlist: ItemList = $ActionList
-	for action in actor.actions: actionlist.add_item(action.name)
+	if actor.actions:
+		for action in actor.actions:
+			actionlist.add_item(action.name)
+	else:
+		$TypeChooser/Attack.disabled = true
 
 
 func _focus_tab() -> void:
@@ -49,12 +54,10 @@ func _on_tab_changed(idx: int) -> void:
 		actor.node.set_spotlight(false)
 
 
-# Previews the currently selected [Action]'s [Splash].
 func _on_actionlist_item_selected(idx: int) -> void:
 	set_splash(actor.actions[idx])
 
 
-# Starts the currently selected [Action] and closes the menu.
 func _on_actionlist_item_activated(_idx: int) -> void:
 	actor.node.listening = false
 	

@@ -2,8 +2,7 @@ class_name DialogueLabel extends Label
 ## Specialized label for typing out dialogue.
 
 
-## Whether the label is awaiting input to continue (e.g. at the end of a line).
-var awaiting_input: bool
+var awaiting_input: bool ## Whether the label is awaiting input to continue (e.g. at the end of a line).
 
 
 ## Runs dialogue line-by-line.

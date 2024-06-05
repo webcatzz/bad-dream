@@ -4,22 +4,17 @@ extends Node
 
 signal started
 signal ended
-signal actor_added(actor: Actor, idx: int)
-signal actor_removed(idx: int)
 signal turn_started(actor: Actor)
 signal turn_ended(actor: Actor)
+signal actor_added(actor: Actor, idx: int)
+signal actor_removed(idx: int)
 
+var active: bool ## Whether there is a battle currently active.
+var order: Array[Actor] ## The order in which [Actor]s take turns.
+var current_idx: int ## The current index in [member order].
+var current_actor: Actor ## The [Actor] currently taking their turn.
 
-## Whether there is a battle currently active.
-var active: bool
-## The order in which [Actor]s take turns.
-var order: Array[Actor]
-## The current index in [member order].
-var current_idx: int
-## The [Actor] currently taking their turn.
-var current_actor: Actor
-
-# extras
+# nodes
 var _modulator: CanvasModulate = CanvasModulate.new()
 
 

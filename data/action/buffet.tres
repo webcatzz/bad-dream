@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://eb326a76sol8"]
 
-[ext_resource type="Script" path="res://data/action/buffet.gd" id="1_rfip5"]
+[ext_resource type="Script" path="res://data/action/run_every_decrement.gd" id="1_rfip5"]
 [ext_resource type="Script" path="res://data/bitshape.gd" id="2_nv7un"]
 
 [sub_resource type="BitMap" id="BitMap_kk2vg"]

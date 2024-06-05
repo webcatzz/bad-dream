@@ -1,22 +1,15 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://de4ye0lpftwfk"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://de4ye0lpftwfk"]
 
-[ext_resource type="Script" path="res://data/action/strike_out.gd" id="2_1rdc5"]
-[ext_resource type="Script" path="res://data/bitpath.gd" id="2_s8nci"]
-
-[sub_resource type="BitMap" id="BitMap_hxiy0"]
-script = ExtResource("2_s8nci")
-spill = 1
-offset = Vector2i(0, 0)
+[ext_resource type="Script" path="res://data/action/path_as_strength.gd" id="2_1rdc5"]
 
 [resource]
 script = ExtResource("2_1rdc5")
-name = "Strike Out"
-description = "Deals damage around your path equal to half its length."
+name = "Action"
+description = ""
 dice = 0
 modifier = 0
 type = 0
-shape = SubResource("BitMap_hxiy0")
 delay = 0
-ends_turn = false
+needs_focus = false
 knockback_type = 0
 knockback_vector = Vector2i(0, 0)

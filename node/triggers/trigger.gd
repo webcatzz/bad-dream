@@ -25,4 +25,4 @@ func _ready() -> void:
 
 
 func _trigger_if_body_is_party_leader(body: Node2D) -> void:
-	if body is ActorNode and body.data == Game.data.leader: trigger()
+	if body is ActorNode and body.data == Game.data.get_leader(): trigger()
