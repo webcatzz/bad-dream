@@ -8,6 +8,7 @@ var data: Resource
 
 ## Saves game data to the specified file.
 func save(file: int) -> void:
+	data.prepare_for_save()
 	ResourceSaver.save(data, get_save_path(file))
 
 
@@ -20,6 +21,7 @@ func load(file: int) -> void:
 		data = Resource.new()
 		data.set_script(load("res://data/save.gd"))
 		data.take_over_path(path)
+		data.setup()
 	randomize()
 
 

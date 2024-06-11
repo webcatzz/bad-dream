@@ -8,7 +8,7 @@ signal triggered
 signal finished
 
 enum Type {NONE, FIRE, OCEAN, SPIRAL, HOLY, PROFANE, HEALING}
-enum Knockback {NONE, VECTOR, BLAST}
+enum Knockback {NONE, LINE, BLAST}
 enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 
 @export var name: String = "Action"
@@ -18,10 +18,10 @@ enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 @export var base_strength: int ## Base amount of strength.
 @export var dice: int ## Number of dice to roll when calculating strength.
 @export var type: Type
+@export var shape: BitMap ## The action's area of effect.
 
-# misc
-@export var shape: BitShape ## The action's area of effect.
-@export var status_effect: StatusEffect
+# delay
+@export_group("Delay")
 @export var delay: int ## Number of turns that should end before this action triggers.
 @export var needs_focus: bool ## If [code]true[/code], [member cause] may not act until the action is finished.
 
@@ -30,14 +30,18 @@ enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 @export var knockback_type: Knockback
 @export var knockback_vector: Vector2i
 
+# statuses
+@export_group("Status effects")
+@export var status_effect: StatusEffect
+
 # buffers
 var strength: int
 var delay_left: int
 var result: Result
 
 # nodes
-var cause: Actor
-var splash: Splash
+var cause: Actor ## The [Actor] this action belongs to.
+var splash: Splash = Splash.new(self) ## Node representation.
 
 
 ## Starts the action.
@@ -70,7 +74,7 @@ func run() -> void:
 
 
 
-# virtual
+# internal
 
 ## Fetches the action's strength.
 func _get_strength() -> int:

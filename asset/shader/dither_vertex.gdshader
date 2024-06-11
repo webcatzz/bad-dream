@@ -17,6 +17,5 @@ void vertex() {
 
 
 void fragment() {
-	//vec2 uv = UV / SCREEN_PIXEL_SIZE;
 	COLOR.a = step(0.0, BAYER[int(pixel.x) % 4][int(pixel.y) % 4] + COLOR.a - 1.0);
 }

@@ -1,11 +1,11 @@
 class_name BattleTrigger extends Trigger
 
 
-## [Actor]s added to battle on trigger.
-@export var actors: Array[NodePath]
+@export var actors: Array[NodePath] ## [Actor]s added to battle on trigger.
 
 
 func trigger() -> void:
+	super()
 	var array: Array[Actor] = []
 	array.resize(actors.size())
 	

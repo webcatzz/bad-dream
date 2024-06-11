@@ -45,7 +45,7 @@ func turned(vector: Vector2i) -> BitShape:
 # internal
 
 func _to_string() -> String:
-	var string: String
+	var string: String = ""
 	
 	for y: int in get_size().y:
 		for x: int in get_size().x:

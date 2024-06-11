@@ -28,9 +28,7 @@ func start() -> void:
 		Type.POISON:
 			target.turn_ended.connect(target.damage.bind(1, Action.Type.SPIRAL), CONNECT_REFERENCE_COUNTED)
 		Type.VANISH:
-			var old_evasion: float = target.evasion
-			target.evasion = 100
-			ended.connect(func() -> void: target.evasion = old_evasion)
+			target.modifiers.evasion += 1
 
 
 ## Stacks the effect with another of the same type.
@@ -41,13 +39,15 @@ func stack(with: StatusEffect) -> void:
 
 ## Ends the effect.
 func end() -> void:
+	target.turn_ended.disconnect(_decrement_duration)
+	
 	match type:
 		Type.BURN:
 			target.action_taken.disconnect(target.damage)
 		Type.POISON:
 			target.turn_ended.disconnect(target.damage)
 		Type.VANISH:
-			pass
+			target.modifiers.evasion -= 1
 	
 	ended.emit()
 

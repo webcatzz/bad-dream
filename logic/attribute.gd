@@ -3,7 +3,7 @@ class_name Attribute extends Resource
 
 
 enum Type {
-	PRESENCE,
+	PEP_TALK,
 }
 
 @export var type: Type
@@ -13,14 +13,16 @@ var target: Actor ## The [Actor] this attribute belongs to.
 
 func start() -> void:
 	match type:
-		Type.PRESENCE:
-			pass
+		Type.PEP_TALK:
+			for actor: Actor in Battle.order:
+				actor.actions_per_turn += 1
 
 
 func end() -> void:
 	match type:
-		Type.PRESENCE:
-			pass
+		Type.PEP_TALK:
+			for actor: Actor in Battle.order:
+				actor.actions_per_turn -= 1
 
 
 

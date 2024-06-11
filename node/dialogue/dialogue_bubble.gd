@@ -22,7 +22,7 @@ func _init() -> void:
 	super()
 	size.x = 200
 	theme_type_variation = &"DialogueBubble"
-	material = preload("res://asset/shader/dither_control.tres")
+	material = preload("res://asset/shader/dither_vertex.tres")
 
 
 func _draw() -> void:
@@ -33,3 +33,5 @@ func _draw() -> void:
 		connecting_point + tail
 	], Color("#b8c2b9"))
 	tail
+	
+	# TODO: dialogue bubble tail

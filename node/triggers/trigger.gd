@@ -2,14 +2,15 @@ class_name Trigger extends Area2D
 ## Base class for triggers.
 
 
-## The trigger condition.
-## [code]0[/code] triggers on interaction, while [code]1[/code] triggers when a body enters it.
-@export_enum("Interact", "Enter") var mode: int
+signal triggered
+
+
+@export_enum("Interact", "Enter") var mode: int ## The trigger condition.
 
 
 ## Virtual function for child classes.
 func trigger() -> void:
-	pass
+	triggered.emit()
 
 
 

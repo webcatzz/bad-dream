@@ -1,4 +1,5 @@
 class_name PartySpawner extends Node2D
+## Spawns party actors' nodes.
 
 
 func _ready() -> void:

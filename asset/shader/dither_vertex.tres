@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfvbajr6t5dre"]
+
+[ext_resource type="Shader" path="res://asset/shader/dither_vertex.gdshader" id="1_j4o31"]
+
+[resource]
+shader = ExtResource("1_j4o31")

@@ -28,27 +28,27 @@ signal status_effect_removed(status_effect: StatusEffect)
 @export_multiline var description: String = "..."
 
 # stats
-@export var max_health: int = 10 ## Maximum value for [member health].
+@export var max_health: int = 10: ## Maximum value for [member health].
+	get: return max_health + _get_modifier("max_health")
 var health: int: ## When [member health] hits [code]0[/code], the actor is defeated.
 	set(value):
 		health_changed_by.emit(value - health)
 		health = min(value, max_health)
 		health_changed.emit(health)
-
-@export var resistance: int ## Knockback received is decreased by this amount.
-@export_range(0, 1, 0.01) var evasion: float ## Chance to evade an attack and move backward one tile.
+@export var resistance: int: ## Knockback received is decreased by this amount.
+	get: return resistance + _get_modifier("resistance")
+@export_range(0, 1, 0.01) var evasion: float: ## Chance to evade an attack and move backward one tile.
+	get: return evasion + _get_modifier("evasion")
 
 # per-turn limits
-@export var tiles_per_turn: int = 5 ## Maximum number of tiles traveled per turn. Also used to order actors' turns during battle.
-@export var actions_per_turn: int = 1 ## Maximum number of actions taken per turn.
+@export var tiles_per_turn: int = 5: ## Maximum number of tiles traveled per turn. Also used to order actors' turns during battle.
+	get: return tiles_per_turn + _get_modifier("tiles_per_turn")
+@export var actions_per_turn: int = 1: ## Maximum number of actions taken per turn.
+	get: return actions_per_turn + _get_modifier("actions_per_turn")
 var tiles_traveled: int: ## The number of tiles traveled this turn.
-	set(value):
-		tiles_traveled = value
-		end_turn_if_exhausted()
+	set(value): tiles_traveled = value; end_turn_if_exhausted()
 var actions_taken: int: ## The number of actions taken this turn.
-	set(value):
-		actions_taken = value
-		end_turn_if_exhausted()
+	set(value): actions_taken = value; end_turn_if_exhausted()
 
 # actions
 @export var actions: Array[Action] ## [Action]s available during battle.
@@ -57,6 +57,7 @@ var actions_taken: int: ## The number of actions taken this turn.
 # effects
 @export var attributes: Array
 var status_effects: Array ## Active [StatusEffect]s. Add effects using [method add_status_effect].
+var modifiers: Dictionary
 
 # type affinities
 @export_group("Affinities")
@@ -64,9 +65,9 @@ var status_effects: Array ## Active [StatusEffect]s. Add effects using [method a
 @export var strong_against: Array[Action.Type] ## Damage types whose damage is halved.
 
 # orientation
-var position: Vector2i: ## The actor's current position.
+var position: Vector2i: ## The actor's current position in grid coordinates.
 	set(value): position = value; position_changed.emit(position)
-var facing: Vector2i: ## The direction the actor is facing.
+var facing: Vector2i: ## The direction the actor is facing in grid coordinates.
 	set(value): facing = value; facing_changed.emit(facing)
 
 # battle
@@ -79,7 +80,7 @@ var path: Array[Dictionary] ## Contains all previous orientation states this tur
 var focusing: Action ## [Action] the actor is focusing on.
 
 # node
-var node: ActorNode
+var node: ActorNode ## Node representation.
 
 
 
@@ -93,27 +94,13 @@ func move(to_pos: Vector2i) -> void:
 	position = to_pos
 
 
-## Calculates knockback, adds it to [member position], and sets [member facing] reverse to the direction of motion.
-func push(vector: Vector2i) -> void:
-	facing = -vector
-	position += calculate_knockback(vector)
-
-
-## Decreases [param vector] by [member resistance] down to [constant Vector2i.ZERO].
-func calculate_knockback(vector: Vector2i) -> Vector2i:
-	vector.x = max(abs(vector.x) - resistance, 0) * sign(vector.x)
-	vector.y = max(abs(vector.y) - resistance, 0) * sign(vector.y)
-	return vector
-
-
 
 # battle turns
 
 ## Starts the actor's turn.
 func take_turn() -> void:
 	actions_taken = 0
-	tiles_traveled = -1
-	extend_path()
+	tiles_traveled = 0
 	
 	turn_started.emit()
 	node.take_turn()
@@ -124,36 +111,6 @@ func take_turn() -> void:
 func end_turn() -> void:
 	path.clear()
 	turn_ended.emit()
-
-
-## Performs an action.
-func take_action(action: Action) -> void:
-	actions_taken += 1
-	if action.needs_focus:
-		focusing = action
-		action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
-		end_turn()
-	
-	await action.start()
-	if not can_act(): end_turn()
-	
-	action_taken.emit()
-
-
-## Records the current position and face to [member path].
-func extend_path() -> void:
-	path.append({"position": position, "facing": facing})
-	tiles_traveled += 1
-	path_extended.emit()
-
-
-## Moves back to a previous state on [member path].
-func backtrack_path() -> void:
-	var point: Dictionary = path.pop_back()
-	position = point.position
-	facing = point.facing
-	tiles_traveled -= 1
-	path_backtracked.emit()
 
 
 ## Returns true if the actor has not exhausted [member actions_per_turn].
@@ -173,8 +130,23 @@ func end_turn_if_exhausted() -> void:
 
 
 
-# action effects
+# actions
 
+## Performs an [Action].
+func take_action(action: Action) -> void:
+	actions_taken += 1
+	if action.needs_focus:
+		focusing = action
+		action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
+		end_turn()
+	
+	await action.start()
+	if not can_act(): end_turn()
+	
+	action_taken.emit()
+
+
+## Runs results of [param action].
 func bear_action(action: Action) -> void:
 	if randf() < evasion:
 		evade(action.cause.facing)
@@ -183,7 +155,9 @@ func bear_action(action: Action) -> void:
 			if action.type == Action.Type.HEALING: heal(action.strength)
 			else: damage(action.strength, action.type)
 		if action.knockback_type:
-			push(Iso.rotate_grid_vector(action.knockback_vector, Game.direction_to_vector(action.cause.facing)))
+			var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, action.cause.facing)
+			facing = -vector
+			position += calculate_knockback(vector)
 		if action.status_effect:
 			add_status_effect(action.status_effect.duplicate())
 
@@ -210,8 +184,15 @@ func evade(direction: Vector2i) -> void:
 	position += direction
 
 
+## Decreases [param vector] by [member resistance] down to [constant Vector2i.ZERO].
+func calculate_knockback(vector: Vector2i) -> Vector2i:
+	vector.x = max(abs(vector.x) - resistance, 0) * sign(vector.x)
+	vector.y = max(abs(vector.y) - resistance, 0) * sign(vector.y)
+	return vector
 
-# effects
+
+
+# status effects
 
 ## Adds a [StatusEffect]. Active effects are stored in [member status_effects].
 func add_status_effect(status_effect: StatusEffect) -> void:
@@ -227,6 +208,25 @@ func add_status_effect(status_effect: StatusEffect) -> void:
 func remove_status_effect(status_effect: StatusEffect) -> void:
 	status_effects.erase(status_effect)
 	status_effect_removed.emit(status_effect)
+
+
+
+# path
+
+## Records the current position and direction to [member path].
+func extend_path() -> void:
+	path.append({"position": position, "facing": facing})
+	tiles_traveled += 1
+	path_extended.emit()
+
+
+## Moves back to a previous state on [member path].
+func backtrack_path() -> void:
+	var point: Dictionary = path.pop_back()
+	position = point.position
+	facing = point.facing
+	tiles_traveled -= 1
+	path_backtracked.emit()
 
 
 
@@ -246,6 +246,13 @@ func _export_init() -> void:
 
 func _clear_focus() -> void:
 	focusing = null
+
+
+func _get_modifier(key: String) -> float:
+	if key in modifiers:
+		return modifiers[key]
+	else:
+		return 0
 
 
 func _to_string() -> String:

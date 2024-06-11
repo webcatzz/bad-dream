@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bs6t025b1bvke"]
+
+[ext_resource type="Script" path="res://data/save.gd" id="1_afsvx"]
+
+[resource]
+script = ExtResource("1_afsvx")
+party = null
+position = Vector2(0, 0)
+master_volume = 1.0
+music_volume = 0.0
+sfx_volume = 1.0
+seed = 0

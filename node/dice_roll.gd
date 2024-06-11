@@ -5,7 +5,7 @@ static var texture: Texture2D = load("res://asset/dice.png")
 
 var dice_num: int = 1
 var rolls: PackedInt32Array
-var animating: bool
+var skipped: bool
 
 
 ## Performs a dice-rolling animation, then populates [member rolls]
@@ -18,7 +18,7 @@ func roll(num: int) -> void:
 	
 	_randomize()
 	
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1 if skipped else 2).timeout
 	Game.tween_opacity(self, 1, 0, 0.5)
 
 
@@ -38,6 +38,7 @@ func sum(num: int, modifier: int = 0) -> int:
 func _prep(num: int) -> void:
 	dice_num = num
 	rolls.resize(dice_num)
+	skipped = false
 	
 	# grid columns
 	if dice_num == 2: $Grid.columns = 2
@@ -66,10 +67,8 @@ func _create_dice() -> TextureRect:
 
 # Animates dice nodes to flicker through random faces.
 func _animate() -> void:
-	animating = true
-	
 	var steps: int = 32
-	for i: int in steps: if animating:
+	for i: int in steps: if not skipped:
 		
 		for die: TextureRect in $Grid.get_children():
 			var face: int = randi() % 5 * 16
@@ -77,8 +76,6 @@ func _animate() -> void:
 			die.texture.region.position.x = face
 		
 		await get_tree().create_timer(0.05 + (i/steps)).timeout
-	
-	animating = false
 
 
 # Randomizes the values of [member rolls]. Also updates the textures of dice nodes.
@@ -89,6 +86,7 @@ func _randomize() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if animating and event.is_action_pressed("ui_accept"):
-		animating = false
-		get_viewport().set_input_as_handled()
+	pass
+	#if not skipped and event.is_action_pressed("ui_accept"):
+		#skipped = true
+		#get_viewport().set_input_as_handled()

@@ -5,6 +5,7 @@ class_name DialogueTrigger extends Trigger
 
 
 func trigger() -> void:
+	super()
 	monitorable = false
 	await Dialogue.small(text, Vector2(200, 200))
 	monitorable = true

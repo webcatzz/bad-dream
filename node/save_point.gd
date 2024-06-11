@@ -7,7 +7,7 @@ var current_tween: Tween
 @onready var parent: Node = get_parent()
 
 
-# Called when the player enters.
+# Shows the save point UI.
 func _on_player_entered() -> void:
 	active = true
 	_resize_color_rect()
@@ -29,7 +29,7 @@ func _on_player_entered() -> void:
 	current_tween.tween_property(Game.data.get_leader().node.get_node("Camera"), "offset:y", -32, 2).set_trans(Tween.TRANS_CUBIC)
 
 
-# Called when the player exits.
+# Hides the save point UI.
 func _on_player_exited() -> void:
 	active = false
 	

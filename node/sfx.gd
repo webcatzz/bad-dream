@@ -79,7 +79,7 @@ func _ready() -> void:
 		tween.tween_property(label, "modulate:a", 0, 0.125).set_delay(delay + 1)
 		tween.tween_property(label, "position:y", label_offset + 4, 0.125).set_delay(delay + 1)
 		
-		letter_x += label.size.x - 2.0
+		letter_x += label.size.x - 2
 	
 	# positioning from right instead
 	if align_right:

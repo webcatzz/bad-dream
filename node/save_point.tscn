@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
-[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_control.tres" id="2_24uay"]
+[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="2_24uay"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_osywe"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]

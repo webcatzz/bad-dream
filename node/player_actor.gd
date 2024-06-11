@@ -6,6 +6,11 @@ enum InputMode {FREE, GRID}
 var input_mode: InputMode
 var input: Vector2
 
+# path
+const PARTY_PATH_OFFSET = 4
+var party_path: PackedVector2Array
+var party_path_idx: int
+
 
 
 # data
@@ -13,6 +18,9 @@ var input: Vector2
 func _ready() -> void:
 	super()
 	listening = true
+	
+	party_path.resize(PARTY_PATH_OFFSET * Game.data.party.size())
+	party_path.fill(position)
 
 
 func _on_data_set() -> void:
@@ -30,7 +38,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 
-# free movement
+# free movement & party path
 
 func _handle_free_input(event: InputEvent) -> void:
 	# interaction
@@ -53,9 +61,14 @@ func _handle_free_input(event: InputEvent) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if not data.in_battle:
+	if input_mode == InputMode.FREE:
 		velocity = input if listening else Vector2.ZERO
 		move_and_slide()
+		
+		# party path
+		if party_path[-1].distance_squared_to(position) > 256:
+			party_path.remove_at(0)
+			party_path.append(position)
 
 
 

@@ -14,6 +14,8 @@ var order: Array[Actor] ## The order in which [Actor]s take turns.
 var current_idx: int ## The current index in [member order].
 var current_actor: Actor ## The [Actor] currently taking their turn.
 
+var astar: AStarGrid2D = AStarGrid2D.new() ## Pathfinding algorithm.
+
 # nodes
 var _modulator: CanvasModulate = CanvasModulate.new()
 
@@ -34,7 +36,7 @@ func _ready() -> void:
 
 # battle starting + stopping
 
-## Starts a battle between the party and [member actors].
+## Starts a battle between the party and [param actors].
 func start(actors: Array[Actor]) -> void:
 	active = true
 	
@@ -112,8 +114,8 @@ func add_actor(actor: Actor) -> void:
 				break
 	
 	# adding to order
-	actor.in_battle = true
 	order.insert(idx, actor)
+	actor.in_battle = true
 	actor_added.emit(actor, idx)
 
 

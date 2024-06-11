@@ -23,9 +23,10 @@ func tween_position(pos: Vector2) -> void:
 
 ## Toggles the spotlight and plays sfx.
 func set_spotlight(value: bool) -> void:
-	$DuringTurn/Spotlight.visible = value
-	if value: $SFX/SpotlightOn.play()
-	else: $SFX/SpotlightOff.play()
+	if value != $DuringTurn/Spotlight.visible:
+		$DuringTurn/Spotlight.visible = value
+		if value: $SFX/SpotlightOn.play()
+		else: $SFX/SpotlightOff.play()
 
 
 
@@ -39,6 +40,8 @@ func _ready() -> void:
 func _on_data_set() -> void:
 	data.position = Iso.to_grid(position)
 	data.node = self
+	
+	$Sprite.texture = data.sprite
 	
 	# orientation
 	data.position_changed.connect(_on_position_changed)

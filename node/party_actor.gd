@@ -28,6 +28,13 @@ func _on_data_set() -> void:
 	data.battle_entered.connect(_on_battle_entered)
 
 
+# following leader
+func _physics_process(delta: float) -> void:
+	if not data.in_battle:
+		var node: PlayerActorNode = Game.data.get_leader().node
+		global_position = global_position.lerp(node.party_path[node.PARTY_PATH_OFFSET * Game.data.party.find(data, 1)], 0.1)
+
+
 
 # battle
 

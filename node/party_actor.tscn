@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbsp8otdhuoty"]
+[gd_scene load_steps=8 format=3 uid="uid://cbsp8otdhuoty"]
 
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="1_mic32"]
 [ext_resource type="Script" path="res://node/party_actor.gd" id="2_0pyd1"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="3_osft0"]
 [ext_resource type="Texture2D" uid="uid://dfojp4r45l1b5" path="res://asset/gradient.png" id="4_ppnbo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_befaw"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 wall_min_slide_angle = 0.0
@@ -36,10 +38,10 @@ texture_mode = 2
 [node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="2"]
 visible = false
 z_index = 1
-offset_left = 15.0
-offset_top = -46.0
-offset_right = 55.0
-offset_bottom = -6.0
+offset_left = 50.0
+offset_top = -50.0
+offset_right = 140.0
+offset_bottom = 51.0
 tabs_visible = false
 script = ExtResource("3_g0sg8")
 
@@ -61,11 +63,24 @@ text = "guard"
 layout_mode = 2
 text = "end turn"
 
-[node name="ActionList" type="ItemList" parent="DuringTurn/ActionMenu" index="2"]
+[node name="Actions" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="2"]
 visible = false
 layout_mode = 2
+
+[node name="List" type="ItemList" parent="DuringTurn/ActionMenu/Actions" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
 allow_search = false
 text_overrun_behavior = 0
+
+[node name="Label" type="Label" parent="DuringTurn/ActionMenu/Actions" index="1"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_styles/normal = SubResource("StyleBoxFlat_befaw")
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
 
 [connection signal="hidden" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [0]]
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
@@ -73,8 +88,8 @@ text_overrun_behavior = 0
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_end_turn"]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="_end_turn"]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu/ActionList" method="select" binds= [0]]
-[connection signal="hidden" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="free_splash"]
-[connection signal="item_activated" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
-[connection signal="item_selected" from="DuringTurn/ActionMenu/ActionList" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu/Actions/List" method="select" binds= [0]]
+[connection signal="hidden" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="free_splash"]
+[connection signal="item_activated" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
+[connection signal="item_selected" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]

@@ -1,7 +1,8 @@
 # todo
 
+- [ ] improve battle camera
 - [ ] improve action menu ui
-- [ ] enemy ai
+- [ ] enemy ai (pathfinding)
 - [ ] party members
 - [ ] verticality & cliffs
 - [ ] inventory ui
@@ -26,8 +27,11 @@
 
 # bugs
 
-- [ ] spotlight doesn't come back after closing action menu
-- [ ] path bitshape is broken
+- [ ] battle never ends
+- [ ] bitpath broken again
+- [ ] action menu takes multiple keypresses to show
+- [x] spotlight doesn't come back after closing action menu
+- [x] path bitshape is broken
 - [x] splashes do not rotate with actor
 - [x] delayed actions' splashes are freed prematurely by action menu
 - [x] fix Iso.normalize()
@@ -49,8 +53,7 @@
 	4. smash into the target, deal damage
 - draw a shape with an actor's path to execute certain attacks
 	- a la persona 5 tactica's triangle for all out attacks
-- move that causes the grid to "disappear" for a few seconds, actors can move freely
-- dark environment, can't see
+- dark environment, can only see in a tiny radius
 - too-bright environment, can only see shadows (or, more complicated: can only see silhouettes of things that are between you and the light source)
 - underwater arena, moving schools of fish impede movement
 - standing horizontally on walls, mc escher style

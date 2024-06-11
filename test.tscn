@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbx2kgeyc5j2l"]
+[gd_scene load_steps=14 format=3 uid="uid://bbx2kgeyc5j2l"]
 
-[ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_qtdia"]
-[ext_resource type="Script" path="res://node/party_spawner.gd" id="2_owh31"]
-[ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="4_y3sxg"]
-[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="5_hdm7c"]
-[ext_resource type="Script" path="res://logic/actor.gd" id="6_uakei"]
-[ext_resource type="Script" path="res://node/triggers/dialogue_trigger.gd" id="8_6rbjy"]
-[ext_resource type="Texture2D" uid="uid://c6mo1yt54ob3c" path="res://icon.svg" id="9_hwllv"]
-[ext_resource type="PackedScene" uid="uid://be6ge5sg8n6yl" path="res://node/save_point.tscn" id="10_f8ioc"]
+[ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_tqkgv"]
+[ext_resource type="Script" path="res://node/party_spawner.gd" id="2_oew8u"]
+[ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="3_akats"]
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="4_757nn"]
+[ext_resource type="Script" path="res://logic/actor.gd" id="5_aep8d"]
+[ext_resource type="Script" path="res://node/triggers/dialogue_trigger.gd" id="6_h8stt"]
+[ext_resource type="Texture2D" uid="uid://c6mo1yt54ob3c" path="res://icon.svg" id="7_ux37p"]
+[ext_resource type="PackedScene" uid="uid://be6ge5sg8n6yl" path="res://node/save_point.tscn" id="8_c84oi"]
+[ext_resource type="PackedScene" uid="uid://d0rs3moyicxl5" path="res://node/door.tscn" id="9_71fi8"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
 a = Vector2(48, -32)
@@ -26,12 +27,12 @@ fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 
 [sub_resource type="Resource" id="Resource_ahov7"]
-script = ExtResource("6_uakei")
+script = ExtResource("5_aep8d")
 name = "Actor"
 description = "..."
 max_health = 10
 resistance = 0
-evasion = 1.0
+evasion = 0.0
 tiles_per_turn = 5
 actions_per_turn = 1
 actions = Array[Resource("res://logic/action.gd")]([])
@@ -44,7 +45,7 @@ y_sort_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
-tile_set = ExtResource("1_qtdia")
+tile_set = ExtResource("1_tqkgv")
 format = 2
 layer_0/name = "floor"
 layer_0/y_sort_enabled = true
@@ -56,11 +57,11 @@ layer_1/y_sort_origin = -16
 layer_1/tile_data = PackedInt32Array()
 
 [node name="PartySpawner" type="Node2D" parent="."]
-script = ExtResource("2_owh31")
+script = ExtResource("2_oew8u")
 
 [node name="BattleTrigger" type="Area2D" parent="."]
 position = Vector2(144, 72)
-script = ExtResource("4_y3sxg")
+script = ExtResource("3_akats")
 actors = Array[NodePath]([NodePath("../Actor"), NodePath("../Dummy")])
 mode = 1
 
@@ -74,16 +75,16 @@ color = Color(0.761401, 0.119076, 0.442925, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_no3em")
 
-[node name="Actor" parent="." instance=ExtResource("5_hdm7c")]
+[node name="Actor" parent="." instance=ExtResource("4_757nn")]
 position = Vector2(208, 136)
 data = SubResource("Resource_ahov7")
 
-[node name="Dummy" parent="." instance=ExtResource("5_hdm7c")]
+[node name="Dummy" parent="." instance=ExtResource("4_757nn")]
 position = Vector2(272, 104)
 
 [node name="DialogueTrigger" type="Area2D" parent="."]
 position = Vector2(80, 8)
-script = ExtResource("8_6rbjy")
+script = ExtResource("6_h8stt")
 text = "you have the kind of penis autism that causes delusions.
 you see women where there are no women. get help."
 
@@ -92,8 +93,11 @@ polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 
 [node name="Sprite2D" type="Sprite2D" parent="DialogueTrigger"]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("9_hwllv")
+texture = ExtResource("7_ux37p")
 offset = Vector2(0, -64)
 
-[node name="SavePoint" parent="." instance=ExtResource("10_f8ioc")]
+[node name="SavePoint" parent="." instance=ExtResource("8_c84oi")]
 position = Vector2(112, 24)
+
+[node name="Door" parent="." instance=ExtResource("9_71fi8")]
+position = Vector2(168, -96)
