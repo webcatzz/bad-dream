@@ -28,8 +28,8 @@
 # bugs
 
 - [ ] battle never ends
-- [ ] bitpath broken again
 - [ ] action menu takes multiple keypresses to show
+- [x] bitpath broken again
 - [x] spotlight doesn't come back after closing action menu
 - [x] path bitshape is broken
 - [x] splashes do not rotate with actor

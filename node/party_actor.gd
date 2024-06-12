@@ -7,9 +7,8 @@ var listening: bool
 
 # nodes
 @onready var path: Line2D = $DuringTurn/Path
-@onready var collision_checker: RayCast2D = $CollisionChecker
 @onready var action_menu: Control = $DuringTurn/ActionMenu
-@onready var interaction_area: Area2D = $InteractionArea
+@onready var collision_checker: RayCast2D = $CollisionChecker
 
 
 

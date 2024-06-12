@@ -64,6 +64,6 @@ func tween_opacity(item: CanvasItem, from: float, to: float, duration: float) ->
 # internal
 
 func _ready() -> void:
-	Game.load(1)
+	Game.load(-1)
 	
 	add_child(_pause_menu)

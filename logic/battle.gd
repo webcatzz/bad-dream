@@ -49,7 +49,6 @@ func start(actors: Array[Actor]) -> void:
 	run_turn()
 	
 	# sound/visual
-	Music.play("quarky_puzzle")
 	_modulator.visible = true
 	get_tree().create_tween().tween_property(_modulator, "color:v", 0.8, 2)
 
@@ -73,7 +72,6 @@ func stop() -> void:
 	for actor in order: remove_actor(actor)
 	
 	# sound/visual
-	Music.stop()
 	await get_tree().create_tween().tween_property(_modulator, "color:v", 1, 2).finished
 	_modulator.visible = false
 
@@ -117,6 +115,8 @@ func add_actor(actor: Actor) -> void:
 	order.insert(idx, actor)
 	actor.in_battle = true
 	actor_added.emit(actor, idx)
+	
+	actor.defeated.connect(remove_actor.bind(actor))
 
 
 ## Removes an actor from the current battle's [member order].

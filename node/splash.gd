@@ -32,8 +32,8 @@ func _ready() -> void:
 	if action.shape:
 		area = TileHighlight.node()
 		area.body_entered.connect(queue_redraw.unbind(1))
-		_update_area_shape()
 		add_child(area)
+		_update_area_shape()
 
 
 # Updates position and facing direction.

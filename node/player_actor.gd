@@ -6,10 +6,12 @@ enum InputMode {FREE, GRID}
 var input_mode: InputMode
 var input: Vector2
 
-# path
-const PARTY_PATH_OFFSET = 4
-var party_path: PackedVector2Array
-var party_path_idx: int
+# party path
+const PARTY_PATH_OFFSET = 4 ## Multiplied by a party member's index in the party to calculate their offset in [member party_path].
+var party_path: PackedVector2Array ## Path that party members follow.
+
+# nodes
+@onready var interaction_area: Area2D = $InteractionArea
 
 
 
@@ -26,6 +28,7 @@ func _ready() -> void:
 func _on_data_set() -> void:
 	super()
 	data.battle_exited.connect(_on_battle_exited)
+	data.battle_exited.disconnect(camera.set_enabled)
 
 
 
@@ -82,5 +85,6 @@ func _on_battle_entered() -> void:
 
 func _on_battle_exited() -> void:
 	camera.make_current()
+	input = Vector2.ZERO
 	input_mode = InputMode.FREE
 	listening = true

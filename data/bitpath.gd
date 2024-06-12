@@ -1,7 +1,8 @@
 class_name BitPath extends BitMap
 
 
-@export var spill: int
+@export var spill: int ## How far the shape extends beyond the path.
+var position: Vector2i ## Top-leftmost point in the path's bounds.
 
 
 func update() -> void:
@@ -22,6 +23,7 @@ func update() -> void:
 
 func _get_path_data() -> Dictionary:
 	var path: Array[Dictionary] = Battle.current_actor.path
+	if path.size() == 0: path = [{"position": Battle.current_actor.position}]
 	
 	var bounds: Rect2i = Rect2i(path[0].position, Vector2i.ZERO)
 	var points: Array[Vector2i] = []
@@ -31,10 +33,9 @@ func _get_path_data() -> Dictionary:
 		points[i] = path[i].position
 		bounds = bounds.expand(points[i])
 	
-	return {
-		"points": points,
-		"bounds": bounds,
-	}
+	position = bounds.position
+	
+	return {"points": points, "bounds": bounds}
 
 
 func _to_string() -> String:
