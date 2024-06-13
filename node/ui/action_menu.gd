@@ -34,22 +34,21 @@ func _ready() -> void:
 
 # Focuses the first available [Control].
 func _focus_tab() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	if get_current_tab_control().find_next_valid_focus():
 		get_current_tab_control().find_next_valid_focus().grab_focus()
 
 
 # Focuses when becoming visible.
 func _on_visibility_changed() -> void:
-	if visible:
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		_focus_tab()
+	if visible: _focus_tab()
 
 
 # Hides the spotlight when the action list is visible.
 func _on_tab_changed(idx: int) -> void:
-	_on_visibility_changed()
+	if visible: _focus_tab()
 	actor.node.set_spotlight(idx == 1)
 
 
