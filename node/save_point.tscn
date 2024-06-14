@@ -20,7 +20,7 @@ b = Vector2(0, 8)
 content_margin_left = 32.0
 content_margin_top = 32.0
 content_margin_right = 96.0
-content_margin_bottom = 64.0
+content_margin_bottom = 32.0
 bg_color = Color(0, 0, 0, 1)
 expand_margin_left = 64.0
 expand_margin_top = 64.0
@@ -63,7 +63,7 @@ custom_minimum_size = Vector2(500, 300)
 offset_right = 400.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mg5oo")
 
-[node name="VBox" type="VBoxContainer" parent="UI"]
+[node name="Saves" type="VBoxContainer" parent="UI"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -71,23 +71,23 @@ theme_override_constants/separation = 4
 script = ExtResource("3_osywe")
 offset = 16
 
-[node name="Label" type="Label" parent="UI/VBox"]
+[node name="Label" type="Label" parent="UI/Saves"]
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Save game..."
 
-[node name="File01" type="Button" parent="UI/VBox"]
+[node name="File01" type="Button" parent="UI/Saves"]
 layout_mode = 2
 text = "File 01"
 
-[node name="File02" type="Button" parent="UI/VBox"]
+[node name="File02" type="Button" parent="UI/Saves"]
 layout_mode = 2
 text = "File 02"
 
-[node name="File03" type="Button" parent="UI/VBox"]
+[node name="File03" type="Button" parent="UI/Saves"]
 layout_mode = 2
 text = "File 03"
 
-[connection signal="pressed" from="UI/VBox/File01" to="." method="_save_to_file" binds= [1]]
-[connection signal="pressed" from="UI/VBox/File02" to="." method="_save_to_file" binds= [2]]
-[connection signal="pressed" from="UI/VBox/File03" to="." method="_save_to_file" binds= [3]]
+[connection signal="pressed" from="UI/Saves/File01" to="." method="_save_to_file" binds= [1]]
+[connection signal="pressed" from="UI/Saves/File02" to="." method="_save_to_file" binds= [2]]
+[connection signal="pressed" from="UI/Saves/File03" to="." method="_save_to_file" binds= [3]]

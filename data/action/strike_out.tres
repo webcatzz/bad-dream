@@ -17,8 +17,8 @@ strength = 1
 [resource]
 script = ExtResource("2_1rdc5")
 name = "Strike Out"
-description = "Deal 4 damage to actors around your path. They are now Burned."
-base_strength = 4
+description = "Deal damage equal to half your path's length to actors around your path. They are now Burned."
+base_strength = 0
 dice = 0
 type = 1
 shape = SubResource("BitMap_vwidp")

@@ -16,22 +16,6 @@ var current_actor: Actor ## The [Actor] currently taking their turn.
 
 var astar: AStarGrid2D = AStarGrid2D.new() ## Pathfinding algorithm.
 
-# nodes
-var _modulator: CanvasModulate = CanvasModulate.new()
-
-
-
-# setup
-
-func _ready() -> void:
-	# modulator (darkens scene when active)
-	_modulator.color = Color.WHITE
-	_modulator.visible = false
-	add_child(_modulator)
-	
-	# ui
-	add_child(load("res://node/ui/battle.tscn").instantiate())
-
 
 
 # battle starting + stopping
@@ -46,11 +30,8 @@ func start(actors: Array[Actor]) -> void:
 	
 	# starting order
 	started.emit()
+	current_idx = -1
 	run_turn()
-	
-	# sound/visual
-	_modulator.visible = true
-	get_tree().create_tween().tween_property(_modulator, "color:v", 0.8, 2)
 
 
 ## Returns true if there are no non-party [Actor]s in [member order].
@@ -70,10 +51,6 @@ func stop() -> void:
 	
 	# removing actors
 	for actor in order: remove_actor(actor)
-	
-	# sound/visual
-	await get_tree().create_tween().tween_property(_modulator, "color:v", 1, 2).finished
-	_modulator.visible = false
 
 
 
@@ -85,9 +62,9 @@ func run_turn() -> void:
 	current_actor = order[current_idx]
 	
 	if current_actor.health > 0:
-		turn_started.emit()
+		turn_started.emit(current_actor)
 		await current_actor.take_turn()
-		turn_ended.emit()
+		turn_ended.emit(current_actor)
 	
 	await get_tree().create_timer(0.25).timeout
 	if is_won(): stop()
@@ -101,10 +78,8 @@ func run_turn() -> void:
 func add_actor(actor: Actor) -> void:
 	var idx: int
 	
-	# if this actor has the lowest speed, it is inserted at the end of the order
-	if order.is_empty() or actor.tiles_per_turn < order[-1].tiles_per_turn:
-		idx = order.size()
-	# otherwise: inserts before the first actor with lower speed
+	if order.is_empty() or order[-1].tiles_per_turn >= actor.tiles_per_turn:
+		idx = order.size() # in case of lowest speed
 	else:
 		for i in order.size():
 			if actor.tiles_per_turn > order[i].tiles_per_turn:
@@ -114,9 +89,8 @@ func add_actor(actor: Actor) -> void:
 	# adding to order
 	order.insert(idx, actor)
 	actor.in_battle = true
-	actor_added.emit(actor, idx)
-	
 	actor.defeated.connect(remove_actor.bind(actor))
+	actor_added.emit(actor, idx)
 
 
 ## Removes an actor from the current battle's [member order].
@@ -124,6 +98,15 @@ func remove_actor(actor: Actor) -> void:
 	var idx: int = order.find(actor)
 	
 	# removing from order
-	actor.in_battle = false
 	order.erase(actor)
+	actor.in_battle = false
+	actor.defeated.disconnect(remove_actor)
 	actor_removed.emit(idx)
+
+
+
+# internal
+
+func _ready() -> void:
+	add_child(load("res://node/ui/battle.tscn").instantiate()) # ui
+	add_child(load("res://node/battle_camera.gd").new()) # camera

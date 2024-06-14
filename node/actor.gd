@@ -7,11 +7,9 @@ class_name ActorNode extends CharacterBody2D
 
 # nodes
 @onready var dice: Node2D = $DiceRoll
-@onready var camera: Camera2D = $Camera
 
 
 func take_turn() -> void:
-	camera.make_current()
 	await Game.get_tree().create_timer(0.5).timeout
 	data.turn_ended.emit()
 
@@ -52,8 +50,6 @@ func _on_data_set() -> void:
 	data.turn_started.connect(set_spotlight.bind(true))
 	data.turn_ended.connect($DuringTurn.set_visible.bind(false))
 	data.turn_ended.connect(set_spotlight.bind(false))
-	data.battle_entered.connect(camera.set_enabled.bind(true))
-	data.battle_exited.connect(camera.set_enabled.bind(false))
 	# stats
 	data.health_changed_by.connect(_on_health_changed_by)
 	data.defeated.connect(_on_defeated)

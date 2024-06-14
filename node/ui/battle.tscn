@@ -126,24 +126,26 @@ _data = {
 "open": SubResource("Animation_jilgl")
 }
 
-[node name="BattleUI" type="CanvasLayer"]
-visible = false
+[node name="BattleUI" type="Node"]
 script = ExtResource("1_wfkej")
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="Top" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="Top"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BarTop" type="ColorRect" parent="VBox"]
+[node name="BarTop" type="ColorRect" parent="Top/VBox"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Order" type="HBoxContainer" parent="VBox/BarTop"]
+[node name="Order" type="HBoxContainer" parent="Top/VBox/BarTop"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -152,18 +154,22 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Spacer" type="Control" parent="VBox"]
+[node name="Spacer" type="Control" parent="Top/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1000.0
 mouse_filter = 2
 
-[node name="BarBottom" type="ColorRect" parent="VBox"]
+[node name="BarBottom" type="ColorRect" parent="Top/VBox"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Modulator" type="CanvasModulate" parent="."]
+visible = false
+
 [node name="Animator" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Top")
 libraries = {
 "": SubResource("AnimationLibrary_8715n")
 }

@@ -3,7 +3,10 @@ class_name PartyActorNode extends ActorNode
 
 
 # input
-var listening: bool
+var listening: bool:
+	set(value):
+		listening = value
+		print(self.data, ".listening = ", value)
 
 # nodes
 @onready var path: Line2D = $DuringTurn/Path
@@ -40,7 +43,6 @@ func _physics_process(delta: float) -> void:
 ## Starts the actor's turn. Called by [member data].
 func take_turn() -> void:
 	listening = true
-	camera.make_current()
 	
 	await data.turn_ended
 	

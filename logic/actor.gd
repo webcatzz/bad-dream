@@ -29,22 +29,22 @@ signal status_effect_removed(status_effect: StatusEffect)
 
 # stats
 @export var max_health: int = 10: ## Maximum value for [member health].
-	get: return max_health + _get_modifier("max_health")
+	get: return max_health + modifiers.max_health
 var health: int: ## When [member health] hits [code]0[/code], the actor is defeated.
 	set(value):
 		health_changed_by.emit(value - health)
 		health = min(value, max_health)
 		health_changed.emit(health)
 @export var resistance: int: ## Knockback received is decreased by this amount.
-	get: return resistance + _get_modifier("resistance")
+	get: return resistance + modifiers.resistance
 @export_range(0, 1, 0.01) var evasion: float: ## Chance to evade an attack and move backward one tile.
-	get: return evasion + _get_modifier("evasion")
+	get: return evasion + modifiers.evasion
 
 # per-turn limits
 @export var tiles_per_turn: int = 5: ## Maximum number of tiles traveled per turn. Also used to order actors' turns during battle.
-	get: return tiles_per_turn + _get_modifier("tiles_per_turn")
+	get: return tiles_per_turn + modifiers.tiles_per_turn
 @export var actions_per_turn: int = 1: ## Maximum number of actions taken per turn.
-	get: return actions_per_turn + _get_modifier("actions_per_turn")
+	get: return actions_per_turn + modifiers.actions_per_turn
 var tiles_traveled: int: ## The number of tiles traveled this turn.
 	set(value): tiles_traveled = value; end_turn_if_exhausted()
 var actions_taken: int: ## The number of actions taken this turn.
@@ -57,7 +57,13 @@ var actions_taken: int: ## The number of actions taken this turn.
 # effects
 @export var attributes: Array
 var status_effects: Array ## Active [StatusEffect]s. Add effects using [method add_status_effect].
-var modifiers: Dictionary
+var modifiers: Dictionary = {
+	"max_health": 0,
+	"resistance": 0,
+	"evasion": 0,
+	"tiles_per_turn": 0,
+	"actions_per_turn": 0,
+}
 
 # type affinities
 @export_group("Affinities")
@@ -78,6 +84,7 @@ var in_battle: bool: ## Whether the actor is in battle.
 		else: battle_exited.emit()
 var path: Array[Dictionary] ## Contains all previous orientation states this turn.
 var focusing: Action ## [Action] the actor is focusing on.
+var will_evade_next: bool
 
 # node
 var node: ActorNode ## Node representation.
@@ -135,19 +142,18 @@ func end_turn_if_exhausted() -> void:
 ## Performs an [Action].
 func take_action(action: Action) -> void:
 	actions_taken += 1
+	
 	if action.needs_focus:
 		focusing = action
-		action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
 		end_turn()
 	
 	await action.start()
-	if not can_act(): end_turn()
 	
-	action_taken.emit()
+	if not can_act(): end_turn()
 
 
 ## Runs results of [param action].
-func bear_action(action: Action) -> void:
+func recieve_action(action: Action) -> void:
 	if randf() < evasion:
 		evade(action.cause.facing)
 	else:
@@ -164,31 +170,41 @@ func bear_action(action: Action) -> void:
 
 ## Modifies [param amount] according to the actor's type affinities,
 ## then subtracts it from [member health].
-func damage(amount: int, type: Action.Type = Action.Type.NONE) -> void:
-	if weak_against.has(type): amount *= 2
-	elif strong_against.has(type): amount /= 2
-	
-	health -= amount
-	
+func damage(amount: int, type: Action.Type) -> void:
+	health -= calculate_damage(amount, type)
 	if health <= 0: defeated.emit()
 
 
 ## Increases [member health] by [param amount].
 func heal(amount: int) -> void:
-	damage(-amount, Action.Type.HEALING)
+	health += amount
 
 
 ## Evades an attack.
 func evade(direction: Vector2i) -> void:
 	facing = -direction
 	position += direction
+	decide_next_evade()
 
+
+
+# pre-calculations
 
 ## Decreases [param vector] by [member resistance] down to [constant Vector2i.ZERO].
 func calculate_knockback(vector: Vector2i) -> Vector2i:
 	vector.x = max(abs(vector.x) - resistance, 0) * sign(vector.x)
 	vector.y = max(abs(vector.y) - resistance, 0) * sign(vector.y)
 	return vector
+
+
+func calculate_damage(amount: int, type: Action.Type) -> int:
+	if weak_against.has(type): return amount * 2
+	if strong_against.has(type): return amount / 2
+	return amount
+
+
+func decide_next_evade() -> void:
+	will_evade_next = randf() > evasion
 
 
 
@@ -242,17 +258,13 @@ func _export_init() -> void:
 	for i: int in actions.size():
 		actions[i] = actions[i].duplicate()
 		actions[i].cause = self
+		actions[i].finished.connect(emit_signal.bind("action_taken"))
+	
+	Battle.started.connect(_on_battle_started)
 
 
-func _clear_focus() -> void:
-	focusing = null
-
-
-func _get_modifier(key: String) -> float:
-	if key in modifiers:
-		return modifiers[key]
-	else:
-		return 0
+func _on_battle_started() -> void:
+	decide_next_evade()
 
 
 func _to_string() -> String:

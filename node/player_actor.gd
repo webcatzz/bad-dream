@@ -12,6 +12,7 @@ var party_path: PackedVector2Array ## Path that party members follow.
 
 # nodes
 @onready var interaction_area: Area2D = $InteractionArea
+@onready var camera: Camera2D = $Camera
 
 
 
@@ -20,6 +21,7 @@ var party_path: PackedVector2Array ## Path that party members follow.
 func _ready() -> void:
 	super()
 	listening = true
+	camera.make_current()
 	
 	party_path.resize(PARTY_PATH_OFFSET * Game.data.party.size())
 	party_path.fill(position)
@@ -28,7 +30,6 @@ func _ready() -> void:
 func _on_data_set() -> void:
 	super()
 	data.battle_exited.connect(_on_battle_exited)
-	data.battle_exited.disconnect(camera.set_enabled)
 
 
 

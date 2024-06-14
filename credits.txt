@@ -1,5 +1,7 @@
-- improv_gold.ttf, sins_gold.ttf by somepx @ somepx.itch.io
-- crang.ttf by caveras @ caveras.net
-- dico.ttf by yannic kötter @ https://www.dafont.com/dico.font
+fonts
+- improvgold, sinsgold by somepx @ https://somepx.itch.io/humble-fonts-gold
+- crang by caveras @ https://caveras.net
+- dico by yannic kötter @ https://www.y-koetter.de
 
-- dithering shader from https://godotshaders.com/shader/dithering-screen-door-transparency/
+shaders
+- dithering shader @ https://godotshaders.com/shader/dithering-screen-door-transparency/

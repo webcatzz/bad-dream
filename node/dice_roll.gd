@@ -3,28 +3,33 @@ extends Node2D
 
 static var texture: Texture2D = load("res://asset/dice.png")
 
-var dice_num: int = 1
+var dice_num: int
 var rolls: PackedInt32Array
-var skipped: bool
 
 
 ## Performs a dice-rolling animation, then populates [member rolls]
 ## with the values of [param num] rolled dice.
-func roll(num: int) -> void:
+func roll(num: int, play_anim: bool = false) -> void:
 	_prep(num)
 	
-	await Game.tween_opacity(self, 0, 1, 0.5)
-	await _animate()
+	if play_anim:
+		await Game.tween_opacity(self, 0, 1, 0.5)
+		await _animate()
+	else:
+		visible = true
 	
 	_randomize()
 	
-	await get_tree().create_timer(1 if skipped else 2).timeout
-	Game.tween_opacity(self, 1, 0, 0.5)
+	if play_anim:
+		await get_tree().create_timer(2).timeout
+		Game.tween_opacity(self, 1, 0, 0.5)
+	else:
+		Game.tween_opacity(self, 1, 0, 2)
 
 
 ## Returns the sum of [param num] dice plus [param modifier].
-func sum(num: int, modifier: int = 0) -> int:
-	await roll(num)
+func sum(num: int, modifier: int = 0, play_anim: bool = false) -> int:
+	await roll(num, play_anim)
 	
 	var sum: int = 0
 	for roll: int in rolls: sum += roll
@@ -38,7 +43,6 @@ func sum(num: int, modifier: int = 0) -> int:
 func _prep(num: int) -> void:
 	dice_num = num
 	rolls.resize(dice_num)
-	skipped = false
 	
 	# grid columns
 	if dice_num == 2: $Grid.columns = 2
@@ -68,7 +72,7 @@ func _create_dice() -> TextureRect:
 # Animates dice nodes to flicker through random faces.
 func _animate() -> void:
 	var steps: int = 32
-	for i: int in steps: if not skipped:
+	for i: int in steps:
 		
 		for die: TextureRect in $Grid.get_children():
 			var face: int = randi() % 5 * 16
@@ -83,10 +87,3 @@ func _randomize() -> void:
 	for i: int in dice_num:
 		rolls[i] = randi_range(1, 6)
 		$Grid.get_child(i).texture.region.position.x = (rolls[i] - 1) * 16
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	pass
-	#if not skipped and event.is_action_pressed("ui_accept"):
-		#skipped = true
-		#get_viewport().set_input_as_handled()

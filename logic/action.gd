@@ -3,8 +3,7 @@ class_name Action extends Resource
 ## Actions are unique per-actor, but are reused multiple times.
 
 
-signal delay_changed(value: int)
-signal triggered
+signal delay_finished
 signal finished
 
 enum Type {NONE, FIRE, OCEAN, SPIRAL, HOLY, PROFANE, HEALING}
@@ -36,6 +35,7 @@ enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 
 # buffers
 var strength: int
+var affected: Array[Actor] ## [Actor]s affected by this action.
 var delay_left: int
 var result: Result
 
@@ -52,25 +52,20 @@ func start() -> void:
 		delay_left = delay
 		Battle.turn_ended.connect(_decrement_delay)
 	else:
-		await trigger()
-
-
-## Triggers the action. Identical to [method run], but also emits signals.
-func trigger() -> void:
-	triggered.emit()
-	await run()
-	finished.emit()
+		await run()
 
 
 ## Runs effects on all actors in range.
 func run() -> void:
-	var affected: Array[Actor] = _get_affected_actors()
+	affected = _get_affected_actors()
 	
 	if affected:
 		strength = await _get_strength()
 		
 		for actor: Actor in affected:
-			actor.bear_action(self)
+			actor.recieve_action(self)
+	
+	finished.emit()
 
 
 
@@ -79,7 +74,7 @@ func run() -> void:
 ## Fetches the action's strength.
 func _get_strength() -> int:
 	if dice:
-		return await cause.node.dice.sum(dice, base_strength)
+		return await cause.node.dice.sum(dice, base_strength, _might_kill())
 	else:
 		return base_strength
 
@@ -95,6 +90,19 @@ func _get_affected_actors() -> Array[Actor]:
 ## Decrements [member delay_left]. If it becomes 0, the action triggers.
 func _decrement_delay() -> void:
 	delay_left -= 1
+	
 	if delay_left == 0:
 		Battle.turn_ended.disconnect(_decrement_delay)
-		trigger()
+		run()
+	
+	elif needs_focus:
+		pass # TODO: confirm every turn whether to continue focusing or end the action
+
+
+## Returns [code]true[/code] if this action might kill an [Actor] in range.
+func _might_kill() -> bool:
+	var max_damage: int = base_strength + dice * 6
+	for actor in affected:
+		if actor.calculate_damage(max_damage, type) > actor.health:
+			return true
+	return false

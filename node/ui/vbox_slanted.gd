@@ -1,17 +1,12 @@
-@tool
-class_name SlantedVBoxContainer extends VBoxContainer
+@tool class_name SlantedVBoxContainer extends VBoxContainer
+## Sorts children vertically with an incremental horizontal offset.
 
-@export var offset: int = 4:
-	set(value):
-		offset = value
-		notification(NOTIFICATION_SORT_CHILDREN)
+
+@export var offset: int = 4: ## Amount to increment horizontal offset by.
+	set(value): offset = value; notification(NOTIFICATION_SORT_CHILDREN)
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_SORT_CHILDREN:
-		
-		var current_offset: float
-		
-		for c in get_children():
-			c.position.x += current_offset
-			current_offset += offset
+		for i: int in get_child_count():
+			get_child(i).position.x = offset * i

@@ -13,6 +13,5 @@ disabled = false
 [node name="Sprite" parent="." index="3"]
 use_parent_material = false
 
-[node name="Camera" parent="." index="5"]
-enabled = true
-editor_draw_screen = true
+[node name="Camera" type="Camera2D" parent="." index="5"]
+position_smoothing_enabled = true

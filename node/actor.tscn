@@ -108,11 +108,6 @@ libraries = {
 "": SubResource("AnimationLibrary_pg0xa")
 }
 
-[node name="Camera" type="Camera2D" parent="."]
-enabled = false
-position_smoothing_enabled = true
-editor_draw_screen = false
-
 [node name="DuringTurn" type="Node2D" parent="."]
 visible = false
 

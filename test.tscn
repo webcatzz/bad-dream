@@ -14,6 +14,20 @@
 a = Vector2(48, -32)
 b = Vector2(-64, 24)
 
+[sub_resource type="Resource" id="Resource_wxe1l"]
+script = ExtResource("5_aep8d")
+name = "Actor"
+description = "..."
+max_health = 12
+resistance = 0
+evasion = 0.0
+tiles_per_turn = 5
+actions_per_turn = 1
+actions = Array[Resource("res://logic/action.gd")]([])
+attributes = []
+weak_against = Array[int]([])
+strong_against = Array[int]([])
+
 [sub_resource type="Gradient" id="Gradient_aomc0"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
@@ -25,20 +39,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
-
-[sub_resource type="Resource" id="Resource_ahov7"]
-script = ExtResource("5_aep8d")
-name = "Actor"
-description = "..."
-max_health = 10
-resistance = 0
-evasion = 0.0
-tiles_per_turn = 5
-actions_per_turn = 1
-actions = Array[Resource("res://logic/action.gd")]([])
-attributes = []
-weak_against = Array[int]([])
-strong_against = Array[int]([])
 
 [node name="Root" type="Node2D"]
 y_sort_enabled = true
@@ -59,29 +59,6 @@ layer_1/tile_data = PackedInt32Array()
 [node name="PartySpawner" type="Node2D" parent="."]
 script = ExtResource("2_oew8u")
 
-[node name="BattleTrigger" type="Area2D" parent="."]
-position = Vector2(144, 72)
-script = ExtResource("3_akats")
-actors = Array[NodePath]([NodePath("../Dummy")])
-mode = 1
-
-[node name="Shape" type="CollisionShape2D" parent="BattleTrigger"]
-shape = SubResource("SegmentShape2D_hh3lc")
-
-[node name="Light" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(110, 149)
-color = Color(0.761401, 0.119076, 0.442925, 1)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_no3em")
-
-[node name="Actor" parent="." instance=ExtResource("4_757nn")]
-position = Vector2(208, 136)
-data = SubResource("Resource_ahov7")
-
-[node name="Dummy" parent="." instance=ExtResource("4_757nn")]
-position = Vector2(272, 104)
-
 [node name="DialogueTrigger" type="Area2D" parent="."]
 position = Vector2(80, 8)
 script = ExtResource("6_h8stt")
@@ -101,3 +78,23 @@ position = Vector2(112, 24)
 
 [node name="Door" parent="." instance=ExtResource("9_71fi8")]
 position = Vector2(168, -96)
+
+[node name="BattleTrigger" type="Area2D" parent="."]
+position = Vector2(144, 72)
+script = ExtResource("3_akats")
+actors = Array[NodePath]([NodePath("../Actor")])
+mode = 1
+
+[node name="Shape" type="CollisionShape2D" parent="BattleTrigger"]
+shape = SubResource("SegmentShape2D_hh3lc")
+
+[node name="Actor" parent="." instance=ExtResource("4_757nn")]
+position = Vector2(224, 112)
+data = SubResource("Resource_wxe1l")
+
+[node name="Light" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(110, 149)
+color = Color(0.761401, 0.119076, 0.442925, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_no3em")
