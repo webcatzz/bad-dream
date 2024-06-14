@@ -34,7 +34,7 @@ func get_leader() -> Actor:
 
 # prepping
 
-## Updates otherwise unset values.
+## Saves the resource.
 func save() -> void:
 	position = get_leader().node.position
 	seed = randi()

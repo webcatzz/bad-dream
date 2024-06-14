@@ -16,7 +16,7 @@ enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 # damage
 @export var base_strength: int ## Base amount of strength.
 @export var dice: int ## Number of dice to roll when calculating strength.
-@export var type: Type
+@export var type: Type ## Damage type. See [enum Type].
 @export var shape: BitMap ## The action's area of effect.
 
 # delay
