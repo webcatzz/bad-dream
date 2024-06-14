@@ -27,11 +27,6 @@ func _ready() -> void:
 	party_path.fill(position)
 
 
-func _on_data_set() -> void:
-	super()
-	data.battle_exited.connect(_on_battle_exited)
-
-
 
 # input
 
@@ -81,7 +76,7 @@ func _physics_process(_delta: float) -> void:
 func _on_battle_entered() -> void:
 	listening = false
 	input_mode = InputMode.GRID
-	super()
+	data.position = Iso.to_grid(position)
 
 
 func _on_battle_exited() -> void:

@@ -28,6 +28,7 @@ func _on_data_set() -> void:
 	data.path_backtracked.connect(_on_path_backtracked)
 	# battle
 	data.battle_entered.connect(_on_battle_entered)
+	data.battle_exited.connect(_on_battle_exited)
 
 
 # following leader
@@ -98,7 +99,12 @@ func _handle_battle_input(event: InputEvent) -> void:
 
 
 func _on_battle_entered() -> void:
+	$Collision.set_disabled.call_deferred(false)
 	data.position = Iso.to_grid(position)
+
+
+func _on_battle_exited() -> void:
+	$Collision.set_disabled.call_deferred(true)
 
 
 func _on_path_extended() -> void:

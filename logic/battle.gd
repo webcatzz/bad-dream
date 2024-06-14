@@ -102,8 +102,6 @@ func remove_actor(actor: Actor) -> void:
 	actor.in_battle = false
 	actor.defeated.disconnect(remove_actor)
 	actor_removed.emit(idx)
-	
-	print(actor)
 
 
 
