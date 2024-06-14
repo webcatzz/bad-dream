@@ -6,7 +6,7 @@ class_name PartyActorNode extends ActorNode
 var listening: bool:
 	set(value):
 		listening = value
-		print(self.data, ".listening = ", value)
+		#print(self.data, ".listening = ", value)
 
 # nodes
 @onready var path: Line2D = $DuringTurn/Path

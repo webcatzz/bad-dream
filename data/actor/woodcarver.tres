@@ -1,12 +1,35 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://cki8mu2er652e"]
+[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://cki8mu2er652e"]
 
+[ext_resource type="Script" path="res://logic/action.gd" id="1_e3x30"]
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://data/action/default.tres" id="1_g36x7"]
+[ext_resource type="Script" path="res://data/bitshape.gd" id="2_25pde"]
 [ext_resource type="Script" path="res://logic/actor.gd" id="3_4fjlo"]
 [ext_resource type="Resource" uid="uid://by1ag7jijnwo2" path="res://data/action/healpool.tres" id="3_rpdhm"]
 [ext_resource type="Resource" uid="uid://dyg73n60hi8g1" path="res://data/action/panic.tres" id="4_ln8y1"]
 [ext_resource type="Texture2D" uid="uid://1vypntn0rbs6" path="res://asset/actor/sprite/woodcarver.png" id="4_qwm5x"]
 [ext_resource type="Resource" uid="uid://dxpal2r5cyav7" path="res://data/action/summon.tres" id="5_840im"]
 [ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://data/action/strike_out.tres" id="5_kr37j"]
+
+[sub_resource type="BitMap" id="BitMap_vtc2i"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
+script = ExtResource("2_25pde")
+offset = Vector2i(0, 1)
+
+[sub_resource type="Resource" id="Resource_tmesy"]
+script = ExtResource("1_e3x30")
+name = "Instakill"
+description = ""
+base_strength = 999999
+dice = 0
+type = 0
+shape = SubResource("BitMap_vtc2i")
+delay = 0
+needs_focus = false
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)
 
 [resource]
 script = ExtResource("3_4fjlo")
@@ -18,7 +41,7 @@ resistance = 0
 evasion = 0.0
 tiles_per_turn = 100
 actions_per_turn = 1
-actions = Array[Resource("res://logic/action.gd")]([ExtResource("1_g36x7"), ExtResource("3_rpdhm"), ExtResource("4_ln8y1"), ExtResource("5_kr37j"), ExtResource("5_840im")])
+actions = Array[ExtResource("1_e3x30")]([SubResource("Resource_tmesy"), ExtResource("1_g36x7"), ExtResource("3_rpdhm"), ExtResource("4_ln8y1"), ExtResource("5_kr37j"), ExtResource("5_840im")])
 attributes = []
 weak_against = Array[int]([])
 strong_against = Array[int]([])

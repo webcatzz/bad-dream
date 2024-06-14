@@ -50,7 +50,7 @@ func stop() -> void:
 	ended.emit()
 	
 	# removing actors
-	for actor in order: remove_actor(actor)
+	while order: remove_actor(order[-1])
 
 
 
@@ -98,10 +98,12 @@ func remove_actor(actor: Actor) -> void:
 	var idx: int = order.find(actor)
 	
 	# removing from order
-	order.erase(actor)
+	order.remove_at(idx)
 	actor.in_battle = false
 	actor.defeated.disconnect(remove_actor)
 	actor_removed.emit(idx)
+	
+	print(actor)
 
 
 

@@ -16,7 +16,7 @@ b = Vector2(-64, 24)
 
 [sub_resource type="Resource" id="Resource_wxe1l"]
 script = ExtResource("5_aep8d")
-name = "Actor"
+name = "Actorrrrr"
 description = "..."
 max_health = 12
 resistance = 0

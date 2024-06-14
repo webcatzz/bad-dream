@@ -21,7 +21,7 @@ func roll(num: int, play_anim: bool = false) -> void:
 	_randomize()
 	
 	if play_anim:
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(1).timeout
 		Game.tween_opacity(self, 1, 0, 0.5)
 	else:
 		Game.tween_opacity(self, 1, 0, 2)
