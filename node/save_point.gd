@@ -53,15 +53,8 @@ func _on_player_exited() -> void:
 # internal
 
 func _ready() -> void:
-	$Area.body_entered.connect(_call_if_body_is_leader.bind(_on_player_entered))
-	$Area.body_exited.connect(_call_if_body_is_leader.bind(_on_player_exited))
 	Battle.started.connect($Area.set_monitoring.bind(false))
 	Battle.ended.connect($Area.set_monitoring.bind(true))
-
-
-func _call_if_body_is_leader(body: Node2D, callable: Callable) -> void:
-	if body is ActorNode and body.data == Game.data.get_leader():
-		callable.call()
 
 
 func _resize_color_rect() -> void:

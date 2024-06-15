@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://resource/action/path_as_strength.gd" id="2_1rdc5"]
 [ext_resource type="Script" path="res://resource/bitpath.gd" id="2_atfye"]
-[ext_resource type="Script" path="res://resource/scripts/status_effect.gd" id="3_6xlv5"]
+[ext_resource type="Script" path="res://resource/script/status_effect.gd" id="3_6xlv5"]
 
 [sub_resource type="BitMap" id="BitMap_vwidp"]
 script = ExtResource("2_atfye")

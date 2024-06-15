@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Action" load_steps=4 format=3 uid="uid://c4nywreyjxx5s"]
 
-[ext_resource type="Script" path="res://resource/scripts/action.gd" id="1_sb4te"]
+[ext_resource type="Script" path="res://resource/script/action.gd" id="1_sb4te"]
 [ext_resource type="Script" path="res://resource/bitshape.gd" id="2_mldwu"]
 
 [sub_resource type="BitMap" id="BitMap_vtc2i"]

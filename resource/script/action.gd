@@ -50,9 +50,10 @@ var splash: Splash = Splash.new(self) ## Node representation.
 func start() -> void:
 	if delay:
 		delay_left = delay
-		Battle.turn_ended.connect(_decrement_delay)
+		Battle.turn_ended.connect(_decrement_delay.unbind(1))
 	else:
 		await run()
+		finished.emit()
 
 
 ## Runs effects on all actors in range.
@@ -64,8 +65,6 @@ func run() -> void:
 		
 		for actor: Actor in affected:
 			actor.recieve_action(self)
-	
-	finished.emit()
 
 
 
@@ -93,7 +92,8 @@ func _decrement_delay() -> void:
 	
 	if delay_left == 0:
 		Battle.turn_ended.disconnect(_decrement_delay)
-		run()
+		await run()
+		finished.emit()
 	
 	elif needs_focus:
 		pass # TODO: confirm every turn whether to continue focusing or end the action

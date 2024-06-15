@@ -12,19 +12,20 @@ var rolls: PackedInt32Array
 func roll(num: int, play_anim: bool = false) -> void:
 	_prep(num)
 	
-	if play_anim:
-		await Game.tween_opacity(self, 0, 1, 0.5)
-		await _animate()
-	else:
-		visible = true
-	
-	_randomize()
+	$Animator.play("RESET")
 	
 	if play_anim:
-		await get_tree().create_timer(1).timeout
-		Game.tween_opacity(self, 1, 0, 0.5)
+		$Animator.play("long_start")
+		await $Animator.animation_finished
+		await _randimate()
+		
+		_randomize()
+		
+		$Animator.play("long_end")
+		await $Animator.animation_finished
 	else:
-		Game.tween_opacity(self, 1, 0, 2)
+		_randomize()
+		$Animator.play("quick")
 
 
 ## Returns the sum of [param num] dice plus [param modifier].
@@ -70,7 +71,7 @@ func _create_dice() -> TextureRect:
 
 
 # Animates dice nodes to flicker through random faces.
-func _animate() -> void:
+func _randimate() -> void:
 	var steps: int = 32
 	for i: int in steps:
 		

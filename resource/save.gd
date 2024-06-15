@@ -2,8 +2,11 @@ extends Resource
 ## Player data.
 
 
-# party
-@export var party: Array[Actor] = [load("res://resource/actor/woodcarver.tres"), Actor.new()]
+# main
+@export var party: Array[Actor] = [load("res://resource/actor/woodcarver.tres")]
+@export var flags: PackedStringArray
+@export var seed: int:
+	set(value): seed = value; seed(value)
 
 # world
 @export var scene_path: String
@@ -19,11 +22,6 @@ extends Resource
 
 @export var use_wasd: bool # TODO
 
-# hidden
-@export var flags: PackedStringArray
-@export var seed: int:
-	set(value): seed = value; seed(value)
-
 
 
 ## Returns the first [Actor] in [member party].
@@ -34,11 +32,10 @@ func get_leader() -> Actor:
 
 # prepping
 
-## Saves the resource.
-func save() -> void:
+## Sets otherwise unset values in preparation for saving.
+func prepare_for_save(idx: int) -> void:
 	position = get_leader().node.position
 	seed = randi()
-	ResourceSaver.save(self)
 
 
 ## Called when the save is created.

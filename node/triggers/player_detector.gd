@@ -6,7 +6,6 @@ signal player_exited
 
 
 func _ready() -> void:
-	monitorable = false
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 

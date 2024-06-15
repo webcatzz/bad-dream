@@ -8,7 +8,8 @@ var data: Resource
 
 ## Saves game data to the specified file.
 func save(file: int) -> void:
-	data.save()
+	data.prepare_for_save()
+	ResourceSaver.save(data, get_save_path(file))
 
 
 ## Loads game data from the specified file.
@@ -19,10 +20,7 @@ func load(file: int) -> void:
 	else:
 		data = Resource.new()
 		data.set_script(load("res://resource/save.gd"))
-		data.take_over_path(path)
 		data.created()
-		print(data.party)
-	randomize()
 
 
 ## Returns a savefile path.
@@ -47,17 +45,15 @@ func unpause() -> void:
 
 
 
-# misc
+# dithering tween
 
 func tween_opacity(item: CanvasItem, from: float, to: float, duration: float) -> void:
-	if from == 0:
-		item.visible = true
-	
+	if from == 0: item.visible = true
 	item.modulate.a = from
+	
 	await get_tree().create_tween().tween_property(item, "modulate:a", to, duration).finished
 	
-	if to == 0:
-		item.visible = false
+	if to == 0: item.visible = false
 
 
 
