@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0rs3moyicxl5"]
 
-[ext_resource type="Script" path="res://node/player_detector.gd" id="1_ukf2p"]
+[ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="1_ukf2p"]
 [ext_resource type="Texture2D" uid="uid://boud0d4jnww68" path="res://asset/tile/door.png" id="1_y0qls"]
 [ext_resource type="FontFile" uid="uid://dbdf1vu36hgq2" path="res://asset/ui/knockout-initials.otf" id="2_kuqnj"]
 [ext_resource type="Script" path="res://node/door_label.gd" id="3_6xcxf"]

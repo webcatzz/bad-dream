@@ -49,7 +49,7 @@ func _on_visibility_changed() -> void:
 # Hides the spotlight when the action list is visible.
 func _on_tab_changed(idx: int) -> void:
 	if visible: _focus_tab()
-	actor.node.set_spotlight(idx == 1)
+	actor.node.set_spotlight(idx != 1)
 
 
 func _on_actionlist_item_selected(idx: int) -> void:

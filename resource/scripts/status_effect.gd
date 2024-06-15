@@ -10,6 +10,7 @@ enum Type {
 	POISON, ## Deals [member strength] damage every time [member target]'s turn ends.
 	VANISH, ## Guarantees evasion.
 	SLOW, ## Decreases [member target.tiles_per_turn] by [member strength].
+	DOOM, ## Deals [member strength] damage at the end of its duration.
 }
 
 @export var type: Type ## Dictates the effect's behavior. See [enum Type].
@@ -54,6 +55,8 @@ func end() -> void:
 			target.modifiers.evasion -= 1
 		Type.SLOW:
 			target.modifiers.tiles_per_turn += strength
+		Type.DOOM:
+			target.damage(strength)
 	
 	ended.emit()
 

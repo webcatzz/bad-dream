@@ -31,10 +31,7 @@ signal status_effect_removed(status_effect: StatusEffect)
 @export var max_health: int = 10: ## Maximum value for [member health].
 	get: return max_health + modifiers.max_health
 var health: int: ## When [member health] hits [code]0[/code], the actor is defeated.
-	set(value):
-		health_changed_by.emit(value - health)
-		health = min(value, max_health)
-		health_changed.emit(health)
+	set(value): health_changed_by.emit(value - health); health = min(value, max_health); health_changed.emit(health)
 @export var resistance: int: ## Knockback received is decreased by this amount.
 	get: return resistance + modifiers.resistance
 @export_range(0, 1, 0.01) var evasion: float: ## Chance to evade an attack and move backward one tile.
@@ -55,7 +52,7 @@ var actions_taken: int: ## The number of actions taken this turn.
 @export var battlecry: Action ## Immediately started when the battle begins.
 
 # effects
-@export var attributes: Array
+@export var attributes: Array[Attribute]
 var status_effects: Array ## Active [StatusEffect]s. Add effects using [method add_status_effect].
 var modifiers: Dictionary = {
 	"max_health": 0,
@@ -170,7 +167,7 @@ func recieve_action(action: Action) -> void:
 
 ## Modifies [param amount] according to the actor's type affinities,
 ## then subtracts it from [member health].
-func damage(amount: int, type: Action.Type) -> void:
+func damage(amount: int, type: Action.Type = Action.Type.NONE) -> void:
 	health -= calculate_damage(amount, type)
 	if health <= 0: defeated.emit()
 

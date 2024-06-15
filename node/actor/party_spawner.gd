@@ -7,6 +7,6 @@ func _ready() -> void:
 		if actor.node:
 			get_parent().add_child.call_deferred(actor.node)
 		else:
-			var node: PartyActorNode = load("res://node/player_actor.tscn" if actor == Game.data.get_leader() else "res://node/party_actor.tscn").instantiate()
+			var node: PartyActorNode = load("res://node/actor/player_actor.tscn" if actor == Game.data.get_leader() else "res://node/actor/party_actor.tscn").instantiate()
 			node.data = actor
 			get_parent().add_child.call_deferred(node)

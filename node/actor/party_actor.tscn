@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cbsp8otdhuoty"]
 
-[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor.tscn" id="1_mic32"]
-[ext_resource type="Script" path="res://node/party_actor.gd" id="2_0pyd1"]
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="1_mic32"]
+[ext_resource type="Script" path="res://node/actor/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="3_osft0"]

@@ -12,10 +12,8 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is ActorNode and body.data == Game.data.get_leader():
-		player_entered.emit()
+	if body is PlayerActorNode: player_entered.emit()
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is ActorNode and body.data == Game.data.get_leader():
-		player_exited.emit()
+	if body is PlayerActorNode: player_exited.emit()

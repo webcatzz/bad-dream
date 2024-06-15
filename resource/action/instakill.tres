@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Action" load_steps=4 format=3 uid="uid://c4nywreyjxx5s"]
+
+[ext_resource type="Script" path="res://resource/scripts/action.gd" id="1_sb4te"]
+[ext_resource type="Script" path="res://resource/bitshape.gd" id="2_mldwu"]
+
+[sub_resource type="BitMap" id="BitMap_vtc2i"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
+script = ExtResource("2_mldwu")
+offset = Vector2i(0, 1)
+
+[resource]
+script = ExtResource("1_sb4te")
+name = "Instakill"
+description = ""
+base_strength = 999999
+dice = 0
+type = 0
+shape = SubResource("BitMap_vtc2i")
+delay = 0
+needs_focus = false
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)

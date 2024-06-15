@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://dfi71o35oci7r"]
+
+[ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_e0n1n"]
+[ext_resource type="Resource" uid="uid://c4nywreyjxx5s" path="res://resource/action/instakill.tres" id="2_dswtr"]
+[ext_resource type="Script" path="res://resource/scripts/actor.gd" id="3_4fjlo"]
+[ext_resource type="Resource" uid="uid://by1ag7jijnwo2" path="res://resource/action/healpool.tres" id="3_eqkes"]
+[ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://resource/action/strike_out.tres" id="4_3wu4r"]
+[ext_resource type="Texture2D" uid="uid://1vypntn0rbs6" path="res://asset/actor/sprite/woodcarver.png" id="4_qwm5x"]
+
+[resource]
+script = ExtResource("3_4fjlo")
+name = "woodcarver"
+sprite = ExtResource("4_qwm5x")
+description = "..."
+max_health = 10
+resistance = 0
+evasion = 0.0
+tiles_per_turn = 100
+actions_per_turn = 1
+actions = Array[Resource("res://resource/scripts/action.gd")]([ExtResource("1_e0n1n"), ExtResource("2_dswtr"), ExtResource("3_eqkes"), ExtResource("4_3wu4r")])
+attributes = Array[Resource("res://resource/scripts/attribute.gd")]([])
+weak_against = Array[int]([])
+strong_against = Array[int]([])

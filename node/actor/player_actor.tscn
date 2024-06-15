@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgdepxkib62o7"]
 
-[ext_resource type="PackedScene" uid="uid://cbsp8otdhuoty" path="res://node/party_actor.tscn" id="1_8poer"]
-[ext_resource type="Script" path="res://node/player_actor.gd" id="2_lw7y8"]
+[ext_resource type="PackedScene" uid="uid://cbsp8otdhuoty" path="res://node/actor/party_actor.tscn" id="1_8poer"]
+[ext_resource type="Script" path="res://node/actor/player_actor.gd" id="2_lw7y8"]
 
 [node name="PlayerActor" instance=ExtResource("1_8poer")]
 wall_min_slide_angle = 1.0472

@@ -18,9 +18,10 @@ func load(file: int) -> void:
 		data = load(path)
 	else:
 		data = Resource.new()
-		data.set_script(load("res://data/save.gd"))
+		data.set_script(load("res://resource/save.gd"))
 		data.take_over_path(path)
 		data.created()
+		print(data.party)
 	randomize()
 
 

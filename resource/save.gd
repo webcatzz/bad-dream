@@ -3,7 +3,7 @@ extends Resource
 
 
 # party
-@export var party: Array[Actor] = [load("res://data/actor/woodcarver.tres"), Actor.new()]
+@export var party: Array[Actor] = [load("res://resource/actor/woodcarver.tres"), Actor.new()]
 
 # world
 @export var scene_path: String

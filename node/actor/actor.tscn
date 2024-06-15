@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://bey6fhrbn55h0"]
 
 [ext_resource type="Material" uid="uid://bq43vygjxb02f" path="res://asset/shader/dither_texture.tres" id="1_et4fw"]
-[ext_resource type="Script" path="res://node/actor.gd" id="1_j5pgg"]
+[ext_resource type="Script" path="res://node/actor/actor.gd" id="1_j5pgg"]
 [ext_resource type="Script" path="res://node/spotlight.gd" id="2_wd4nt"]
 [ext_resource type="Texture2D" uid="uid://copdlec5nxfb4" path="res://asset/actor/sprite/default.png" id="3_4t8iq"]
 [ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="4_7ieqm"]

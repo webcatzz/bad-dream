@@ -2,7 +2,7 @@ extends Node2D
 
 
 func _ready():
-	var res = load("res://data/action/panic.tres")
+	var res = load("res://resource/action/panic.tres")
 	
 	print(res.description)
 	
@@ -12,4 +12,4 @@ func _ready():
 	
 	res = null
 	
-	print(load("res://data/action/panic.tres").description)
+	print(load("res://resource/action/panic.tres").description)

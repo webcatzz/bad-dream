@@ -26,12 +26,14 @@ func _init() -> void:
 
 
 func _draw() -> void:
-	var connecting_point: Vector2 = size / 2
-	draw_colored_polygon([
-		connecting_point + Vector2(-6, 0),
-		connecting_point + Vector2(6, 0),
-		connecting_point + tail
-	], Color("#b8c2b9"))
-	tail
+	draw_line(size/2, tail, Color.RED, 4)
+	
+	#var connecting_point: Vector2 = size / 2
+	#draw_colored_polygon([
+		#connecting_point + Vector2(-6, 0),
+		#connecting_point + Vector2(6, 0),
+		#connecting_point + tail
+	#], Color("#b8c2b9"))
+	#tail
 	
 	# TODO: dialogue bubble tail
