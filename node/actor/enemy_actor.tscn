@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwr58i81cianq"]
+
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="1_e6ui2"]
+
+[sub_resource type="GDScript" id="GDScript_nxsbo"]
+script/source = "extends ActorNode
+
+
+func take_turn() -> void:
+	pass"
+
+[node name="Actor" instance=ExtResource("1_e6ui2")]
+script = SubResource("GDScript_nxsbo")
