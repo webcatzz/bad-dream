@@ -1,6 +1,8 @@
-# mac + my stuff (shh)
 .DS_STORE
+
 pinboard.md
+tester.gd
+tester.tscn
 
 # godot
 *.import

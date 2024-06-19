@@ -66,8 +66,10 @@ position = Vector2(168, -96)
 
 [node name="BattleTrigger" type="Area2D" parent="."]
 position = Vector2(144, 72)
+collision_layer = 0
 script = ExtResource("7_kkk1m")
 actors = Array[NodePath]([NodePath("../Actor")])
+region = Rect2i(-5, -1, 11, 11)
 mode = 1
 
 [node name="Shape" type="CollisionShape2D" parent="BattleTrigger"]

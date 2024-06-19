@@ -3,10 +3,7 @@ class_name PartyActorNode extends ActorNode
 
 
 # input
-var listening: bool:
-	set(value):
-		listening = value
-		#print(self.data, ".listening = ", value)
+var listening: bool
 
 # nodes
 @onready var path: Line2D = $DuringTurn/Path
@@ -75,7 +72,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("move_left"): vector = Vector2i.LEFT
 		elif event.is_action_pressed("move_right"): vector = Vector2i.RIGHT
 		
-		if vector:
+		if vector and Battle.region.has_point(data.position + vector):
 			collision_checker.target_position = Iso.from_grid(vector)
 			collision_checker.force_raycast_update()
 			if not collision_checker.is_colliding():

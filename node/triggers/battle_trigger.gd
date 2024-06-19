@@ -14,7 +14,7 @@ func trigger() -> void:
 	for i: int in actors.size():
 		array[i] = get_node(actors[i]).data
 	
-	region.position += Iso.to_grid(global_position - Vector2(16, 0))
+	region.position += Iso.to_grid(global_position)
 	Battle.start(array, region)
 	
 	queue_free()
@@ -23,15 +23,13 @@ func trigger() -> void:
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		var points = [
-			region.position,
-			Vector2(region.position.x, region.end.y),
-			region.end,
-			Vector2(region.end.x, region.position.y)
+		var points: PackedVector2Array = [
+			region.position, Vector2(region.position.x, region.end.y),
+			region.end, Vector2(region.end.x, region.position.y)
 		]
 		
 		for i: int in points.size():
-			points[i] = Vector2(points[i].x + points[i].y, points[i].y - points[i].x) * Vector2(16, 8)
+			points[i] = Iso.from_grid(points[i]) - Vector2(16, 0)
 		
 		draw_dashed_line(points[0], points[1], Color("#ff000040"), 1)
 		draw_dashed_line(points[1], points[2], Color("#ff000040"), 1)

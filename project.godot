@@ -21,11 +21,10 @@ buses/default_bus_layout="res://audio_bussy.tres"
 
 [autoload]
 
-Game="*res://manager/game.gd"
-Iso="*res://manager/iso.gd"
-Battle="*res://manager/battle.gd"
+Game="*res://script/game.gd"
+Battle="*res://script/battle.gd"
 Dialogue="*res://node/dialogue/dialogue.tscn"
-Music="*res://manager/music.gd"
+Music="*res://script/music.gd"
 
 [debug]
 
@@ -53,9 +52,9 @@ enabled=PackedStringArray("res://addons/bitmap_editor/plugin.cfg")
 
 folder_colors={
 "res://asset/": "green",
-"res://manager/": "red",
 "res://node/": "blue",
 "res://resource/": "teal",
+"res://script/": "red",
 "res://world/": "purple"
 }
 

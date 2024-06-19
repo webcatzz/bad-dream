@@ -12,7 +12,7 @@ signal defeated
 # turns
 signal turn_started
 signal turn_ended
-signal action_taken ## Emitted when an action is started.
+signal action_taken
 signal path_extended
 signal path_backtracked
 signal battle_entered
@@ -127,10 +127,22 @@ func can_move() -> bool:
 	return tiles_traveled < tiles_per_turn
 
 
+## Returns true is the actor cannot do anything else.
+func is_exhausted() -> bool:
+	return not (can_act() or can_move())
+
+
 ## Ends the actor's turn if the actor cannot do anything else.
 func end_turn_if_exhausted() -> void:
-	if not (can_act() or can_move()):
-		end_turn()
+	if is_exhausted(): end_turn()
+
+
+## Returns true if the actor cannot take their turn.
+func is_incapacitated() -> bool:
+	return (
+		health <= 0 or
+		not (can_act() or can_move())
+	)
 
 
 

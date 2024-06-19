@@ -1,15 +1,16 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bs6t025b1bvke"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bs6t025b1bvke"]
 
 [ext_resource type="Script" path="res://resource/save.gd" id="1_afsvx"]
+[ext_resource type="Resource" uid="uid://cjt66dwchr70v" path="res://resource/actor/woodcarver.tres" id="1_qni5r"]
 
 [resource]
 script = ExtResource("1_afsvx")
-party = null
+party = Array[Object]([ExtResource("1_qni5r")])
 flags = PackedStringArray()
 seed = 0
 scene_path = ""
 position = Vector2(0, 0)
 master_volume = 1.0
-music_volume = 0.0
+music_volume = 1.0
 sfx_volume = 1.0
 use_wasd = false
