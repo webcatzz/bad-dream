@@ -3,6 +3,7 @@ extends Node2D
 
 func _ready() -> void:
 	visible = false
+	z_index = 5
 	Battle.started.connect(update)
 	Battle.ended.connect(set_visible.bind(false))
 

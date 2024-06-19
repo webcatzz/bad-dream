@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbx2kgeyc5j2l"]
+[gd_scene load_steps=14 format=3 uid="uid://bbx2kgeyc5j2l"]
 
 [ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_awd56"]
 [ext_resource type="Script" path="res://node/actor/party_spawner.gd" id="2_uh17h"]
@@ -7,11 +7,26 @@
 [ext_resource type="PackedScene" uid="uid://be6ge5sg8n6yl" path="res://node/save_point.tscn" id="5_0pweu"]
 [ext_resource type="PackedScene" uid="uid://d0rs3moyicxl5" path="res://node/door.tscn" id="6_ikrja"]
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
-[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="8_rky7r"]
+[ext_resource type="PackedScene" uid="uid://bwr58i81cianq" path="res://node/actor/enemy_actor.tscn" id="8_188yt"]
+[ext_resource type="Script" path="res://resource/script/actor.gd" id="9_gy3cr"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
 a = Vector2(48, -32)
 b = Vector2(-64, 24)
+
+[sub_resource type="Resource" id="Resource_74vop"]
+script = ExtResource("9_gy3cr")
+name = "Actor"
+description = "..."
+max_health = 10
+resistance = 0
+evasion = 0.0
+tiles_per_turn = 5
+actions_per_turn = 1
+actions = Array[Resource("res://resource/script/action.gd")]([])
+attributes = Array[Resource("res://resource/script/attribute.gd")]([])
+weak_against = Array[int]([])
+strong_against = Array[int]([])
 
 [sub_resource type="Gradient" id="Gradient_aomc0"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
@@ -68,15 +83,16 @@ position = Vector2(168, -96)
 position = Vector2(144, 72)
 collision_layer = 0
 script = ExtResource("7_kkk1m")
-actors = Array[NodePath]([NodePath("../Actor")])
+actors = Array[NodePath]([NodePath("../EnemyActor")])
 region = Rect2i(-5, -1, 11, 11)
 mode = 1
 
 [node name="Shape" type="CollisionShape2D" parent="BattleTrigger"]
 shape = SubResource("SegmentShape2D_hh3lc")
 
-[node name="Actor" parent="." instance=ExtResource("8_rky7r")]
-position = Vector2(224, 112)
+[node name="EnemyActor" parent="." instance=ExtResource("8_188yt")]
+position = Vector2(208, 104)
+data = SubResource("Resource_74vop")
 
 [node name="Light" type="PointLight2D" parent="."]
 visible = false

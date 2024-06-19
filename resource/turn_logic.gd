@@ -1,4 +1,4 @@
-class_name TurnLogic
+class_name TurnLogic extends Resource
 
 
 enum Type {
