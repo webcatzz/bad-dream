@@ -7,5 +7,5 @@ class_name DialogueTrigger extends Trigger
 func trigger() -> void:
 	super()
 	monitorable = false
-	await Dialogue.small(text, Vector2(200, 200))
+	await Dialogue.bubble(Game.data.get_leader(), text, Vector2(100, 200))
 	monitorable = true

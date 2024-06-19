@@ -2,7 +2,8 @@ class_name DialogueBubble extends DialogueLabel
 ## Speech bubble label.
 
 
-var tail: Vector2
+var speaker_pos: Vector2
+var tail_polygon: PackedVector2Array
 
 
 func run(string: String) -> void:
@@ -26,14 +27,23 @@ func _init() -> void:
 
 
 func _draw() -> void:
-	draw_line(size/2, tail, Color.RED, 4)
+	var center: Vector2 = size / 2
+	var camera_pos: Vector2 = get_viewport().get_camera_2d().get_target_position() - get_viewport_rect().size / 2
 	
-	#var connecting_point: Vector2 = size / 2
-	#draw_colored_polygon([
-		#connecting_point + Vector2(-6, 0),
-		#connecting_point + Vector2(6, 0),
-		#connecting_point + tail
-	#], Color("#b8c2b9"))
-	#tail
+	tail_polygon = [
+		(speaker_pos - camera_pos) - (global_position + center) - Vector2(0, 24)
+	]
 	
-	# TODO: dialogue bubble tail
+	tail_polygon[0] = tail_polygon[0].limit_length(tail_polygon[0].length() - 32)
+	
+	var tail_angle: float = tail_polygon[0].angle()
+	tail_polygon.append(Vector2.from_angle(tail_angle + PI/2) * 8)
+	tail_polygon.append(Vector2.from_angle(tail_angle - PI/2) * 8)
+	
+	tail_polygon = Geometry2D.clip_polygons(tail_polygon, [
+		-center, Vector2(center.x, -center.y),
+		center, Vector2(-center.x, center.y)
+	])[0]
+	
+	draw_set_transform(size/2)
+	draw_colored_polygon(tail_polygon, Color("#b8c2b9"))
