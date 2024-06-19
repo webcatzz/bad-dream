@@ -4,8 +4,10 @@
 [ext_resource type="Script" path="res://node/actor/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
-[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="3_osft0"]
-[ext_resource type="Texture2D" uid="uid://dfojp4r45l1b5" path="res://asset/gradient.png" id="4_ppnbo"]
+[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="3_q1ddj"]
+
+[sub_resource type="Gradient" id="Gradient_hbkdh"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_befaw"]
 
@@ -29,11 +31,11 @@ polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
 
 [node name="Path" type="Line2D" parent="DuringTurn" index="1"]
 top_level = true
+light_mask = 0
 z_index = -1
-material = ExtResource("3_osft0")
+material = ExtResource("3_q1ddj")
 width = 3.0
-texture = ExtResource("4_ppnbo")
-texture_mode = 2
+gradient = SubResource("Gradient_hbkdh")
 
 [node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="2"]
 visible = false

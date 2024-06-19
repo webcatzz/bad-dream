@@ -22,8 +22,14 @@ func focus_point(actor: Actor) -> void:
 
 func _ready() -> void:
 	position_smoothing_enabled = true
-	Battle.started.connect(make_current)
+	Battle.started.connect(_on_battle_started)
 	Battle.turn_started.connect(follow_actor)
+
+
+func _on_battle_started() -> void:
+	position = get_viewport().get_camera_2d().get_screen_center_position()
+	make_current()
+	reset_smoothing()
 
 
 func _set_position_from_grid(point: Vector2i) -> void:

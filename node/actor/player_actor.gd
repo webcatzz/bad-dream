@@ -81,6 +81,7 @@ func _on_battle_entered() -> void:
 
 func _on_battle_exited() -> void:
 	camera.make_current()
+	camera.reset_smoothing()
 	input = Vector2.ZERO
 	input_mode = InputMode.FREE
 	listening = true
