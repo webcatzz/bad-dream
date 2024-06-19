@@ -49,10 +49,10 @@ func _handle_free_input(event: InputEvent) -> void:
 	
 	# movement
 	else:
-		input = Vector2(Iso.from_grid(Vector2(
+		input = Iso.from_grid(Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-		))).normalized() * 128
+		)).normalized() * 112
 		
 		if input:
 			data.facing = Iso.to_grid(Iso.get_direction(input))

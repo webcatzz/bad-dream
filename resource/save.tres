@@ -14,3 +14,4 @@ master_volume = 1.0
 music_volume = 1.0
 sfx_volume = 1.0
 use_wasd = false
+draw_astar = false

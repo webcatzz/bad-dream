@@ -22,6 +22,9 @@ extends Resource
 
 @export var use_wasd: bool # TODO
 
+@export_group("Debug")
+@export var draw_astar: bool
+
 
 
 ## Returns the first [Actor] in [member party].
