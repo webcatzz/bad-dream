@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://be6ge5sg8n6yl"]
+[gd_scene load_steps=14 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
 [ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="2_24uay"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
+[ext_resource type="Texture2D" uid="uid://p1b7e7f6qf7r" path="res://asset/phonebooth.png" id="2_qyhcf"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_osywe"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]
@@ -19,22 +20,122 @@ b = Vector2(0, 8)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mg5oo"]
 content_margin_left = 32.0
-content_margin_top = 32.0
+content_margin_top = 64.0
 content_margin_right = 96.0
 content_margin_bottom = 32.0
 bg_color = Color(0, 0, 0, 1)
-expand_margin_left = 64.0
-expand_margin_top = 64.0
-expand_margin_right = 64.0
-expand_margin_bottom = 64.0
+expand_margin_left = 32.0
+expand_margin_top = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
+
+[sub_resource type="Animation" id="Animation_y0csc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jsk0n"]
+resource_name = "hide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ivp73"]
+resource_name = "show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kaywy"]
+_data = {
+"RESET": SubResource("Animation_y0csc"),
+"hide": SubResource("Animation_jsk0n"),
+"show": SubResource("Animation_ivp73")
+}
 
 [node name="SavePoint" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_56ck4")
 
-[node name="Sprite" type="Polygon2D" parent="."]
-z_index = -1
-color = Color(0.122252, 0.122252, 0.122252, 1)
-polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
+[node name="Back" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("2_qyhcf")
+offset = Vector2(0, -24)
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 72)
+
+[node name="Front" type="Sprite2D" parent="."]
+position = Vector2(0, 4)
+texture = ExtResource("2_qyhcf")
+offset = Vector2(0, -32)
+region_enabled = true
+region_rect = Rect2(32, 0, 32, 72)
 
 [node name="Area" type="Area2D" parent="."]
 collision_layer = 0
@@ -61,8 +162,10 @@ show_behind_parent = true
 z_index = 100
 z_as_relative = false
 material = ExtResource("2_24uay")
-custom_minimum_size = Vector2(500, 300)
-offset_right = 400.0
+custom_minimum_size = Vector2(500, 332)
+offset_top = -32.0
+offset_right = 500.0
+offset_bottom = 300.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mg5oo")
 
 [node name="Saves" type="VBoxContainer" parent="UI"]
@@ -89,6 +192,11 @@ text = "File 02"
 [node name="File03" type="Button" parent="UI/Saves"]
 layout_mode = 2
 text = "File 03"
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kaywy")
+}
 
 [connection signal="player_entered" from="Area" to="." method="_on_player_entered"]
 [connection signal="player_exited" from="Area" to="." method="_on_player_exited"]

@@ -14,7 +14,7 @@ func _on_player_entered() -> void:
 	$UI/Saves/File01.grab_focus()
 	
 	# background
-	Game.tween_opacity($UI, 0, 1, 2)
+	$Animator.play("show")
 	
 	# z-index
 	z_index = 101
@@ -34,7 +34,8 @@ func _on_player_exited() -> void:
 	active = false
 	
 	# background
-	await Game.tween_opacity($UI, 1, 0, 0.1)
+	$Animator.play("hide")
+	await $Animator.animation_finished
 	
 	# z-index
 	z_index = 0
@@ -59,8 +60,8 @@ func _ready() -> void:
 
 func _resize_color_rect() -> void:
 	var rect: Rect2 = get_viewport_rect()
-	$UI.global_position = global_position - rect.size / 2
-	$UI.size = rect.size
+	$UI.global_position = global_position - rect.size / 2 - Vector2(0, 32)
+	$UI.size = rect.size + Vector2(0, 32)
 
 
 func _save_to_file(idx: int) -> void:

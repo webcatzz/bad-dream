@@ -36,7 +36,7 @@ func get_leader() -> Actor:
 # prepping
 
 ## Sets otherwise unset values in preparation for saving.
-func prepare_for_save(idx: int) -> void:
+func prepare_for_save() -> void:
 	position = get_leader().node.position
 	seed = randi()
 

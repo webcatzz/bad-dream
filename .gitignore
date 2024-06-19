@@ -1,8 +1,7 @@
 .DS_STORE
 
 pinboard.md
-tester.gd
-tester.tscn
+tester.*
 
 # godot
 *.import
