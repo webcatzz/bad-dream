@@ -158,7 +158,8 @@ func take_action(action: Action) -> void:
 	
 	await action.start()
 	
-	if not can_act(): end_turn()
+	if not can_act():
+		end_turn()
 
 
 ## Runs results of [param action].

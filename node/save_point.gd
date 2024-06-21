@@ -11,7 +11,7 @@ var current_tween: Tween
 func _on_player_entered() -> void:
 	active = true
 	_resize_color_rect()
-	$UI/Saves/File01.grab_focus()
+	$UI/Margins/Saves/File01.grab_focus()
 	
 	# background
 	$Animator.play("show")

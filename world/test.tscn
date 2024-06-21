@@ -83,7 +83,7 @@ position = Vector2(168, -96)
 position = Vector2(144, 72)
 collision_layer = 0
 script = ExtResource("7_kkk1m")
-actors = Array[NodePath]([NodePath("../EnemyActor")])
+actors = Array[NodePath]([NodePath("../EnemyActor"), NodePath("../EnemyActor2")])
 region = Rect2i(-5, 0, 11, 11)
 mode = 1
 
@@ -92,8 +92,11 @@ position = Vector2(16, 8)
 shape = SubResource("SegmentShape2D_hh3lc")
 
 [node name="EnemyActor" parent="." instance=ExtResource("8_188yt")]
-position = Vector2(208, 104)
+position = Vector2(320, 80)
 data = SubResource("Resource_74vop")
+
+[node name="EnemyActor2" parent="." instance=ExtResource("8_188yt")]
+position = Vector2(144, 136)
 
 [node name="Light" type="PointLight2D" parent="."]
 visible = false

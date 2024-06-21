@@ -72,6 +72,7 @@ func run_turn() -> void:
 		turn_ended.emit(current_actor)
 	
 	await get_tree().create_timer(0.25).timeout
+	
 	# moving to next turn
 	if is_won(): stop()
 	else: run_turn()

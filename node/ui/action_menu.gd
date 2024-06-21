@@ -58,14 +58,11 @@ func _on_actionlist_item_selected(idx: int) -> void:
 
 
 func _on_actionlist_item_activated(_idx: int) -> void:
-	actor.node.listening = false
-	
 	var action: Action = splash.action
 	splash = null
 	visible = false
-	await actor.take_action(action)
 	
-	actor.node.listening = true
+	await actor.take_action(action)
 
 
 func _end_turn() -> void:

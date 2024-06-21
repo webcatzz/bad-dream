@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://be6ge5sg8n6yl"]
+[gd_scene load_steps=15 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
 [ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="2_24uay"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
 [ext_resource type="Texture2D" uid="uid://p1b7e7f6qf7r" path="res://asset/phonebooth.png" id="2_qyhcf"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_osywe"]
+[ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth-bg.png" id="5_lpghm"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]
 a = Vector2(-16, 0)
@@ -18,11 +19,7 @@ b = Vector2(0, -8)
 a = Vector2(16, 0)
 b = Vector2(0, 8)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mg5oo"]
-content_margin_left = 32.0
-content_margin_top = 64.0
-content_margin_right = 96.0
-content_margin_bottom = 32.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiywu"]
 bg_color = Color(0, 0, 0, 1)
 expand_margin_left = 32.0
 expand_margin_top = 32.0
@@ -166,9 +163,22 @@ custom_minimum_size = Vector2(500, 332)
 offset_top = -32.0
 offset_right = 500.0
 offset_bottom = 300.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_mg5oo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xiywu")
 
-[node name="Saves" type="VBoxContainer" parent="UI"]
+[node name="Background" type="TextureRect" parent="UI"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("5_lpghm")
+
+[node name="Margins" type="MarginContainer" parent="UI"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 96
+theme_override_constants/margin_bottom = 32
+
+[node name="Saves" type="VBoxContainer" parent="UI/Margins"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -176,20 +186,20 @@ theme_override_constants/separation = 4
 script = ExtResource("3_osywe")
 offset = 16
 
-[node name="Label" type="Label" parent="UI/Saves"]
+[node name="Label" type="Label" parent="UI/Margins/Saves"]
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Save game..."
 
-[node name="File01" type="Button" parent="UI/Saves"]
+[node name="File01" type="Button" parent="UI/Margins/Saves"]
 layout_mode = 2
 text = "File 01"
 
-[node name="File02" type="Button" parent="UI/Saves"]
+[node name="File02" type="Button" parent="UI/Margins/Saves"]
 layout_mode = 2
 text = "File 02"
 
-[node name="File03" type="Button" parent="UI/Saves"]
+[node name="File03" type="Button" parent="UI/Margins/Saves"]
 layout_mode = 2
 text = "File 03"
 
@@ -200,6 +210,6 @@ libraries = {
 
 [connection signal="player_entered" from="Area" to="." method="_on_player_entered"]
 [connection signal="player_exited" from="Area" to="." method="_on_player_exited"]
-[connection signal="pressed" from="UI/Saves/File01" to="." method="_save_to_file" binds= [1]]
-[connection signal="pressed" from="UI/Saves/File02" to="." method="_save_to_file" binds= [2]]
-[connection signal="pressed" from="UI/Saves/File03" to="." method="_save_to_file" binds= [3]]
+[connection signal="pressed" from="UI/Margins/Saves/File01" to="." method="_save_to_file" binds= [1]]
+[connection signal="pressed" from="UI/Margins/Saves/File02" to="." method="_save_to_file" binds= [2]]
+[connection signal="pressed" from="UI/Margins/Saves/File03" to="." method="_save_to_file" binds= [3]]

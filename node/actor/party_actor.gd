@@ -90,14 +90,13 @@ func _handle_battle_input(event: InputEvent) -> void:
 	# opening action menu / ending turn
 	elif event.is_action_pressed("ui_accept"):
 		if data.can_act(): action_menu.visible = true
-		else: data.end_turn()
 		
 		get_viewport().set_input_as_handled()
 
 
 func _on_battle_entered() -> void:
 	$Collision.set_disabled.call_deferred(false)
-	data.position = Iso.to_grid(position)
+	data.move.call_deferred(Game.data.get_leader().position)
 
 
 func _on_battle_exited() -> void:
