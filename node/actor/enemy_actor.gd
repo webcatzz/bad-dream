@@ -13,6 +13,6 @@ func take_turn() -> void:
 		for point: Vector2i in path:
 			data.move(point)
 			await get_tree().create_timer(0.2).timeout
-		data.turn_ended.emit()
+		data.end_turn()
 	else:
 		super()

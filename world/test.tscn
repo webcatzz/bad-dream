@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bbx2kgeyc5j2l"]
+[gd_scene load_steps=15 format=3 uid="uid://bbx2kgeyc5j2l"]
 
 [ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_awd56"]
 [ext_resource type="Script" path="res://node/actor/party_spawner.gd" id="2_uh17h"]
@@ -17,6 +17,20 @@ b = Vector2(-32, 8)
 [sub_resource type="Resource" id="Resource_74vop"]
 script = ExtResource("9_gy3cr")
 name = "Actor"
+description = "..."
+max_health = 10
+resistance = 0
+evasion = 0.0
+tiles_per_turn = 5
+actions_per_turn = 1
+actions = Array[Resource("res://resource/script/action.gd")]([])
+attributes = Array[Resource("res://resource/script/attribute.gd")]([])
+weak_against = Array[int]([])
+strong_against = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_8jgn0"]
+script = ExtResource("9_gy3cr")
+name = "Targetttt"
 description = "..."
 max_health = 10
 resistance = 0
@@ -97,6 +111,7 @@ data = SubResource("Resource_74vop")
 
 [node name="EnemyActor2" parent="." instance=ExtResource("8_188yt")]
 position = Vector2(144, 136)
+data = SubResource("Resource_8jgn0")
 
 [node name="Light" type="PointLight2D" parent="."]
 visible = false

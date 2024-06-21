@@ -29,23 +29,21 @@ signal status_effect_removed(status_effect: StatusEffect)
 
 # stats
 @export var max_health: int = 10: ## Maximum value for [member health].
-	get: return max_health + modifiers.max_health
+	get: return maxf(max_health + modifiers.max_health, 0)
 var health: int: ## When [member health] hits [code]0[/code], the actor is defeated.
 	set(value): health_changed_by.emit(value - health); health = min(value, max_health); health_changed.emit(health)
 @export var resistance: int: ## Knockback received is decreased by this amount.
-	get: return resistance + modifiers.resistance
+	get: return maxf(resistance + modifiers.resistance, 0)
 @export_range(0, 1, 0.01) var evasion: float: ## Chance to evade an attack and move backward one tile.
-	get: return evasion + modifiers.evasion
+	get: return clampf(evasion + modifiers.evasion, 0, 1)
 
 # per-turn limits
 @export var tiles_per_turn: int = 5: ## Maximum number of tiles traveled per turn. Also used to order actors' turns during battle.
-	get: return tiles_per_turn + modifiers.tiles_per_turn
+	get: return maxf(tiles_per_turn + modifiers.tiles_per_turn, 0)
 @export var actions_per_turn: int = 1: ## Maximum number of actions taken per turn.
-	get: return actions_per_turn + modifiers.actions_per_turn
-var tiles_traveled: int: ## The number of tiles traveled this turn.
-	set(value): tiles_traveled = value; end_turn_if_exhausted()
-var actions_taken: int: ## The number of actions taken this turn.
-	set(value): actions_taken = value; end_turn_if_exhausted()
+	get: return maxf(actions_per_turn + modifiers.actions_per_turn, 0)
+var tiles_traveled: int ## The number of tiles traveled this turn.
+var actions_taken: int ## The number of actions taken this turn.
 
 # actions
 @export var actions: Array[Action] ## [Action]s available during battle.
@@ -79,6 +77,8 @@ var in_battle: bool: ## Whether the actor is in battle.
 		in_battle = value
 		if in_battle: battle_entered.emit()
 		else: battle_exited.emit()
+var is_turn: bool
+
 var path: Array[Dictionary] ## Contains all previous orientation states this turn.
 var focusing: Action ## [Action] the actor is focusing on.
 var will_evade_next: bool
@@ -115,6 +115,9 @@ func take_turn() -> void:
 func end_turn() -> void:
 	path.clear()
 	turn_ended.emit()
+	prints("Ended turn for", self, "- current actor is now", Battle.current_actor)
+	print_stack()
+	print("\n")
 
 
 ## Returns true if the actor has not exhausted [member actions_per_turn].

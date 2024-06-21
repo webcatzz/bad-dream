@@ -71,6 +71,7 @@ func run_turn() -> void:
 		await current_actor.take_turn()
 		turn_ended.emit(current_actor)
 	
+	current_actor = null
 	await get_tree().create_timer(0.25).timeout
 	
 	# moving to next turn

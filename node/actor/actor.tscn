@@ -118,7 +118,6 @@ scale = Vector2(2, 1)
 script = ExtResource("2_wd4nt")
 
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
-visible = false
 position = Vector2(0, -64)
 
 [node name="SFX" type="Node2D" parent="."]

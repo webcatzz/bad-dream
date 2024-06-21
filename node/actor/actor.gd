@@ -2,16 +2,15 @@ class_name ActorNode extends CharacterBody2D
 ## Node representation of an [Actor].
 
 
-# data
 @export var data: Actor = Actor.new()
 
-# nodes
 @onready var dice: Node2D = $DiceRoll
+var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_effect_animation.tres")
 
 
 func take_turn() -> void:
 	await Game.get_tree().create_timer(0.5).timeout
-	data.turn_ended.emit()
+	data.end_turn()
 
 
 ## Smoothly moves the node to a new position.
@@ -45,13 +44,15 @@ func _on_data_set() -> void:
 	data.position_changed.connect(_on_position_changed)
 	data.position_changed.connect($SFX/Move.play.unbind(1))
 	data.facing_changed.connect(_on_facing_changed)
-	# battle
+	# turns
 	data.turn_started.connect($DuringTurn.set_visible.bind(true))
 	data.turn_started.connect(set_spotlight.bind(true))
 	data.turn_ended.connect($DuringTurn.set_visible.bind(false))
 	data.turn_ended.connect(set_spotlight.bind(false))
 	# stats
 	data.health_changed_by.connect(_on_health_changed_by)
+	data.status_effect_added.connect(_on_status_effect_added)
+	data.status_effect_removed.connect(_on_status_effect_removed)
 	data.defeated.connect(_on_defeated)
 
 
@@ -76,3 +77,21 @@ func _on_defeated() -> void:
 	await $Animator.animation_finished
 	await Game.tween_opacity($Sprite, 1, 0, 0.5)
 	queue_free()
+
+
+func _on_status_effect_added(status_effect: StatusEffect) -> void:
+	var effect_name: String = StatusEffect.Type.keys()[status_effect.type].to_lower()
+	
+	if status_effect_animations.has_animation(effect_name):
+		var sprite: AnimatedSprite2D = AnimatedSprite2D.new()
+		sprite.name = effect_name
+		sprite.sprite_frames = status_effect_animations
+		sprite.offset.y = -24
+		$Sprite.add_child(sprite)
+		sprite.play(effect_name)
+
+
+func _on_status_effect_removed(status_effect: StatusEffect) -> void:
+	var effect_name: String = StatusEffect.Type.keys()[status_effect.type].to_lower()
+	
+	$Sprite.get_node(effect_name).queue_free()
