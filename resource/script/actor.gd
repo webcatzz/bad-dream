@@ -105,10 +105,13 @@ func move(to_pos: Vector2i) -> void:
 func take_turn() -> void:
 	actions_taken = 0
 	tiles_traveled = 0
-	
 	turn_started.emit()
-	node.take_turn()
-	await turn_ended
+	
+	if is_indisposed():
+		await Game.get_tree().create_timer(0.5).timeout
+		end_turn()
+	else:
+		await node.take_turn()
 
 
 ## Ends the actor's turn.
@@ -117,32 +120,9 @@ func end_turn() -> void:
 	turn_ended.emit()
 
 
-## Returns true if the actor has not exhausted [member actions_per_turn].
-func can_act() -> bool:
-	return actions_taken < actions_per_turn and not focusing
-
-
-## Returns true if the actor has not exhausted [member tiles_per_turn].
-func can_move() -> bool:
-	return tiles_traveled < tiles_per_turn
-
-
-## Returns true is the actor cannot do anything else.
-func is_exhausted() -> bool:
-	return not (can_act() or can_move())
-
-
 ## Ends the actor's turn if the actor cannot do anything else.
 func end_turn_if_exhausted() -> void:
 	if is_exhausted(): end_turn()
-
-
-## Returns true if the actor cannot take their turn.
-func is_incapacitated() -> bool:
-	return (
-		health <= 0 or
-		not (can_act() or can_move())
-	)
 
 
 
@@ -154,6 +134,7 @@ func take_action(action: Action) -> void:
 	
 	if action.needs_focus:
 		focusing = action
+		action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
 		end_turn()
 	
 	await action.start()
@@ -195,6 +176,34 @@ func evade(direction: Vector2i) -> void:
 	facing = -direction
 	position += direction
 	decide_next_evade()
+
+
+
+# checks
+
+## Returns true if the actor has not exhausted [member actions_per_turn].
+func can_act() -> bool:
+	return actions_taken < actions_per_turn and actions
+
+
+## Returns true if the actor has not exhausted [member tiles_per_turn].
+func can_move() -> bool:
+	return tiles_traveled < tiles_per_turn
+
+
+## Returns true is the actor cannot do anything for the rest of their turn.
+func is_exhausted() -> bool:
+	return not (can_act() or can_move())
+
+
+## Returns true if the actor's health is 0 or less.
+func is_defeated() -> bool:
+	return health <= 0
+
+
+## Returns true if the actor cannot take their turn.
+func is_indisposed() -> bool:
+	return is_defeated() or is_exhausted() or focusing
 
 
 
@@ -259,6 +268,8 @@ func backtrack_path() -> void:
 # internal
 
 func _init() -> void:
+	Battle.started.connect(decide_next_evade)
+	
 	_export_init.call_deferred()
 
 
@@ -269,12 +280,10 @@ func _export_init() -> void:
 		actions[i] = actions[i].duplicate()
 		actions[i].cause = self
 		actions[i].finished.connect(emit_signal.bind("action_taken"))
-	
-	Battle.started.connect(_on_battle_started)
 
 
-func _on_battle_started() -> void:
-	decide_next_evade()
+func _clear_focus() -> void:
+	focusing = null
 
 
 func _to_string() -> String:

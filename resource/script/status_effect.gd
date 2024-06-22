@@ -23,9 +23,6 @@ var target: Actor ## The [Actor] this effect targets.
 
 ## Starts the effect.
 func start() -> void:
-	target.turn_ended.connect(_decrement_duration)
-	Battle.ended.connect(end)
-	
 	match type:
 		Type.BURN:
 			target.action_taken.connect(target.damage.bind(strength, Action.Type.FIRE), CONNECT_REFERENCE_COUNTED)
@@ -38,6 +35,9 @@ func start() -> void:
 		Type.STUNNED:
 			target.modifiers.actions_per_turn -= 1000
 			target.modifiers.tiles_per_turn -= 1000
+	
+	target.turn_ended.connect(_decrement_duration)
+	Battle.ended.connect(end)
 
 
 ## Stacks the effect with another of the same type.

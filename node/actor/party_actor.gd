@@ -44,8 +44,8 @@ func take_turn() -> void:
 	
 	await data.turn_ended
 	
-	path.clear_points()
 	listening = false
+	path.clear_points()
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -89,8 +89,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 	
 	# opening action menu / ending turn
 	elif event.is_action_pressed("ui_accept"):
-		if data.can_act(): action_menu.visible = true
-		
+		action_menu.visible = true
 		get_viewport().set_input_as_handled()
 
 

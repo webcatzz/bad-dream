@@ -16,7 +16,7 @@ var current_actor: Actor ## The [Actor] currently taking their turn.
 
 var region: Rect2i ## Travellable space.
 var astar: AStarGrid2D ## Pathfinding algorithm.
-var astar_draw: Node2D
+var astar_draw: Node2D # DEBUG
 
 
 
@@ -25,8 +25,10 @@ var astar_draw: Node2D
 ## Starts a battle between the party and [param actors].
 func start(actors: Array[Actor], region: Rect2i) -> void:
 	active = true
+	
+	# generating field grid
 	self.region = region
-	_generate_astar(region) # generating field grid
+	_generate_astar(region)
 	
 	# adding actors
 	for actor: Actor in Game.data.party: add_actor(actor)
@@ -37,29 +39,6 @@ func start(actors: Array[Actor], region: Rect2i) -> void:
 	current_idx = -1
 	run_turn()
 
-
-## Returns true if there are no non-party [Actor]s in [member order].
-func is_won() -> bool:
-	for actor in order:
-		if actor not in Game.data.party and not actor.is_incapacitated():
-			return false
-	return true
-
-
-## Ends the current battle.
-func stop() -> void:
-	active = false
-	astar = null
-	
-	# ending battle
-	ended.emit()
-	
-	# removing actors
-	while order: remove_actor(order[-1])
-
-
-
-# turns
 
 ## Loops through [member order] until [method is_won] returns true.
 func run_turn() -> void:
@@ -77,6 +56,26 @@ func run_turn() -> void:
 	# moving to next turn
 	if is_won(): stop()
 	else: run_turn()
+
+
+## Returns true if there are no undefeated enemy [Actor]s in [member order].
+func is_won() -> bool:
+	for actor in order:
+		if actor not in Game.data.party and not actor.is_defeated():
+			return false
+	return true
+
+
+## Ends the current battle.
+func stop() -> void:
+	active = false
+	astar = null
+	
+	# ending battle
+	ended.emit()
+	
+	# removing actors
+	while order: remove_actor(order[-1])
 
 
 
@@ -97,7 +96,6 @@ func add_actor(actor: Actor) -> void:
 	# adding to order
 	order.insert(idx, actor)
 	actor.in_battle = true
-	actor.defeated.connect(remove_actor.bind(actor))
 	actor_added.emit(actor, idx)
 
 
@@ -108,7 +106,6 @@ func remove_actor(actor: Actor) -> void:
 	# removing from order
 	order.remove_at(idx)
 	actor.in_battle = false
-	actor.defeated.disconnect(remove_actor)
 	actor_removed.emit(idx)
 
 
