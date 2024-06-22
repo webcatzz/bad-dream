@@ -106,3 +106,7 @@ func _might_kill() -> bool:
 		if actor.calculate_damage(max_damage, type) > actor.health:
 			return true
 	return false
+
+
+func _to_string() -> String:
+	return name + " (" + cause.to_string() + ")"

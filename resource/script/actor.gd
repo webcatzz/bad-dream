@@ -115,9 +115,6 @@ func take_turn() -> void:
 func end_turn() -> void:
 	path.clear()
 	turn_ended.emit()
-	prints("Ended turn for", self, "- current actor is now", Battle.current_actor)
-	print_stack()
-	print("\n")
 
 
 ## Returns true if the actor has not exhausted [member actions_per_turn].

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://cjt66dwchr70v"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://cjt66dwchr70v"]
 
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_3ef4e"]
 [ext_resource type="Resource" uid="uid://c4nywreyjxx5s" path="res://resource/action/instakill.tres" id="2_4xyq5"]
@@ -6,37 +6,7 @@
 [ext_resource type="Resource" uid="uid://by1ag7jijnwo2" path="res://resource/action/healpool.tres" id="3_xwecl"]
 [ext_resource type="Texture2D" uid="uid://1vypntn0rbs6" path="res://asset/actor/sprite/woodcarver.png" id="4_qwm5x"]
 [ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://resource/action/strike_out.tres" id="4_u6w21"]
-[ext_resource type="Script" path="res://resource/script/action.gd" id="5_maddl"]
-[ext_resource type="Script" path="res://resource/bitshape.gd" id="6_bifj0"]
-[ext_resource type="Script" path="res://resource/script/status_effect.gd" id="7_8tc7l"]
-
-[sub_resource type="BitMap" id="BitMap_gunji"]
-data = {
-"data": PackedByteArray(1),
-"size": Vector2i(1, 1)
-}
-script = ExtResource("6_bifj0")
-offset = Vector2i(0, 1)
-
-[sub_resource type="Resource" id="Resource_0cavd"]
-script = ExtResource("7_8tc7l")
-type = 5
-duration = 4
-strength = 1
-
-[sub_resource type="Resource" id="Resource_als63"]
-script = ExtResource("5_maddl")
-name = "Stun"
-description = ""
-base_strength = 1
-dice = 0
-type = 0
-shape = SubResource("BitMap_gunji")
-delay = 0
-needs_focus = false
-knockback_type = 0
-knockback_vector = Vector2i(0, 0)
-status_effect = SubResource("Resource_0cavd")
+[ext_resource type="Resource" uid="uid://lj7sjmdng2ku" path="res://resource/action/stun.tres" id="5_40v7m"]
 
 [resource]
 script = ExtResource("3_4fjlo")
@@ -48,7 +18,7 @@ resistance = 0
 evasion = 0.0
 tiles_per_turn = 10000
 actions_per_turn = 1
-actions = Array[ExtResource("5_maddl")]([ExtResource("1_3ef4e"), ExtResource("2_4xyq5"), ExtResource("3_xwecl"), ExtResource("4_u6w21"), SubResource("Resource_als63")])
+actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_3ef4e"), ExtResource("2_4xyq5"), ExtResource("3_xwecl"), ExtResource("4_u6w21"), ExtResource("5_40v7m")])
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
 weak_against = Array[int]([])
 strong_against = Array[int]([])

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Action" load_steps=6 format=3 uid="uid://lj7sjmdng2ku"]
+
+[ext_resource type="Script" path="res://resource/script/action.gd" id="1_nu1pt"]
+[ext_resource type="Script" path="res://resource/bitshape.gd" id="2_wcf40"]
+[ext_resource type="Script" path="res://resource/script/status_effect.gd" id="3_eb0tf"]
+
+[sub_resource type="BitMap" id="BitMap_gunji"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
+script = ExtResource("2_wcf40")
+offset = Vector2i(0, 1)
+
+[sub_resource type="Resource" id="Resource_0cavd"]
+script = ExtResource("3_eb0tf")
+type = 5
+duration = 4
+strength = 1
+
+[resource]
+script = ExtResource("1_nu1pt")
+name = "Stun"
+description = ""
+base_strength = 1
+dice = 0
+type = 0
+shape = SubResource("BitMap_gunji")
+delay = 0
+needs_focus = false
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)
+status_effect = SubResource("Resource_0cavd")

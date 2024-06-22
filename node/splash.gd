@@ -40,6 +40,9 @@ func _ready() -> void:
 func _enter_tree() -> void:
 	position = action.cause.node.position
 	if area: _update_area_shape()
+	
+	print("\n", action, " added")
+	print_stack()
 
 
 # Updates area facing direction.
@@ -67,3 +70,8 @@ func _on_finished() -> void:
 		#))
 	
 	get_parent().remove_child(self)
+
+
+func _exit_tree():
+	print("\n", action, " removed")
+	print_stack()
