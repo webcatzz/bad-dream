@@ -7,7 +7,7 @@ signal facing_changed(value: Vector2i)
 # stats
 signal health_changed(value: int)
 signal health_changed_by(value: int)
-signal evaded
+signal evaded(successful: bool)
 signal defeated
 # turns
 signal turn_started
@@ -81,7 +81,6 @@ var is_turn: bool
 
 var path: Array[Dictionary] ## Contains all previous orientation states this turn.
 var focusing: Action ## [Action] the actor is focusing on.
-var will_evade_next: bool
 
 # node
 var node: ActorNode ## Node representation.
@@ -145,18 +144,17 @@ func take_action(action: Action) -> void:
 
 ## Runs results of [param action].
 func recieve_action(action: Action) -> void:
-	if randf() < evasion:
-		evade(action.cause.facing)
-	else:
-		if action.strength:
-			if action.type == Action.Type.HEALING: heal(action.strength)
-			else: damage(action.strength, action.type)
-		if action.knockback_type:
-			var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, action.cause.facing)
-			facing = -vector
-			position += calculate_knockback(vector)
-		if action.status_effect:
-			add_status_effect(action.status_effect.duplicate())
+	if randf() < evasion and try_evade(action.cause.facing): return
+	
+	if action.strength:
+		if action.type == Action.Type.HEALING: heal(action.strength)
+		else: damage(action.strength, action.type)
+	if action.knockback_type:
+		var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, action.cause.facing)
+		facing = -vector
+		position += calculate_knockback(vector)
+	if action.status_effect:
+		add_status_effect(action.status_effect.duplicate())
 
 
 ## Modifies [param amount] according to the actor's type affinities,
@@ -169,14 +167,18 @@ func damage(amount: int, type: Action.Type = Action.Type.NONE) -> void:
 ## Increases [member health] by [param amount].
 func heal(amount: int) -> void:
 	health += amount
-
+ 
 
 ## Evades an attack.
-func evade(direction: Vector2i) -> void:
-	facing = -direction
-	position += direction
-	decide_next_evade()
-	evaded.emit()
+func try_evade(direction: Vector2i) -> bool:
+	var successful: bool = Battle.astar.is_point_travellable(position + direction)
+	
+	if successful:
+		facing = -direction
+		position += direction
+	
+	evaded.emit(successful)
+	return successful
 
 
 
@@ -223,10 +225,6 @@ func calculate_damage(amount: int, type: Action.Type) -> int:
 	return amount
 
 
-func decide_next_evade() -> void:
-	will_evade_next = randf() > evasion
-
-
 
 # status effects
 
@@ -269,8 +267,6 @@ func backtrack_path() -> void:
 # internal
 
 func _init() -> void:
-	Battle.started.connect(decide_next_evade)
-	
 	_export_init.call_deferred()
 
 

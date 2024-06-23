@@ -63,7 +63,7 @@ func _on_data_set() -> void:
 	data.health_changed_by.connect(_on_health_changed_by)
 	data.status_effect_added.connect(_on_status_effect_added)
 	data.status_effect_removed.connect(_on_status_effect_removed)
-	data.evaded.connect(emit_text.bind("evaded!"))
+	data.evaded.connect(_on_evaded)
 	data.defeated.connect(_on_defeated)
 
 
@@ -108,6 +108,10 @@ func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 		$Sprite.get_node(effect_name).queue_free()
 	
 	emit_text("- " + effect_name)
+
+
+func _on_evaded(successful: bool) -> void:
+	emit_text("evaded!" if successful else "can't evade!")
 
 
 func _on_defeated() -> void:

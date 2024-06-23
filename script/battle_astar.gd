@@ -16,16 +16,29 @@ func _init(region: Rect2i) -> void:
 func generate() -> void:
 	for x in region.size.x: for y in region.size.y:
 		var point: Vector2i = Vector2i(x, y) + region.position
-		if _point_has_collision(point):
-			set_point_solid(point, true)
+		
+		var collisions: Array[Dictionary] = _get_point_collisions(point)
+		if collisions:
+			for collision: Dictionary in collisions:
+				if not collision.collider is ActorNode:
+					set_point_solid(point, true)
+					break
+
+
+func is_point_travellable(point: Vector2i) -> bool:
+	return (
+		region.has_point(point) and
+		not is_point_solid(point) and
+		not _get_point_collisions(point)
+	)
 
 
 # Returns high cost if the point collides with a body.
 func _compute_cost(from_id: Vector2i, to_id: Vector2i) -> float:
-	return 999 if _point_has_collision(to_id) else 1
+	return 999 if _get_point_collisions(to_id) else 1
 
 
 # Returns true if the point collides with a body.
-func _point_has_collision(point: Vector2i) -> bool:
+func _get_point_collisions(point: Vector2i) -> Array[Dictionary]:
 	_point_query.position = Iso.from_grid(point)
-	return true if _space_state.intersect_point(_point_query) else false
+	return _space_state.intersect_point(_point_query)
