@@ -4,8 +4,10 @@ class_name ActorNode extends CharacterBody2D
 
 @export var data: Actor = Actor.new()
 
-@onready var dice: Node2D = $DiceRoll
+var text_particle_scene: PackedScene = preload("res://node/text_particle.tscn")
 var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_effect_animation.tres")
+
+@onready var dice: Node2D = $DiceRoll
 
 
 func take_turn() -> void:
@@ -53,6 +55,7 @@ func _on_data_set() -> void:
 	data.health_changed_by.connect(_on_health_changed_by)
 	data.status_effect_added.connect(_on_status_effect_added)
 	data.status_effect_removed.connect(_on_status_effect_removed)
+	data.evaded.connect(_on_evaded)
 	data.defeated.connect(_on_defeated)
 
 
@@ -72,13 +75,6 @@ func _on_health_changed_by(value: int) -> void:
 	if value < 0: $Animator.play("damaged")
 
 
-func _on_defeated() -> void:
-	$Collision.disabled = true
-	await $Animator.animation_finished
-	await Game.tween_opacity($Sprite, 1, 0, 0.5)
-	queue_free()
-
-
 func _on_status_effect_added(status_effect: StatusEffect) -> void:
 	var effect_name: String = StatusEffect.Type.keys()[status_effect.type].to_lower()
 	
@@ -94,4 +90,18 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 	var effect_name: String = StatusEffect.Type.keys()[status_effect.type].to_lower()
 	
-	$Sprite.get_node(effect_name).queue_free()
+	if status_effect_animations.has_animation(effect_name):
+		$Sprite.get_node(effect_name).queue_free()
+
+
+func _on_evaded() -> void:
+	var text_particle = text_particle_scene.instantiate()
+	text_particle.text = "evaded!"
+	add_child(text_particle)
+
+
+func _on_defeated() -> void:
+	$Collision.disabled = true
+	$Animator.queue("defeated")
+	await $Animator.animation_finished
+	await $Animator.animation_finished

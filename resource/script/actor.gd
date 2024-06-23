@@ -176,6 +176,7 @@ func evade(direction: Vector2i) -> void:
 	facing = -direction
 	position += direction
 	decide_next_evade()
+	evaded.emit()
 
 
 

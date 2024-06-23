@@ -1,26 +1,12 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bs6t025b1bvke"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bs6t025b1bvke"]
 
 [ext_resource type="Script" path="res://resource/save.gd" id="1_afsvx"]
 [ext_resource type="Resource" uid="uid://cjt66dwchr70v" path="res://resource/actor/woodcarver.tres" id="1_qni5r"]
-[ext_resource type="Script" path="res://resource/script/actor.gd" id="2_ovngt"]
-
-[sub_resource type="Resource" id="Resource_cg83y"]
-script = ExtResource("2_ovngt")
-name = "Actor"
-description = "..."
-max_health = 10
-resistance = 0
-evasion = 0.0
-tiles_per_turn = 5
-actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([])
-attributes = Array[Resource("res://resource/script/attribute.gd")]([])
-weak_against = Array[int]([])
-strong_against = Array[int]([])
+[ext_resource type="Resource" uid="uid://8ioc60dn8oln" path="res://resource/actor/partymember.tres" id="2_5dgep"]
 
 [resource]
 script = ExtResource("1_afsvx")
-party = Array[Object]([ExtResource("1_qni5r"), SubResource("Resource_cg83y")])
+party = Array[Object]([ExtResource("1_qni5r"), ExtResource("2_5dgep")])
 flags = PackedStringArray()
 seed = 0
 scene_path = ""
@@ -29,4 +15,4 @@ master_volume = 1.0
 music_volume = 1.0
 sfx_volume = 1.0
 use_wasd = false
-draw_astar = false
+draw_astar = true

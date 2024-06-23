@@ -9,13 +9,14 @@ signal turn_ended(actor: Actor)
 signal actor_added(actor: Actor, idx: int)
 signal actor_removed(idx: int)
 
+const FieldAStar = preload("res://script/battle_astar.gd") ## Pathfinding algorithm.
+
 var active: bool ## Whether there is a battle currently active.
 var order: Array[Actor] ## The order in which [Actor]s take turns.
 var current_idx: int ## The current index in [member order].
 var current_actor: Actor ## The [Actor] currently taking their turn.
 
-var region: Rect2i ## Travellable space.
-var astar: AStarGrid2D ## Pathfinding algorithm.
+var astar: FieldAStar
 var astar_draw: Node2D # DEBUG
 
 
@@ -27,8 +28,7 @@ func start(actors: Array[Actor], region: Rect2i) -> void:
 	active = true
 	
 	# generating field grid
-	self.region = region
-	_generate_astar(region)
+	astar = FieldAStar.new(region)
 	
 	# adding actors
 	for actor: Actor in Game.data.party: add_actor(actor)
@@ -45,7 +45,7 @@ func run_turn() -> void:
 	current_idx = (current_idx + 1) % order.size()
 	current_actor = order[current_idx] # fetching current actor
 	
-	if current_actor.health > 0:
+	if not current_actor.is_defeated():
 		turn_started.emit(current_actor)
 		await current_actor.take_turn()
 		turn_ended.emit(current_actor)
@@ -118,28 +118,3 @@ func _ready() -> void:
 	
 	astar_draw = load("res://node/astar_draw.gd").new()
 	add_child(astar_draw) # astar draw
-
-
-# Updates [member astar] grid to current battle region.
-func _generate_astar(region: Rect2i) -> void:
-	astar = AStarGrid2D.new()
-	astar.region = region
-	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-	astar.update()
-	
-	
-	
-	# grid from physics
-	var space_state: PhysicsDirectSpaceState2D = Game.get_root().get_world_2d().direct_space_state
-	var point_query := PhysicsPointQueryParameters2D.new()
-	
-	for x in region.size.x: for y in region.size.y:
-		var point: Vector2i = Vector2i(x, y) + region.position
-		point_query.position = Iso.from_grid(point)
-		
-		var intersections: Array[Dictionary] = space_state.intersect_point(point_query)
-		if intersections:
-			for intersection: Dictionary in intersections:
-				if not intersection.collider is ActorNode:
-					astar.set_point_solid(point, true)
-					break

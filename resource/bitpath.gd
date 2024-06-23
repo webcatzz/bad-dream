@@ -16,6 +16,8 @@ func update() -> void:
 	
 	if spill:
 		grow_mask(spill, Rect2i(Vector2i.ZERO, get_size()))
+	
+	# TODO: remove action cause position from bitmap
 
 
 

@@ -7,12 +7,13 @@ var tail_polygon: PackedVector2Array
 
 
 func run(string: String) -> void:
-	Game.tween_opacity(self, 0, 1, 0.5)
+	modulate.a = 0
+	get_tree().create_tween().tween_property(self, "modulate:a", 1, 0.5)
 	await get_tree().create_timer(0.25).timeout
 	
 	await super(string)
 	
-	await Game.tween_opacity(self, 1, 0, 0.25)
+	await get_tree().create_tween().tween_property(self, "modulate:a", 0, 0.25).finished
 	queue_free()
 
 

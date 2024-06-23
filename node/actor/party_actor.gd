@@ -29,7 +29,7 @@ func _on_data_set() -> void:
 
 
 # following leader
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not data.in_battle:
 		var node: PlayerActorNode = Game.data.get_leader().node
 		global_position = global_position.lerp(node.party_path[node.PARTY_PATH_OFFSET * Game.data.party.find(data, 1)], 0.1)
@@ -72,7 +72,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("move_left"): vector = Vector2i.LEFT
 		elif event.is_action_pressed("move_right"): vector = Vector2i.RIGHT
 		
-		if vector and Battle.region.has_point(data.position + vector):
+		if vector and Battle.astar.region.has_point(data.position + vector):
 			collision_checker.target_position = Iso.from_grid(vector)
 			collision_checker.force_raycast_update()
 			if not collision_checker.is_colliding():

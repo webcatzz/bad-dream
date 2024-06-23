@@ -73,7 +73,7 @@ func run() -> void:
 ## Fetches the action's strength.
 func _get_strength() -> int:
 	if dice:
-		return await cause.node.dice.sum(dice, base_strength, _might_kill())
+		return await cause.node.dice.sum(dice, base_strength, type != Type.HEALING and _might_kill())
 	else:
 		return base_strength
 

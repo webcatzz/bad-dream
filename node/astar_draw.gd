@@ -19,4 +19,8 @@ func _draw() -> void:
 			var point: Vector2i = Vector2i(x, y) + Battle.astar.region.position
 			
 			if not Battle.astar.is_point_solid(point):
-				draw_circle(Iso.from_grid(point), 2, Color("#ff000040"))
+				draw_string(
+					ThemeDB.get_project_theme().default_font,
+					Iso.from_grid(point),
+					str(Battle.astar.get_point_weight_scale(point))
+				)
