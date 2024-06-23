@@ -28,6 +28,14 @@ func set_spotlight(value: bool) -> void:
 		else: $SFX/SpotlightOff.play()
 
 
+## Emits a text particle.
+func emit_text(string: String, color: Color = Color.WHITE) -> void:
+	var text_particle: Label = text_particle_scene.instantiate()
+	text_particle.text = string
+	text_particle.add_theme_color_override("font_color", color)
+	add_child(text_particle)
+
+
 
 # internal
 
@@ -55,7 +63,7 @@ func _on_data_set() -> void:
 	data.health_changed_by.connect(_on_health_changed_by)
 	data.status_effect_added.connect(_on_status_effect_added)
 	data.status_effect_removed.connect(_on_status_effect_removed)
-	data.evaded.connect(_on_evaded)
+	data.evaded.connect(emit_text.bind("evaded!"))
 	data.defeated.connect(_on_defeated)
 
 
@@ -72,7 +80,11 @@ func _on_facing_changed(facing: Vector2i) -> void:
 
 
 func _on_health_changed_by(value: int) -> void:
-	if value < 0: $Animator.play("damaged")
+	if value < 0:
+		$Animator.play("damaged")
+		emit_text(str(value), Color.RED)
+	else:
+		emit_text("+" + str(value), Color.GREEN)
 
 
 func _on_status_effect_added(status_effect: StatusEffect) -> void:
@@ -85,6 +97,8 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 		sprite.offset.y = -24
 		$Sprite.add_child(sprite)
 		sprite.play(effect_name)
+	
+	emit_text("+ " + effect_name)
 
 
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
@@ -92,12 +106,8 @@ func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 	
 	if status_effect_animations.has_animation(effect_name):
 		$Sprite.get_node(effect_name).queue_free()
-
-
-func _on_evaded() -> void:
-	var text_particle = text_particle_scene.instantiate()
-	text_particle.text = "evaded!"
-	add_child(text_particle)
+	
+	emit_text("- " + effect_name)
 
 
 func _on_defeated() -> void:
