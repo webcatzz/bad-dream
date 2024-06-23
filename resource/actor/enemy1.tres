@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=4 format=3 uid="uid://caiv82vs4t3u1"]
+[gd_resource type="Resource" script_class="Actor" load_steps=5 format=3 uid="uid://caiv82vs4t3u1"]
 
+[ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_lph7o"]
 [ext_resource type="Script" path="res://resource/script/actor.gd" id="1_u35jn"]
 [ext_resource type="Script" path="res://resource/turn_logic.gd" id="2_p5ule"]
 
@@ -18,7 +19,7 @@ resistance = 0
 evasion = 0.0
 tiles_per_turn = 5
 actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([])
+actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_lph7o")])
 turn_logic = SubResource("Resource_7pkma")
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
 weak_against = Array[int]([])

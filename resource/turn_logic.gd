@@ -18,7 +18,14 @@ var closest_targets: Array[Actor]
 func start() -> void:
 	update()
 	
-	await follow_path(paths[closest_targets[0]].slice(0, owner.tiles_per_turn))
+	var target: Actor = closest_targets[0]
+	
+	await follow_path(paths[target].slice(0, owner.tiles_per_turn))
+	
+	if not paths[target] or owner.position == Vector2i(paths[target][-1]):
+		Game.get_root().add_child(owner.actions[0].splash)
+		await Game.get_tree().create_timer(0.25).timeout
+		await owner.take_action(owner.actions[0])
 	
 	owner.end_turn()
 	
@@ -34,7 +41,10 @@ func update() -> void:
 			path.resize(path.size() - 1)
 			paths[actor] = path
 	
-	closest_targets = Game.data.party.duplicate()
+	closest_targets = []
+	for actor: Actor in Game.data.party:
+		if not actor.is_defeated():
+			closest_targets.append(actor)
 	closest_targets.sort_custom(func(a: Actor, b: Actor) -> bool:
 		return paths[a].size() < paths[b].size()
 	)
