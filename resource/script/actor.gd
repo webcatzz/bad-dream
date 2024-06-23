@@ -48,6 +48,7 @@ var actions_taken: int ## The number of actions taken this turn.
 # actions
 @export var actions: Array[Action] ## [Action]s available during battle.
 @export var battlecry: Action ## Immediately started when the battle begins.
+@export var turn_logic: TurnLogic
 
 # effects
 @export var attributes: Array[Attribute]
@@ -106,11 +107,12 @@ func take_turn() -> void:
 	tiles_traveled = 0
 	turn_started.emit()
 	
-	if is_indisposed():
+	if can_take_turn():
 		await Game.get_tree().create_timer(0.5).timeout
 		end_turn()
 	else:
-		await node.take_turn()
+		node.take_turn()
+		await turn_ended
 
 
 ## Ends the actor's turn.
@@ -205,7 +207,7 @@ func is_defeated() -> bool:
 
 
 ## Returns true if the actor cannot take their turn.
-func is_indisposed() -> bool:
+func can_take_turn() -> bool:
 	return is_defeated() or is_exhausted() or focusing
 
 

@@ -11,7 +11,7 @@ enum Type {
 	VANISH, ## Guarantees evasion.
 	SLOW, ## Decreases [member target.tiles_per_turn] by [member strength].
 	DOOM, ## Deals [member strength] damage at the end of its duration.
-	STUNNED ## Makes [member target] unable to act.
+	STUNNED, ## Makes [member target] unable to act.
 }
 
 @export var type: Type ## Dictates the effect's behavior. See [enum Type].

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbx2kgeyc5j2l"]
+[gd_scene load_steps=18 format=3 uid="uid://bbx2kgeyc5j2l"]
 
 [ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_awd56"]
 [ext_resource type="Script" path="res://node/actor/party_spawner.gd" id="2_uh17h"]
@@ -8,52 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://d0rs3moyicxl5" path="res://node/door.tscn" id="6_ikrja"]
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
 [ext_resource type="PackedScene" uid="uid://bwr58i81cianq" path="res://node/actor/enemy_actor.tscn" id="8_188yt"]
-[ext_resource type="Script" path="res://resource/script/actor.gd" id="9_gy3cr"]
+[ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/enemy1.tres" id="9_1c7yr"]
 [ext_resource type="Material" uid="uid://bq43vygjxb02f" path="res://asset/shader/dither_texture.tres" id="10_4t0rc"]
+[ext_resource type="Resource" uid="uid://y7mxhcoo4325" path="res://resource/actor/enemy2.tres" id="10_ijl04"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
 a = Vector2(16, -16)
 b = Vector2(-32, 8)
-
-[sub_resource type="Resource" id="Resource_74vop"]
-script = ExtResource("9_gy3cr")
-name = "Actor"
-description = "..."
-max_health = 10
-resistance = 0
-evasion = 0.0
-tiles_per_turn = 5
-actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([])
-attributes = Array[Resource("res://resource/script/attribute.gd")]([])
-weak_against = Array[int]([])
-strong_against = Array[int]([])
-
-[sub_resource type="Resource" id="Resource_8jgn0"]
-script = ExtResource("9_gy3cr")
-name = "Targetttt"
-description = "..."
-max_health = 10
-resistance = 0
-evasion = 1.0
-tiles_per_turn = 5
-actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([])
-attributes = Array[Resource("res://resource/script/attribute.gd")]([])
-weak_against = Array[int]([])
-strong_against = Array[int]([])
-
-[sub_resource type="Gradient" id="Gradient_aomc0"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_no3em"]
-gradient = SubResource("Gradient_aomc0")
-width = 500
-height = 500
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_gtum2"]
 colors = PackedColorArray(0.0823529, 0.00392157, 0.00784314, 0, 0.0823529, 0.00392157, 0.00784314, 0.501961)
@@ -115,7 +76,7 @@ texture = ExtResource("4_fxbus")
 offset = Vector2(0, -64)
 
 [node name="Door" parent="." instance=ExtResource("6_ikrja")]
-position = Vector2(168, -96)
+position = Vector2(176, -96)
 
 [node name="BattleTrigger" type="Area2D" parent="."]
 position = Vector2(144, 72)
@@ -131,18 +92,11 @@ shape = SubResource("SegmentShape2D_hh3lc")
 
 [node name="EnemyActor" parent="." instance=ExtResource("8_188yt")]
 position = Vector2(320, 80)
-data = SubResource("Resource_74vop")
+data = ExtResource("9_1c7yr")
 
 [node name="EnemyActor2" parent="." instance=ExtResource("8_188yt")]
 position = Vector2(144, 136)
-data = SubResource("Resource_8jgn0")
-
-[node name="Light" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(110, 149)
-color = Color(0.761401, 0.119076, 0.442925, 1)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_no3em")
+data = ExtResource("10_ijl04")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1

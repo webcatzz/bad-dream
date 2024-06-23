@@ -51,15 +51,6 @@ func get_root() -> Node2D:
 	return get_node("/root/Root")
 
 
-func tween_opacity(item: CanvasItem, from: float, to: float, duration: float) -> void:
-	if from == 0: item.visible = true
-	item.modulate.a = from
-	
-	await get_tree().create_tween().tween_property(item, "modulate:a", to, duration).finished
-	
-	if to == 0: item.visible = false
-
-
 
 # internal
 

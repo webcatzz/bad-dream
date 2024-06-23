@@ -21,7 +21,8 @@ func _on_player_entered() -> void:
 	for i: int in Game.data.party.size():
 		Game.data.party[i].node.z_index = 101
 		
-		if i: Game.tween_opacity(Game.data.party[i].node, 1, 0.25, 2)
+		if i:
+			get_tree().create_tween().tween_property(Game.data.party[i].node, "modulate:a", 0.25, 2)
 	
 	# camera
 	if current_tween: current_tween.kill()
@@ -42,7 +43,8 @@ func _on_player_exited() -> void:
 	for i: int in Game.data.party.size():
 		Game.data.party[i].node.z_index = 0
 		
-		if i: Game.tween_opacity(Game.data.party[i].node, 0.25, 1, 0.1)
+		if i:
+			get_tree().create_tween().tween_property(Game.data.party[i].node, "modulate:a", 1, 0.1)
 	
 	# camera
 	if current_tween: current_tween.kill()
