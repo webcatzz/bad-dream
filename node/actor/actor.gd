@@ -88,7 +88,7 @@ func _on_health_changed_by(value: int) -> void:
 
 
 func _on_status_effect_added(status_effect: StatusEffect) -> void:
-	var effect_name: String = StatusEffect.Type.keys()[status_effect.type].to_lower()
+	var effect_name: String = status_effect.get_type_string()
 	
 	if status_effect_animations.has_animation(effect_name):
 		var sprite: AnimatedSprite2D = AnimatedSprite2D.new()
@@ -102,7 +102,7 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 
 
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
-	var effect_name: String = StatusEffect.Type.keys()[status_effect.type].to_lower()
+	var effect_name: String = status_effect.get_type_string()
 	
 	if status_effect_animations.has_animation(effect_name):
 		$Sprite.get_node(effect_name).queue_free()

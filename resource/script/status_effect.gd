@@ -11,7 +11,8 @@ enum Type {
 	VANISH, ## Guarantees evasion.
 	SLOW, ## Decreases [member target.tiles_per_turn] by [member strength].
 	DOOM, ## Deals [member strength] damage at the end of its duration.
-	STUNNED, ## Makes [member target] unable to act.
+	STUN, ## Makes [member target] unable to act.
+	GUARD, ## Increases [member target]'s defense by [member strength].
 }
 
 @export var type: Type ## Dictates the effect's behavior. See [enum Type].
@@ -32,9 +33,11 @@ func start() -> void:
 			target.modifiers.evasion += 1
 		Type.SLOW:
 			target.modifiers.tiles_per_turn -= strength
-		Type.STUNNED:
+		Type.STUN:
 			target.modifiers.actions_per_turn -= 1000
 			target.modifiers.tiles_per_turn -= 1000
+		Type.GUARD:
+			target.modifiers.defense += strength
 	
 	target.turn_ended.connect(_decrement_duration)
 	Battle.ended.connect(end)
@@ -61,11 +64,17 @@ func end() -> void:
 			target.modifiers.tiles_per_turn += strength
 		Type.DOOM:
 			target.damage(strength)
-		Type.STUNNED:
+		Type.STUN:
 			target.modifiers.actions_per_turn += 1000
 			target.modifiers.tiles_per_turn += 1000
+		Type.GUARD:
+			target.modifiers.defense -= strength
 	
 	ended.emit()
+
+
+func get_type_string() -> String:
+	return Type.keys()[type].to_lower()
 
 
 

@@ -15,6 +15,7 @@ script = ExtResource("1_u35jn")
 name = "Enemy1"
 description = "..."
 max_health = 10
+defense = 0
 resistance = 0
 evasion = 0.0
 tiles_per_turn = 5

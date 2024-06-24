@@ -37,9 +37,7 @@ func update() -> void:
 	for actor: Actor in Game.data.party:
 		if not actor.is_defeated():
 			var path: PackedVector2Array = Battle.astar.get_point_path(owner.position, actor.position)
-			path.remove_at(0)
-			path.resize(path.size() - 1)
-			paths[actor] = path
+			paths[actor] = Battle.astar.get_point_path(owner.position, actor.position).slice(1, -1)
 	
 	closest_targets = []
 	for actor: Actor in Game.data.party:

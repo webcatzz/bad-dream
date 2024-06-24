@@ -32,6 +32,8 @@ signal status_effect_removed(status_effect: StatusEffect)
 	get: return maxf(max_health + modifiers.max_health, 0)
 var health: int: ## When [member health] hits [code]0[/code], the actor is defeated.
 	set(value): health_changed_by.emit(value - health); health = min(value, max_health); health_changed.emit(health)
+@export var defense: int: ## Damage taken is decreased by this amount.
+	get: return maxf(defense + modifiers.defense, 0)
 @export var resistance: int: ## Knockback received is decreased by this amount.
 	get: return maxf(resistance + modifiers.resistance, 0)
 @export_range(0, 1, 0.01) var evasion: float: ## Chance to evade an attack and move backward one tile.
@@ -59,6 +61,7 @@ var modifiers: Dictionary = {
 	"evasion": 0,
 	"tiles_per_turn": 0,
 	"actions_per_turn": 0,
+	"defense": 0,
 }
 
 # type affinities
@@ -162,7 +165,7 @@ func recieve_action(action: Action) -> void:
 ## Modifies [param amount] according to the actor's type affinities,
 ## then subtracts it from [member health].
 func damage(amount: int, type: Action.Type = Action.Type.NONE) -> void:
-	health -= calculate_damage(amount, type)
+	health -= calculate_damage(amount, type) - modifiers.defense
 	if health <= 0: defeated.emit()
 
 

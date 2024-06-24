@@ -86,6 +86,9 @@ func _handle_battle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift") and data.tiles_traveled:
 		data.backtrack_path()
 		get_viewport().set_input_as_handled()
+		
+		# TODO: holding shift should continuously backtrack
+		# TODO: when actions_per_turn > 1, disable backtracking past the point an action is used
 	
 	# opening action menu / ending turn
 	elif event.is_action_pressed("ui_accept"):

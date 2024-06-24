@@ -20,6 +20,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_tggl6")
 }],
 "loop": true,
-"name": &"stunned",
+"name": &"stun",
 "speed": 5.0
 }]

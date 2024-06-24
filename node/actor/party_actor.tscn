@@ -89,7 +89,7 @@ text_overrun_behavior = 3
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
 [connection signal="visibility_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_visibility_changed"]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_end_turn"]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_guard"]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="_end_turn"]
 [connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
 [connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu/Actions/List" method="select" binds= [0]]
