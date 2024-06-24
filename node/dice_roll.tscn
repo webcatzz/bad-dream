@@ -1,40 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://dkcvlj3ybfd6b"]
 
-[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="1_0em7i"]
 [ext_resource type="Script" path="res://node/dice_roll.gd" id="1_adehc"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_s4y7t"]
 [ext_resource type="Texture2D" uid="uid://cg7jqh1fd6yhu" path="res://asset/dice.png" id="2_cvhig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10r2y"]
 atlas = ExtResource("2_cvhig")
 region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="Animation" id="Animation_naurw"]
-resource_name = "quick"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate:a")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
 
 [sub_resource type="Animation" id="Animation_ijoc4"]
 length = 0.001
@@ -61,34 +33,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_vqxd3"]
-resource_name = "long_start"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate:a")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
 }
 
 [sub_resource type="Animation" id="Animation_slsex"]
@@ -119,6 +63,62 @@ tracks/1/keys = {
 "values": [1.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_vqxd3"]
+resource_name = "long_start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_naurw"]
+resource_name = "quick"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8v6ev"]
 _data = {
 "RESET": SubResource("Animation_ijoc4"),
@@ -129,7 +129,7 @@ _data = {
 
 [node name="DiceRoll" type="Node2D"]
 visible = false
-material = ExtResource("1_0em7i")
+material = ExtResource("1_s4y7t")
 script = ExtResource("1_adehc")
 
 [node name="Grid" type="GridContainer" parent="."]

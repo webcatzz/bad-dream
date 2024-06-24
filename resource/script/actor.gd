@@ -30,7 +30,7 @@ signal status_effect_removed(status_effect: StatusEffect)
 # stats
 @export var max_health: int = 10: ## Maximum value for [member health].
 	get: return maxf(max_health + modifiers.max_health, 0)
-var health: int: ## When [member health] hits [code]0[/code], the actor is defeated.
+var health: int = 1: ## When [member health] hits [code]0[/code], the actor is defeated.
 	set(value): health_changed_by.emit(value - health); health = min(value, max_health); health_changed.emit(health)
 @export var defense: int: ## Damage taken is decreased by this amount.
 	get: return maxf(defense + modifiers.defense, 0)

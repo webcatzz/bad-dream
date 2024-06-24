@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://be240quocrkry"]
 
-[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="1_8h0wh"]
 [ext_resource type="Script" path="res://node/text_particle.gd" id="1_m4rng"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_qh7be"]
 
 [sub_resource type="Animation" id="Animation_ec6h4"]
 length = 0.001
@@ -78,7 +78,7 @@ _data = {
 }
 
 [node name="TextParticle" type="Label"]
-material = ExtResource("1_8h0wh")
+material = ExtResource("1_qh7be")
 offset_right = 19.0
 offset_bottom = 10.0
 theme_type_variation = &"LabelSmall"

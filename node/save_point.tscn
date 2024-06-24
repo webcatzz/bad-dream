@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
-[ext_resource type="Material" uid="uid://cfvbajr6t5dre" path="res://asset/shader/dither_vertex.tres" id="2_24uay"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
 [ext_resource type="Texture2D" uid="uid://p1b7e7f6qf7r" path="res://asset/phonebooth.png" id="2_qyhcf"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_osywe"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_r7lj4"]
 [ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth-bg.png" id="5_lpghm"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]
@@ -158,7 +158,7 @@ visible = false
 show_behind_parent = true
 z_index = 100
 z_as_relative = false
-material = ExtResource("2_24uay")
+material = ExtResource("4_r7lj4")
 custom_minimum_size = Vector2(500, 332)
 offset_top = -32.0
 offset_right = 500.0

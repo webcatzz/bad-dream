@@ -10,6 +10,5 @@ const mat4 BAYER = mat4(
 
 
 void fragment() {
-	vec2 uv = UV / TEXTURE_PIXEL_SIZE;
-	COLOR.a = step(0.0, BAYER[int(uv.x) % 4][int(uv.y) % 4] + COLOR.a - 1.0);
+	COLOR.a = step(0.0, BAYER[int(VERTEX.x) % 4][int(VERTEX.y) % 4] + COLOR.a - 1.0);
 }

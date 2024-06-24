@@ -9,8 +9,8 @@
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
 [ext_resource type="PackedScene" uid="uid://bwr58i81cianq" path="res://node/actor/enemy_actor.tscn" id="8_188yt"]
 [ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/enemy1.tres" id="9_1c7yr"]
-[ext_resource type="Material" uid="uid://bq43vygjxb02f" path="res://asset/shader/dither_texture.tres" id="10_4t0rc"]
 [ext_resource type="Resource" uid="uid://y7mxhcoo4325" path="res://resource/actor/enemy2.tres" id="10_ijl04"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="12_7dtxf"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
 a = Vector2(16, -16)
@@ -82,7 +82,7 @@ position = Vector2(176, -96)
 position = Vector2(144, 72)
 collision_layer = 0
 script = ExtResource("7_kkk1m")
-actors = Array[NodePath]([NodePath("../EnemyActor"), NodePath("../EnemyActor2")])
+actors = Array[NodePath]([NodePath("../EnemyActor")])
 region = Rect2i(-5, 0, 11, 11)
 mode = 1
 
@@ -101,16 +101,8 @@ data = ExtResource("10_ijl04")
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="Background"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="Noise" type="TextureRect" parent="Background"]
-material = ExtResource("10_4t0rc")
+material = ExtResource("12_7dtxf")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -119,7 +111,7 @@ grow_vertical = 2
 texture = SubResource("NoiseTexture2D_4hb5d")
 
 [node name="Gradient" type="TextureRect" parent="Background"]
-material = ExtResource("10_4t0rc")
+material = ExtResource("12_7dtxf")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

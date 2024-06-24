@@ -76,6 +76,28 @@ func stop() -> void:
 	
 	# removing actors
 	while order: remove_actor(order[-1])
+	
+	# reorder party & regenerate nodes if leader is defeated
+	if Game.data.get_leader().is_defeated():
+		
+		# freeing old leader node
+		var position: Vector2 = Game.data.get_leader().node.position
+		Game.data.get_leader().node.queue_free()
+		Game.data.get_leader().node = null
+		
+		# choosing new leader & freeing its node
+		for actor: Actor in Game.data.party:
+			if not actor.is_defeated():
+				actor.node.queue_free()
+				actor.node = null
+				Game.data.party.erase(actor)
+				Game.data.party.push_front(actor)
+				break
+		
+		# adding new nodes
+		var spawner: PartySpawner = PartySpawner.new()
+		spawner.position = position
+		Game.get_root().add_child(spawner)
 
 
 
