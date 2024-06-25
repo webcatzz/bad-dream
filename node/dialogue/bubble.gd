@@ -2,7 +2,7 @@ class_name DialogueBubble extends DialogueLabel
 ## Speech bubble label.
 
 
-var speaker_pos: Vector2
+var speaker: Node
 var tail_polygon: PackedVector2Array
 
 
@@ -27,12 +27,16 @@ func _init() -> void:
 	material = preload("res://asset/shader/dither.tres")
 
 
+func _process(_delta: float) -> void:
+	queue_redraw()
+
+
 func _draw() -> void:
 	var center: Vector2 = size / 2
-	var camera_pos: Vector2 = get_viewport().get_camera_2d().get_target_position() - get_viewport_rect().size / 2
+	var camera_pos: Vector2 = get_viewport().get_camera_2d().get_screen_center_position() - get_viewport_rect().size / 2
 	
 	tail_polygon = [
-		(speaker_pos - camera_pos) - (global_position + center) - Vector2(0, 24)
+		(speaker.global_position - camera_pos) - (global_position + center) - Vector2(0, 24)
 	]
 	
 	tail_polygon[0] = tail_polygon[0].limit_length(tail_polygon[0].length() - 32)

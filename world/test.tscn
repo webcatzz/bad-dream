@@ -62,6 +62,7 @@ position = Vector2(80, 8)
 script = ExtResource("3_gihxp")
 text = "you have the kind of penis autism that causes delusions.
 you see women where there are no women. get help."
+screen_position = Vector2i(200, 20)
 
 [node name="Shape" type="CollisionPolygon2D" parent="DialogueTrigger"]
 polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
