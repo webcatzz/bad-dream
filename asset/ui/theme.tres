@@ -1,8 +1,20 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://7ctt2uptjn52"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://7ctt2uptjn52"]
 
 [ext_resource type="FontFile" uid="uid://dswlaqk5b76ld" path="res://asset/ui/pixel_times.ttf" id="1_1dwyu"]
 [ext_resource type="FontFile" uid="uid://b4p62uwb8qtsy" path="res://asset/ui/dico.ttf" id="1_o1eur"]
 [ext_resource type="FontFile" uid="uid://ci6i24yc1hxl1" path="res://asset/ui/crang.ttf" id="2_ogcxr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1jcx"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7d42m"]
 content_margin_left = 12.0
@@ -26,6 +38,7 @@ bg_color = Color(0.721569, 0.760784, 0.72549, 1)
 default_font = ExtResource("1_o1eur")
 BoxContainer/constants/separation = 0
 Button/colors/font_color = Color(0.219608, 0.168627, 0.14902, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_t1jcx")
 Button/styles/normal = SubResource("StyleBoxFlat_7d42m")
 DialogueBubble/base_type = &"DialogueLabel"
 DialogueBubble/styles/normal = SubResource("StyleBoxFlat_25u10")

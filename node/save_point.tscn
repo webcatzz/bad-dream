@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://be6ge5sg8n6yl"]
+[gd_scene load_steps=19 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
 [ext_resource type="Texture2D" uid="uid://p1b7e7f6qf7r" path="res://asset/phonebooth.png" id="2_qyhcf"]
-[ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_osywe"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_r7lj4"]
+[ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/plug.png" id="5_gcasg"]
 [ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth-bg.png" id="5_lpghm"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]
@@ -20,11 +20,19 @@ a = Vector2(16, 0)
 b = Vector2(0, 8)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiywu"]
+content_margin_bottom = 100.0
 bg_color = Color(0, 0, 0, 1)
 expand_margin_left = 32.0
 expand_margin_top = 32.0
 expand_margin_right = 32.0
 expand_margin_bottom = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44egl"]
+atlas = ExtResource("5_gcasg")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4jd2l"]
+texture = SubResource("AtlasTexture_44egl")
 
 [sub_resource type="Animation" id="Animation_y0csc"]
 length = 0.001
@@ -51,6 +59,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Margins/VBox/Outlets/Plug:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_jsk0n"]
@@ -109,10 +129,46 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_sy7ys"]
+resource_name = "plug_out"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Margins/VBox/Outlets/Plug:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1.25, 1.25), Vector2(1.25, 1.25)]
+}
+
+[sub_resource type="Animation" id="Animation_osow8"]
+resource_name = "plug_in"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Margins/VBox/Outlets/Plug:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kaywy"]
 _data = {
 "RESET": SubResource("Animation_y0csc"),
 "hide": SubResource("Animation_jsk0n"),
+"plug_in": SubResource("Animation_osow8"),
+"plug_out": SubResource("Animation_sy7ys"),
 "show": SubResource("Animation_ivp73")
 }
 
@@ -159,49 +215,136 @@ show_behind_parent = true
 z_index = 100
 z_as_relative = false
 material = ExtResource("4_r7lj4")
-custom_minimum_size = Vector2(500, 332)
-offset_top = -32.0
+custom_minimum_size = Vector2(500, 400)
+offset_top = -100.0
 offset_right = 500.0
 offset_bottom = 300.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xiywu")
 
-[node name="Background" type="TextureRect" parent="UI"]
+[node name="Margins" type="MarginContainer" parent="UI"]
+use_parent_material = true
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBox" type="VBoxContainer" parent="UI/Margins"]
+use_parent_material = true
+layout_mode = 2
+
+[node name="Outlets" type="HBoxContainer" parent="UI/Margins/VBox"]
+use_parent_material = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Outlet1" type="Button" parent="UI/Margins/VBox/Outlets"]
+use_parent_material = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Outlet3")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Outlet2")
+focus_next = NodePath("../Outlet2")
+focus_previous = NodePath("../Outlet3")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4jd2l")
+
+[node name="Outlet2" type="Button" parent="UI/Margins/VBox/Outlets"]
+use_parent_material = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Outlet1")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Outlet3")
+focus_next = NodePath("../Outlet3")
+focus_previous = NodePath("../Outlet1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4jd2l")
+
+[node name="Outlet3" type="Button" parent="UI/Margins/VBox/Outlets"]
+use_parent_material = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Outlet2")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Outlet1")
+focus_next = NodePath("../Outlet1")
+focus_previous = NodePath("../Outlet2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4jd2l")
+
+[node name="Plug" type="Sprite2D" parent="UI/Margins/VBox/Outlets"]
+use_parent_material = true
+position = Vector2(-32, 68)
+texture = ExtResource("5_gcasg")
+offset = Vector2(0, 24.5)
+region_enabled = true
+region_rect = Rect2(96, 0, 72, 121)
+
+[node name="Buttons" type="VBoxContainer" parent="UI/Margins/VBox"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+
+[node name="Save" type="Button" parent="UI/Margins/VBox/Buttons"]
+use_parent_material = true
+layout_mode = 2
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Cancel")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Load")
+focus_next = NodePath("../Load")
+focus_previous = NodePath("../Cancel")
+text = "Save"
+
+[node name="Load" type="Button" parent="UI/Margins/VBox/Buttons"]
+use_parent_material = true
+layout_mode = 2
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Save")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Delete")
+focus_next = NodePath("../Delete")
+focus_previous = NodePath("../Save")
+text = "Load"
+
+[node name="Delete" type="Button" parent="UI/Margins/VBox/Buttons"]
+use_parent_material = true
+layout_mode = 2
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Load")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Cancel")
+focus_next = NodePath("../Cancel")
+focus_previous = NodePath("../Load")
+text = "Delete"
+
+[node name="Cancel" type="Button" parent="UI/Margins/VBox/Buttons"]
+use_parent_material = true
+layout_mode = 2
+focus_neighbor_left = NodePath("..")
+focus_neighbor_top = NodePath("../Delete")
+focus_neighbor_right = NodePath("..")
+focus_neighbor_bottom = NodePath("../Save")
+focus_next = NodePath("../Save")
+focus_previous = NodePath("../Delete")
+text = "Cancel"
+
+[node name="Phone" type="TextureRect" parent="UI"]
+visible = false
+use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("5_lpghm")
-
-[node name="Margins" type="MarginContainer" parent="UI"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 96
-theme_override_constants/margin_bottom = 32
-
-[node name="Saves" type="VBoxContainer" parent="UI/Margins"]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_constants/separation = 4
-script = ExtResource("3_osywe")
-offset = 16
-
-[node name="Label" type="Label" parent="UI/Margins/Saves"]
-layout_mode = 2
-theme_type_variation = &"LabelSmall"
-text = "Save game..."
-
-[node name="File01" type="Button" parent="UI/Margins/Saves"]
-layout_mode = 2
-text = "File 01"
-
-[node name="File02" type="Button" parent="UI/Margins/Saves"]
-layout_mode = 2
-text = "File 02"
-
-[node name="File03" type="Button" parent="UI/Margins/Saves"]
-layout_mode = 2
-text = "File 03"
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -210,6 +353,7 @@ libraries = {
 
 [connection signal="player_entered" from="Area" to="." method="_on_player_entered"]
 [connection signal="player_exited" from="Area" to="." method="_on_player_exited"]
-[connection signal="pressed" from="UI/Margins/Saves/File01" to="." method="_save_to_file" binds= [1]]
-[connection signal="pressed" from="UI/Margins/Saves/File02" to="." method="_save_to_file" binds= [2]]
-[connection signal="pressed" from="UI/Margins/Saves/File03" to="." method="_save_to_file" binds= [3]]
+[connection signal="pressed" from="UI/Margins/VBox/Outlets/Outlet1" to="." method="_on_outlet_selected" binds= [0]]
+[connection signal="pressed" from="UI/Margins/VBox/Outlets/Outlet2" to="." method="_on_outlet_selected" binds= [1]]
+[connection signal="pressed" from="UI/Margins/VBox/Outlets/Outlet3" to="." method="_on_outlet_selected" binds= [2]]
+[connection signal="pressed" from="UI/Margins/VBox/Buttons/Cancel" to="." method="_on_cancel_pressed"]

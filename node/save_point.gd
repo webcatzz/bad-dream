@@ -3,15 +3,18 @@ extends Node2D
 
 var active: bool
 var current_tween: Tween
+var current_outlet: Button
 
-@onready var parent: Node = get_parent()
+@onready var outlets: HBoxContainer = $UI/Margins/VBox/Outlets
+@onready var buttons: VBoxContainer = $UI/Margins/VBox/Buttons
+@onready var plug: Sprite2D = outlets.get_node("Plug")
 
 
 # Shows the save point UI.
 func _on_player_entered() -> void:
 	active = true
 	_resize_color_rect()
-	$UI/Margins/Saves/File01.grab_focus()
+	outlets.get_child(0).grab_focus()
 	
 	# background
 	$Animator.play("show")
@@ -27,7 +30,7 @@ func _on_player_entered() -> void:
 	# camera
 	if current_tween: current_tween.kill()
 	current_tween = get_tree().create_tween()
-	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", -32, 2).set_trans(Tween.TRANS_CUBIC)
+	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", -120, 2).set_trans(Tween.TRANS_CUBIC)
 
 
 # Hides the save point UI.
@@ -62,9 +65,19 @@ func _ready() -> void:
 
 func _resize_color_rect() -> void:
 	var rect: Rect2 = get_viewport_rect()
-	$UI.global_position = global_position - rect.size / 2 - Vector2(0, 32)
-	$UI.size = rect.size + Vector2(0, 32)
+	$UI.global_position = global_position - rect.size / 2 - Vector2(0, 120)
+	$UI.size = rect.size + Vector2(0, 120)
 
 
-func _save_to_file(idx: int) -> void:
-	Data.save_file(idx)
+func _on_outlet_selected(idx: int) -> void:
+	current_outlet = outlets.get_child(idx)
+	
+	buttons.get_child(0).grab_focus()
+	
+	await get_tree().create_tween().tween_property(plug, "position", current_outlet.position + current_outlet.size / 2, 0.25).set_trans(Tween.TRANS_CUBIC).finished
+	$Animator.play("plug_in")
+
+
+func _on_cancel_pressed() -> void:
+	current_outlet.grab_focus()
+	$Animator.play("plug_out")
