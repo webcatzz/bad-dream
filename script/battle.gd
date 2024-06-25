@@ -92,10 +92,8 @@ func stop() -> void:
 		Data.party.erase(new_leader)
 		Data.party.push_front(new_leader)
 		
-		# adding new nodes
-		var spawner: PartySpawner = PartySpawner.new()
-		spawner.position = position
-		get_tree().current_scene.add_child(spawner)
+		# spawning party
+		Game.spawn_party(position)
 
 
 

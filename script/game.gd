@@ -18,6 +18,19 @@ func unpause() -> void:
 
 
 
+# party
+
+func spawn_party(position: Vector2) -> void:
+	for actor: Actor in Data.party:
+		if not actor.node:
+			actor.node = load("res://node/actor/player_actor.tscn" if actor == Data.get_leader() else "res://node/actor/party_actor.tscn").instantiate()
+			actor.node.data = actor
+		
+		actor.node.position = position
+		get_tree().current_scene.add_child(actor.node)
+
+
+
 # internal
 
 func _ready() -> void:

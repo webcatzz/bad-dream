@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://bbx2kgeyc5j2l"]
+[gd_scene load_steps=17 format=3 uid="uid://bbx2kgeyc5j2l"]
 
 [ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_awd56"]
-[ext_resource type="Script" path="res://node/actor/party_spawner.gd" id="2_uh17h"]
 [ext_resource type="Script" path="res://node/triggers/dialogue_trigger.gd" id="3_gihxp"]
 [ext_resource type="Texture2D" uid="uid://c6mo1yt54ob3c" path="res://icon.svg" id="4_fxbus"]
 [ext_resource type="PackedScene" uid="uid://be6ge5sg8n6yl" path="res://node/save_point.tscn" id="5_0pweu"]
@@ -53,9 +52,6 @@ layer_0/tile_data = PackedInt32Array(131071, 65540, 1, 65535, 4, 0, -1, 4, 0, -1
 layer_1/name = "objects"
 layer_1/y_sort_enabled = true
 layer_1/tile_data = PackedInt32Array(720900, 196612, 0, 851972, 196612, 1, 589832, 262148, 0, 655369, 262148, 1, 1310726, 262148, 0, 655363, 262148, 1, 720898, 196612, 0, 786434, 262148, 0, 851969, 262148, 1, 917505, 196612, 0, 983041, 196612, 1, 1048578, 196612, 0, 1114114, 262148, 0, 1179651, 262148, 0, 1245187, 196612, 1, 1310724, 262148, 1, 1376260, 196612, 1, 1441797, 196612, 0, 1507333, 196612, 1, 1572870, 262148, 0, 1507334, 196612, 1, 1441799, 196612, 1, 1376263, 196612, 0, 1310728, 196612, 1, 1245192, 196612, 0, 1179657, 262148, 1, 1114121, 262148, 0, 1048586, 262148, 1, 983050, 196612, 0, 917515, 262148, 0, 851979, 262148, 1, 786444, 196612, 1, 327685, 196612, 0, 262150, 262148, 0, 393221, 196612, 0, 196614, 262148, 1, 131079, 262148, 1, 196615, 196612, 0, 262152, 262148, 1, 327688, 262148, 0, 393225, 196612, 1, 458761, 262148, 1, 524298, 262148, 0, 589834, 262148, 1, 655371, 196612, 0, 720907, 262148, 0, 589826, 262148, 0, 196611, 262148, 1)
-
-[node name="PartySpawner" type="Node2D" parent="."]
-script = ExtResource("2_uh17h")
 
 [node name="DialogueTrigger" type="Area2D" parent="."]
 position = Vector2(80, 8)

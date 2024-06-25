@@ -12,6 +12,9 @@ func load_file(idx: int) -> void:
 	file.clear()
 	file.load("user://file_" + str(idx) + ".cfg")
 	
+	# setting seed
+	seed(file.get_value("file", "seed", randi()))
+	
 	# loading party
 	for actor_name: String in file.get_value("file", "party", ["woodcarver"]):
 		var actor: Actor = load("res://resource/actor/woodcarver.tres")
@@ -20,8 +23,12 @@ func load_file(idx: int) -> void:
 		for key: String in file.get_section_keys(actor_name):
 			actor[key] = file.get_value(actor_name, key)
 	
-	# setting seed
-	seed(file.get_value("file", "seed", randi()))
+	# loading scene
+	get_tree().change_scene_to_file(file.get_value("world", "path", "res://world/test.tscn"))
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	Game.spawn_party(file.get_value("world", "position", Vector2.ZERO))
 
 
 ## Saves game data to the specified file.
@@ -100,4 +107,5 @@ func get_volume(type: String) -> float:
 
 func _ready() -> void:
 	settings.load("user://settings.cfg")
-	load_file(-1)
+	
+	load_file.call_deferred(-1)

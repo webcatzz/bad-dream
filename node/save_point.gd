@@ -78,6 +78,18 @@ func _on_outlet_selected(idx: int) -> void:
 	$Animator.play("plug_in")
 
 
+func _on_save_pressed():
+	Data.save_file(current_outlet.get_index() + 1)
+
+
+func _on_load_pressed():
+	Data.load_file(current_outlet.get_index() + 1)
+
+
+func _on_delete_pressed():
+	pass # Replace with function body.
+
+
 func _on_cancel_pressed() -> void:
 	current_outlet.grab_focus()
 	$Animator.play("plug_out")
