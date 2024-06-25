@@ -31,7 +31,7 @@ func start(actors: Array[Actor], region: Rect2i) -> void:
 	astar = FieldAStar.new(region)
 	
 	# adding actors
-	for actor: Actor in Game.data.party: add_actor(actor)
+	for actor: Actor in Data.party: add_actor(actor)
 	for actor: Actor in actors: add_actor(actor)
 	
 	# starting order
@@ -61,7 +61,7 @@ func run_turn() -> void:
 ## Returns true if there are no undefeated enemy [Actor]s in [member order].
 func is_won() -> bool:
 	for actor in order:
-		if actor not in Game.data.party and not actor.is_defeated():
+		if actor not in Data.party and not actor.is_defeated():
 			return false
 	return true
 
@@ -78,26 +78,24 @@ func stop() -> void:
 	while order: remove_actor(order[-1])
 	
 	# reorder party & regenerate nodes if leader is defeated
-	if Game.data.get_leader().is_defeated():
+	if Data.get_leader().is_defeated():
 		
 		# freeing old leader node
-		var position: Vector2 = Game.data.get_leader().node.position
-		Game.data.get_leader().node.queue_free()
-		Game.data.get_leader().node = null
+		var position: Vector2 = Data.get_leader().node.position
+		Data.get_leader().node.queue_free()
+		Data.get_leader().node = null
 		
 		# choosing new leader & freeing its node
-		for actor: Actor in Game.data.party:
-			if not actor.is_defeated():
-				actor.node.queue_free()
-				actor.node = null
-				Game.data.party.erase(actor)
-				Game.data.party.push_front(actor)
-				break
+		var new_leader: Actor = Data.get_party_undefeated()[0]
+		new_leader.node.queue_free()
+		new_leader.node = null
+		Data.party.erase(new_leader)
+		Data.party.push_front(new_leader)
 		
 		# adding new nodes
 		var spawner: PartySpawner = PartySpawner.new()
 		spawner.position = position
-		Game.get_root().add_child(spawner)
+		get_tree().current_scene.add_child(spawner)
 
 
 

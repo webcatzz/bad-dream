@@ -2,9 +2,9 @@ extends CanvasLayer
 
 
 func _ready() -> void:
-	$Centerer/Tabs/Settings/Volume/MasterVolumeSlider.value = Game.data.master_volume
-	$Centerer/Tabs/Settings/Volume/MusicVolumeSlider.value = Game.data.music_volume
-	$Centerer/Tabs/Settings/Volume/SfxVolumeSlider.value = Game.data.sfx_volume
+	$Centerer/Tabs/Settings/Volume/MasterVolumeSlider.value = Data.get_volume("master")
+	$Centerer/Tabs/Settings/Volume/MusicVolumeSlider.value = Data.get_volume("music")
+	$Centerer/Tabs/Settings/Volume/SfxVolumeSlider.value = Data.get_volume("sfx")
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -19,7 +19,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _set_volume(value: float, type: String) -> void:
-	Game.data[type + "_volume"] = value
+	Data.set_volume(type, value)
 
 
 func _exit() -> void:

@@ -7,7 +7,7 @@ extends Action
 func run() -> void:
 	super()
 	
-	var leader_node: PlayerActorNode = Game.data.get_leader().node
+	var leader_node: PlayerActorNode = Data.get_leader().node
 	leader_node.input_mode = leader_node.InputMode.FREE
 	leader_node.listening = true
 	

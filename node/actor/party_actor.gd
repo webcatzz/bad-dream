@@ -31,8 +31,8 @@ func _on_data_set() -> void:
 # following leader
 func _physics_process(_delta: float) -> void:
 	if not data.in_battle:
-		var node: PlayerActorNode = Game.data.get_leader().node
-		global_position = global_position.lerp(node.party_path[node.PARTY_PATH_OFFSET * Game.data.party.find(data, 1)], 0.1)
+		var node: PlayerActorNode = Data.get_leader().node
+		global_position = global_position.lerp(node.party_path[node.PARTY_PATH_OFFSET * Data.party.find(data, 1)], 0.1)
 
 
 
@@ -98,7 +98,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 
 func _on_battle_entered() -> void:
 	$Collision.set_disabled.call_deferred(false)
-	data.move.call_deferred(Game.data.get_leader().position)
+	data.move.call_deferred(Data.get_leader().position)
 
 
 func _on_battle_exited() -> void:

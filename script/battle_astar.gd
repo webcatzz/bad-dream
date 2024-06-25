@@ -1,7 +1,7 @@
 extends AStarGrid2D
 
 
-var _space_state: PhysicsDirectSpaceState2D = Game.get_root().get_world_2d().direct_space_state
+var _space_state: PhysicsDirectSpaceState2D = Game.get_tree().current_scene.get_world_2d().direct_space_state
 var _point_query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 
 

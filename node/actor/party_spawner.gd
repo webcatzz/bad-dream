@@ -3,9 +3,9 @@ class_name PartySpawner extends Node2D
 
 
 func _ready() -> void:
-	for actor: Actor in Game.data.party:
+	for actor: Actor in Data.party:
 		if not actor.node:
-			actor.node = load("res://node/actor/player_actor.tscn" if actor == Game.data.get_leader() else "res://node/actor/party_actor.tscn").instantiate()
+			actor.node = load("res://node/actor/player_actor.tscn" if actor == Data.get_leader() else "res://node/actor/party_actor.tscn").instantiate()
 			actor.node.data = actor
 		
 		actor.node.tree_entered.connect(actor.node.set_position.bind(position), CONNECT_ONE_SHOT)

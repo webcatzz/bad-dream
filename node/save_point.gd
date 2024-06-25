@@ -18,16 +18,16 @@ func _on_player_entered() -> void:
 	
 	# z-index
 	z_index = 101
-	for i: int in Game.data.party.size():
-		Game.data.party[i].node.z_index = 101
+	for i: int in Data.party.size():
+		Data.party[i].node.z_index = 101
 		
 		if i:
-			get_tree().create_tween().tween_property(Game.data.party[i].node, "modulate:a", 0.25, 2)
+			get_tree().create_tween().tween_property(Data.party[i].node, "modulate:a", 0.25, 2)
 	
 	# camera
 	if current_tween: current_tween.kill()
 	current_tween = get_tree().create_tween()
-	current_tween.tween_property(Game.data.get_leader().node.get_node("Camera"), "offset:y", -32, 2).set_trans(Tween.TRANS_CUBIC)
+	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", -32, 2).set_trans(Tween.TRANS_CUBIC)
 
 
 # Hides the save point UI.
@@ -40,16 +40,16 @@ func _on_player_exited() -> void:
 	
 	# z-index
 	z_index = 0
-	for i: int in Game.data.party.size():
-		Game.data.party[i].node.z_index = 0
+	for i: int in Data.party.size():
+		Data.party[i].node.z_index = 0
 		
 		if i:
-			get_tree().create_tween().tween_property(Game.data.party[i].node, "modulate:a", 1, 0.1)
+			get_tree().create_tween().tween_property(Data.party[i].node, "modulate:a", 1, 0.1)
 	
 	# camera
 	if current_tween: current_tween.kill()
 	current_tween = get_tree().create_tween()
-	current_tween.tween_property(Game.data.get_leader().node.get_node("Camera"), "offset:y", 0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", 0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 
 
@@ -67,4 +67,4 @@ func _resize_color_rect() -> void:
 
 
 func _save_to_file(idx: int) -> void:
-	Game.save(idx)
+	Data.save_file(idx)

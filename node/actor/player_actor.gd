@@ -23,7 +23,7 @@ func _ready() -> void:
 	listening = true
 	camera.make_current()
 	
-	party_path.resize(PARTY_PATH_OFFSET * Game.data.party.size())
+	party_path.resize(PARTY_PATH_OFFSET * Data.party.size())
 	party_path.fill(position)
 
 
