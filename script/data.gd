@@ -20,8 +20,9 @@ func load_file(idx: int) -> void:
 		var actor: Actor = load("res://resource/actor/woodcarver.tres")
 		party.append(actor)
 		
-		for key: String in file.get_section_keys(actor_name):
-			actor[key] = file.get_value(actor_name, key)
+		if file.has_section(actor_name):
+			for key: String in file.get_section_keys(actor_name):
+				actor[key] = file.get_value(actor_name, key)
 	
 	# loading scene
 	get_tree().change_scene_to_file(file.get_value("world", "path", "res://world/test.tscn"))
@@ -62,7 +63,7 @@ func set_flag(key: String, value: Variant) -> void:
 
 
 func get_flag(key: String) -> Variant:
-	return file.get_value("flags", key)
+	return file.get_value("flags", key, false)
 
 
 func incr_flag(key: String, value: int = 1) -> void:

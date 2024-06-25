@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://rpyj2hvrbh2u"]
+
+[ext_resource type="Script" path="res://node/ui/order_item.gd" id="1_e85nb"]
+[ext_resource type="Texture2D" uid="uid://c6mo1yt54ob3c" path="res://asset/icon.svg" id="2_6x2ba"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pff6"]
+bg_color = Color(0, 0, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kcc7u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hpmq"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="OrderItem" type="PanelContainer"]
+offset_right = 81.0
+offset_bottom = 17.0
+script = ExtResource("1_e85nb")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ActiveIcon" type="Panel" parent="HBox"]
+visible = false
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4pff6")
+
+[node name="Art" type="TextureRect" parent="HBox"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_6x2ba")
+expand_mode = 1
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Name" type="Label" parent="HBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"LabelSmall"
+text = "actor name"
+
+[node name="Health" type="ProgressBar" parent="HBox/VBox"]
+custom_minimum_size = Vector2(64, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_kcc7u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2hpmq")
+step = 1.0
+value = 50.0
+show_percentage = false

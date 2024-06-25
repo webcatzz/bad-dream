@@ -2,46 +2,26 @@ extends Node
 ## Battle UI manager.
 
 
-@onready var _animator: AnimationPlayer = $Animator
-@onready var _modulator: CanvasModulate = $Modulator
-
-@onready var _order: HBoxContainer = $Top/VBox/BarTop/Order
+@onready var _order: VBoxContainer = $Layer/Bars/Order
 
 
 func _ready() -> void:
-	Battle.started.connect(_on_battle_started)
-	Battle.ended.connect(_on_battle_ended)
+	Battle.started.connect($Animator.play.bind("open"))
+	Battle.ended.connect($Animator.play.bind("close"))
 	Battle.actor_added.connect(_on_actor_added)
 	Battle.actor_removed.connect(_on_actor_removed)
-
-
-
-# showing & hiding
-
-func _on_battle_started() -> void:
-	_animator.play("open")
-	
-	_modulator.visible = true
-	get_tree().create_tween().tween_property(_modulator, "color:v", 0.8, 2)
-
-
-func _on_battle_ended() -> void:
-	_animator.play("close")
-	
-	await get_tree().create_tween().tween_property(_modulator, "color:v", 1, 2).finished
-	_modulator.visible = false
 
 
 
 # portraits
 
 func _on_actor_added(actor: Actor, idx: int) -> void:
-	var portrait: Control = preload("res://node/ui/portrait.tscn").instantiate()
-	portrait.set_actor(actor)
+	var order_item: Control = preload("res://node/ui/order_item.tscn").instantiate()
+	order_item.set_actor(actor)
 	
-	_order.add_child(portrait)
-	_order.move_child(portrait, idx)
+	_order.add_child(order_item)
+	_order.move_child(order_item, idx + 1)
 
 
 func _on_actor_removed(idx: int) -> void:
-	_order.get_child(idx).queue_free()
+	_order.get_child(idx + 1).queue_free()

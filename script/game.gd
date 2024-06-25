@@ -31,6 +31,13 @@ func spawn_party(position: Vector2) -> void:
 
 
 
+# game over
+
+func over() -> void:
+	get_tree().change_scene_to_file("res://node/ui/game_over.tscn")
+
+
+
 # internal
 
 func _ready() -> void:

@@ -54,8 +54,15 @@ func run_turn() -> void:
 	await get_tree().create_timer(0.25).timeout
 	
 	# moving to next turn
-	if is_won(): stop()
-	else: run_turn()
+	if not Data.get_party_undefeated():
+		ended.emit()
+		Game.over()
+	else:
+		for actor: Actor in order:
+			if actor not in Data.party and not actor.is_defeated():
+				run_turn()
+				return
+		stop()
 
 
 ## Returns true if there are no undefeated enemy [Actor]s in [member order].

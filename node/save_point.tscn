@@ -235,15 +235,17 @@ layout_mode = 2
 
 [node name="Outlets" type="HBoxContainer" parent="UI/Margins/VBox"]
 use_parent_material = true
+custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_constants/separation = 2
 
 [node name="Outlet1" type="Button" parent="UI/Margins/VBox/Outlets"]
 use_parent_material = true
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_vertical = 8
 focus_neighbor_left = NodePath("..")
 focus_neighbor_top = NodePath("../Outlet3")
 focus_neighbor_right = NodePath("..")
@@ -256,8 +258,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_4jd2l")
 use_parent_material = true
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_vertical = 0
 focus_neighbor_left = NodePath("..")
 focus_neighbor_top = NodePath("../Outlet1")
 focus_neighbor_right = NodePath("..")
@@ -270,8 +271,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_4jd2l")
 use_parent_material = true
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_vertical = 8
 focus_neighbor_left = NodePath("..")
 focus_neighbor_top = NodePath("../Outlet2")
 focus_neighbor_right = NodePath("..")
@@ -292,7 +292,7 @@ region_rect = Rect2(96, 0, 72, 121)
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 10
+size_flags_vertical = 8
 
 [node name="Save" type="Button" parent="UI/Margins/VBox/Buttons"]
 use_parent_material = true

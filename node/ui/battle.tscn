@@ -1,175 +1,248 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlabd5a4ri2ic"]
+[gd_scene load_steps=7 format=3 uid="uid://dlabd5a4ri2ic"]
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljjew"]
+content_margin_left = 16.0
+content_margin_top = 76.0
+content_margin_right = 16.0
+content_margin_bottom = 76.0
+draw_center = false
+border_width_top = 60
+border_width_bottom = 60
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_dvbj0"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("VBox/BarTop:custom_minimum_size:y")
+tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [60.0]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VBox/BarBottom:custom_minimum_size:y")
+tracks/1/path = NodePath("Bars:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [60.0]
+"values": [Vector2(500, 300)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
+tracks/2/path = NodePath("Bars:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_ped0u"]
-resource_name = "close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("VBox/BarTop:custom_minimum_size:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2.82843, 1),
 "update": 0,
-"values": [60.0, 0.0]
+"values": [Vector2(0, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("VBox/BarBottom:custom_minimum_size:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2.82843, 1),
-"update": 0,
-"values": [60.0, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1),
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Modulator:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Modulator:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_jilgl"]
 resource_name = "open"
+length = 2.0
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("VBox/BarTop:custom_minimum_size:y")
+tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.287174, 1),
-"update": 0,
-"values": [0.0, 60.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("VBox/BarBottom:custom_minimum_size:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.287175, 1),
-"update": 0,
-"values": [0.0, 60.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bars:size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(500, 420), Vector2(500, 300)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bars:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -60), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Modulator:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Modulator:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.8, 0.8, 0.8, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_25bq8"]
+resource_name = "close"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bars:size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(500, 300), Vector2(500, 420)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bars:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -60)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Modulator:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Modulator:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.8, 0.8, 0.8, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8715n"]
 _data = {
 "RESET": SubResource("Animation_dvbj0"),
-"close": SubResource("Animation_ped0u"),
+"close": SubResource("Animation_25bq8"),
 "open": SubResource("Animation_jilgl")
 }
 
 [node name="BattleUI" type="Node"]
 script = ExtResource("1_wfkej")
 
-[node name="Top" type="CanvasLayer" parent="."]
+[node name="Layer" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="VBox" type="VBoxContainer" parent="Top"]
+[node name="Bars" type="PanelContainer" parent="Layer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 500.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ljjew")
 
-[node name="BarTop" type="ColorRect" parent="Top/VBox"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 60)
+[node name="Order" type="VBoxContainer" parent="Layer/Bars"]
 layout_mode = 2
-color = Color(0, 0, 0, 1)
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
 
-[node name="Order" type="HBoxContainer" parent="Top/VBox/BarTop"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-alignment = 1
-
-[node name="Spacer" type="Control" parent="Top/VBox"]
+[node name="Label" type="Label" parent="Layer/Bars/Order"]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1000.0
-mouse_filter = 2
-
-[node name="BarBottom" type="ColorRect" parent="Top/VBox"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-color = Color(0, 0, 0, 1)
+theme_type_variation = &"LabelSmall"
+text = "Order"
 
 [node name="Modulator" type="CanvasModulate" parent="."]
 visible = false
 
 [node name="Animator" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Top")
+root_node = NodePath("../Layer")
 libraries = {
 "": SubResource("AnimationLibrary_8715n")
 }

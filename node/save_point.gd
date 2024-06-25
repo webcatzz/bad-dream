@@ -1,12 +1,12 @@
-extends Node2D
+extends Node2D # TODO: fix weird focus behavior/make it auto-cancel when leaving
 
 
 var active: bool
 var current_tween: Tween
-var current_outlet: Button
+var selected_file: int
 
 @onready var outlets: HBoxContainer = $UI/Margins/VBox/Outlets
-@onready var buttons: VBoxContainer = $UI/Margins/VBox/Buttons
+@onready var buttons: Control = $UI/Margins/VBox/Buttons
 @onready var plug: Sprite2D = outlets.get_node("Plug")
 
 
@@ -70,7 +70,8 @@ func _resize_color_rect() -> void:
 
 
 func _on_outlet_selected(idx: int) -> void:
-	current_outlet = outlets.get_child(idx)
+	selected_file = idx + 1
+	var current_outlet: Button = outlets.get_child(idx)
 	
 	buttons.get_child(0).grab_focus()
 	
@@ -79,11 +80,11 @@ func _on_outlet_selected(idx: int) -> void:
 
 
 func _on_save_pressed():
-	Data.save_file(current_outlet.get_index() + 1)
+	Data.save_file(selected_file)
 
 
 func _on_load_pressed():
-	Data.load_file(current_outlet.get_index() + 1)
+	Data.load_file(selected_file)
 
 
 func _on_delete_pressed():
@@ -91,5 +92,6 @@ func _on_delete_pressed():
 
 
 func _on_cancel_pressed() -> void:
-	current_outlet.grab_focus()
+	outlets.get_child(selected_file - 1).grab_focus()
+	selected_file = -1
 	$Animator.play("plug_out")
