@@ -19,6 +19,9 @@ var current_actor: Actor ## The [Actor] currently taking their turn.
 var astar: FieldAStar
 var astar_draw: Node2D # DEBUG
 
+var _ui: CanvasLayer
+var _camera: Camera2D = load("res://node/battle_camera.gd").new()
+
 
 
 # battle starting + stopping
@@ -26,6 +29,10 @@ var astar_draw: Node2D # DEBUG
 ## Starts a battle between the party and [param actors].
 func start(actors: Array[Actor], region: Rect2i) -> void:
 	active = true
+	
+	# adding ui/camera
+	add_child(preload("res://node/ui/battle.tscn").instantiate())
+	add_child(_camera)
 	
 	# generating field grid
 	astar = FieldAStar.new(region)
@@ -55,7 +62,7 @@ func run_turn() -> void:
 	
 	# moving to next turn
 	if not Data.get_party_undefeated():
-		ended.emit()
+		stop()
 		Game.over()
 	else:
 		for actor: Actor in order:
@@ -63,14 +70,6 @@ func run_turn() -> void:
 				run_turn()
 				return
 		stop()
-
-
-## Returns true if there are no undefeated enemy [Actor]s in [member order].
-func is_won() -> bool:
-	for actor in order:
-		if actor not in Data.party and not actor.is_defeated():
-			return false
-	return true
 
 
 ## Ends the current battle.
@@ -85,7 +84,7 @@ func stop() -> void:
 	while order: remove_actor(order[-1])
 	
 	# reorder party & regenerate nodes if leader is defeated
-	if Data.get_leader().is_defeated():
+	if Data.get_leader().is_defeated() and Data.get_party_undefeated():
 		
 		# freeing old leader node
 		var position: Vector2 = Data.get_leader().node.position
@@ -101,6 +100,9 @@ func stop() -> void:
 		
 		# spawning party
 		Game.spawn_party(position)
+	
+	# removing children
+	remove_child(_camera)
 
 
 
@@ -132,14 +134,3 @@ func remove_actor(actor: Actor) -> void:
 	order.remove_at(idx)
 	actor.in_battle = false
 	actor_removed.emit(idx)
-
-
-
-# internal
-
-func _ready() -> void:
-	add_child(load("res://node/ui/battle.tscn").instantiate()) # ui
-	add_child(load("res://node/battle_camera.gd").new()) # camera
-	
-	astar_draw = load("res://node/astar_draw.gd").new()
-	add_child(astar_draw) # astar draw

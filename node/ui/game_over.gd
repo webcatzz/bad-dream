@@ -1,8 +1,8 @@
-extends CanvasLayer
+extends PanelContainer
 
 
 func _ready() -> void:
-	$Panel/VBox/OK.grab_focus()
+	$VBox/OK.grab_focus()
 
 
 func _on_ok_pressed():

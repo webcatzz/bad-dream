@@ -13,11 +13,19 @@ var selected_file: int
 # Shows the save point UI.
 func _on_player_entered() -> void:
 	active = true
+	
+	get_tree().create_tween().tween_property(Data.get_leader().node, "global_position", global_position, 0.6).set_trans(Tween.TRANS_QUAD)
+	#Data.get_leader().position = Iso.to_grid(global_position)
 	_resize_color_rect()
 	outlets.get_child(0).grab_focus()
 	
 	# background
-	$Animator.play("show")
+	$Animator.play("intro")
+	
+	# camera
+	if current_tween: current_tween.kill()
+	current_tween = get_tree().create_tween().set_parallel()
+	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", -120, 2).set_trans(Tween.TRANS_CUBIC)
 	
 	# z-index
 	z_index = 101
@@ -25,12 +33,7 @@ func _on_player_entered() -> void:
 		Data.party[i].node.z_index = 101
 		
 		if i:
-			get_tree().create_tween().tween_property(Data.party[i].node, "modulate:a", 0.25, 2)
-	
-	# camera
-	if current_tween: current_tween.kill()
-	current_tween = get_tree().create_tween()
-	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", -120, 2).set_trans(Tween.TRANS_CUBIC)
+			current_tween.tween_property(Data.party[i].node, "modulate:a", 0.25, 2)
 
 
 # Hides the save point UI.
@@ -38,8 +41,13 @@ func _on_player_exited() -> void:
 	active = false
 	
 	# background
-	$Animator.play("hide")
+	$Animator.play("outro")
 	await $Animator.animation_finished
+	
+	# camera
+	if current_tween: current_tween.kill()
+	current_tween = get_tree().create_tween().set_parallel()
+	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", 0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	
 	# z-index
 	z_index = 0
@@ -47,12 +55,7 @@ func _on_player_exited() -> void:
 		Data.party[i].node.z_index = 0
 		
 		if i:
-			get_tree().create_tween().tween_property(Data.party[i].node, "modulate:a", 1, 0.1)
-	
-	# camera
-	if current_tween: current_tween.kill()
-	current_tween = get_tree().create_tween()
-	current_tween.tween_property(Data.get_leader().node.get_node("Camera"), "offset:y", 0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+			current_tween.tween_property(Data.party[i].node, "modulate:a", 1, 0.1)
 
 
 

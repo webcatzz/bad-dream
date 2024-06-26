@@ -6,7 +6,7 @@ extends Node
 
 
 func _ready() -> void:
-	Battle.started.connect($Animator.play.bind("open"))
+	$Animator.play("open")
 	Battle.ended.connect($Animator.play.bind("close"))
 	Battle.actor_added.connect(_on_actor_added)
 	Battle.actor_removed.connect(_on_actor_removed)

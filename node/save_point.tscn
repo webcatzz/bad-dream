@@ -1,11 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://be6ge5sg8n6yl"]
+[gd_scene load_steps=31 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
 [ext_resource type="Texture2D" uid="uid://p1b7e7f6qf7r" path="res://asset/phonebooth.png" id="2_qyhcf"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_r7lj4"]
-[ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/plug.png" id="5_gcasg"]
+[ext_resource type="Texture2D" uid="uid://bv68rtqd5u35p" path="res://asset/switchboard.png" id="5_3it3y"]
+[ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/switchboard_plug.png" id="5_gcasg"]
 [ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth-bg.png" id="5_lpghm"]
+[ext_resource type="Animation" uid="uid://68uvn06n4ffw" path="res://intro.res" id="8_i4ob7"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]
 a = Vector2(-16, 0)
@@ -19,13 +21,114 @@ b = Vector2(0, -8)
 a = Vector2(16, 0)
 b = Vector2(0, 8)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiywu"]
-content_margin_bottom = 100.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmedi"]
 bg_color = Color(0, 0, 0, 1)
-expand_margin_left = 32.0
-expand_margin_top = 32.0
-expand_margin_right = 32.0
-expand_margin_bottom = 32.0
+
+[sub_resource type="Gradient" id="Gradient_eb3vb"]
+colors = PackedColorArray(0.890196, 0.701961, 0.858824, 0, 0.89, 0.702, 0.859, 0.2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uv63r"]
+noise_type = 3
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_73lrr"]
+width = 500
+height = 300
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_eb3vb")
+noise = SubResource("FastNoiseLite_uv63r")
+
+[sub_resource type="Gradient" id="Gradient_4onsi"]
+offsets = PackedFloat32Array(0, 0.6)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.74902)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5acl7"]
+noise_type = 3
+seed = 1
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t23eu"]
+width = 500
+height = 300
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_4onsi")
+noise = SubResource("FastNoiseLite_5acl7")
+
+[sub_resource type="Gradient" id="Gradient_p5p5d"]
+offsets = PackedFloat32Array(0, 0.786)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_id3wm"]
+gradient = SubResource("Gradient_p5p5d")
+width = 500
+height = 420
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Animation" id="Animation_vmr5m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FogBack:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FogFore:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8ownr"]
+resource_name = "move"
+length = 30.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FogBack:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-500, -300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FogFore:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-500, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ekdn8"]
+_data = {
+"RESET": SubResource("Animation_vmr5m"),
+"move": SubResource("Animation_8ownr")
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_44egl"]
 atlas = ExtResource("5_gcasg")
@@ -72,9 +175,21 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Background/Switchboard:texture_offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_jsk0n"]
-resource_name = "hide"
+resource_name = "outro"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -135,41 +250,13 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1.25, 1.25), Vector2(1.25, 1.25)]
 }
 
-[sub_resource type="Animation" id="Animation_ivp73"]
-resource_name = "show"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UI:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kaywy"]
 _data = {
 "RESET": SubResource("Animation_y0csc"),
-"hide": SubResource("Animation_jsk0n"),
+"intro": ExtResource("8_i4ob7"),
+"outro": SubResource("Animation_jsk0n"),
 "plug_in": SubResource("Animation_osow8"),
-"plug_out": SubResource("Animation_sy7ys"),
-"show": SubResource("Animation_ivp73")
+"plug_out": SubResource("Animation_sy7ys")
 }
 
 [node name="SavePoint" type="Node2D"]
@@ -215,13 +302,65 @@ show_behind_parent = true
 z_index = 100
 z_as_relative = false
 material = ExtResource("4_r7lj4")
-custom_minimum_size = Vector2(500, 400)
-offset_top = -100.0
+custom_minimum_size = Vector2(500, 420)
+offset_top = -120.0
 offset_right = 500.0
 offset_bottom = 300.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xiywu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wmedi")
+
+[node name="Background" type="Control" parent="UI"]
+use_parent_material = true
+layout_mode = 2
+
+[node name="Switchboard" type="Polygon2D" parent="UI/Background"]
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(250, 150)
+rotation = -0.261799
+scale = Vector2(1, 1.125)
+skew = 0.261799
+offset = Vector2(-250, -150)
+texture = ExtResource("5_3it3y")
+polygon = PackedVector2Array(-50, -50, 550, -50, 550, 450, -50, 450)
+
+[node name="FogBack" type="TextureRect" parent="UI/Background"]
+use_parent_material = true
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+offset_right = 1000.0
+offset_bottom = 600.0
+pivot_offset = Vector2(500, 300)
+texture = SubResource("NoiseTexture2D_73lrr")
+stretch_mode = 1
+
+[node name="FogFore" type="TextureRect" parent="UI/Background"]
+use_parent_material = true
+custom_minimum_size = Vector2(1000, 300)
+layout_mode = 1
+offset_right = 1000.0
+offset_bottom = 300.0
+pivot_offset = Vector2(500, 300)
+texture = SubResource("NoiseTexture2D_t23eu")
+stretch_mode = 1
+
+[node name="Gradient" type="TextureRect" parent="UI/Background"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_id3wm")
+
+[node name="FogAnimator" type="AnimationPlayer" parent="UI/Background"]
+libraries = {
+"": SubResource("AnimationLibrary_ekdn8")
+}
+autoplay = "move"
 
 [node name="Margins" type="MarginContainer" parent="UI"]
+visible = false
 use_parent_material = true
 layout_mode = 2
 theme_override_constants/margin_left = 32
