@@ -9,6 +9,7 @@ var listening: bool
 @onready var path: Line2D = $DuringTurn/Path
 @onready var action_menu: Control = $DuringTurn/ActionMenu
 @onready var collision_checker: RayCast2D = $CollisionChecker
+@onready var _backtrack_timer: Timer = $DuringTurn/BacktrackTimer
 
 
 
@@ -16,6 +17,7 @@ var listening: bool
 
 func _ready() -> void:
 	_on_data_set()
+	_backtrack_timer.timeout.connect(_on_backtrack_timer_timeout)
 
 
 func _on_data_set() -> void:
@@ -77,7 +79,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 			collision_checker.force_raycast_update()
 			if not collision_checker.is_colliding():
 				data.extend_path()
-				data.move(data.position + vector)
+				data.move(vector)
 			
 			get_viewport().set_input_as_handled()
 			return
@@ -85,10 +87,14 @@ func _handle_battle_input(event: InputEvent) -> void:
 	# backtracking
 	if event.is_action_pressed("shift") and data.tiles_traveled:
 		data.backtrack_path()
+		_backtrack_timer.start()
 		get_viewport().set_input_as_handled()
 		
-		# TODO: holding shift should continuously backtrack
 		# TODO: when actions_per_turn > 1, disable backtracking past the point an action is used
+	
+	elif event.is_action_released("shift"):
+		_backtrack_timer.stop()
+		get_viewport().set_input_as_handled()
 	
 	# opening action menu / ending turn
 	elif event.is_action_pressed("ui_accept"):
@@ -111,3 +117,8 @@ func _on_path_extended() -> void:
 
 func _on_path_backtracked() -> void:
 	path.remove_point(data.path.size())
+
+
+func _on_backtrack_timer_timeout() -> void:
+	if data.tiles_traveled: data.backtrack_path()
+	else: _backtrack_timer.stop()

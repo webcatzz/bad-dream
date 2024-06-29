@@ -93,12 +93,21 @@ var node: ActorNode ## Node representation.
 
 # movement
 
-## Sets [member position] to [param to_pos] and [member facing] to the direction of motion.
-func move(to_pos: Vector2i) -> void:
-	var displacement: Vector2i = to_pos - position
-	var axis: int = displacement.abs().max_axis_index()
-	facing = (Vector2i.DOWN if axis else Vector2i.RIGHT) * signi(displacement[axis])
-	position = to_pos
+## Moves to [param pos]. Updates [member facing] to the direction of motion.
+func move_to(pos: Vector2i) -> void:
+	facing = calculate_facing(pos - position)
+	position = pos
+
+
+## Moves by [param vector]. Updates [member facing] to the direction of motion.
+func move(vector: Vector2i) -> void:
+	facing = calculate_facing(vector)
+	position += vector
+
+
+func calculate_facing(motion: Vector2i) -> Vector2i:
+	var axis: int = motion.abs().max_axis_index()
+	return (Vector2i.DOWN if axis else Vector2i.RIGHT) * signi(motion[axis])
 
 
 

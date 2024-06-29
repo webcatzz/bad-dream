@@ -47,5 +47,5 @@ func update() -> void:
 
 func follow_path(path: PackedVector2Array) -> void:
 	for point: Vector2i in path:
-		owner.move(point)
+		owner.move_to(point)
 		await Game.get_tree().create_timer(0.2).timeout

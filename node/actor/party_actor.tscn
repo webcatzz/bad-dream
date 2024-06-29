@@ -85,6 +85,9 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 3
 
+[node name="BacktrackTimer" type="Timer" parent="DuringTurn" index="3"]
+wait_time = 0.15
+
 [connection signal="hidden" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [0]]
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
 [connection signal="visibility_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_visibility_changed"]
