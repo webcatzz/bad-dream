@@ -59,3 +59,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_2hpmq")
 step = 1.0
 value = 50.0
 show_percentage = false
+
+[node name="StatusEffects" type="HBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_vertical = 4

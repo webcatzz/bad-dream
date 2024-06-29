@@ -68,6 +68,8 @@ func end() -> void:
 		Type.GUARD:
 			target.modifiers.defense -= strength
 	
+	target.turn_ended.disconnect(_decrement_duration)
+	Battle.ended.disconnect(end)
 	ended.emit()
 
 
