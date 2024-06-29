@@ -61,21 +61,14 @@ func _on_actionlist_item_activated(_idx: int) -> void:
 	var action: Action = splash.action
 	splash = null
 	visible = false
-	
-	await actor.take_action(action)
 	get_viewport().set_input_as_handled()
+	
+	actor.take_action(action)
 
 
 func _guard() -> void:
-	actor.end_turn()
+	actor.guard()
 	visible = false
-	
-	var guard: StatusEffect = StatusEffect.new()
-	guard.type = StatusEffect.Type.GUARD
-	guard.duration = 1
-	guard.strength = 1
-	actor.turn_started.connect(guard.end, CONNECT_ONE_SHOT)
-	actor.add_status_effect(guard)
 
 
 func _end_turn() -> void:

@@ -96,8 +96,8 @@ func _handle_battle_input(event: InputEvent) -> void:
 		_backtrack_timer.stop()
 		get_viewport().set_input_as_handled()
 	
-	# opening action menu / ending turn
-	elif event.is_action_pressed("ui_accept"):
+	# opening action menu
+	elif event.is_action_pressed("ui_accept") and not data.focusing:
 		action_menu.visible = true
 		get_viewport().set_input_as_handled()
 

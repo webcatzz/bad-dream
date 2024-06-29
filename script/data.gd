@@ -28,7 +28,6 @@ func load_file(idx: int) -> void:
 	get_tree().change_scene_to_file(file.get_value("world", "path", "res://world/test.tscn"))
 	await get_tree().process_frame
 	await get_tree().process_frame
-	await get_tree().process_frame
 	Game.spawn_party(file.get_value("world", "position", Vector2.ZERO))
 
 

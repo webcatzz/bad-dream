@@ -144,10 +144,10 @@ func end_turn_if_exhausted() -> void:
 ## Performs an [Action].
 func take_action(action: Action) -> void:
 	actions_taken += 1
+	focusing = action
+	action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
 	
 	if action.needs_focus:
-		focusing = action
-		action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
 		end_turn()
 	
 	await action.start()
@@ -193,6 +193,17 @@ func try_evade(direction: Vector2i) -> bool:
 	
 	evaded.emit(successful)
 	return successful
+
+
+## Ends the current turn and guards until the next turn.
+func guard() -> void:
+	end_turn()
+	var guard: StatusEffect = StatusEffect.new()
+	guard.type = StatusEffect.Type.GUARD
+	guard.duration = 1
+	guard.strength = 1
+	turn_started.connect(guard.end, CONNECT_ONE_SHOT)
+	add_status_effect(guard)
 
 
 
