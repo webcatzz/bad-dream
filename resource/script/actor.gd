@@ -84,7 +84,7 @@ var in_battle: bool: ## Whether the actor is in battle.
 var is_turn: bool
 
 var path: Array[Dictionary] ## Contains all previous orientation states this turn.
-var focusing: Action ## [Action] the actor is focusing on.
+var current_action: Action ## [Action] the actor is currently taking.
 
 # node
 var node: ActorNode ## Node representation.
@@ -144,11 +144,7 @@ func end_turn_if_exhausted() -> void:
 ## Performs an [Action].
 func take_action(action: Action) -> void:
 	actions_taken += 1
-	focusing = action
-	action.finished.connect(_clear_focus, CONNECT_ONE_SHOT)
-	
-	if action.needs_focus:
-		end_turn()
+	current_action = action
 	
 	await action.start()
 	
@@ -231,7 +227,7 @@ func is_defeated() -> bool:
 
 ## Returns true if the actor cannot take their turn.
 func can_take_turn() -> bool:
-	return is_defeated() or is_exhausted() or focusing
+	return is_defeated() or is_exhausted() or current_action
 
 
 
@@ -301,11 +297,12 @@ func _export_init() -> void:
 	for i: int in actions.size():
 		actions[i] = actions[i].duplicate()
 		actions[i].cause = self
-		actions[i].finished.connect(emit_signal.bind("action_taken"))
+		actions[i].finished.connect(_on_action_finished)
 
 
-func _clear_focus() -> void:
-	focusing = null
+func _on_action_finished() -> void:
+	current_action = null
+	action_taken.emit()
 
 
 func _to_string() -> String:

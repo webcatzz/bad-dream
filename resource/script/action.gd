@@ -22,7 +22,6 @@ enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 # delay
 @export_group("Delay")
 @export var delay: int ## Number of turns that should end before this action triggers.
-@export var needs_focus: bool ## If [code]true[/code], [member cause] may not act until the action is finished.
 
 # knockback
 @export_group("Knockback", "knockback_")
@@ -95,7 +94,7 @@ func _decrement_delay() -> void:
 		await run()
 		finished.emit()
 	
-	elif needs_focus:
+	else:
 		pass # TODO: confirm every turn whether to continue focusing or end the action
 
 

@@ -97,7 +97,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	
 	# opening action menu
-	elif event.is_action_pressed("ui_accept") and not data.focusing:
+	elif event.is_action_pressed("ui_accept") and not data.current_action:
 		action_menu.visible = true
 		get_viewport().set_input_as_handled()
 

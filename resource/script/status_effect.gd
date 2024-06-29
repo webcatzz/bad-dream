@@ -51,8 +51,6 @@ func stack(with: StatusEffect) -> void:
 
 ## Ends the effect.
 func end() -> void:
-	target.turn_ended.disconnect(_decrement_duration)
-	
 	match type:
 		Type.BURN:
 			target.action_taken.disconnect(target.damage)
