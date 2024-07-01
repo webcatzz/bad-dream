@@ -70,6 +70,10 @@ func _physics_process(_delta: float) -> void:
 			party_path.append(position)
 
 
+func get_party_path_position(actor: Actor) -> Vector2:
+	return party_path[PARTY_PATH_OFFSET * Data.party.find(actor, 1)]
+
+
 
 # battle
 

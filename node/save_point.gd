@@ -29,11 +29,7 @@ func _on_player_entered() -> void:
 	
 	# z-index
 	z_index = 101
-	for i: int in Data.party.size():
-		Data.party[i].node.z_index = 101
-		
-		if i:
-			current_tween.tween_property(Data.party[i].node, "modulate:a", 0.25, 2)
+	Data.get_leader().node.z_index = 101
 
 
 # Hides the save point UI.
@@ -51,11 +47,7 @@ func _on_player_exited() -> void:
 	
 	# z-index
 	z_index = 0
-	for i: int in Data.party.size():
-		Data.party[i].node.z_index = 0
-		
-		if i:
-			current_tween.tween_property(Data.party[i].node, "modulate:a", 1, 0.1)
+	Data.get_leader().node.z_index = 0
 
 
 

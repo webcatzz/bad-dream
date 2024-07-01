@@ -8,6 +8,8 @@ var text_particle_scene: PackedScene = preload("res://node/text_particle.tscn")
 var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_effect_animation.tres")
 
 @onready var dice: Node2D = $DiceRoll
+@onready var _sprite = $Sprite
+@onready var _walk_cycle_timer = $WalkCycleTimer
 
 
 func take_turn() -> void:
@@ -48,7 +50,7 @@ func _on_data_set() -> void:
 	data.position = Iso.to_grid(position)
 	data.node = self
 	
-	$Sprite.texture = data.sprite
+	_sprite.texture = data.sprite
 	
 	# orientation
 	data.position_changed.connect(_on_position_changed)
@@ -73,10 +75,10 @@ func _on_position_changed(pos: Vector2i) -> void:
 
 func _on_facing_changed(facing: Vector2i) -> void:
 	match facing:
-		Vector2i.DOWN: $Sprite.frame_coords.x = 0
-		Vector2i.UP: $Sprite.frame_coords.x = 1
-		Vector2i.LEFT: $Sprite.frame_coords.x = 2
-		Vector2i.RIGHT: $Sprite.frame_coords.x = 3
+		Vector2i.DOWN: _sprite.frame_coords.y = 0
+		Vector2i.UP: _sprite.frame_coords.y = 1
+		Vector2i.LEFT: _sprite.frame_coords.y = 2
+		Vector2i.RIGHT: _sprite.frame_coords.y = 3
 
 
 func _on_health_changed_by(value: int) -> void:
@@ -95,7 +97,7 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 		sprite.name = effect_name
 		sprite.sprite_frames = status_effect_animations
 		sprite.offset.y = -24
-		$Sprite.add_child(sprite)
+		_sprite.add_child(sprite)
 		sprite.play(effect_name)
 	
 	emit_text("+ " + effect_name)
@@ -105,7 +107,7 @@ func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 	var effect_name: String = status_effect.get_type_string()
 	
 	if status_effect_animations.has_animation(effect_name):
-		$Sprite.get_node(effect_name).queue_free()
+		_sprite.get_node(effect_name).queue_free()
 	
 	emit_text("- " + effect_name)
 

@@ -119,6 +119,7 @@ use_parent_material = true
 texture = ExtResource("3_4t8iq")
 offset = Vector2(0, -24)
 hframes = 4
+vframes = 4
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -147,3 +148,7 @@ stream = ExtResource("6_ql4jc")
 
 [node name="SpotlightOff" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("7_cqwoq")
+
+[node name="WalkCycleTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true

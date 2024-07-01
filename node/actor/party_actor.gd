@@ -17,7 +17,9 @@ var listening: bool
 
 func _ready() -> void:
 	_on_data_set()
+	
 	_backtrack_timer.timeout.connect(_on_backtrack_timer_timeout)
+	_walk_cycle_timer.timeout.connect(_advance_walk_cycle)
 
 
 func _on_data_set() -> void:
@@ -28,13 +30,29 @@ func _on_data_set() -> void:
 	# battle
 	data.battle_entered.connect(_on_battle_entered)
 	data.battle_exited.connect(_on_battle_exited)
+	# defeated
+	if data.is_defeated():
+		_on_defeated()
 
 
 # following leader
 func _physics_process(_delta: float) -> void:
 	if not data.in_battle:
-		var node: PlayerActorNode = Data.get_leader().node
-		global_position = global_position.lerp(node.party_path[node.PARTY_PATH_OFFSET * Data.party.find(data, 1)], 0.1)
+		var old_position: Vector2 = global_position
+		
+		global_position = global_position.lerp(
+			Data.get_leader().node.get_party_path_position(data),
+			0.1
+		)
+		_on_facing_changed(Iso.to_grid(Iso.get_direction(
+			Data.get_leader().node.global_position - global_position
+		)))
+		
+		_walk_cycle_timer.paused = (global_position - old_position).length_squared() < 2
+
+
+func _advance_walk_cycle() -> void:
+	_sprite.frame_coords.x = (_sprite.frame_coords.x + 1) % _sprite.hframes
 
 
 
@@ -80,6 +98,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 			if not collision_checker.is_colliding():
 				data.extend_path()
 				data.move(vector)
+				_advance_walk_cycle()
 			
 			get_viewport().set_input_as_handled()
 			return

@@ -107,4 +107,4 @@ func get_volume(type: String) -> float:
 
 func _ready() -> void:
 	settings.load("user://settings.cfg")
-	load_file.call_deferred(-1)
+	#load_file.call_deferred(-1)
