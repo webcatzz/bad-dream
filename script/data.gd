@@ -17,7 +17,7 @@ func load_file(idx: int) -> void:
 	
 	# loading party
 	for actor_name: String in file.get_value("file", "party", ["woodcarver"]):
-		var actor: Actor = load("res://resource/actor/woodcarver.tres")
+		var actor: Actor = load("res://resource/actor/" + actor_name + ".tres")
 		party.append(actor)
 		
 		if file.has_section(actor_name):

@@ -79,7 +79,7 @@ position = Vector2(176, -96)
 position = Vector2(144, 72)
 collision_layer = 0
 script = ExtResource("7_kkk1m")
-actors = Array[NodePath]([NodePath("../EnemyActor")])
+actors = Array[NodePath]([NodePath("../EnemyActor"), NodePath("../EnemyActor2")])
 region = Rect2i(-5, 0, 11, 11)
 mode = 1
 
