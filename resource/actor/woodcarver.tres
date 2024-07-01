@@ -4,16 +4,17 @@
 [ext_resource type="Resource" uid="uid://c4nywreyjxx5s" path="res://resource/action/instakill.tres" id="2_4xyq5"]
 [ext_resource type="Script" path="res://resource/script/actor.gd" id="3_4fjlo"]
 [ext_resource type="Resource" uid="uid://by1ag7jijnwo2" path="res://resource/action/healpool.tres" id="3_xwecl"]
-[ext_resource type="Texture2D" uid="uid://1vypntn0rbs6" path="res://asset/actor/sprite/woodcarver.png" id="4_qwm5x"]
 [ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://resource/action/strike_out.tres" id="4_u6w21"]
 [ext_resource type="Resource" uid="uid://lj7sjmdng2ku" path="res://resource/action/stun.tres" id="5_40v7m"]
+[ext_resource type="SpriteFrames" uid="uid://b2kpdnx3nqg05" path="res://asset/actor/sprite/woodcarver.tres" id="7_e3qr5"]
 
 [resource]
 script = ExtResource("3_4fjlo")
 name = "woodcarver"
-sprite = ExtResource("4_qwm5x")
+sprite = ExtResource("7_e3qr5")
 description = "..."
 max_health = 10
+defense = 0
 resistance = 0
 evasion = 0.0
 tiles_per_turn = 10000

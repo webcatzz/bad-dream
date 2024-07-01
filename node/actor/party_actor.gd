@@ -19,7 +19,6 @@ func _ready() -> void:
 	_on_data_set()
 	
 	_backtrack_timer.timeout.connect(_on_backtrack_timer_timeout)
-	_walk_cycle_timer.timeout.connect(_advance_walk_cycle)
 
 
 func _on_data_set() -> void:
@@ -48,11 +47,8 @@ func _physics_process(_delta: float) -> void:
 			Data.get_leader().node.global_position - global_position
 		)))
 		
-		_walk_cycle_timer.paused = (global_position - old_position).length_squared() < 2
-
-
-func _advance_walk_cycle() -> void:
-	_sprite.frame_coords.x = (_sprite.frame_coords.x + 1) % _sprite.hframes
+		if Data.get_leader().node.input: _sprite.play()
+		else: _sprite.pause()
 
 
 
@@ -76,7 +72,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _handle_battle_input(event: InputEvent) -> void:
 	# action ui (blocks other input)
 	if action_menu.visible:
-		if event.is_action_pressed("ui_cancel"):
+		if event.is_action_pressed(&"ui_cancel"):
 			if action_menu.current_tab: action_menu.current_tab = 0
 			else: action_menu.visible = false
 		
@@ -87,10 +83,10 @@ func _handle_battle_input(event: InputEvent) -> void:
 	if data.can_move():
 		var vector: Vector2i = Vector2i.ZERO
 		
-		if event.is_action_pressed("move_up"): vector = Vector2i.UP
-		elif event.is_action_pressed("move_down"): vector = Vector2i.DOWN
-		elif event.is_action_pressed("move_left"): vector = Vector2i.LEFT
-		elif event.is_action_pressed("move_right"): vector = Vector2i.RIGHT
+		if event.is_action_pressed(&"move_up"): vector = Vector2i.UP
+		elif event.is_action_pressed(&"move_down"): vector = Vector2i.DOWN
+		elif event.is_action_pressed(&"move_left"): vector = Vector2i.LEFT
+		elif event.is_action_pressed(&"move_right"): vector = Vector2i.RIGHT
 		
 		if vector and Battle.astar.region.has_point(data.position + vector):
 			collision_checker.target_position = Iso.from_grid(vector)
@@ -98,25 +94,24 @@ func _handle_battle_input(event: InputEvent) -> void:
 			if not collision_checker.is_colliding():
 				data.extend_path()
 				data.move(vector)
-				_advance_walk_cycle()
 			
 			get_viewport().set_input_as_handled()
 			return
 	
 	# backtracking
-	if event.is_action_pressed("shift") and data.tiles_traveled:
+	if event.is_action_pressed(&"shift") and data.tiles_traveled:
 		data.backtrack_path()
 		_backtrack_timer.start()
 		get_viewport().set_input_as_handled()
 		
 		# TODO: when actions_per_turn > 1, disable backtracking past the point an action is used
 	
-	elif event.is_action_released("shift"):
+	elif event.is_action_released(&"shift"):
 		_backtrack_timer.stop()
 		get_viewport().set_input_as_handled()
 	
 	# opening action menu
-	elif event.is_action_pressed("ui_accept") and not data.current_action:
+	elif event.is_action_pressed(&"ui_accept") and not data.current_action:
 		action_menu.visible = true
 		get_viewport().set_input_as_handled()
 
@@ -124,6 +119,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 func _on_battle_entered() -> void:
 	$Collision.set_disabled.call_deferred(false)
 	data.move.call_deferred(Data.get_leader().position)
+	_sprite.stop()
 
 
 func _on_battle_exited() -> void:
@@ -132,10 +128,12 @@ func _on_battle_exited() -> void:
 
 func _on_path_extended() -> void:
 	path.add_point(Iso.from_grid(data.path[-1].position))
+	_advance_frame()
 
 
 func _on_path_backtracked() -> void:
 	path.remove_point(data.path.size())
+	_advance_frame()
 
 
 func _on_backtrack_timer_timeout() -> void:

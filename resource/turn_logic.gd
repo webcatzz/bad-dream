@@ -23,9 +23,10 @@ func start() -> void:
 	await follow_path(paths[target].slice(0, owner.tiles_per_turn))
 	
 	if not paths[target] or owner.position == Vector2i(paths[target][-1]):
-		Game.get_tree().current_scene.add_child(owner.actions[0].splash)
-		await Game.get_tree().create_timer(0.25).timeout
-		await owner.take_action(owner.actions[0])
+		if owner.actions:
+			Game.get_tree().current_scene.add_child(owner.actions[0].splash)
+			await Game.get_tree().create_timer(0.25).timeout
+			await owner.take_action(owner.actions[0])
 	
 	owner.end_turn()
 	

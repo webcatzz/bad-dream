@@ -20,6 +20,5 @@ dice = 1
 type = 6
 shape = SubResource("BitMap_0plqs")
 delay = 8
-needs_focus = true
 knockback_type = 0
 knockback_vector = Vector2i(0, 0)

@@ -23,7 +23,7 @@ signal status_effect_removed(status_effect: StatusEffect)
 
 # appearance
 @export var name: String = "Actor"
-@export var sprite: Texture2D = load("res://asset/actor/sprite/default.png")
+@export var sprite: SpriteFrames = load("res://asset/actor/sprite/default.tres")
 @export var portrait: Texture2D = load("res://asset/actor/portrait/default.png")
 @export_multiline var description: String = "..."
 

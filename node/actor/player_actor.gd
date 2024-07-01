@@ -57,6 +57,9 @@ func _handle_free_input(event: InputEvent) -> void:
 		if input:
 			data.facing = Iso.to_grid(Iso.get_direction(input))
 			get_viewport().set_input_as_handled()
+			_sprite.play()
+		else:
+			_sprite.stop()
 
 
 func _physics_process(_delta: float) -> void:
@@ -81,6 +84,7 @@ func _on_battle_entered() -> void:
 	listening = false
 	input_mode = InputMode.GRID
 	data.position = Iso.to_grid(position)
+	_sprite.stop()
 
 
 func _on_battle_exited() -> void:

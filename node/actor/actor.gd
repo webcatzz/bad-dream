@@ -8,8 +8,8 @@ var text_particle_scene: PackedScene = preload("res://node/text_particle.tscn")
 var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_effect_animation.tres")
 
 @onready var dice: Node2D = $DiceRoll
-@onready var _sprite = $Sprite
-@onready var _walk_cycle_timer = $WalkCycleTimer
+@onready var _sprite: AnimatedSprite2D = $Sprite
+@onready var _animator: AnimationPlayer = $Animator
 
 
 func take_turn() -> void:
@@ -50,7 +50,7 @@ func _on_data_set() -> void:
 	data.position = Iso.to_grid(position)
 	data.node = self
 	
-	_sprite.texture = data.sprite
+	_sprite.sprite_frames = data.sprite
 	
 	# orientation
 	data.position_changed.connect(_on_position_changed)
@@ -75,15 +75,15 @@ func _on_position_changed(pos: Vector2i) -> void:
 
 func _on_facing_changed(facing: Vector2i) -> void:
 	match facing:
-		Vector2i.DOWN: _sprite.frame_coords.y = 0
-		Vector2i.UP: _sprite.frame_coords.y = 1
-		Vector2i.LEFT: _sprite.frame_coords.y = 2
-		Vector2i.RIGHT: _sprite.frame_coords.y = 3
+		Vector2i.DOWN: _sprite.animation = &"move_down"
+		Vector2i.UP: _sprite.animation = &"move_up"
+		Vector2i.LEFT: _sprite.animation = &"move_left"
+		Vector2i.RIGHT: _sprite.animation = &"move_right"
 
 
 func _on_health_changed_by(value: int) -> void:
 	if value < 0:
-		$Animator.play("damaged")
+		_animator.play("damaged")
 		emit_text(str(value), Color.RED)
 	else:
 		emit_text("+" + str(value), Color.GREEN)
@@ -118,6 +118,10 @@ func _on_evaded(successful: bool) -> void:
 
 func _on_defeated() -> void:
 	$Collision.disabled = true
-	$Animator.queue("defeated")
-	await $Animator.animation_finished
-	await $Animator.animation_finished
+	_animator.queue("defeated")
+	await _animator.animation_finished
+	await _animator.animation_finished
+
+
+func _advance_frame(by: int = 1) -> void:
+	_sprite.frame = (_sprite.frame + by) % _sprite.sprite_frames.get_frame_count(_sprite.animation)

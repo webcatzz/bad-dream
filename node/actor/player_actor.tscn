@@ -11,8 +11,3 @@ script = ExtResource("2_lw7y8")
 disabled = false
 
 [node name="Camera" type="Camera2D" parent="." index="5"]
-position_smoothing_enabled = true
-
-[node name="WalkCycleTimer" parent="." index="9"]
-wait_time = 1.0
-autostart = false
