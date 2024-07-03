@@ -33,8 +33,8 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 	icon.texture.region.size = Vector2(8, 8)
 	icon.texture.region.position = Vector2(status_effect.type % 64, status_effect.type / 64) * 8
 	
-	$HBox/StatusEffects.add_child(icon)
+	$HBox/Extra/StatusEffects.add_child(icon)
 
 
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
-	$HBox/StatusEffects.get_node("Status" + str(status_effect.type)).queue_free()
+	$HBox/Extra/StatusEffects.get_node("Status" + str(status_effect.type)).queue_free()

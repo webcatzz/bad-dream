@@ -51,4 +51,4 @@ func _draw() -> void:
 	])[0]
 	
 	draw_set_transform(size/2)
-	draw_colored_polygon(tail_polygon, Color("#b8c2b9"))
+	draw_colored_polygon(tail_polygon, Color("#b8aab0"))

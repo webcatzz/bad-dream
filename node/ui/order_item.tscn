@@ -43,6 +43,10 @@ step = 1.0
 value = 50.0
 show_percentage = false
 
-[node name="StatusEffects" type="HBoxContainer" parent="HBox"]
+[node name="Extra" type="MarginContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+
+[node name="StatusEffects" type="HBoxContainer" parent="HBox/Extra"]
 layout_mode = 2
 size_flags_vertical = 4

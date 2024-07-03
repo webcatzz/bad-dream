@@ -9,7 +9,7 @@ var _time: float = 0
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, _radius, Color.WHITE)
+	draw_circle(Vector2.ZERO, _radius, Color("#b8aab0"))
 
 
 func _process(delta: float) -> void:

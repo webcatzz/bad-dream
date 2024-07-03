@@ -112,7 +112,7 @@ _data = {
 }
 
 [sub_resource type="Gradient" id="Gradient_8xtn0"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+colors = PackedColorArray(0.721569, 0.666667, 0.690196, 0, 0.721569, 0.666667, 0.690196, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vyyqk"]
 playback_mode = 1
@@ -155,6 +155,7 @@ light_mask = 0
 z_index = -1
 material = ExtResource("1_p8v8q")
 width = 3.0
+default_color = Color(0.721569, 0.666667, 0.690196, 1)
 gradient = SubResource("Gradient_8xtn0")
 
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
