@@ -2,7 +2,7 @@ extends Node
 ## Battle UI manager.
 
 
-@onready var _order: VBoxContainer = $Layer/Bars/Order
+@onready var _order: VBoxContainer = $Layer/Bars/Bottom/OrderWrapper/Scrollbox/Order
 
 
 func _ready() -> void:
@@ -24,4 +24,4 @@ func _on_actor_added(actor: Actor, idx: int) -> void:
 
 
 func _on_actor_removed(idx: int) -> void:
-	_order.get_child(idx + 1).queue_free()
+	_order.get_child(idx).queue_free()

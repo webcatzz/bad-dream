@@ -2,15 +2,12 @@
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljjew"]
-content_margin_left = 16.0
-content_margin_top = 76.0
-content_margin_right = 16.0
-content_margin_bottom = 76.0
-draw_center = false
-border_width_top = 60
-border_width_bottom = 60
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qkqd"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_dvbj0"]
 length = 0.001
@@ -232,23 +229,83 @@ script = ExtResource("1_wfkej")
 [node name="Layer" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="Bars" type="PanelContainer" parent="Layer"]
+[node name="ColorRect" type="ColorRect" parent="Layer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ljjew")
 
-[node name="Order" type="VBoxContainer" parent="Layer/Bars"]
+[node name="Bars" type="VBoxContainer" parent="Layer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="PanelContainer" parent="Layer/Bars"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7qkqd")
+
+[node name="Title" type="VBoxContainer" parent="Layer/Bars/Top"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Layer/Bars/Top/Title"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"UILabel"
+text = "Battle"
+horizontal_alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="Layer/Bars/Top/Title"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 50.0
+show_percentage = false
+
+[node name="Middle" type="PanelContainer" parent="Layer/Bars"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Padding" type="MarginContainer" parent="Layer/Bars/Middle"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Bottom" type="PanelContainer" parent="Layer/Bars"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7qkqd")
+
+[node name="OrderWrapper" type="VBoxContainer" parent="Layer/Bars/Bottom"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Label" type="Label" parent="Layer/Bars/Bottom/OrderWrapper"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 4
-
-[node name="Label" type="Label" parent="Layer/Bars/Order"]
-layout_mode = 2
-theme_type_variation = &"LabelSmall"
+theme_type_variation = &"UILabel"
 text = "Order"
+
+[node name="Scrollbox" type="ScrollContainer" parent="Layer/Bars/Bottom/OrderWrapper"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="Order" type="VBoxContainer" parent="Layer/Bars/Bottom/OrderWrapper/Scrollbox"]
+layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="Modulator" type="CanvasModulate" parent="."]
 visible = false

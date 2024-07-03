@@ -1,12 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbsp8otdhuoty"]
+[gd_scene load_steps=6 format=3 uid="uid://cbsp8otdhuoty"]
 
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="1_mic32"]
 [ext_resource type="Script" path="res://node/actor/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
 [ext_resource type="Script" path="res://node/ui/looping_itemlist.gd" id="6_i2uyv"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_befaw"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 wall_min_slide_angle = 0.0
@@ -26,6 +24,9 @@ monitorable = false
 [node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
 polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
 
+[node name="Spotlight" parent="DuringTurn" index="0"]
+visible = false
+
 [node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="2"]
 visible = false
 z_index = 1
@@ -38,7 +39,6 @@ script = ExtResource("3_g0sg8")
 
 [node name="TypeChooser" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="1"]
 layout_mode = 2
-theme_override_constants/separation = 2
 script = ExtResource("3_68da3")
 offset = 6
 
@@ -58,17 +58,20 @@ text = "end turn"
 visible = false
 layout_mode = 2
 
-[node name="List" type="ItemList" parent="DuringTurn/ActionMenu/Actions" index="0"]
+[node name="ListWrapper" type="PanelContainer" parent="DuringTurn/ActionMenu/Actions" index="0"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_type_variation = &"PanelInset"
+
+[node name="List" type="ItemList" parent="DuringTurn/ActionMenu/Actions/ListWrapper" index="0"]
+layout_mode = 2
 text_overrun_behavior = 0
 script = ExtResource("6_i2uyv")
 
 [node name="Label" type="Label" parent="DuringTurn/ActionMenu/Actions" index="1"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_type_variation = &"LabelSmall"
-theme_override_styles/normal = SubResource("StyleBoxFlat_befaw")
+theme_type_variation = &"UILabel"
 autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 3
@@ -82,8 +85,8 @@ wait_time = 0.15
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_guard"]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="_end_turn"]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu/Actions/List" method="select" binds= [0]]
-[connection signal="hidden" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="free_splash"]
-[connection signal="item_activated" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
-[connection signal="item_selected" from="DuringTurn/ActionMenu/Actions/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu/Actions/ListWrapper/List" method="select" binds= [0]]
+[connection signal="hidden" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="free_splash"]
+[connection signal="item_activated" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
+[connection signal="item_selected" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]

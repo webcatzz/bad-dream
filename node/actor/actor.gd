@@ -55,6 +55,7 @@ func _ready() -> void:
 	data.turn_ended.connect($DuringTurn.set_visible.bind(false))
 	data.turn_ended.connect(set_spotlight.bind(false))
 	data.turn_ended.connect(_path.clear_points)
+	data.turn_ended.connect(_sprite.set_frame.bind(1))
 	# path
 	data.path_extended.connect(_on_path_extended)
 	data.path_backtracked.connect(_on_path_backtracked)

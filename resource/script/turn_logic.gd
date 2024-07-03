@@ -48,8 +48,11 @@ func update() -> void:
 
 ## Follows [param path]. Pauses between points in [param path].
 func follow_path(path: PackedVector2Array) -> void:
-	for point: Vector2i in path:
-		owner.extend_path()
-		owner.move_to(point)
-		owner.node._advance_sprite_frame()
+	if path:
+		for point: Vector2i in path:
+			owner.extend_path()
+			owner.move_to(point)
+			owner.node._advance_sprite_frame()
+			await Game.get_tree().create_timer(0.2).timeout
+	else:
 		await Game.get_tree().create_timer(0.2).timeout

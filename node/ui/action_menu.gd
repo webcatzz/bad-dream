@@ -24,7 +24,7 @@ func free_splash() -> void:
 # internal
 
 func _ready() -> void:
-	var actionlist: ItemList = $Actions/List
+	var actionlist: ItemList = $Actions/ListWrapper/List
 	if actor.actions:
 		for action in actor.actions:
 			actionlist.add_item(action.name)

@@ -11,15 +11,20 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		if visible:
 			Game.unpause()
-			$Centerer/Tabs/Buttons/Continue.grab_focus()
 		else:
 			Game.pause()
+			$Centerer/Tabs/Buttons/Continue.grab_focus()
 		
 		get_viewport().set_input_as_handled()
 
 
 func _set_volume(value: float, type: String) -> void:
 	Data.set_volume(type, value)
+
+
+func _continue() -> void:
+	hide()
+	Game.unpause()
 
 
 func _exit() -> void:

@@ -6,7 +6,7 @@ class_name PartyActorNode extends ActorNode
 var listening: bool
 
 # nodes
-@onready var action_menu: Control = $DuringTurn/ActionMenu
+@onready var _action_menu: Control = $DuringTurn/ActionMenu
 @onready var _collision_checker: RayCast2D = $CollisionChecker
 @onready var _backtrack_timer: Timer = $DuringTurn/BacktrackTimer
 
@@ -64,10 +64,10 @@ func take_turn() -> void:
 # Handles movement and other input inside of battle.
 func _handle_battle_input(event: InputEvent) -> void:
 	# action ui (blocks other input)
-	if action_menu.visible:
+	if _action_menu.visible:
 		if event.is_action_pressed(&"ui_cancel"):
-			if action_menu.current_tab: action_menu.current_tab = 0
-			else: action_menu.visible = false
+			if _action_menu.current_tab: _action_menu.current_tab = 0
+			else: _action_menu.visible = false
 		
 		get_viewport().set_input_as_handled()
 		return
@@ -103,7 +103,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 	
 	# opening action menu
 	elif event.is_action_pressed(&"ui_accept") and not data.current_action:
-		action_menu.visible = true
+		_action_menu.visible = true
 		get_viewport().set_input_as_handled()
 
 
