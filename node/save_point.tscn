@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://be6ge5sg8n6yl"]
+[gd_scene load_steps=32 format=3 uid="uid://be6ge5sg8n6yl"]
 
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
@@ -6,8 +6,11 @@
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_r7lj4"]
 [ext_resource type="Texture2D" uid="uid://bv68rtqd5u35p" path="res://asset/switchboard.png" id="5_3it3y"]
 [ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/switchboard_plug.png" id="5_gcasg"]
-[ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth-bg.png" id="5_lpghm"]
+[ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth_bg.png" id="5_lpghm"]
 [ext_resource type="Animation" uid="uid://68uvn06n4ffw" path="res://intro.res" id="8_i4ob7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jv047"]
+blend_mode = 1
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ca5vm"]
 a = Vector2(-16, 0)
@@ -270,10 +273,18 @@ offset = Vector2(0, -24)
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 72)
 
-[node name="Front" type="Sprite2D" parent="."]
-position = Vector2(0, 4)
+[node name="Light" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_jv047")
+position = Vector2(0, 1)
 texture = ExtResource("2_qyhcf")
-offset = Vector2(0, -32)
+offset = Vector2(0, -29)
+region_enabled = true
+region_rect = Rect2(64, 0, 32, 72)
+
+[node name="Front" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("2_qyhcf")
+offset = Vector2(0, -29)
 region_enabled = true
 region_rect = Rect2(32, 0, 32, 72)
 

@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgdepxkib62o7"]
+[gd_scene load_steps=5 format=3 uid="uid://bgdepxkib62o7"]
 
 [ext_resource type="PackedScene" uid="uid://cbsp8otdhuoty" path="res://node/actor/party_actor.tscn" id="1_8poer"]
 [ext_resource type="Script" path="res://node/actor/player_actor.gd" id="2_lw7y8"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="3_krvvs"]
+
+[sub_resource type="Gradient" id="Gradient_8xtn0"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [node name="PlayerActor" instance=ExtResource("1_8poer")]
 wall_min_slide_angle = 1.0472
@@ -11,3 +15,11 @@ script = ExtResource("2_lw7y8")
 disabled = false
 
 [node name="Camera" type="Camera2D" parent="." index="5"]
+
+[node name="Path4" type="Line2D" parent="DuringTurn" index="1"]
+top_level = true
+light_mask = 0
+z_index = -1
+material = ExtResource("3_krvvs")
+width = 3.0
+gradient = SubResource("Gradient_8xtn0")

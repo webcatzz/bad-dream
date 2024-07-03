@@ -20,9 +20,10 @@ var party_path: PackedVector2Array ## Path that party members follow.
 
 func _ready() -> void:
 	super()
+	# controls
 	listening = true
 	camera.make_current()
-	
+	# party path
 	party_path.resize(PARTY_PATH_OFFSET * Data.party.size())
 	party_path.fill(position)
 
@@ -45,21 +46,23 @@ func _handle_free_input(event: InputEvent) -> void:
 		for area: Area2D in interaction_area.get_overlapping_areas():
 			if area is Trigger:
 				area.trigger()
+				get_viewport().set_input_as_handled()
 				break
 	
 	# movement
 	else:
 		input = Iso.from_grid(Vector2(
-			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+			Input.get_action_strength(&"move_right") - Input.get_action_strength(&"move_left"),
+			Input.get_action_strength(&"move_down") - Input.get_action_strength(&"move_up")
 		)).normalized() * 112
 		
 		if input:
 			data.facing = Iso.to_grid(Iso.get_direction(input))
-			get_viewport().set_input_as_handled()
+			_set_sprite_move()
 			_sprite.play()
+			get_viewport().set_input_as_handled()
 		else:
-			_sprite.stop()
+			_set_sprite_idle()
 
 
 func _physics_process(_delta: float) -> void:
@@ -84,7 +87,10 @@ func _on_battle_entered() -> void:
 	listening = false
 	input_mode = InputMode.GRID
 	data.position = Iso.to_grid(position)
+	
 	_sprite.stop()
+	_set_sprite_move()
+	_sprite.frame = 1
 
 
 func _on_battle_exited() -> void:

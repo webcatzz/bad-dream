@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bey6fhrbn55h0"]
+[gd_scene load_steps=16 format=3 uid="uid://bey6fhrbn55h0"]
 
 [ext_resource type="Script" path="res://node/actor/actor.gd" id="1_j5pgg"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_p8v8q"]
@@ -111,6 +111,9 @@ _data = {
 "defeated": SubResource("Animation_jtl2j")
 }
 
+[sub_resource type="Gradient" id="Gradient_8xtn0"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vyyqk"]
 playback_mode = 1
 random_pitch = 1.1
@@ -145,6 +148,14 @@ z_index = -1
 material = ExtResource("4_7ieqm")
 scale = Vector2(2, 1)
 script = ExtResource("2_wd4nt")
+
+[node name="Path" type="Line2D" parent="DuringTurn"]
+top_level = true
+light_mask = 0
+z_index = -1
+material = ExtResource("1_p8v8q")
+width = 3.0
+gradient = SubResource("Gradient_8xtn0")
 
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
 position = Vector2(0, -64)

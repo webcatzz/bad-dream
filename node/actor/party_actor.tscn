@@ -1,14 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbsp8otdhuoty"]
+[gd_scene load_steps=7 format=3 uid="uid://cbsp8otdhuoty"]
 
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="1_mic32"]
 [ext_resource type="Script" path="res://node/actor/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="3_mis7i"]
 [ext_resource type="Script" path="res://node/ui/looping_itemlist.gd" id="6_i2uyv"]
-
-[sub_resource type="Gradient" id="Gradient_hbkdh"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_befaw"]
 
@@ -29,14 +25,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
 polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
-
-[node name="Path" type="Line2D" parent="DuringTurn" index="1"]
-top_level = true
-light_mask = 0
-z_index = -1
-material = ExtResource("3_mis7i")
-width = 3.0
-gradient = SubResource("Gradient_hbkdh")
 
 [node name="ActionMenu" type="TabContainer" parent="DuringTurn" index="2"]
 visible = false
