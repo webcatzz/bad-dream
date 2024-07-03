@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://b5fta4bhtr10o"]
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://b5fta4bhtr10o"]
 
 [ext_resource type="Texture2D" uid="uid://ck66c14nc2meb" path="res://asset/actor/status_effect_animation.png" id="1_scq4d"]
 
@@ -9,6 +9,14 @@ region = Rect2(0, 0, 32, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_tggl6"]
 atlas = ExtResource("1_scq4d")
 region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hehg8"]
+atlas = ExtResource("1_scq4d")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o1pa"]
+atlas = ExtResource("1_scq4d")
+region = Rect2(96, 0, 32, 64)
 
 [resource]
 animations = [{
@@ -22,4 +30,15 @@ animations = [{
 "loop": true,
 "name": &"stun",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hehg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o1pa")
+}],
+"loop": true,
+"name": &"vanish",
+"speed": 2.0
 }]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Action" load_steps=6 format=3 uid="uid://lj7sjmdng2ku"]
 
 [ext_resource type="Script" path="res://resource/script/action.gd" id="1_nu1pt"]
-[ext_resource type="Script" path="res://resource/bitshape.gd" id="2_wcf40"]
+[ext_resource type="Script" path="res://resource/script/bitshape.gd" id="2_wcf40"]
 [ext_resource type="Script" path="res://resource/script/status_effect.gd" id="3_eb0tf"]
 
 [sub_resource type="BitMap" id="BitMap_gunji"]

@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="TurnLogic" load_steps=2 format=3 uid="uid://p313t3wjm6tk"]
-
-[ext_resource type="Script" path="res://resource/turn_logic.gd" id="1_o3ns6"]
-
-[resource]
-script = ExtResource("1_o3ns6")
-type = 0

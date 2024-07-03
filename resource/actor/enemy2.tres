@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_3gkt4"]
 [ext_resource type="Script" path="res://resource/script/actor.gd" id="1_10tox"]
-[ext_resource type="Script" path="res://resource/turn_logic.gd" id="2_rgfv6"]
+[ext_resource type="Script" path="res://resource/script/turn_logic.gd" id="2_rgfv6"]
 
 [sub_resource type="Resource" id="Resource_m2a05"]
 script = ExtResource("2_rgfv6")

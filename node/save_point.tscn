@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bv68rtqd5u35p" path="res://asset/switchboard.png" id="5_3it3y"]
 [ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/switchboard_plug.png" id="5_gcasg"]
 [ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth_bg.png" id="5_lpghm"]
-[ext_resource type="Animation" uid="uid://68uvn06n4ffw" path="res://intro.res" id="8_i4ob7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jv047"]
 blend_mode = 1
@@ -253,10 +252,51 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1.25, 1.25), Vector2(1.25, 1.25)]
 }
 
+[sub_resource type="Animation" id="Animation_h07j2"]
+resource_name = "intro"
+length = 3.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Background/Switchboard:texture_offset")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -1600), Vector2(0, -50), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kaywy"]
 _data = {
 "RESET": SubResource("Animation_y0csc"),
-"intro": ExtResource("8_i4ob7"),
+"intro": SubResource("Animation_h07j2"),
 "outro": SubResource("Animation_jsk0n"),
 "plug_in": SubResource("Animation_osow8"),
 "plug_out": SubResource("Animation_sy7ys")

@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
 [ext_resource type="PackedScene" uid="uid://bwr58i81cianq" path="res://node/actor/enemy_actor.tscn" id="8_188yt"]
 [ext_resource type="Script" path="res://resource/script/actor.gd" id="8_m4c4w"]
-[ext_resource type="Script" path="res://resource/turn_logic.gd" id="9_e3wvv"]
+[ext_resource type="Script" path="res://resource/script/turn_logic.gd" id="9_e3wvv"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="12_7dtxf"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
