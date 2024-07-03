@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://7ctt2uptjn52"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://7ctt2uptjn52"]
 
 [ext_resource type="FontFile" uid="uid://dswlaqk5b76ld" path="res://asset/ui/pixel_times.ttf" id="1_1dwyu"]
 [ext_resource type="FontFile" uid="uid://b4p62uwb8qtsy" path="res://asset/ui/dico.ttf" id="1_o1eur"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cffsunjip1oi7" path="res://asset/ui/progress_bar.png" id="2_0w0ue"]
 [ext_resource type="Texture2D" uid="uid://dn7q0mjfrnnhb" path="res://asset/ui/panel_inset.png" id="2_h5jjq"]
 [ext_resource type="FontFile" uid="uid://ci6i24yc1hxl1" path="res://asset/ui/crang.ttf" id="2_ogcxr"]
-[ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_r2v16"]
+[ext_resource type="FontFile" uid="uid://dupfsabtrmmll" path="res://asset/ui/improv_gold.ttf" id="4_skjgy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1jcx"]
 draw_center = false
@@ -74,11 +74,15 @@ texture_margin_top = 3.0
 texture_margin_right = 4.0
 texture_margin_bottom = 6.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j2rhf"]
+[sub_resource type="FontVariation" id="FontVariation_j5k6r"]
+base_font = ExtResource("4_skjgy")
+spacing_top = -7
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jusk8"]
 content_margin_left = 3.0
 content_margin_top = 3.0
 content_margin_right = 3.0
-content_margin_bottom = 6.0
+content_margin_bottom = 4.0
 texture = ExtResource("2_h5jjq")
 texture_margin_left = 4.0
 texture_margin_top = 3.0
@@ -138,8 +142,8 @@ PanelInset/base_type = &"PanelContainer"
 PanelInset/styles/panel = SubResource("StyleBoxTexture_yh2wn")
 ProgressBar/colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 ProgressBar/font_sizes/font_size = 16
-ProgressBar/fonts/font = ExtResource("3_r2v16")
-ProgressBar/styles/background = SubResource("StyleBoxTexture_j2rhf")
+ProgressBar/fonts/font = SubResource("FontVariation_j5k6r")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_jusk8")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_ckh1t")
 SFXLabel/base_type = &"Label"
 SFXLabel/colors/font_color = Color(1, 1, 1, 1)

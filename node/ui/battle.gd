@@ -2,7 +2,7 @@ extends Node
 ## Battle UI manager.
 
 
-@onready var _order: VBoxContainer = $Layer/Bars/Bottom/OrderWrapper/Scrollbox/Order
+@onready var _order: VBoxContainer = $Layer/Bars/Bottom/HBox/OrderWrapper/Scrollbox/Order
 
 
 func _ready() -> void:

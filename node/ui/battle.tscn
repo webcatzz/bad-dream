@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlabd5a4ri2ic"]
+[gd_scene load_steps=14 format=3 uid="uid://dlabd5a4ri2ic"]
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
+[ext_resource type="Texture2D" uid="uid://bu5ragxvhv826" path="res://asset/ui/gear.png" id="2_0ifoi"]
+[ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_fvslm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qkqd"]
 content_margin_left = 8.0
@@ -8,6 +10,52 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgua8"]
+atlas = ExtResource("2_0ifoi")
+region = Rect2(16, 0, 16, 34)
+
+[sub_resource type="Animation" id="Animation_boa3d"]
+resource_name = "rotate"
+length = 3.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(16, 0, 16, 34), Rect2(48, 0, 16, 34), Rect2(80, 0, 16, 34), Rect2(112, 0, 16, 34), Rect2(16, 34, 16, 34), Rect2(48, 34, 16, 34), Rect2(80, 34, 16, 34), Rect2(112, 34, 16, 34), Rect2(16, 68, 16, 34), Rect2(48, 68, 16, 34), Rect2(80, 68, 16, 34), Rect2(112, 68, 16, 34), Rect2(16, 102, 16, 34), Rect2(48, 102, 16, 34), Rect2(80, 102, 16, 34), Rect2(112, 102, 16, 34)]
+}
+
+[sub_resource type="Animation" id="Animation_8iw6o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(16, 0, 16, 34)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r0ih2"]
+_data = {
+"RESET": SubResource("Animation_8iw6o"),
+"rotate": SubResource("Animation_boa3d")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qo18q"]
+content_margin_left = 4.0
 
 [sub_resource type="Animation" id="Animation_dvbj0"]
 length = 0.001
@@ -284,24 +332,47 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7qkqd")
 
-[node name="OrderWrapper" type="VBoxContainer" parent="Layer/Bars/Bottom"]
+[node name="HBox" type="HBoxContainer" parent="Layer/Bars/Bottom"]
+layout_mode = 2
+
+[node name="Gear" type="TextureRect" parent="Layer/Bars/Bottom/HBox"]
+z_index = 1
+custom_minimum_size = Vector2(4, 34)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_hgua8")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Animator" type="AnimationPlayer" parent="Layer/Bars/Bottom/HBox/Gear"]
+libraries = {
+"": SubResource("AnimationLibrary_r0ih2")
+}
+autoplay = "rotate"
+
+[node name="OrderWrapper" type="VBoxContainer" parent="Layer/Bars/Bottom/HBox"]
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 1
 
-[node name="Label" type="Label" parent="Layer/Bars/Bottom/OrderWrapper"]
+[node name="Label" type="Label" parent="Layer/Bars/Bottom/HBox/OrderWrapper"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"UILabel"
+theme_override_fonts/font = ExtResource("3_fvslm")
+theme_override_font_sizes/font_size = 16
 text = "Order"
 
-[node name="Scrollbox" type="ScrollContainer" parent="Layer/Bars/Bottom/OrderWrapper"]
+[node name="Scrollbox" type="ScrollContainer" parent="Layer/Bars/Bottom/HBox/OrderWrapper"]
+z_index = 1
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qo18q")
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="Order" type="VBoxContainer" parent="Layer/Bars/Bottom/OrderWrapper/Scrollbox"]
+[node name="Order" type="VBoxContainer" parent="Layer/Bars/Bottom/HBox/OrderWrapper/Scrollbox"]
 layout_mode = 2
 theme_override_constants/separation = 1
 
