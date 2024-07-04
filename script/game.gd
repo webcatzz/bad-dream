@@ -1,10 +1,20 @@
 extends Node
 
 
-
-# pausing
+const PALETTE: Dictionary = {
+	"red": Color("#945b28"),
+	"yellow": Color("#eadb74"),
+	"light_green": Color("#a0b335"),
+	"dark_green": Color("#537c44"),
+	"blue": Color("#596faf"),
+	
+	"white": Color("#b8aab0"),
+}
 
 var _pause_menu: CanvasLayer = load("res://node/ui/pause_menu.tscn").instantiate()
+
+
+# pausing
 
 
 func pause() -> void:

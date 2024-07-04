@@ -28,6 +28,7 @@ func _init(action: Action) -> void:
 
 func _ready() -> void:
 	action.finished.connect(_on_finished)
+	modulate = action.get_color()
 	
 	if action.shape:
 		area = TileHighlight.node()

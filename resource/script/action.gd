@@ -66,6 +66,20 @@ func run() -> void:
 			actor.recieve_action(self)
 
 
+func get_color() -> Color:
+	match type:
+		Type.FIRE:
+			return Game.PALETTE.red
+		Type.SPIRAL:
+			return Game.PALETTE.dark_green
+		Type.OCEAN:
+			return Game.PALETTE.blue
+		Type.HEALING:
+			return Game.PALETTE.light_green
+		_:
+			return Game.PALETTE.white
+
+
 
 # internal
 
