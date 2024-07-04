@@ -78,7 +78,7 @@ texture_margin_bottom = 6.0
 base_font = ExtResource("4_skjgy")
 spacing_top = -7
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jusk8"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5wv1q"]
 content_margin_left = 3.0
 content_margin_top = 3.0
 content_margin_right = 3.0
@@ -143,7 +143,7 @@ PanelInset/styles/panel = SubResource("StyleBoxTexture_yh2wn")
 ProgressBar/colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 ProgressBar/font_sizes/font_size = 16
 ProgressBar/fonts/font = SubResource("FontVariation_j5k6r")
-ProgressBar/styles/background = SubResource("StyleBoxTexture_jusk8")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_5wv1q")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_ckh1t")
 SFXLabel/base_type = &"Label"
 SFXLabel/colors/font_color = Color(1, 1, 1, 1)

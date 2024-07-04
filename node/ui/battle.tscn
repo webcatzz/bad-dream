@@ -1,7 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlabd5a4ri2ic"]
+[gd_scene load_steps=18 format=3 uid="uid://dlabd5a4ri2ic"]
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
 [ext_resource type="Texture2D" uid="uid://bu5ragxvhv826" path="res://asset/ui/gear.png" id="2_0ifoi"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="2_k8n41"]
+[ext_resource type="FontFile" uid="uid://dswlaqk5b76ld" path="res://asset/ui/pixel_times.ttf" id="2_kpda6"]
+[ext_resource type="Script" path="res://node/dialogue/label.gd" id="3_5gdxo"]
 [ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_fvslm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qkqd"]
@@ -14,6 +17,21 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hgua8"]
 atlas = ExtResource("2_0ifoi")
 region = Rect2(16, 0, 16, 34)
+
+[sub_resource type="Animation" id="Animation_8iw6o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(16, 0, 16, 34)]
+}
 
 [sub_resource type="Animation" id="Animation_boa3d"]
 resource_name = "rotate"
@@ -31,21 +49,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Rect2(16, 0, 16, 34), Rect2(48, 0, 16, 34), Rect2(80, 0, 16, 34), Rect2(112, 0, 16, 34), Rect2(16, 34, 16, 34), Rect2(48, 34, 16, 34), Rect2(80, 34, 16, 34), Rect2(112, 34, 16, 34), Rect2(16, 68, 16, 34), Rect2(48, 68, 16, 34), Rect2(80, 68, 16, 34), Rect2(112, 68, 16, 34), Rect2(16, 102, 16, 34), Rect2(48, 102, 16, 34), Rect2(80, 102, 16, 34), Rect2(112, 102, 16, 34)]
-}
-
-[sub_resource type="Animation" id="Animation_8iw6o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:region")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(16, 0, 16, 34)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r0ih2"]
@@ -114,6 +117,18 @@ tracks/4/path = NodePath("../Modulator:color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bars/Middle/Padding/Status:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -264,10 +279,26 @@ tracks/4/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.8, 0.8, 0.8, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_j72p2"]
+resource_name = "fade_status"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bars/Middle/Padding/Status:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8715n"]
 _data = {
 "RESET": SubResource("Animation_dvbj0"),
 "close": SubResource("Animation_25bq8"),
+"fade_status": SubResource("Animation_j72p2"),
 "open": SubResource("Animation_jilgl")
 }
 
@@ -327,6 +358,15 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
+[node name="Status" type="Label" parent="Layer/Bars/Middle/Padding"]
+material = ExtResource("2_k8n41")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_kpda6")
+theme_override_font_sizes/font_size = 10
+script = ExtResource("3_5gdxo")
+
 [node name="Bottom" type="PanelContainer" parent="Layer/Bars"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -384,3 +424,6 @@ root_node = NodePath("../Layer")
 libraries = {
 "": SubResource("AnimationLibrary_8715n")
 }
+
+[node name="Camera" type="Camera2D" parent="."]
+position_smoothing_enabled = true

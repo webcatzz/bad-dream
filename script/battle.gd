@@ -19,8 +19,7 @@ var current_actor: Actor ## The [Actor] currently taking their turn.
 var astar: FieldAStar
 var astar_draw: Node2D # DEBUG
 
-var _ui: CanvasLayer
-var _camera: Camera2D = load("res://node/battle_camera.gd").new()
+var ui: Node
 
 
 
@@ -31,8 +30,8 @@ func start(actors: Array[Actor], region: Rect2i) -> void:
 	active = true
 	
 	# adding ui/camera
-	add_child(preload("res://node/ui/battle.tscn").instantiate())
-	add_child(_camera)
+	ui = preload("res://node/ui/battle.tscn").instantiate()
+	add_child(ui)
 	
 	# generating field grid
 	astar = FieldAStar.new(region)
@@ -100,9 +99,6 @@ func stop() -> void:
 		
 		# spawning party
 		Game.spawn_party(position)
-	
-	# removing children
-	remove_child(_camera)
 
 
 
