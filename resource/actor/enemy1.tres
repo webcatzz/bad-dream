@@ -1,17 +1,12 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=5 format=3 uid="uid://caiv82vs4t3u1"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://caiv82vs4t3u1"]
 
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_lph7o"]
-[ext_resource type="Script" path="res://resource/script/actor.gd" id="1_u35jn"]
-[ext_resource type="Script" path="res://resource/script/turn_logic.gd" id="2_p5ule"]
-
-[sub_resource type="Resource" id="Resource_7pkma"]
-script = ExtResource("2_p5ule")
-type = 0
-keep_distance = 0
-in_party = false
+[ext_resource type="Script" path="res://resource/actor/enemy_actor.gd" id="2_hxqhm"]
 
 [resource]
-script = ExtResource("1_u35jn")
+script = ExtResource("2_hxqhm")
+keep_distance = 0
+preferred_facing = Vector2i(0, 1)
 name = "Enemy1"
 description = "..."
 max_health = 10
@@ -21,7 +16,6 @@ evasion = 0.0
 tiles_per_turn = 5
 actions_per_turn = 1
 actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_lph7o")])
-turn_logic = SubResource("Resource_7pkma")
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
 weak_against = Array[int]([])
 strong_against = Array[int]([])

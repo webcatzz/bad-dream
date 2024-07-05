@@ -22,11 +22,11 @@ func _init(region: Rect2i) -> void:
 
 
 ## Returns true if the point collides with something.
-func is_point_travellable(point: Vector2i) -> bool:
+func is_point_travellable(point: Vector2i, exclude: RID = RID()) -> bool:
 	return (
 		region.has_point(point) and
 		not is_point_solid(point) and
-		not query_point(point)
+		not query_point(point, exclude)
 	)
 
 
@@ -50,9 +50,10 @@ func collide_ray(from: Vector2i, ray: Vector2i) -> Vector2i:
 
 
 ## Returns an [Array] of all collisions at [param point].
-func query_point(point: Vector2i) -> Array[Dictionary]:
+func query_point(point: Vector2i, exclude: RID = RID()) -> Array[Dictionary]:
 	var _query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 	_query.position = Iso.from_grid(point)
+	if exclude: _query.exclude = [exclude]
 	return _space_state.intersect_point(_query)
 
 
