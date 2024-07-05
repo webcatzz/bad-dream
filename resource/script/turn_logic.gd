@@ -20,7 +20,9 @@ func start() -> void:
 	
 	var target: Actor = closest_targets[randi() % 1]
 	
-	await follow_path(paths[target].slice(0, owner.tiles_per_turn))
+	var path: PackedVector2Array = paths[target]
+	path.resize(owner.tiles_per_turn)
+	await follow_path(path)
 	
 	if not paths[target] or owner.position == Vector2i(paths[target][-1]):
 		if owner.actions:
@@ -37,8 +39,7 @@ func update() -> void:
 	paths = {}
 	for actor: Actor in Data.party:
 		if not actor.is_defeated():
-			var path: PackedVector2Array = Battle.astar.get_point_path(owner.position, actor.position)
-			paths[actor] = Battle.astar.get_point_path(owner.position, actor.position).slice(1, -1)
+			paths[actor] = path_to(actor.position)
 	
 	closest_targets = Data.get_party_undefeated()
 	closest_targets.sort_custom(func(a: Actor, b: Actor) -> bool:
@@ -56,3 +57,11 @@ func follow_path(path: PackedVector2Array) -> void:
 			await Game.get_tree().create_timer(0.2).timeout
 	else:
 		await Game.get_tree().create_timer(0.2).timeout
+
+
+func path_to(point: Vector2i) -> PackedVector2Array:
+	return Battle.field.get_point_path(owner.position, point).slice(1)
+
+
+func path_near(point: Vector2i) -> void:
+	return Battle.field.get_point_path(owner.position, point).slice(1, -1)

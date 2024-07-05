@@ -74,15 +74,16 @@ texture_margin_top = 3.0
 texture_margin_right = 4.0
 texture_margin_bottom = 6.0
 
-[sub_resource type="FontVariation" id="FontVariation_j5k6r"]
+[sub_resource type="FontVariation" id="FontVariation_0tvv6"]
 base_font = ExtResource("4_skjgy")
-spacing_top = -7
+spacing_top = -8
+spacing_bottom = -1
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5wv1q"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5jpnn"]
 content_margin_left = 3.0
-content_margin_top = 3.0
+content_margin_top = 4.0
 content_margin_right = 3.0
-content_margin_bottom = 4.0
+content_margin_bottom = 5.0
 texture = ExtResource("2_h5jjq")
 texture_margin_left = 4.0
 texture_margin_top = 3.0
@@ -142,8 +143,8 @@ PanelInset/base_type = &"PanelContainer"
 PanelInset/styles/panel = SubResource("StyleBoxTexture_yh2wn")
 ProgressBar/colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 ProgressBar/font_sizes/font_size = 16
-ProgressBar/fonts/font = SubResource("FontVariation_j5k6r")
-ProgressBar/styles/background = SubResource("StyleBoxTexture_5wv1q")
+ProgressBar/fonts/font = SubResource("FontVariation_0tvv6")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_5jpnn")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_ckh1t")
 SFXLabel/base_type = &"Label"
 SFXLabel/colors/font_color = Color(1, 1, 1, 1)

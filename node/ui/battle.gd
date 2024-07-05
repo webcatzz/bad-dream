@@ -5,7 +5,7 @@ extends Node
 var _following: Actor
 
 @onready var _status: Label = $Layer/Bars/Middle/Padding/Status
-@onready var _order: VBoxContainer = $Layer/Bars/Bottom/HBox/OrderWrapper/Scrollbox/Order
+@onready var _order: VBoxContainer = $Layer/Bars/Bottom/Order/List/Scrollbox/Items
 @onready var _camera: Camera2D = $Camera
 @onready var _animator: AnimationPlayer = $Animator
 

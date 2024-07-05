@@ -16,7 +16,7 @@ var order: Array[Actor] ## The order in which [Actor]s take turns.
 var current_idx: int ## The current index in [member order].
 var current_actor: Actor ## The [Actor] currently taking their turn.
 
-var astar: FieldAStar
+var field: FieldAStar
 var astar_draw: Node2D # DEBUG
 
 var ui: Node
@@ -34,7 +34,7 @@ func start(actors: Array[Actor], region: Rect2i) -> void:
 	add_child(ui)
 	
 	# generating field grid
-	astar = FieldAStar.new(region)
+	field = FieldAStar.new(region)
 	
 	# adding actors
 	for actor: Actor in Data.party: add_actor(actor)
@@ -74,7 +74,7 @@ func run_turn() -> void:
 ## Ends the current battle.
 func stop() -> void:
 	active = false
-	astar = null
+	field = null
 	
 	# ending battle
 	ended.emit()

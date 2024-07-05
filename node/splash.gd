@@ -52,11 +52,11 @@ func _update_area_shape() -> void:
 
 
 func _draw() -> void:
-	if area:
+	if action.knockback_type and area:
 		for actor: Actor in get_actors():
 			draw_set_transform(actor.node.global_position - global_position)
 			var end: Vector2 = Iso.from_grid(actor.calculate_knockback(Iso.rotate_grid_vector(action.knockback_vector, action.cause.facing)))
-			draw_line(Vector2.ZERO, end, Color.RED, 8)
+			draw_line(Vector2.ZERO, end, Game.PALETTE.red, 8)
 
 
 func _on_finished() -> void:

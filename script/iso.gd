@@ -1,5 +1,5 @@
 class_name Iso extends Node
-## Helper object for isometric vectors.
+## Helper class for isometric vectors.
 
 
 const VECTOR: Vector2i = Vector2i(16, 8)

@@ -161,7 +161,7 @@ func recieve_action(action: Action) -> void:
 		else: damage(action.strength, action.type)
 	if action.knockback_type:
 		var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, action.cause.facing)
-		facing = -vector
+		facing = -calculate_facing(vector)
 		position += calculate_knockback(vector)
 	if action.status_effect:
 		add_status_effect(action.status_effect.duplicate())
@@ -181,7 +181,7 @@ func heal(amount: int) -> void:
 
 ## Evades an attack.
 func try_evade(direction: Vector2i) -> bool:
-	var successful: bool = Battle.astar.is_point_travellable(position + direction)
+	var successful: bool = Battle.field.is_point_travellable(position + direction)
 	
 	if successful:
 		facing = -direction
@@ -237,7 +237,7 @@ func can_take_turn() -> bool:
 func calculate_knockback(vector: Vector2i) -> Vector2i:
 	vector.x = max(abs(vector.x) - resistance, 0) * sign(vector.x)
 	vector.y = max(abs(vector.y) - resistance, 0) * sign(vector.y)
-	return vector
+	return Battle.field.collide_ray(position, vector)
 
 
 func calculate_damage(amount: int, type: Action.Type) -> int:

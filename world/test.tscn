@@ -1,63 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbx2kgeyc5j2l"]
+[gd_scene load_steps=17 format=3 uid="uid://bbx2kgeyc5j2l"]
 
 [ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_awd56"]
 [ext_resource type="Script" path="res://node/triggers/dialogue_trigger.gd" id="3_gihxp"]
 [ext_resource type="Texture2D" uid="uid://c6mo1yt54ob3c" path="res://asset/icon.svg" id="4_fxbus"]
 [ext_resource type="PackedScene" uid="uid://be6ge5sg8n6yl" path="res://node/save_point.tscn" id="5_0pweu"]
 [ext_resource type="PackedScene" uid="uid://d0rs3moyicxl5" path="res://node/door.tscn" id="6_ikrja"]
+[ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="7_hfi23"]
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
-[ext_resource type="PackedScene" uid="uid://bwr58i81cianq" path="res://node/actor/enemy_actor.tscn" id="8_188yt"]
-[ext_resource type="Script" path="res://resource/script/actor.gd" id="8_m4c4w"]
-[ext_resource type="Script" path="res://resource/script/turn_logic.gd" id="9_e3wvv"]
+[ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/enemy1.tres" id="8_3c3ty"]
+[ext_resource type="Resource" uid="uid://y7mxhcoo4325" path="res://resource/actor/enemy2.tres" id="9_hlaus"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="12_7dtxf"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
 a = Vector2(16, -16)
 b = Vector2(-32, 8)
-
-[sub_resource type="Resource" id="Resource_epxpu"]
-script = ExtResource("9_e3wvv")
-type = 0
-keep_distance = 0
-in_party = false
-
-[sub_resource type="Resource" id="Resource_geemu"]
-script = ExtResource("8_m4c4w")
-name = "Actor"
-description = "..."
-max_health = 10
-defense = 0
-resistance = 0
-evasion = 0.0
-tiles_per_turn = 5
-actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([])
-turn_logic = SubResource("Resource_epxpu")
-attributes = Array[Resource("res://resource/script/attribute.gd")]([])
-weak_against = Array[int]([])
-strong_against = Array[int]([])
-
-[sub_resource type="Resource" id="Resource_xx88w"]
-script = ExtResource("9_e3wvv")
-type = 0
-keep_distance = 0
-in_party = false
-
-[sub_resource type="Resource" id="Resource_rpd7j"]
-script = ExtResource("8_m4c4w")
-name = "Actor"
-description = "..."
-max_health = 10
-defense = 0
-resistance = 0
-evasion = 0.0
-tiles_per_turn = 5
-actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([])
-turn_logic = SubResource("Resource_xx88w")
-attributes = Array[Resource("res://resource/script/attribute.gd")]([])
-weak_against = Array[int]([])
-strong_against = Array[int]([])
 
 [sub_resource type="Gradient" id="Gradient_gtum2"]
 colors = PackedColorArray(0.0823529, 0.00392157, 0.00784314, 0, 0.0823529, 0.00392157, 0.00784314, 0.501961)
@@ -123,7 +79,7 @@ position = Vector2(176, -96)
 position = Vector2(144, 72)
 collision_layer = 0
 script = ExtResource("7_kkk1m")
-actors = Array[NodePath]([NodePath("../EnemyActor"), NodePath("../EnemyActor2")])
+actors = Array[NodePath]([NodePath("../Actor"), NodePath("../Actor2")])
 region = Rect2i(-5, 0, 11, 11)
 mode = 1
 
@@ -131,13 +87,13 @@ mode = 1
 position = Vector2(16, 8)
 shape = SubResource("SegmentShape2D_hh3lc")
 
-[node name="EnemyActor" parent="." instance=ExtResource("8_188yt")]
+[node name="Actor" parent="." instance=ExtResource("7_hfi23")]
 position = Vector2(320, 80)
-data = SubResource("Resource_geemu")
+data = ExtResource("8_3c3ty")
 
-[node name="EnemyActor2" parent="." instance=ExtResource("8_188yt")]
-position = Vector2(144, 136)
-data = SubResource("Resource_rpd7j")
+[node name="Actor2" parent="." instance=ExtResource("7_hfi23")]
+position = Vector2(128, 128)
+data = ExtResource("9_hlaus")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1

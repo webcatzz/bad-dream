@@ -81,7 +81,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 		elif event.is_action_pressed(&"move_left"): vector = Vector2i.LEFT
 		elif event.is_action_pressed(&"move_right"): vector = Vector2i.RIGHT
 		
-		if vector and Battle.astar.is_point_travellable(data.position + vector):
+		if vector and Battle.field.is_point_travellable(data.position + vector):
 			data.extend_path()
 			data.move(vector)
 			_advance_sprite_frame()
