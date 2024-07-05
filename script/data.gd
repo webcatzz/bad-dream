@@ -2,6 +2,7 @@ extends Node
 
 
 var party: Array[Actor]
+var inventory: Array[Item]
 
 var file: ConfigFile = ConfigFile.new()
 var settings: ConfigFile = ConfigFile.new()
@@ -15,16 +16,20 @@ func load_file(idx: int) -> void:
 	# setting seed
 	seed(file.get_value("file", "seed", randi()))
 	
-	# loading party
+	# party list
 	for actor_name: String in file.get_value("file", "party", ["woodcarver"]):
 		var actor: Actor = load("res://resource/actor/" + actor_name + ".tres")
 		party.append(actor)
-		
+		# actor data
 		if file.has_section(actor_name):
 			for key: String in file.get_section_keys(actor_name):
 				actor[key] = file.get_value(actor_name, key)
 	
-	# loading scene
+	# inventory
+	for item_name: String in file.get_value("file", "inventory", []):
+		inventory.append(load("res://resource/actor/" + item_name + ".tres"))
+	
+	# changing scene
 	get_tree().change_scene_to_file(file.get_value("world", "path", "res://world/test.tscn"))
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -33,14 +38,19 @@ func load_file(idx: int) -> void:
 
 ## Saves game data to the specified file.
 func save_file(idx: int) -> void:
-	# saving party list
+	# party list
 	file.set_value("file", "party", party.map(func(actor: Actor) -> String:
 		return actor.name
 	))
 	
-	# saving party members
+	# actor data
 	for actor: Actor in party:
 		file.set_value(actor.name, "health", actor.health)
+	
+	# inventory
+	file.set_value("file", "inventory", inventory.map(func(item: Item) -> String:
+		return item.name
+	))
 	
 	# saving seed
 	file.set_value("file", "seed", randi())
@@ -52,6 +62,9 @@ func save_file(idx: int) -> void:
 	# saving!
 	file.save("user://file_" + str(idx) + ".cfg")
 	settings.save("user://settings.cfg")
+
+
+# inventory
 
 
 

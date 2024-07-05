@@ -206,6 +206,19 @@ func guard() -> void:
 
 
 
+# inventory
+
+func use_item(item: Item) -> void:
+	actions_taken += 1
+	current_action = item.action
+	
+	await item.use(self)
+	
+	if not can_act():
+		end_turn()
+
+
+
 # checks
 
 ## Returns true if the actor has not exhausted [member actions_per_turn].

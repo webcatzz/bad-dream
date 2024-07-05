@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bub4hd30r0mth"]
+
+[ext_resource type="Script" path="res://resource/item/consumable.gd" id="1_f5t7t"]
+
+[resource]
+script = ExtResource("1_f5t7t")
+name = "Magnet"
+description = ""
