@@ -210,7 +210,7 @@ func guard() -> void:
 
 func use_item(item: Item) -> void:
 	actions_taken += 1
-	current_action = item.action
+	current_action = item.effect
 	
 	Data.remove_item(item.name)
 	await item.use(self)

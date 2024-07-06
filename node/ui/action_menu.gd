@@ -11,7 +11,6 @@ func set_splash(splash: Splash) -> void:
 	free_splash()
 	self.splash = splash
 	actor.node.get_parent().add_child(splash)
-	pass
 
 
 ## Frees the current [Splash] preview.
@@ -31,13 +30,6 @@ func _ready() -> void:
 			actionlist.add_item(action.name)
 	else:
 		$TypeChooser/Attack.disabled = true
-	
-	var inventorylist: ItemList = $Inventory/ListWrapper/List
-	if Data.inventory:
-		for item: Item in Data.inventory:
-			inventorylist.add_item(item.name)
-	else:
-		$TypeChooser/Item.disabled = true
 
 
 # Focuses the first available [Control].
@@ -58,6 +50,15 @@ func _on_visibility_changed() -> void:
 func _on_tab_changed(idx: int) -> void:
 	if visible: _focus_tab()
 	actor.node.set_spotlight(idx != 1)
+	
+	if idx == 2:
+		var inventorylist: ItemList = $Inventory/ListWrapper/List
+		inventorylist.clear()
+		if Data.inventory:
+			for item: Item in Data.inventory:
+				inventorylist.add_item(item.name)
+		else:
+			$TypeChooser/Item.disabled = true
 
 
 

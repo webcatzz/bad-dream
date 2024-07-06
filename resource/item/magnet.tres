@@ -1,8 +1,11 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bub4hd30r0mth"]
+[gd_resource type="Resource" script_class="Consumable" load_steps=2 format=3 uid="uid://bub4hd30r0mth"]
 
 [ext_resource type="Script" path="res://resource/item/consumable.gd" id="1_f5t7t"]
 
 [resource]
 script = ExtResource("1_f5t7t")
 name = "Magnet"
-description = ""
+description = "
+
+(c) murumart 202024"
+count = 1

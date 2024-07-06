@@ -91,6 +91,7 @@ func remove_item(item_name: String) -> void:
 	for item: Item in inventory:
 		if item.name == item_name:
 			item.count -= 1
+			if not item.count: inventory.erase(item)
 			return
 
 

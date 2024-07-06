@@ -52,8 +52,8 @@ func _handle_free_input(event: InputEvent) -> void:
 	# movement
 	else:
 		input = Iso.from_grid(Vector2(
-			Input.get_action_strength(&"move_right") - Input.get_action_strength(&"move_left"),
-			Input.get_action_strength(&"move_down") - Input.get_action_strength(&"move_up")
+			Input.get_axis("move_left", "move_right"),
+			Input.get_axis("move_up", "move_down"),
 		)).normalized() * 112
 		
 		if input:
