@@ -1,4 +1,4 @@
-extends Item
+class_name Consumable extends Item
 
 
 @export var effect: Action = Action.new()

@@ -7,10 +7,11 @@ var splash: Splash ## Currently rendered [Splash].
 
 
 ## Adds a new [Splash] preview.
-func set_splash(action: Action) -> void:
+func set_splash(splash: Splash) -> void:
 	free_splash()
-	splash = action.splash
+	self.splash = splash
 	actor.node.get_parent().add_child(splash)
+	pass
 
 
 ## Frees the current [Splash] preview.
@@ -30,6 +31,13 @@ func _ready() -> void:
 			actionlist.add_item(action.name)
 	else:
 		$TypeChooser/Attack.disabled = true
+	
+	var inventorylist: ItemList = $Inventory/ListWrapper/List
+	if Data.inventory:
+		for item: Item in Data.inventory:
+			inventorylist.add_item(item.name)
+	else:
+		$TypeChooser/Item.disabled = true
 
 
 # Focuses the first available [Control].
@@ -52,8 +60,11 @@ func _on_tab_changed(idx: int) -> void:
 	actor.node.set_spotlight(idx != 1)
 
 
+
+# actions
+
 func _on_actionlist_item_selected(idx: int) -> void:
-	set_splash(actor.actions[idx])
+	set_splash(actor.actions[idx].splash)
 	$Actions/Label.text = actor.actions[idx].description
 
 
@@ -66,11 +77,28 @@ func _on_actionlist_item_activated(_idx: int) -> void:
 	actor.take_action(action)
 
 
+
+# inventory
+
+func _on_inventory_item_selected(idx: int) -> void:
+	$Inventory/Label.text = actor.actions[idx].description
+	if Data.inventory[idx] is Consumable and Data.inventory[idx].effect:
+		Data.inventory[idx].effect.cause = actor
+		set_splash(Data.inventory[idx].effect.splash)
+
+
+func _on_inventory_item_activated(idx: int) -> void:
+	var item: Item = Data.inventory[idx]
+	splash = null
+	visible = false
+	get_viewport().set_input_as_handled()
+	
+	actor.use_item(Data.inventory[idx])
+
+
+
+# guarding
+
 func _guard() -> void:
 	actor.guard()
-	visible = false
-
-
-func _end_turn() -> void:
-	actor.end_turn()
 	visible = false

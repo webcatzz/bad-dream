@@ -1,8 +1,8 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bix1d7dc0ejf4"]
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://bix1d7dc0ejf4"]
 
 [ext_resource type="Script" path="res://resource/script/item.gd" id="1_3siom"]
 
 [resource]
 script = ExtResource("1_3siom")
-name = ""
+name = "Item"
 description = ""

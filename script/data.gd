@@ -26,8 +26,12 @@ func load_file(idx: int) -> void:
 				actor[key] = file.get_value(actor_name, key)
 	
 	# inventory
-	for item_name: String in file.get_value("file", "inventory", []):
-		inventory.append(load("res://resource/actor/" + item_name + ".tres"))
+	var inventory_dict: Dictionary = file.get_value("file", "inventory", {})
+	for item_name: String in inventory_dict:
+		var item: Item = load("res://resource/item/" + item_name + ".tres").duplicate()
+		item.count = inventory_dict[item_name]
+		if item is Consumable: item.effect = item.effect.duplicate()
+		inventory.append(item)
 	
 	# changing scene
 	get_tree().change_scene_to_file(file.get_value("world", "path", "res://world/test.tscn"))
@@ -48,9 +52,10 @@ func save_file(idx: int) -> void:
 		file.set_value(actor.name, "health", actor.health)
 	
 	# inventory
-	file.set_value("file", "inventory", inventory.map(func(item: Item) -> String:
-		return item.name
-	))
+	var inventory_dict: Dictionary = {}
+	for item: Item in inventory:
+		inventory_dict[item.name] = item.count
+	file.set_value("file", "inventory", inventory_dict)
 	
 	# saving seed
 	file.set_value("file", "seed", randi())
@@ -64,7 +69,29 @@ func save_file(idx: int) -> void:
 	settings.save("user://settings.cfg")
 
 
+
 # inventory
+
+func has_item(item_name: String) -> bool:
+	for item: Item in inventory:
+		if item.name == item_name:
+			return true
+	return false
+
+
+func add_item(item_name: String) -> void:
+	for item: Item in inventory:
+		if item.name == item_name:
+			item.count += 1
+			return
+	inventory.append(load("res://resource/item/" + item_name + ".tres"))
+
+
+func remove_item(item_name: String) -> void:
+	for item: Item in inventory:
+		if item.name == item_name:
+			item.count -= 1
+			return
 
 
 

@@ -20,6 +20,7 @@ func take_turn() -> void:
 
 ## Toggles the spotlight and plays sfx.
 func set_spotlight(value: bool) -> void:
+	return
 	if value != $DuringTurn/Spotlight.visible:
 		$DuringTurn/Spotlight.visible = value
 		if value: $SFX/SpotlightOn.play()
@@ -45,6 +46,7 @@ func _ready() -> void:
 	data.node = self
 	data.position = Iso.to_grid(position)
 	_sprite.sprite_frames = data.sprite
+	_set_sprite_idle()
 	
 	# orientation
 	data.position_changed.connect(_on_position_changed)

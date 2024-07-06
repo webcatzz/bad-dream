@@ -3,11 +3,9 @@ extends Node2D # TODO: fix weird focus behavior/make it auto-cancel when leaving
 
 var active: bool
 var current_tween: Tween
-var selected_file: int
+var selected_file: int = 1
 
-@onready var outlets: HBoxContainer = $UI/Margins/VBox/Outlets
-@onready var buttons: Control = $UI/Margins/VBox/Buttons
-@onready var plug: Sprite2D = outlets.get_node("Plug")
+@onready var _buttons: VBoxContainer = $UI/Margins/Controls/Buttons
 
 
 # Shows the save point UI.
@@ -15,9 +13,8 @@ func _on_player_entered() -> void:
 	active = true
 	
 	get_tree().create_tween().tween_property(Data.get_leader().node, "global_position", global_position, 0.6).set_trans(Tween.TRANS_QUAD)
-	#Data.get_leader().position = Iso.to_grid(global_position)
 	_resize_color_rect()
-	outlets.get_child(0).grab_focus()
+	_buttons.get_child(0).grab_focus()
 	
 	# background
 	$Animator.play("intro")
@@ -66,11 +63,11 @@ func _resize_color_rect() -> void:
 
 func _on_outlet_selected(idx: int) -> void:
 	selected_file = idx + 1
-	var current_outlet: Button = outlets.get_child(idx)
+	#var current_outlet: Button = outlets.get_child(idx)
 	
-	buttons.get_child(0).grab_focus()
+	_buttons.get_child(0).grab_focus()
 	
-	await get_tree().create_tween().tween_property(plug, "position", current_outlet.position + current_outlet.size / 2, 0.25).set_trans(Tween.TRANS_CUBIC).finished
+	#await get_tree().create_tween().tween_property(plug, "position", current_outlet.position + current_outlet.size / 2, 0.25).set_trans(Tween.TRANS_CUBIC).finished
 	$Animator.play("plug_in")
 
 
@@ -87,6 +84,5 @@ func _on_delete_pressed():
 
 
 func _on_cancel_pressed() -> void:
-	outlets.get_child(selected_file - 1).grab_focus()
+	#outlets.get_child(selected_file - 1).grab_focus()
 	selected_file = -1
-	$Animator.play("plug_out")

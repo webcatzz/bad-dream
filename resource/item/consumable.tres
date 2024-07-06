@@ -1,8 +1,32 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://chjj7riqdgn5x"]
+[gd_resource type="Resource" script_class="Consumable" load_steps=6 format=3 uid="uid://chjj7riqdgn5x"]
 
 [ext_resource type="Script" path="res://resource/item/consumable.gd" id="1_4d4qo"]
+[ext_resource type="Script" path="res://resource/script/action.gd" id="1_mrjw5"]
+[ext_resource type="Script" path="res://resource/script/bitshape.gd" id="2_fc7mb"]
+
+[sub_resource type="BitMap" id="BitMap_1s5vr"]
+data = {
+"data": PackedByteArray(186, 0),
+"size": Vector2i(3, 3)
+}
+script = ExtResource("2_fc7mb")
+offset = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_n1mil"]
+script = ExtResource("1_mrjw5")
+name = "Action"
+description = ""
+base_strength = 0
+dice = 0
+type = 0
+shape = SubResource("BitMap_1s5vr")
+delay = 0
+knockback_type = 0
+knockback_vector = Vector2i(0, 0)
 
 [resource]
 script = ExtResource("1_4d4qo")
-name = ""
+effect = SubResource("Resource_n1mil")
+name = "Consumable"
 description = ""
+count = 1

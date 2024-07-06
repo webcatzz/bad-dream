@@ -46,13 +46,13 @@ offset = 6
 layout_mode = 2
 text = "attack!"
 
-[node name="Guard" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="1"]
+[node name="Item" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="1"]
+layout_mode = 2
+text = "item"
+
+[node name="Guard" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="2"]
 layout_mode = 2
 text = "guard"
-
-[node name="EndTurn" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="2"]
-layout_mode = 2
-text = "end turn"
 
 [node name="Actions" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="2"]
 visible = false
@@ -76,6 +76,28 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 3
 
+[node name="Inventory" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="3"]
+visible = false
+layout_mode = 2
+
+[node name="ListWrapper" type="PanelContainer" parent="DuringTurn/ActionMenu/Inventory" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"PanelInset"
+
+[node name="List" type="ItemList" parent="DuringTurn/ActionMenu/Inventory/ListWrapper" index="0"]
+layout_mode = 2
+text_overrun_behavior = 0
+script = ExtResource("6_i2uyv")
+
+[node name="Label" type="Label" parent="DuringTurn/ActionMenu/Inventory" index="1"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_type_variation = &"UILabel"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
 [node name="BacktrackTimer" type="Timer" parent="DuringTurn" index="3"]
 wait_time = 0.15
 
@@ -83,10 +105,14 @@ wait_time = 0.15
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
 [connection signal="visibility_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_visibility_changed"]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Item" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [2]]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_guard"]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/EndTurn" to="DuringTurn/ActionMenu" method="_end_turn"]
 [connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
 [connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu/Actions/ListWrapper/List" method="select" binds= [0]]
 [connection signal="hidden" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="free_splash"]
 [connection signal="item_activated" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
 [connection signal="item_selected" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]
+[connection signal="focus_entered" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu/Inventory/ListWrapper/List" method="select" binds= [0]]
+[connection signal="hidden" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu" method="free_splash"]
+[connection signal="item_activated" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_inventory_item_activated"]
+[connection signal="item_selected" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_inventory_item_selected"]
