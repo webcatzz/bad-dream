@@ -20,6 +20,13 @@ func get_actors() -> Array[Actor]:
 
 
 func finish() -> void:
+	#if area:
+		#action.cause.node.get_parent().add_child(SFX.new(
+			#"bam!",
+			#Iso.from_grid(action.cause.position) + area.position + area.polygon[0],
+			#action.cause.facing
+		#))
+	
 	queue_free()
 
 

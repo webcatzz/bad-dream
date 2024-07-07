@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=15 format=3 uid="uid://bvdfj5mwyubmf"]
+[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://bvdfj5mwyubmf"]
 
 [ext_resource type="Texture2D" uid="uid://1jqe5saokva6" path="res://asset/actor/sprite/fungus2.png" id="2_r165k"]
 
@@ -29,6 +29,10 @@ region = Rect2(64, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_crr31"]
 atlas = ExtResource("2_r165k")
 region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pmuv"]
+atlas = ExtResource("2_r165k")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpyox"]
 atlas = ExtResource("2_r165k")
@@ -72,7 +76,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jfpgo")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -80,10 +84,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d4kel")
 }, {
-"duration": 1.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_crr31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pmuv")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 10.0
 }, {
@@ -91,7 +98,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hpyox")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 5.0
 }, {

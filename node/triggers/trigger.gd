@@ -22,7 +22,7 @@ func _ready() -> void:
 		body_entered.connect(_trigger_if_body_is_party_leader)
 	else: # Interact
 		set_collision_mask_value(1, false)
-		set_collision_layer_value(2, true)
+		set_collision_layer_value(3, true)
 
 
 func _trigger_if_body_is_party_leader(body: Node2D) -> void:

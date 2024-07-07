@@ -58,7 +58,7 @@ func _ready() -> void:
 	data.turn_ended.connect($DuringTurn.set_visible.bind(false))
 	data.turn_ended.connect(set_spotlight.bind(false))
 	data.turn_ended.connect(_path.clear_points)
-	data.turn_ended.connect(_sprite.set_frame.bind(1))
+	data.turn_ended.connect(_set_sprite_anim.bind("idle"))
 	# path
 	data.path_extended.connect(_on_path_extended)
 	data.path_backtracked.connect(_on_path_backtracked)
@@ -77,6 +77,7 @@ func _on_position_changed(pos: Vector2i) -> void:
 func _on_health_changed_by(value: int) -> void:
 	if value < 0:
 		_animator.play(&"damaged")
+		_play_sprite_anim("hurt")
 		emit_text(str(value), Color.RED)
 	else:
 		emit_text("+" + str(value), Color.GREEN)
@@ -138,6 +139,11 @@ func _set_sprite_anim(anim: String) -> void:
 		Vector2i.UP: _sprite.animation = anim + "_up"
 		Vector2i.LEFT: _sprite.animation = anim + "_left"
 		Vector2i.RIGHT: _sprite.animation = anim + "_right"
+
+
+func _play_sprite_anim(anim: String) -> void:
+	_set_sprite_anim(anim)
+	_sprite.play()
 
 
 func _advance_sprite_frame(by: int = 1) -> void:
