@@ -39,7 +39,8 @@ func follow_path(path: PackedVector2Array) -> bool:
 
 
 func perform_action(action: Action) -> void:
-	Game.get_tree().current_scene.add_child(action.splash)
+	current_splash = Splash.new(action, self)
+	Game.get_tree().current_scene.add_child(current_splash)
 	await Game.get_tree().create_timer(0.25).timeout
 	await take_action(action)
 
@@ -67,6 +68,7 @@ func get_path_to_actor(actor: Actor) -> PackedVector2Array:
 	
 	for offset: Vector2i in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 		var target_point: Vector2i = actor.position + offset
+		if position == target_point: return []
 		if not Battle.field.is_point_travellable(target_point, node.get_rid()): continue
 		
 		var pre_target_point: Vector2i = target_point + Iso.rotate_grid_vector(offset, preferred_facing)
@@ -79,7 +81,7 @@ func get_path_to_actor(actor: Actor) -> PackedVector2Array:
 		paths.append(path)
 	
 	sort_paths(paths)
-	return paths[0]
+	return paths[0] if paths else []
 
 
 func sort_paths(paths: Array[PackedVector2Array]) -> void:

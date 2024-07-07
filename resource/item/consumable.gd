@@ -1,10 +1,8 @@
 class_name Consumable extends Item
 
 
-@export var effect: Action = Action.new()
+@export var action: Action
 
 
-func use(by: Actor) -> void:
-	var action: Action = effect.duplicate()
-	action.cause = by
-	await action.start()
+func use(cause: Actor) -> void:
+	await action.start(cause)

@@ -4,7 +4,7 @@ extends Action
 @export var required_path: BitMap
 
 
-func start() -> void:
+func start(cause: Actor) -> void:
 	shape.update()
 	
 	var matches_required_path: bool = true
@@ -18,5 +18,5 @@ func start() -> void:
 	else:
 		matches_required_path = false
 	
-	if matches_required_path: super()
+	if matches_required_path: super(cause)
 	else: finished.emit()

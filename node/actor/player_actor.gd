@@ -11,8 +11,8 @@ const PARTY_PATH_OFFSET = 4 ## Multiplied by a party member's index in the party
 var party_path: PackedVector2Array ## Path that party members follow.
 
 # nodes
-@onready var interaction_area: Area2D = $InteractionArea
 @onready var camera: Camera2D = $Camera
+@onready var _interaction_area: Area2D = $InteractionArea
 
 
 
@@ -43,7 +43,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _handle_free_input(event: InputEvent) -> void:
 	# interaction
 	if event.is_action_pressed("ui_accept"):
-		for area: Area2D in interaction_area.get_overlapping_areas():
+		for area: Area2D in _interaction_area.get_overlapping_areas():
 			if area is Trigger:
 				area.trigger()
 				get_viewport().set_input_as_handled()
@@ -98,4 +98,5 @@ func _on_battle_exited() -> void:
 	camera.reset_smoothing()
 	input = Vector2.ZERO
 	input_mode = InputMode.FREE
+	party_path.fill(position)
 	listening = true

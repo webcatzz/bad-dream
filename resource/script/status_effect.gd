@@ -1,9 +1,6 @@
 class_name StatusEffect extends Resource
-## Effects used during battle.
-## Effects are duplicated before being applied to an [Actor].
+## Status effects used during battle.
 
-
-signal ended ## Emitted when the effect ends.
 
 enum Type {
 	BURN, ## Deals [member strength] damage every time [member target] takes an action.
@@ -19,11 +16,9 @@ enum Type {
 @export var duration: int = 1 ## How long the effect lasts. Decremented every time [member target]'s turn ends. When it hits 0, the effect ends.
 @export var strength: int = 1 ## General measure of strength. Behavior varies based on [member type].
 
-var target: Actor ## The [Actor] this effect targets.
-
 
 ## Starts the effect.
-func start() -> void:
+func start(target: Actor) -> void:
 	match type:
 		Type.BURN:
 			target.action_taken.connect(target.damage.bind(strength, Action.Type.FIRE), CONNECT_REFERENCE_COUNTED)
@@ -39,7 +34,7 @@ func start() -> void:
 		Type.GUARD:
 			target.modifiers.defense += strength
 	
-	target.turn_ended.connect(_decrement_duration)
+	target.turn_ended.connect(_countdown.bind(target))
 	Battle.ended.connect(end)
 
 
@@ -50,7 +45,7 @@ func stack(with: StatusEffect) -> void:
 
 
 ## Ends the effect.
-func end() -> void:
+func end(target: Actor) -> void:
 	match type:
 		Type.BURN:
 			target.action_taken.disconnect(target.damage)
@@ -62,15 +57,16 @@ func end() -> void:
 			target.modifiers.tiles_per_turn += strength
 		Type.DOOM:
 			target.damage(strength)
+			# TODO: still triggers if battle ends before effect ends
 		Type.STUN:
 			target.modifiers.actions_per_turn += 1000
 			target.modifiers.tiles_per_turn += 1000
 		Type.GUARD:
 			target.modifiers.defense -= strength
 	
-	target.turn_ended.disconnect(_decrement_duration)
+	target.turn_ended.disconnect(_countdown)
 	Battle.ended.disconnect(end)
-	ended.emit()
+	target.remove_status_effect(self)
 
 
 func get_type_string() -> String:
@@ -80,6 +76,12 @@ func get_type_string() -> String:
 
 # internal
 
-func _decrement_duration() -> void:
-	duration -= 1
-	if duration == 0: end()
+func _countdown(target: Actor) -> void:
+	var duration_left: int = duration
+	
+	while duration_left:
+		# TODO: end when battle ends
+		await target.turn_ended
+		duration_left -= 1
+	
+	end(target)

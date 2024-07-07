@@ -28,9 +28,8 @@ func load_file(idx: int) -> void:
 	# inventory
 	var inventory_dict: Dictionary = file.get_value("file", "inventory", {})
 	for item_name: String in inventory_dict:
-		var item: Item = load("res://resource/item/" + item_name + ".tres").duplicate()
+		var item: Item = load("res://resource/item/" + item_name + ".tres")
 		item.count = inventory_dict[item_name]
-		if item is Consumable: item.effect = item.effect.duplicate()
 		inventory.append(item)
 	
 	# changing scene

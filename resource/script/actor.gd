@@ -23,8 +23,6 @@ signal status_effect_removed(status_effect: StatusEffect)
 
 # appearance
 @export var name: String = "Actor"
-@export var portrait: Texture2D = load("res://asset/actor/portrait/default.png")
-@export_multiline var description: String = "..."
 
 # stats
 @export var max_health: int = 10: ## Maximum value for [member health].
@@ -48,7 +46,8 @@ var actions_taken: int ## The number of actions taken this turn.
 
 # actions
 @export var actions: Array[Action] ## [Action]s available during battle.
-@export var battlecry: Action ## Immediately started when the battle begins.
+var current_action: Action ## [Action] the actor is currently taking.
+var current_splash: Splash
 
 # effects
 @export var attributes: Array[Attribute]
@@ -62,15 +61,17 @@ var modifiers: Dictionary = {
 	"defense": 0,
 }
 
+# sprite
+@export_group("Appearance")
+@export var sprite: SpriteFrames = load("res://asset/actor/sprite/default.tres")
+@export var sprite_offset: Vector2i = Vector2i(0, -24)
+@export var portrait: Texture2D = load("res://asset/actor/portrait/default.png")
+@export_multiline var description: String = "..."
+
 # type affinities
 @export_group("Affinities")
 @export var weak_against: Array[Action.Type] ## Damage types whose damage is doubled.
 @export var strong_against: Array[Action.Type] ## Damage types whose damage is halved.
-
-# sprite
-@export_group("Sprite")
-@export var sprite: SpriteFrames = load("res://asset/actor/sprite/default.tres")
-@export var sprite_offset: Vector2i = Vector2i(0, -24)
 
 # orientation
 var position: Vector2i: ## The actor's current position in grid coordinates.
@@ -85,9 +86,7 @@ var in_battle: bool: ## Whether the actor is in battle.
 		if in_battle: battle_entered.emit()
 		else: battle_exited.emit()
 var is_turn: bool
-
 var path: Array[Dictionary] ## Contains all previous orientation states this turn.
-var current_action: Action ## [Action] the actor is currently taking.
 
 # node
 var node: ActorNode ## Node representation.
@@ -153,25 +152,25 @@ func take_action(action: Action) -> void:
 	actions_taken += 1
 	current_action = action
 	
-	await action.start()
+	await action.start(self)
 	
 	if not can_act():
 		end_turn()
 
 
 ## Runs results of [param action].
-func recieve_action(action: Action) -> void:
-	if randf() < evasion and try_evade(action.cause.facing): return
+func recieve_action(action: Action, cause: Actor) -> void:
+	if randf() < evasion and try_evade(cause.facing): return
 	
 	if action.strength:
 		if action.type == Action.Type.HEALING: heal(action.strength)
 		else: damage(action.strength, action.type)
 	if action.knockback_type:
-		var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, action.cause.facing)
+		var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, cause.facing)
 		facing = -calculate_facing(vector)
 		position += calculate_knockback(vector)
 	if action.status_effect:
-		add_status_effect(action.status_effect.duplicate())
+		add_status_effect(action.status_effect)
 
 
 ## Modifies [param amount] according to the actor's type affinities,
@@ -205,7 +204,7 @@ func guard() -> void:
 	guard.type = StatusEffect.Type.GUARD
 	guard.duration = 1
 	guard.strength = 1
-	turn_started.connect(guard.end, CONNECT_ONE_SHOT)
+	turn_started.connect(guard.end.bind(self))
 	add_status_effect(guard)
 
 
@@ -272,12 +271,10 @@ func calculate_damage(amount: int, type: Action.Type) -> int:
 
 ## Adds a [StatusEffect]. Active effects are stored in [member status_effects].
 func add_status_effect(status_effect: StatusEffect) -> void:
-	status_effect.target = self
-	status_effect.start()
+	status_effect.start(self)
 	
 	status_effects.append(status_effect)
 	status_effect_added.emit(status_effect)
-	status_effect.ended.connect(remove_status_effect.bind(status_effect))
 
 
 ## Removes an [Effect]. Called automatically when an effect ends.
@@ -310,20 +307,17 @@ func backtrack_path() -> void:
 
 func _init() -> void:
 	_export_init.call_deferred()
+	action_taken.connect(_on_action_taken)
 
 
 func _export_init() -> void:
 	health = max_health
-	
-	for i: int in actions.size():
-		actions[i] = actions[i].duplicate()
-		actions[i].cause = self
-		actions[i].finished.connect(_on_action_finished)
 
 
-func _on_action_finished() -> void:
+func _on_action_taken() -> void:
+	current_splash.finish()
 	current_action = null
-	action_taken.emit()
+	current_splash = null
 
 
 func _to_string() -> String:

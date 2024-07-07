@@ -2,14 +2,13 @@
 
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_k68rh"]
 [ext_resource type="Script" path="res://resource/actor/enemy_actor.gd" id="2_go37j"]
-[ext_resource type="SpriteFrames" uid="uid://bvdfj5mwyubmf" path="res://asset/actor/sprite/fungus2.tres" id="3_xnmgn"]
+[ext_resource type="SpriteFrames" uid="uid://dij16ejkcheu6" path="res://asset/actor/sprite/fungus.tres" id="3_tc4j6"]
 
 [resource]
 script = ExtResource("2_go37j")
 keep_distance = 0
 preferred_facing = Vector2i(0, 1)
 name = "Fungus"
-description = "..."
 max_health = 10
 defense = 0
 resistance = 0
@@ -18,7 +17,8 @@ tiles_per_turn = 5
 actions_per_turn = 1
 actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_k68rh")])
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
+sprite = ExtResource("3_tc4j6")
+sprite_offset = Vector2i(0, -6)
+description = "..."
 weak_against = Array[int]([])
 strong_against = Array[int]([])
-sprite = ExtResource("3_xnmgn")
-sprite_offset = Vector2i(0, -6)

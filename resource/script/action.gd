@@ -3,12 +3,10 @@ class_name Action extends Resource
 ## Actions are unique per-actor, but are reused multiple times.
 
 
-signal delay_finished
 signal finished
 
 enum Type {NONE, FIRE, OCEAN, SPIRAL, HOLY, PROFANE, HEALING}
 enum Knockback {NONE, LINE, BLAST}
-enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 
 @export var name: String = "Action"
 @export_multiline var description: String
@@ -35,35 +33,76 @@ enum Result {NONE, HIT, CRITICAL, MISSED, EVADED}
 # buffers
 var strength: int
 var affected: Array[Actor] ## [Actor]s affected by this action.
-var delay_left: int
-var result: Result
-
-# nodes
-var cause: Actor ## The [Actor] this action belongs to.
-var splash: Splash = Splash.new(self) ## Node representation.
 
 
-## Starts the action.
-## If [member delay] is 0, triggers immediately.
-## Otherwise, triggers after [param delay] turns.
-func start() -> void:
+## Starts the action. If [member delay] is 0, triggers immediately, otherwise triggers after [param delay] turns.
+func start(cause: Actor) -> void:
 	if delay:
-		delay_left = delay
-		Battle.turn_ended.connect(_decrement_delay.unbind(1))
+		_countdown(cause, delay)
 	else:
-		await run()
-		finished.emit()
+		await run(cause)
+		cause.action_taken.emit()
 
 
 ## Runs effects on all actors in range.
-func run() -> void:
-	affected = _get_affected_actors()
+func run(cause: Actor) -> void:
+	affected = _get_affected_actors(cause.current_splash)
 	
 	if affected:
-		strength = await _get_strength()
+		strength = await _get_strength(cause)
 		
 		for actor: Actor in affected:
-			actor.recieve_action(self)
+			actor.recieve_action(self, cause)
+
+
+
+# delay
+
+func _countdown(cause: Actor, turns: int) -> void:
+	while turns:
+		# TODO: confirm every turn whether to continue focusing or end the action
+		# TODO: end when battle ends
+		await Battle.turn_ended
+		turns -= 1
+	
+	await cause.turn_started
+	await run(cause)
+	cause.action_taken.emit()
+
+
+
+# strength
+
+## Returns the action's strength.
+func _get_strength(cause: Actor) -> int:
+	if dice:
+		return await cause.node.dice.sum(dice, base_strength, type != Type.HEALING and _might_kill())
+	else:
+		return base_strength
+
+
+## Returns true if this action might kill an [Actor] in range.
+func _might_kill() -> bool:
+	var max_damage: int = base_strength + dice * 6
+	for actor in affected:
+		if actor.calculate_damage(max_damage, type) > actor.health:
+			return true
+	return false
+
+
+
+# splash
+
+## Fetches a list of affected actors.
+func _get_affected_actors(splash: Splash) -> Array[Actor]:
+	return splash.get_actors() if shape else Battle.order
+
+
+
+# misc
+
+func _to_string() -> String:
+	return name
 
 
 func get_color() -> Color:
@@ -78,48 +117,3 @@ func get_color() -> Color:
 			return Game.PALETTE.light_green
 		_:
 			return Game.PALETTE.white
-
-
-
-# internal
-
-## Fetches the action's strength.
-func _get_strength() -> int:
-	if dice:
-		return await cause.node.dice.sum(dice, base_strength, type != Type.HEALING and _might_kill())
-	else:
-		return base_strength
-
-
-## Fetches a list of affected actors.
-func _get_affected_actors() -> Array[Actor]:
-	if shape:
-		return splash.get_actors()
-	else:
-		return Battle.order
-
-
-## Decrements [member delay_left]. If it becomes 0, the action triggers.
-func _decrement_delay() -> void:
-	delay_left -= 1
-	
-	if delay_left == 0:
-		Battle.turn_ended.disconnect(_decrement_delay)
-		await run()
-		finished.emit()
-	
-	else:
-		pass # TODO: confirm every turn whether to continue focusing or end the action
-
-
-## Returns [code]true[/code] if this action might kill an [Actor] in range.
-func _might_kill() -> bool:
-	var max_damage: int = base_strength + dice * 6
-	for actor in affected:
-		if actor.calculate_damage(max_damage, type) > actor.health:
-			return true
-	return false
-
-
-func _to_string() -> String:
-	return name + " (" + cause.to_string() + ")"

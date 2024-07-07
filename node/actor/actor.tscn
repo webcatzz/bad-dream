@@ -120,7 +120,7 @@ polygon = PackedVector2Array(0, -7, 15, 0, 0, 7, -15, 0)
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 sprite_frames = ExtResource("3_y0ns7")
-animation = &"move_down"
+animation = &"idle_down"
 offset = Vector2(0, -24)
 
 [node name="Animator" type="AnimationPlayer" parent="."]

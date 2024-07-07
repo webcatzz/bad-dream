@@ -16,14 +16,6 @@ disabled = true
 [node name="CollisionChecker" type="RayCast2D" parent="." index="1"]
 target_position = Vector2(16, 8)
 
-[node name="InteractionArea" type="Area2D" parent="." index="2"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
-polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
-
 [node name="Spotlight" parent="DuringTurn" index="0"]
 visible = false
 

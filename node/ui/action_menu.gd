@@ -3,7 +3,7 @@ extends TabContainer
 
 @onready var actor: Actor = owner.data
 
-var splash: Splash ## Currently rendered [Splash].
+var splash: Splash
 
 
 ## Adds a new [Splash] preview.
@@ -16,7 +16,7 @@ func set_splash(splash: Splash) -> void:
 ## Frees the current [Splash] preview.
 func free_splash() -> void:
 	if splash:
-		splash.get_parent().remove_child(splash)
+		splash.queue_free()
 		splash = null
 
 
@@ -49,7 +49,7 @@ func _on_visibility_changed() -> void:
 # Hides the spotlight when the action list is visible.
 func _on_tab_changed(idx: int) -> void:
 	if visible: _focus_tab()
-	actor.node.set_spotlight(idx != 1)
+	actor.node.set_spotlight(idx == 0)
 	
 	if idx == 2:
 		var inventorylist: ItemList = $Inventory/ListWrapper/List
@@ -65,17 +65,17 @@ func _on_tab_changed(idx: int) -> void:
 # actions
 
 func _on_actionlist_item_selected(idx: int) -> void:
-	set_splash(actor.actions[idx].splash)
+	set_splash(Splash.new(actor.actions[idx], actor))
 	$Actions/Label.text = actor.actions[idx].description
 
 
-func _on_actionlist_item_activated(_idx: int) -> void:
-	var action: Action = splash.action
+func _on_actionlist_item_activated(idx: int) -> void:
+	actor.current_splash = splash
 	splash = null
 	visible = false
 	get_viewport().set_input_as_handled()
 	
-	actor.take_action(action)
+	actor.take_action(actor.actions[idx])
 
 
 
@@ -84,12 +84,11 @@ func _on_actionlist_item_activated(_idx: int) -> void:
 func _on_inventory_item_selected(idx: int) -> void:
 	$Inventory/Label.text = actor.actions[idx].description
 	if Data.inventory[idx] is Consumable and Data.inventory[idx].effect:
-		Data.inventory[idx].effect.cause = actor
-		set_splash(Data.inventory[idx].effect.splash)
+		set_splash(Splash.new(Data.inventory[idx].effect, actor))
 
 
 func _on_inventory_item_activated(idx: int) -> void:
-	var item: Item = Data.inventory[idx]
+	actor.current_splash = splash
 	splash = null
 	visible = false
 	get_viewport().set_input_as_handled()

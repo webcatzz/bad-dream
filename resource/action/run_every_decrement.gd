@@ -1,6 +1,6 @@
 extends Action
 
 
-func _decrement_delay() -> void:
-	run()
-	super()
+func _countdown(cause: Actor, turns: int) -> void:
+	run(cause)
+	super(cause, turns)
