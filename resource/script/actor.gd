@@ -23,7 +23,6 @@ signal status_effect_removed(status_effect: StatusEffect)
 
 # appearance
 @export var name: String = "Actor"
-@export var sprite: SpriteFrames = load("res://asset/actor/sprite/default.tres")
 @export var portrait: Texture2D = load("res://asset/actor/portrait/default.png")
 @export_multiline var description: String = "..."
 
@@ -67,6 +66,11 @@ var modifiers: Dictionary = {
 @export_group("Affinities")
 @export var weak_against: Array[Action.Type] ## Damage types whose damage is doubled.
 @export var strong_against: Array[Action.Type] ## Damage types whose damage is halved.
+
+# sprite
+@export_group("Sprite")
+@export var sprite: SpriteFrames = load("res://asset/actor/sprite/default.tres")
+@export var sprite_offset: Vector2i = Vector2i(0, -24)
 
 # orientation
 var position: Vector2i: ## The actor's current position in grid coordinates.

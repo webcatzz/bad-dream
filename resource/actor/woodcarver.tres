@@ -11,7 +11,6 @@
 [resource]
 script = ExtResource("3_4fjlo")
 name = "woodcarver"
-sprite = ExtResource("7_e3qr5")
 description = "..."
 max_health = 10
 defense = 0
@@ -23,3 +22,5 @@ actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_3ef
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
 weak_against = Array[int]([])
 strong_against = Array[int]([])
+sprite = ExtResource("7_e3qr5")
+sprite_offset = Vector2i(0, -24)

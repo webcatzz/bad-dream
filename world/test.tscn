@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://d0rs3moyicxl5" path="res://node/door.tscn" id="6_ikrja"]
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="7_hfi23"]
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
-[ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/enemy1.tres" id="8_3c3ty"]
-[ext_resource type="Resource" uid="uid://y7mxhcoo4325" path="res://resource/actor/enemy2.tres" id="9_hlaus"]
+[ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/fungus.tres" id="8_3c3ty"]
+[ext_resource type="Resource" uid="uid://y7mxhcoo4325" path="res://resource/actor/fungus2.tres" id="9_hlaus"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="12_7dtxf"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]

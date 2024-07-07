@@ -46,9 +46,9 @@ func _physics_process(_delta: float) -> void:
 		)
 		
 		if Data.get_leader().node.input:
-			_set_sprite_move()
+			_set_sprite_anim("move")
 		else:
-			_set_sprite_idle()
+			_set_sprite_anim("idle")
 
 
 
@@ -112,7 +112,7 @@ func _on_battle_entered() -> void:
 	data.move.call_deferred(Data.get_leader().position)
 	
 	_sprite.stop()
-	_set_sprite_move()
+	_set_sprite_anim("move")
 	_sprite.frame = 1
 
 

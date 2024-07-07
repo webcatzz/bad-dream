@@ -38,6 +38,10 @@ func load_file(idx: int) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	Game.spawn_party(file.get_value("world", "position", Vector2.ZERO))
+	
+	# debug
+	if get_flag("draw_astar"):
+		get_tree().root.add_child(load("res://node/astar_draw.gd").new())
 
 
 ## Saves game data to the specified file.

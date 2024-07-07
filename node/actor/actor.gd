@@ -20,7 +20,6 @@ func take_turn() -> void:
 
 ## Toggles the spotlight and plays sfx.
 func set_spotlight(value: bool) -> void:
-	return
 	if value != $DuringTurn/Spotlight.visible:
 		$DuringTurn/Spotlight.visible = value
 		if value: $SFX/SpotlightOn.play()
@@ -45,8 +44,10 @@ func _ready() -> void:
 	# updating variables
 	data.node = self
 	data.position = Iso.to_grid(position)
+	# sprite
 	_sprite.sprite_frames = data.sprite
-	_set_sprite_idle()
+	_sprite.offset = data.sprite_offset
+	_set_sprite_anim("idle")
 	
 	# orientation
 	data.position_changed.connect(_on_position_changed)
@@ -130,23 +131,16 @@ func _on_path_backtracked() -> void:
 
 # sprite
 
-func _set_sprite_idle() -> void:
-	match data.facing:
-		Vector2i.DOWN: _sprite.animation = &"face_down"
-		Vector2i.UP: _sprite.animation = &"face_up"
-		Vector2i.LEFT: _sprite.animation = &"face_left"
-		Vector2i.RIGHT: _sprite.animation = &"face_right"
-
-
-func _set_sprite_move() -> void:
-	match data.facing:
-		Vector2i.DOWN: _sprite.animation = &"move_down"
-		Vector2i.UP: _sprite.animation = &"move_up"
-		Vector2i.LEFT: _sprite.animation = &"move_left"
-		Vector2i.RIGHT: _sprite.animation = &"move_right"
+func _set_sprite_anim(anim: String) -> void:
+	if data.sprite.has_animation(anim): _sprite.animation = anim
+	else: match data.facing:
+		Vector2i.DOWN: _sprite.animation = anim + "_down"
+		Vector2i.UP: _sprite.animation = anim + "_up"
+		Vector2i.LEFT: _sprite.animation = anim + "_left"
+		Vector2i.RIGHT: _sprite.animation = anim + "_right"
 
 
 func _advance_sprite_frame(by: int = 1) -> void:
 	var frame: int = _sprite.frame + by
-	_set_sprite_move()
+	_set_sprite_anim("move")
 	_sprite.frame = frame % _sprite.sprite_frames.get_frame_count(_sprite.animation)

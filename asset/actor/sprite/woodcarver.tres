@@ -57,7 +57,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_pjp1g")
 }],
 "loop": true,
-"name": &"face_down",
+"name": &"idle_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -65,7 +65,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_i7xhw")
 }],
 "loop": true,
-"name": &"face_left",
+"name": &"idle_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -73,7 +73,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_5x01w")
 }],
 "loop": true,
-"name": &"face_right",
+"name": &"idle_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -81,7 +81,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_68g1s")
 }],
 "loop": true,
-"name": &"face_up",
+"name": &"idle_up",
 "speed": 5.0
 }, {
 "frames": [{

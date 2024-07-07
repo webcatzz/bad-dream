@@ -58,11 +58,11 @@ func _handle_free_input(event: InputEvent) -> void:
 		
 		if input:
 			data.facing = Iso.to_grid(Iso.get_direction(input))
-			_set_sprite_move()
+			_set_sprite_anim("move")
 			_sprite.play()
 			get_viewport().set_input_as_handled()
 		else:
-			_set_sprite_idle()
+			_set_sprite_anim("idle")
 
 
 func _physics_process(_delta: float) -> void:
@@ -89,7 +89,7 @@ func _on_battle_entered() -> void:
 	data.position = Iso.to_grid(position)
 	
 	_sprite.stop()
-	_set_sprite_move()
+	_set_sprite_anim("move")
 	_sprite.frame = 1
 
 

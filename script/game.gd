@@ -31,13 +31,13 @@ func unpause() -> void:
 # party
 
 func spawn_party(position: Vector2) -> void:
-	for actor: Actor in Data.party:
-		if not actor.node:
-			actor.node = load("res://node/actor/player_actor.tscn" if actor == Data.get_leader() else "res://node/actor/party_actor.tscn").instantiate()
-			actor.node.data = actor
+	for i: int in range(Data.party.size() - 1, -1, -1):
+		if not Data.party[i].node:
+			Data.party[i].node = load("res://node/actor/party_actor.tscn" if i else "res://node/actor/player_actor.tscn").instantiate()
+			Data.party[i].node.data = Data.party[i]
 		
-		actor.node.position = position
-		get_tree().current_scene.add_child(actor.node)
+		Data.party[i].node.position = position
+		get_tree().current_scene.add_child(Data.party[i].node)
 
 
 

@@ -69,8 +69,11 @@ func get_path_to_actor(actor: Actor) -> PackedVector2Array:
 		var target_point: Vector2i = actor.position + offset
 		if not Battle.field.is_point_travellable(target_point, node.get_rid()): continue
 		
-		var path: PackedVector2Array = get_path_to(target_point + Iso.rotate_grid_vector(offset, preferred_facing))
-		if not path: continue
+		var pre_target_point: Vector2i = target_point + Iso.rotate_grid_vector(offset, preferred_facing)
+		if not Battle.field.is_point_travellable(pre_target_point, node.get_rid()): continue
+		
+		var path: PackedVector2Array = get_path_to(pre_target_point)
+		if not path and position != pre_target_point: continue
 		
 		path.append(target_point)
 		paths.append(path)
