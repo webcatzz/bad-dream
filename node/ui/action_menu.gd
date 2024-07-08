@@ -83,8 +83,8 @@ func _on_actionlist_item_activated(idx: int) -> void:
 
 func _on_inventory_item_selected(idx: int) -> void:
 	$Inventory/Label.text = actor.actions[idx].description
-	if Data.inventory[idx] is Consumable and Data.inventory[idx].effect:
-		set_splash(Splash.new(Data.inventory[idx].effect, actor))
+	if Data.inventory[idx] is Consumable and Data.inventory[idx].action:
+		set_splash(Splash.new(Data.inventory[idx].action, actor))
 
 
 func _on_inventory_item_activated(idx: int) -> void:
