@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://btwr8lcjua0o5"]
+
+[ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_t5706"]
+[ext_resource type="Texture2D" uid="uid://1ksrtenu5yim" path="res://asset/tile/stump.png" id="2_k3j15"]
+[ext_resource type="Script" path="res://node/triggers/dialogue_trigger.gd" id="2_uas5j"]
+[ext_resource type="PackedScene" uid="uid://bhkepa5y5nryx" path="res://node/star_sprite.tscn" id="3_3gtxn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_178fh"]
+
+[node name="Start" type="Node2D"]
+y_sort_enabled = true
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = ExtResource("1_t5706")
+format = 2
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(131071, 2, 0, 0, 2, 0, -1, 2, 0, -65536, 65538, 0, 65535, 2, 0, -65537, 2, 0, -131073, 65538, 0, -131072, 2, 0, -2, 2, 0, -131074, 65538, 0, -196609, 65538, 0, -65538, 2, 0, -3, 65538, 0, 65534, 2, 0, 131070, 65538, 0, 196607, 2, 0, 262143, 2, 0, 131072, 2, 0, 65536, 2, 0, -196608, 2, 0, -262144, 65538, 0, -262145, 2, 0, -327681, 65538, 0, -393216, 65538, 0, -262143, 65538, 0, -131075, 65538, 0, 131069, 65538, 0, 262142, 65538, 0, 327679, 65538, 0, 262144, 65538, 0, 196608, 65538, 0, 131073, 65538, 0, 1, 65538, 0, -131071, 65538, 0, 196609, 2, 0, 131074, 2, 0, 65537, 2, 0, 196610, 2, 0, 262146, 65538, 0, 327682, 65538, 0, 262147, 2, 0, 327683, 2, 0, 393220, 2, 0, 458755, 2, 0, 393219, 2, 0, 524292, 2, 0, 458756, 2, 0, 327684, 2, 0, 393221, 2, 0, 262148, 2, 0, 458757, 2, 0, 524294, 2, 0, 589830, 2, 0, 655366, 2, 0, 720902, 2, 0, 327685, 2, 0, 393222, 2, 0, 393223, 2, 0, 458759, 2, 0, 524296, 2, 0, 589832, 2, 0, 655368, 2, 0, 720904, 2, 0, 655369, 2, 0, 589833, 2, 0, 655370, 2, 0, 720905, 2, 0, 524297, 2, 0, 524298, 2, 0, 589834, 2, 0, 655371, 2, 0, 720906, 2, 0, 786443, 2, 0, 851978, 2, 0, 917514, 2, 0, 851977, 2, 0, 786441, 2, 0, 786440, 2, 0, 851976, 2, 0, 917513, 2, 0, 786442, 2, 0, 851979, 2, 0, 917515, 2, 0, 983050, 2, 0, 1048586, 2, 0, 983049, 2, 0, 720894, 196610, 0, 655358, 196610, 0, 720895, 131074, 0, 786431, 196610, 0, 655360, 131074, 0, 589824, 131074, 0, 720896, 131074, 0, 655359, 131074, 0, 393215, 65538, 0, 393216, 65538, 0, 524287, 131074, 0, 458751, 65538, 0, 524286, 131074, 0, 589823, 131074, 0, 524288, 131074, 0, 786432, 196610, 0, 917503, 196610, 0, 851967, 196610, 0, 786430, 196610, 0, 655357, 196610, 0, 720893, 196610, 0, 786429, 196610, 0, 851966, 196610, 0, 393214, 65538, 0, 393213, 65538, 0, 327678, 65538, 0, 458750, 65538, 0, 589822, 131074, 0, 524285, 131074, 0, 589821, 131074, 0, 655356, 131074, 0, 589820, 131074, 0, 524283, 131074, 0, 458748, 131074, 0, 524284, 131074, 0, 458749, 131074, 0, 393212, 131074, 0, 327676, 131074, 0, 262139, 131074, 0, 196604, 131074, 0, 262140, 131074, 0, 327677, 131074, 0, 262141, 131074, 0, 196606, 131074, 0, 196605, 131074, 0, 131068, 131074, 0, 65533, 131074, 0, -4, 131074, 0, -65539, 131074, 0, 458752, 131074, 0, 262145, 65538, 0, 327681, 65538, 0, 393218, 65538, 0, 458753, 65538, 0, 393217, 65538, 0, 327680, 65538, 0, 524290, 65538, 0, 589826, 65538, 0, 655362, 65538, 0, 720897, 131074, 0, 655361, 131074, 0, 589825, 65538, 0, 524289, 131074, 0, 786433, 131074, 0, 851968, 131074, 0, 917505, 131074, 0, 983041, 131074, 0, 917506, 131074, 0, 786434, 131074, 0, 851969, 131074, 0)
+
+[node name="DialogueTrigger" type="Area2D" parent="."]
+script = ExtResource("2_uas5j")
+text = "Car seat footrest. How about that. Huh?"
+screen_position = Vector2i(300, 25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTrigger"]
+shape = SubResource("CircleShape2D_178fh")
+
+[node name="StarSprite" parent="." instance=ExtResource("3_3gtxn")]
+position = Vector2(192, 24)
+
+[node name="StarSprite2" parent="." instance=ExtResource("3_3gtxn")]
+position = Vector2(224, 24)
+
+[node name="StarSprite3" parent="." instance=ExtResource("3_3gtxn")]
+position = Vector2(232, 64)
+
+[node name="StarSprite4" parent="." instance=ExtResource("3_3gtxn")]
+position = Vector2(-8, 80)
+
+[node name="Stump" type="StaticBody2D" parent="."]
+position = Vector2(336, 136)
+
+[node name="Sprite2D" type="Sprite2D" parent="Stump"]
+texture = ExtResource("2_k3j15")
+offset = Vector2(0, -36)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stump"]
+polygon = PackedVector2Array(-48, -16, -48, -32, -16, -48, 16, -48, 48, -32, 48, -16, 16, 0, -16, 0)
