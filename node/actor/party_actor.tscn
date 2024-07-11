@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://node/actor/party_actor.gd" id="2_0pyd1"]
 [ext_resource type="Script" path="res://node/ui/vbox_slanted.gd" id="3_68da3"]
 [ext_resource type="Script" path="res://node/ui/action_menu.gd" id="3_g0sg8"]
-[ext_resource type="Script" path="res://node/ui/looping_itemlist.gd" id="6_i2uyv"]
+[ext_resource type="PackedScene" uid="uid://cfljfixiapbcy" path="res://node/ui/actionlist.tscn" id="5_ckstf"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 collision_layer = 2
@@ -26,8 +26,8 @@ visible = false
 z_index = 1
 offset_left = 50.0
 offset_top = -50.0
-offset_right = 140.0
-offset_bottom = 51.0
+offset_right = 210.0
+offset_bottom = 50.0
 tabs_visible = false
 script = ExtResource("3_g0sg8")
 
@@ -37,60 +37,30 @@ script = ExtResource("3_68da3")
 offset = 6
 
 [node name="Attack" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="0"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "attack!"
 
 [node name="Item" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="1"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "item"
 
 [node name="Guard" type="Button" parent="DuringTurn/ActionMenu/TypeChooser" index="2"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "guard"
 
-[node name="Actions" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="2"]
+[node name="Actions" parent="DuringTurn/ActionMenu" index="2" instance=ExtResource("5_ckstf")]
 visible = false
 layout_mode = 2
 
-[node name="ListWrapper" type="PanelContainer" parent="DuringTurn/ActionMenu/Actions" index="0"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"PanelInset"
-
-[node name="List" type="ItemList" parent="DuringTurn/ActionMenu/Actions/ListWrapper" index="0"]
-layout_mode = 2
-text_overrun_behavior = 0
-script = ExtResource("6_i2uyv")
-
-[node name="Label" type="Label" parent="DuringTurn/ActionMenu/Actions" index="1"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_type_variation = &"UILabel"
-autowrap_mode = 3
-clip_text = true
-text_overrun_behavior = 3
-
-[node name="Inventory" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="3"]
+[node name="Inventory" parent="DuringTurn/ActionMenu" index="3" instance=ExtResource("5_ckstf")]
 visible = false
 layout_mode = 2
-
-[node name="ListWrapper" type="PanelContainer" parent="DuringTurn/ActionMenu/Inventory" index="0"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"PanelInset"
-
-[node name="List" type="ItemList" parent="DuringTurn/ActionMenu/Inventory/ListWrapper" index="0"]
-layout_mode = 2
-text_overrun_behavior = 0
-script = ExtResource("6_i2uyv")
-
-[node name="Label" type="Label" parent="DuringTurn/ActionMenu/Inventory" index="1"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_type_variation = &"UILabel"
-autowrap_mode = 3
-clip_text = true
-text_overrun_behavior = 3
 
 [node name="BacktrackTimer" type="Timer" parent="DuringTurn" index="3"]
 wait_time = 0.15
@@ -101,12 +71,3 @@ wait_time = 0.15
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Item" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [2]]
 [connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard" to="DuringTurn/ActionMenu" method="_guard"]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected" binds= [0]]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu/Actions/ListWrapper/List" method="select" binds= [0]]
-[connection signal="hidden" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="free_splash"]
-[connection signal="item_activated" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_activated"]
-[connection signal="item_selected" from="DuringTurn/ActionMenu/Actions/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_actionlist_item_selected"]
-[connection signal="focus_entered" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu/Inventory/ListWrapper/List" method="select" binds= [0]]
-[connection signal="hidden" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu" method="free_splash"]
-[connection signal="item_activated" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_inventory_item_activated"]
-[connection signal="item_selected" from="DuringTurn/ActionMenu/Inventory/ListWrapper/List" to="DuringTurn/ActionMenu" method="_on_inventory_item_selected"]

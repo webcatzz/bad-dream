@@ -320,7 +320,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"UILabel"
 theme_override_fonts/font = ExtResource("3_fvslm")
-theme_override_font_sizes/font_size = 16
 text = "Order"
 
 [node name="Scrollbox" type="ScrollContainer" parent="Layer/Bars/Bottom/Order/List"]

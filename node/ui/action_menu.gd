@@ -24,12 +24,24 @@ func free_splash() -> void:
 # internal
 
 func _ready() -> void:
-	var actionlist: ItemList = $Actions/ListWrapper/List
+	var actionlist: ItemList = $Actions.list
+	actionlist.item_activated.connect(_on_actionlist_item_activated)
+	actionlist.item_selected.connect(_on_actionlist_item_selected)
+	actionlist.focus_entered.connect(_on_actionlist_item_selected.bind(0))
+	actionlist.focus_entered.connect(actionlist.select.bind(0))
+	actionlist.hidden.connect(free_splash)
 	if actor.actions:
-		for action in actor.actions:
+		for action: Action in actor.actions:
 			actionlist.add_item(action.name)
 	else:
 		$TypeChooser/Attack.disabled = true
+	
+	var inventory: ItemList = $Inventory.list
+	inventory.item_activated.connect(_on_inventory_item_activated)
+	inventory.item_selected.connect(_on_inventory_item_selected)
+	inventory.focus_entered.connect(_on_inventory_item_selected.bind(0))
+	inventory.focus_entered.connect(inventory.select.bind(0))
+	inventory.hidden.connect(free_splash)
 
 
 # Focuses the first available [Control].
@@ -52,11 +64,11 @@ func _on_tab_changed(idx: int) -> void:
 	actor.node.set_spotlight(idx == 0)
 	
 	if idx == 2:
-		var inventorylist: ItemList = $Inventory/ListWrapper/List
-		inventorylist.clear()
+		var inventory: ItemList = $Inventory.list
+		inventory.clear()
 		if Data.inventory:
 			for item: Item in Data.inventory:
-				inventorylist.add_item(item.name)
+				inventory.add_item(item.name)
 		else:
 			$TypeChooser/Item.disabled = true
 
@@ -65,8 +77,8 @@ func _on_tab_changed(idx: int) -> void:
 # actions
 
 func _on_actionlist_item_selected(idx: int) -> void:
+	$Actions.display(actor.actions[idx].name, actor.actions[idx].description)
 	set_splash(Splash.new(actor.actions[idx], actor))
-	$Actions/Label.text = actor.actions[idx].description
 
 
 func _on_actionlist_item_activated(idx: int) -> void:
@@ -82,7 +94,7 @@ func _on_actionlist_item_activated(idx: int) -> void:
 # inventory
 
 func _on_inventory_item_selected(idx: int) -> void:
-	$Inventory/Label.text = actor.actions[idx].description
+	$Inventory.display(Data.inventory[idx].name, Data.inventory[idx].description)
 	if Data.inventory[idx] is Consumable and Data.inventory[idx].action:
 		set_splash(Splash.new(Data.inventory[idx].action, actor))
 
