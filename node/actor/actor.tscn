@@ -111,6 +111,8 @@ stream_0/weight = 1.0
 
 [node name="Actor" type="CharacterBody2D"]
 material = ExtResource("1_p8v8q")
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_j5pgg")
 

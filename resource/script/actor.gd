@@ -180,6 +180,11 @@ func damage(amount: int, type: Action.Type = Action.Type.NONE) -> void:
 	if health <= 0: defeated.emit()
 
 
+func die_badly() -> void:
+	health = 0
+	defeated.emit()
+
+
 ## Increases [member health] by [param amount].
 func heal(amount: int) -> void:
 	health += amount

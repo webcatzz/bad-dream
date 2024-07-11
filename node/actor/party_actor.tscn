@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://node/ui/looping_itemlist.gd" id="6_i2uyv"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
+collision_layer = 2
+collision_mask = 2
 wall_min_slide_angle = 0.0
 script = ExtResource("2_0pyd1")
 
