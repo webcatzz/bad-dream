@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0jljfwu4r3ig"]
+
+[ext_resource type="Script" path="res://node/plank_bridge.gd" id="1_keja4"]
+[ext_resource type="Texture2D" uid="uid://bvbqbtjc4llvq" path="res://asset/tile/plank_bridge.png" id="1_qskqp"]
+[ext_resource type="Script" path="res://node/triggers/trigger.gd" id="3_mg18k"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_r3l7m"]
+a = Vector2(8, -4)
+b = Vector2(-8, 4)
+
+[node name="PlankBridge" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_keja4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_qskqp")
+offset = Vector2(0, -24)
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 64)
+
+[node name="Collision1" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_r3l7m")
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+position = Vector2(48, 24)
+shape = SubResource("SegmentShape2D_r3l7m")
+
+[node name="Trigger" type="Area2D" parent="."]
+script = ExtResource("3_mg18k")
+
+[node name="Shape" type="CollisionShape2D" parent="Trigger"]
+shape = SubResource("SegmentShape2D_r3l7m")
+
+[connection signal="triggered" from="Trigger" to="." method="_on_interact"]

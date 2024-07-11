@@ -164,7 +164,10 @@ func recieve_action(action: Action, cause: Actor) -> void:
 	
 	if action.strength:
 		if action.type == Action.Type.HEALING: heal(action.strength)
-		else: damage(action.strength, action.type)
+		else:
+			if cause.facing == facing: damage(action.strength * 1.1, action.type)
+			elif cause.facing == -facing: damage(action.strength * 0.9, action.type)
+			else: damage(action.strength, action.type)
 	if action.knockback_type:
 		var vector: Vector2i = Iso.rotate_grid_vector(action.knockback_vector, cause.facing)
 		facing = -calculate_facing(vector)

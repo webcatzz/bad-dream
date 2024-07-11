@@ -33,10 +33,10 @@ func load_file(idx: int) -> void:
 		inventory.append(item)
 	
 	# changing scene
-	get_tree().change_scene_to_file(file.get_value("world", "path", "res://world/test.tscn"))
-	await get_tree().process_frame
-	await get_tree().process_frame
-	Game.spawn_party(file.get_value("world", "position", Vector2.ZERO))
+	Game.change_world(
+		file.get_value("world", "name", "test"),
+		file.get_value("world", "position", Vector2.ZERO)
+	)
 	
 	# debug
 	if get_flag("draw_astar"):
@@ -64,7 +64,7 @@ func save_file(idx: int) -> void:
 	file.set_value("file", "seed", randi())
 	
 	# world scene
-	file.set_value("world", "path", get_tree().current_scene.scene_file_path)
+	file.set_value("world", "name", Game.get_world_name())
 	file.set_value("world", "position", party[0].node.position)
 	
 	# saving!
@@ -105,8 +105,8 @@ func set_flag(key: String, value: Variant) -> void:
 	file.set_value("flags", key, value)
 
 
-func get_flag(key: String) -> Variant:
-	return file.get_value("flags", key, false)
+func get_flag(key: String, default: Variant = false) -> Variant:
+	return file.get_value("flags", key, default)
 
 
 func incr_flag(key: String, value: int = 1) -> void:
