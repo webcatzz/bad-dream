@@ -37,6 +37,11 @@ func change_world(world_name: String, position: Vector2 = Vector2.ZERO) -> void:
 	Game.spawn_party(position)
 
 
+func get_world_name() -> String:
+	var filename: String = get_tree().current_scene.scene_file_path.get_file()
+	return filename.substr(0, filename.length() - 5)
+
+
 func spawn_party(position: Vector2) -> void:
 	for i: int in range(Data.party.size() - 1, -1, -1):
 		if not Data.party[i].node:
@@ -45,11 +50,6 @@ func spawn_party(position: Vector2) -> void:
 		
 		Data.party[i].node.position = position
 		get_tree().current_scene.add_child(Data.party[i].node)
-
-
-func get_world_name() -> String:
-	var filename: String = get_tree().current_scene.scene_file_path.get_file()
-	return filename.substr(0, filename.length() - 5)
 
 
 

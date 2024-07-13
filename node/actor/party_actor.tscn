@@ -8,15 +8,11 @@
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
 collision_layer = 2
-collision_mask = 2
 wall_min_slide_angle = 0.0
 script = ExtResource("2_0pyd1")
 
 [node name="Collision" parent="." index="0"]
 disabled = true
-
-[node name="CollisionChecker" type="RayCast2D" parent="." index="1"]
-target_position = Vector2(16, 8)
 
 [node name="Spotlight" parent="DuringTurn" index="0"]
 visible = false
@@ -32,6 +28,7 @@ tabs_visible = false
 script = ExtResource("3_g0sg8")
 
 [node name="TypeChooser" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="1"]
+custom_minimum_size = Vector2(98, 0)
 layout_mode = 2
 script = ExtResource("3_68da3")
 offset = 6

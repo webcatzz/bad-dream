@@ -39,7 +39,7 @@ func emit_text(string: String, color: Color = Color.WHITE) -> void:
 
 func _ready() -> void:
 	if data not in Data.party:
-		data.duplicate()
+		data = data.duplicate()
 	
 	# updating variables
 	data.node = self
@@ -77,7 +77,7 @@ func _on_position_changed(pos: Vector2i) -> void:
 func _on_health_changed_by(value: int) -> void:
 	if value < 0:
 		_animator.play(&"damaged")
-		_play_sprite_anim("hurt")
+		#_play_sprite_anim("hurt")
 		emit_text(str(value), Color.RED)
 	else:
 		emit_text("+" + str(value), Color.GREEN)
@@ -149,4 +149,4 @@ func _play_sprite_anim(anim: String) -> void:
 func _advance_sprite_frame(by: int = 1) -> void:
 	var frame: int = _sprite.frame + by
 	_set_sprite_anim("move")
-	_sprite.frame = frame % _sprite.sprite_frames.get_frame_count(_sprite.animation)
+	_sprite.frame = posmod(frame, _sprite.sprite_frames.get_frame_count(_sprite.animation))

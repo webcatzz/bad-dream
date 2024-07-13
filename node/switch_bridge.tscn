@@ -5,12 +5,10 @@
 [ext_resource type="Script" path="res://node/triggers/trigger.gd" id="3_kqrwq"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_r3l7m"]
-a = Vector2(8, -6)
-b = Vector2(-8, 2)
+a = Vector2(8, -8)
+b = Vector2(-8, 0)
 
-[node name="SwitchBridge" type="StaticBody2D"]
-collision_layer = 3
-collision_mask = 3
+[node name="SwitchBridge" type="Node2D"]
 script = ExtResource("1_qs1w2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -19,10 +17,14 @@ offset = Vector2(0, -28)
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 64)
 
-[node name="Collision1" type="CollisionShape2D" parent="."]
+[node name="Collision" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Shape1" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("SegmentShape2D_r3l7m")
 
-[node name="Collision2" type="CollisionShape2D" parent="."]
+[node name="Shape2" type="CollisionShape2D" parent="Collision"]
 position = Vector2(48, 24)
 shape = SubResource("SegmentShape2D_r3l7m")
 
@@ -32,4 +34,4 @@ script = ExtResource("3_kqrwq")
 [node name="Shape" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("SegmentShape2D_r3l7m")
 
-[connection signal="triggered" from="Trigger" to="." method="_on_interact"]
+[connection signal="triggered" from="Trigger" to="." method="on_interact"]

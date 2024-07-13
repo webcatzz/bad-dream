@@ -12,16 +12,16 @@
 [resource]
 script = ExtResource("3_4fjlo")
 name = "woodcarver"
-description = "..."
 max_health = 10
 defense = 0
 resistance = 0
 evasion = 0.0
-tiles_per_turn = 10000
+tiles_per_turn = 5
 actions_per_turn = 1
 actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_3ef4e"), ExtResource("2_4xyq5"), ExtResource("3_xwecl"), ExtResource("4_u6w21"), ExtResource("5_40v7m"), ExtResource("6_eqisw")])
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
-weak_against = Array[int]([])
-strong_against = Array[int]([])
 sprite = ExtResource("7_e3qr5")
 sprite_offset = Vector2i(0, -24)
+description = "..."
+weak_against = Array[int]([])
+strong_against = Array[int]([])

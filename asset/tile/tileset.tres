@@ -1,11 +1,9 @@
-[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://b7em4re6t2a80"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://b7em4re6t2a80"]
 
 [ext_resource type="Texture2D" uid="uid://d21kjv0u140tb" path="res://asset/tile/empty.png" id="1_gohqb"]
 [ext_resource type="PackedScene" uid="uid://cn5h4f2hy4cfs" path="res://node/killzone.tscn" id="2_xn5kl"]
 [ext_resource type="Texture2D" uid="uid://bkw0aegf2c7wi" path="res://asset/tile/basalt.png" id="4_4mkob"]
-[ext_resource type="Shader" path="res://asset/shader/lava.gdshader" id="4_k3lu6"]
 [ext_resource type="Texture2D" uid="uid://crhvnelvt3tys" path="res://asset/tile/lava-tile.png" id="4_pyhif"]
-[ext_resource type="Texture2D" uid="uid://8x0xeppw3jjv" path="res://asset/tile/lava-texture.png" id="5_v7kns"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q7by6"]
 texture = ExtResource("1_gohqb")
@@ -134,31 +132,21 @@ texture_region_size = Vector2i(32, 24)
 3:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_1/angular_velocity = 0.0
 0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -4)
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_1/angular_velocity = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c11em"]
-shader = ExtResource("4_k3lu6")
-shader_parameter/pattern = ExtResource("5_v7kns")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dtq2t"]
 texture = ExtResource("4_pyhif")
 texture_region_size = Vector2i(32, 16)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -8)
-0:0/0/material = SubResource("ShaderMaterial_c11em")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, -8)
-0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_0/angular_velocity = 0.0
-0:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_1/angular_velocity = 0.0
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, -8)
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -198,6 +186,16 @@ texture_region_size = Vector2i(32, 16)
 2:0/1/physics_layer_0/angular_velocity = 0.0
 2:0/1/physics_layer_1/linear_velocity = Vector2(0, 0)
 2:0/1/physics_layer_1/angular_velocity = 0.0
+3:0/size_in_atlas = Vector2i(1, 2)
+3:0/animation_columns = 2
+3:0/animation_frame_0/duration = 1.0
+3:0/animation_frame_1/duration = 1.0
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_1/angular_velocity = 0.0
 
 [resource]
 tile_shape = 1

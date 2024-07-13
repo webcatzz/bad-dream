@@ -7,7 +7,6 @@ var listening: bool
 
 # nodes
 @onready var _action_menu: Control = $DuringTurn/ActionMenu
-@onready var _collision_checker: RayCast2D = $CollisionChecker
 @onready var _backtrack_timer: Timer = $DuringTurn/BacktrackTimer
 
 
@@ -21,7 +20,8 @@ func _ready() -> void:
 	# battle signals
 	data.battle_entered.connect(_on_battle_entered)
 	data.battle_exited.connect(_on_battle_exited)
-	# timers
+	# backtracking
+	data.path_backtracked.connect(_advance_sprite_frame.bind(-1))
 	_backtrack_timer.timeout.connect(_on_backtrack_timer_timeout)
 
 
@@ -45,10 +45,7 @@ func _physics_process(_delta: float) -> void:
 			1.875
 		)
 		
-		if Data.get_leader().node.input:
-			_set_sprite_anim("move")
-		else:
-			_set_sprite_anim("idle")
+		_set_sprite_anim("move" if Data.get_leader().node.input else "idle")
 
 
 
@@ -109,7 +106,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 
 func _on_battle_entered() -> void:
 	$Collision.set_disabled.call_deferred(false)
-	data.move.call_deferred(Data.get_leader().position)
+	data.position = Iso.to_grid(position).clamp(Battle.field.region.position, Battle.field.region.end)
 	
 	_sprite.stop()
 	_set_sprite_anim("move")

@@ -7,11 +7,19 @@ extends Actor
 var paths: Dictionary
 var closest_targets: Array[Actor]
 
+var turn_override: Array = []
+
 
 func _take_turn() -> void:
+	if turn_override:
+		for override: Callable in turn_override: await override.call()
+		turn_override.clear()
+		end_turn()
+		return
+	
 	update()
 	
-	var target: Actor = closest_targets[randi() % 1]
+	var target: Actor = closest_targets[0]
 	
 	var path: PackedVector2Array = paths[target]
 	if await follow_path(path):

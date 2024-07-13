@@ -228,6 +228,7 @@ _data = {
 }
 
 [node name="BattleUI" type="Node"]
+process_mode = 3
 script = ExtResource("1_wfkej")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -244,6 +245,8 @@ grow_vertical = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 500.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 

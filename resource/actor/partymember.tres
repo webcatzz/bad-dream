@@ -8,14 +8,15 @@
 [resource]
 script = ExtResource("1_becac")
 name = "Jay"
-description = "meowmeowmeow"
 max_health = 10
 defense = 0
 resistance = 0
 evasion = 0.0
-tiles_per_turn = 1000
+tiles_per_turn = 5
 actions_per_turn = 2
 actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_53tqx"), ExtResource("2_c4c23"), ExtResource("3_jrsdd")])
 attributes = Array[Resource("res://resource/script/attribute.gd")]([])
+sprite_offset = Vector2i(0, -24)
+description = "meowmeowmeow"
 weak_against = Array[int]([])
 strong_against = Array[int]([])
