@@ -87,11 +87,7 @@ func get_party_path_position(actor: Actor) -> Vector2:
 func _on_battle_entered() -> void:
 	listening = false
 	input_mode = InputMode.GRID
-	data.position = Iso.to_grid(position).clamp(Battle.field.region.position, Battle.field.region.end)
-	
-	_sprite.stop()
-	_set_sprite_anim("move")
-	_sprite.frame = 1
+	_do_battle_setup()
 
 
 func _on_battle_exited() -> void:

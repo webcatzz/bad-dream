@@ -106,7 +106,11 @@ func _handle_battle_input(event: InputEvent) -> void:
 
 func _on_battle_entered() -> void:
 	$Collision.set_disabled.call_deferred(false)
-	data.position = Iso.to_grid(position).clamp(Battle.field.region.position, Battle.field.region.end)
+	_do_battle_setup()
+
+
+func _do_battle_setup() -> void:
+	data.position = Iso.to_grid(position.snapped(Vector2(8, 8))).clamp(Battle.field.region.position, Battle.field.region.end)
 	
 	_sprite.stop()
 	_set_sprite_anim("move")

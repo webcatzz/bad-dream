@@ -179,7 +179,7 @@ func recieve_action(action: Action, cause: Actor) -> void:
 ## Modifies [param amount] according to the actor's type affinities,
 ## then subtracts it from [member health].
 func damage(amount: int, type: Action.Type = Action.Type.NONE) -> void:
-	health -= calculate_damage(amount, type) - modifiers.defense
+	health -= max(calculate_damage(amount, type) - modifiers.defense, 0)
 	if health <= 0: defeated.emit()
 
 
