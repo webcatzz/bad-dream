@@ -17,7 +17,7 @@ script/source = "extends Node2D
 
 
 func _setup() -> void:
-	$Actor1.data.health_changed.connect(_phase_2.unbind(1))
+	$Actor1.data.health_changed.connect(_phase_2.unbind(1), CONNECT_ONE_SHOT)
 
 
 func _phase_2() -> void:
@@ -44,7 +44,7 @@ script = ExtResource("7_a0yh2")
 keep_distance = 0
 preferred_facing = Vector2i(0, 1)
 name = "Fungal Watchman"
-max_health = 12
+max_health = 15
 defense = 0
 resistance = 0
 evasion = 0.0

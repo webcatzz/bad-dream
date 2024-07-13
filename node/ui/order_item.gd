@@ -16,12 +16,12 @@ func set_actor(actor: Actor) -> void:
 
 
 func _on_turn_started() -> void:
-	$HBox/VBox/Health.show_percentage = true
+	$HBox/VBox/Health.show_value = true
 	get_tree().create_tween().tween_property(get_parent().get_parent(), "scroll_vertical", offset_top, 0.25).set_trans(Tween.TRANS_CUBIC)
 
 
 func _on_turn_ended() -> void:
-	$HBox/VBox/Health.show_percentage = false
+	$HBox/VBox/Health.show_value = false
 
 
 func _on_status_effect_added(status_effect: StatusEffect) -> void:
