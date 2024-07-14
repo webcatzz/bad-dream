@@ -9,15 +9,19 @@ signal interacted_with
 
 func _ready() -> void:
 	if name in Data.get_flag(flag, []):
-		on_interact()
+		open()
 
 
 func on_interact() -> void:
-	$Sprite.region_rect.position.x = 32
-	$Sprite.region_rect.size = Vector2(64, 32)
-	$Sprite.offset = Vector2(24, 12)
-	$Sprite.z_index = -1
-	
+	Data.get_leader().node.listening = false
+	open()
+	await $Animator.animation_finished
+	Data.get_leader().node.listening = true
+
+
+func open() -> void:
+	$Animator.play("open")
+	await $Animator.animation_finished
 	$Collision.queue_free()
 	
 	var bridges: Array = Data.get_flag(flag, [])

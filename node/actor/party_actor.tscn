@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cfljfixiapbcy" path="res://node/ui/actionlist.tscn" id="5_ckstf"]
 
 [node name="PartyActor" instance=ExtResource("1_mic32")]
-collision_layer = 2
 wall_min_slide_angle = 0.0
 script = ExtResource("2_0pyd1")
 
@@ -28,6 +27,7 @@ tabs_visible = false
 script = ExtResource("3_g0sg8")
 
 [node name="TypeChooser" type="VBoxContainer" parent="DuringTurn/ActionMenu" index="1"]
+custom_minimum_size = Vector2(98, 0)
 layout_mode = 2
 script = ExtResource("3_68da3")
 offset = 6

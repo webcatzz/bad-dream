@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://node/actor/player_actor.gd" id="2_lw7y8"]
 
 [node name="PlayerActor" instance=ExtResource("1_8poer")]
-collision_layer = 3
 script = ExtResource("2_lw7y8")
 
 [node name="Collision" parent="." index="0"]
@@ -17,8 +16,5 @@ monitorable = false
 
 [node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
 polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
-
-[node name="TypeChooser" parent="DuringTurn/ActionMenu" index="1"]
-custom_minimum_size = Vector2(98, 0)
 
 [node name="Camera" type="Camera2D" parent="." index="6"]

@@ -137,7 +137,4 @@ data = ExtResource("6_j7gqy")
 position = Vector2(560, 120)
 data = SubResource("Resource_bx1nt")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(2, 2, 2, 1)
-
 [connection signal="triggered" from="Battle/BattleTrigger" to="Battle" method="_setup"]

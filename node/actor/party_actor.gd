@@ -42,7 +42,7 @@ func _physics_process(_delta: float) -> void:
 		
 		global_position = global_position.move_toward(
 			Data.get_leader().node.get_party_path_position(data),
-			1.875
+			1.6
 		)
 		
 		_set_sprite_anim("move" if Data.get_leader().node.input else "idle")
