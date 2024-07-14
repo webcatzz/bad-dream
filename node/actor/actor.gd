@@ -53,9 +53,9 @@ func _ready() -> void:
 	data.position_changed.connect(_on_position_changed)
 	data.position_changed.connect($SFX/Move.play.unbind(1))
 	# turns
-	data.turn_started.connect($DuringTurn.set_visible.bind(true))
+	data.turn_started.connect($DuringTurn.show)
 	data.turn_started.connect(set_spotlight.bind(true))
-	data.turn_ended.connect($DuringTurn.set_visible.bind(false))
+	data.turn_ended.connect($DuringTurn.hide)
 	data.turn_ended.connect(set_spotlight.bind(false))
 	data.turn_ended.connect(_path.clear_points)
 	data.turn_ended.connect(_set_sprite_anim.bind("idle"))

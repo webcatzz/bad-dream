@@ -11,7 +11,7 @@ const PALETTE: Dictionary = {
 	"white": Color("#b8aab0"),
 }
 
-var _pause_menu: CanvasLayer = load("res://node/ui/pause_menu.tscn").instantiate()
+@onready var _pause_menu: CanvasLayer = $PauseMenu
 
 
 # pausing
@@ -57,14 +57,6 @@ func spawn_party(position: Vector2) -> void:
 
 func over() -> void:
 	get_tree().change_scene_to_file("res://node/ui/game_over.tscn")
-
-
-
-# internal
-
-func _ready() -> void:
-	add_child(_pause_menu)
-	add_child(load("res://node/overlay.tscn").instantiate())
 
 
 

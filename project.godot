@@ -22,7 +22,7 @@ buses/default_bus_layout="res://audio_bussy.tres"
 [autoload]
 
 Data="*res://script/data.gd"
-Game="*res://script/game.gd"
+Game="*res://node/game.tscn"
 Battle="*res://script/battle.gd"
 Dialogue="*res://node/dialogue/dialogue.tscn"
 Music="*res://script/music.gd"

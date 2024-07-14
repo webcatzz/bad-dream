@@ -1,0 +1,229 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2frlsqma1r3f"]
+
+[ext_resource type="Texture2D" uid="uid://bgyov2mbuxfeb" path="res://asset/texture.png" id="1_bp8ef"]
+[ext_resource type="Script" path="res://script/game.gd" id="1_l6kv5"]
+[ext_resource type="Script" path="res://node/ui/pause_menu.gd" id="3_3j2kr"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_fbxly"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o67p7"]
+bg_color = Color(0.027, 0.02, 0.02, 0.9)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_l6kv5")
+
+[node name="Overlay" type="ParallaxBackground" parent="."]
+layer = 0
+
+[node name="Parallax" type="ParallaxLayer" parent="Overlay"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1252, 626)
+
+[node name="Texture" type="Sprite2D" parent="Overlay/Parallax"]
+modulate = Color(0, 0, 0, 0.05)
+texture = ExtResource("1_bp8ef")
+centered = false
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+visible = false
+script = ExtResource("3_3j2kr")
+
+[node name="Overlay" type="PanelContainer" parent="PauseMenu"]
+material = ExtResource("4_fbxly")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o67p7")
+
+[node name="Tabs" type="TabContainer" parent="PauseMenu/Overlay"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tabs_visible = false
+
+[node name="Buttons" type="VBoxContainer" parent="PauseMenu/Overlay/Tabs"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Overlay/Tabs/Buttons"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "Paused..."
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/Overlay/Tabs/Buttons"]
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="PauseMenu/Overlay/Tabs/Buttons"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Settings" type="Button" parent="PauseMenu/Overlay/Tabs/Buttons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Controls" type="Button" parent="PauseMenu/Overlay/Tabs/Buttons"]
+layout_mode = 2
+text = "Controls"
+
+[node name="Exit" type="Button" parent="PauseMenu/Overlay/Tabs/Buttons"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Settings" type="VBoxContainer" parent="PauseMenu/Overlay/Tabs"]
+visible = false
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="VolumeLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Settings"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "Volume"
+
+[node name="Volume" type="GridContainer" parent="PauseMenu/Overlay/Tabs/Settings"]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+columns = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Settings/Volume"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "Master volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PauseMenu/Overlay/Tabs/Settings/Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+
+[node name="MusicVolumeLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Settings/Volume"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "Music volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PauseMenu/Overlay/Tabs/Settings/Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+
+[node name="SfxVolumeLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Settings/Volume"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "SFX volume"
+
+[node name="SfxVolumeSlider" type="HSlider" parent="PauseMenu/Overlay/Tabs/Settings/Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/Overlay/Tabs/Settings"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PauseMenu/Overlay/Tabs/Settings"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[node name="Controls" type="VBoxContainer" parent="PauseMenu/Overlay/Tabs"]
+visible = false
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Label" type="Label" parent="PauseMenu/Overlay/Tabs/Controls"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "Controls"
+
+[node name="Grid" type="GridContainer" parent="PauseMenu/Overlay/Tabs/Controls"]
+layout_mode = 2
+theme_override_constants/h_separation = -1
+columns = 2
+
+[node name="MoveLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Controls/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"UILabel"
+text = "Move"
+
+[node name="MoveKeys" type="Label" parent="PauseMenu/Overlay/Tabs/Controls/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"UILabel"
+text = "Q, W, A, S"
+
+[node name="InteractLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Controls/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"UILabel"
+text = "Interact"
+
+[node name="InteractKeys" type="Label" parent="PauseMenu/Overlay/Tabs/Controls/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"UILabel"
+text = "Space, E, Enter"
+
+[node name="BattleLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Controls"]
+layout_mode = 2
+theme_type_variation = &"UILabel"
+text = "In battle..."
+
+[node name="BattleControls" type="GridContainer" parent="PauseMenu/Overlay/Tabs/Controls"]
+layout_mode = 2
+theme_override_constants/h_separation = -1
+columns = 2
+
+[node name="BacktrackLabel" type="Label" parent="PauseMenu/Overlay/Tabs/Controls/BattleControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"UILabel"
+text = "Backtrack"
+
+[node name="BacktrackKeys" type="Label" parent="PauseMenu/Overlay/Tabs/Controls/BattleControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"UILabel"
+text = "Shift"
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/Overlay/Tabs/Controls"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PauseMenu/Overlay/Tabs/Controls"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[node name="ConfirmExit" type="ConfirmationDialog" parent="PauseMenu"]
+title = "Are you sure you want to exit?"
+initial_position = 2
+size = Vector2i(288, 80)
+ok_button_text = "Yes"
+dialog_text = "Any unsaved progress will be lost."
+cancel_button_text = "No"
+
+[connection signal="hidden" from="PauseMenu/Overlay/Tabs" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [0]]
+[connection signal="tab_changed" from="PauseMenu/Overlay/Tabs" to="PauseMenu" method="_on_tab_changed" unbinds=1]
+[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Continue" to="PauseMenu" method="_continue"]
+[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Settings" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Controls" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [2]]
+[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Exit" to="PauseMenu/ConfirmExit" method="popup_centered"]
+[connection signal="value_changed" from="PauseMenu/Overlay/Tabs/Settings/Volume/MasterVolumeSlider" to="PauseMenu" method="_set_volume" binds= ["master"]]
+[connection signal="value_changed" from="PauseMenu/Overlay/Tabs/Settings/Volume/MusicVolumeSlider" to="PauseMenu" method="_set_volume" binds= ["music"]]
+[connection signal="value_changed" from="PauseMenu/Overlay/Tabs/Settings/Volume/SfxVolumeSlider" to="PauseMenu" method="_set_volume" binds= ["sfx"]]
+[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Settings/Button" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [0]]
+[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Controls/Button" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [0]]
+[connection signal="confirmed" from="PauseMenu/ConfirmExit" to="PauseMenu" method="_exit"]
