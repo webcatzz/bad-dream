@@ -18,4 +18,7 @@ monitorable = false
 [node name="Shape" type="CollisionPolygon2D" parent="InteractionArea" index="0"]
 polygon = PackedVector2Array(-32, 0, 0, -16, 32, 0, 0, 16)
 
+[node name="TypeChooser" parent="DuringTurn/ActionMenu" index="1"]
+custom_minimum_size = Vector2(98, 0)
+
 [node name="Camera" type="Camera2D" parent="." index="6"]

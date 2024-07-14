@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d21kjv0u140tb" path="res://asset/tile/empty.png" id="1_gohqb"]
 [ext_resource type="PackedScene" uid="uid://cn5h4f2hy4cfs" path="res://node/killzone.tscn" id="2_xn5kl"]
 [ext_resource type="Texture2D" uid="uid://bkw0aegf2c7wi" path="res://asset/tile/basalt.png" id="4_4mkob"]
-[ext_resource type="Texture2D" uid="uid://crhvnelvt3tys" path="res://asset/tile/lava-tile.png" id="4_pyhif"]
+[ext_resource type="Texture2D" uid="uid://crhvnelvt3tys" path="res://asset/tile/mneme.png" id="4_pyhif"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q7by6"]
 texture = ExtResource("1_gohqb")
@@ -101,6 +101,7 @@ texture_region_size = Vector2i(32, 24)
 5:0/0/texture_origin = Vector2i(0, 16)
 5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
 5:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_1/angular_velocity = 0.0
 6:0/size_in_atlas = Vector2i(1, 2)
@@ -108,6 +109,7 @@ texture_region_size = Vector2i(32, 24)
 6:0/0/texture_origin = Vector2i(0, 16)
 6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
 6:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 6:0/0/physics_layer_1/angular_velocity = 0.0
 5:2/size_in_atlas = Vector2i(1, 2)
@@ -115,6 +117,7 @@ texture_region_size = Vector2i(32, 24)
 5:2/0/texture_origin = Vector2i(0, 16)
 5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
 5:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 5:2/0/physics_layer_1/angular_velocity = 0.0
 6:2/size_in_atlas = Vector2i(1, 2)
@@ -122,6 +125,7 @@ texture_region_size = Vector2i(32, 24)
 6:2/0/texture_origin = Vector2i(0, 16)
 6:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:2/0/physics_layer_0/angular_velocity = 0.0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
 6:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 6:2/0/physics_layer_1/angular_velocity = 0.0
 3:2/size_in_atlas = Vector2i(2, 2)
@@ -129,6 +133,7 @@ texture_region_size = Vector2i(32, 24)
 3:2/0/texture_origin = Vector2i(-16, 0)
 3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, 0, 16, 16, 48, 0)
 3:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_1/angular_velocity = 0.0
 0:1/0 = 0
@@ -186,16 +191,40 @@ texture_region_size = Vector2i(32, 16)
 2:0/1/physics_layer_0/angular_velocity = 0.0
 2:0/1/physics_layer_1/linear_velocity = Vector2(0, 0)
 2:0/1/physics_layer_1/angular_velocity = 0.0
-3:0/size_in_atlas = Vector2i(1, 2)
-3:0/animation_columns = 2
-3:0/animation_frame_0/duration = 1.0
-3:0/animation_frame_1/duration = 1.0
+0:1/size_in_atlas = Vector2i(1, 2)
+0:1/animation_columns = 1
+0:1/animation_frame_0/duration = 1.0
+0:1/animation_frame_1/duration = 1.0
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -8)
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_1/angular_velocity = 0.0
 3:0/0 = 0
 3:0/0/texture_origin = Vector2i(0, -8)
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
 3:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_1/angular_velocity = 0.0
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, -8)
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_1/angular_velocity = 0.0
+3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, -8)
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_1/angular_velocity = 0.0
+3:3/0 = 0
+3:3/0/texture_origin = Vector2i(0, -8)
+3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_0/angular_velocity = 0.0
+3:3/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_1/angular_velocity = 0.0
 
 [resource]
 tile_shape = 1

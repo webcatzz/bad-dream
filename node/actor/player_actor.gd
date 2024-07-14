@@ -51,24 +51,26 @@ func _handle_free_input(event: InputEvent) -> void:
 	
 	# movement
 	else:
-		input = Iso.from_grid(Vector2(
+		input = Vector2(
 			Input.get_axis("move_left", "move_right"),
 			Input.get_axis("move_up", "move_down"),
-		)).normalized() * 112
+		)
 		
 		if input:
-			if not input.x: input.y *= 0.875
-			data.facing = Iso.to_grid(Iso.get_direction(input))
+			data.facing = data.calculate_facing(input)
+			velocity = Iso.from_grid(input).normalized() * 96
+			if not velocity.x: velocity.y *= 0.875
+			
 			_set_sprite_anim("move")
 			_sprite.play()
 			get_viewport().set_input_as_handled()
 		else:
+			velocity = Vector2.ZERO
 			_set_sprite_anim("idle")
 
 
 func _physics_process(_delta: float) -> void:
-	if input_mode == InputMode.FREE:
-		velocity = input if listening else Vector2.ZERO
+	if listening and input_mode == InputMode.FREE:
 		move_and_slide()
 		
 		# party path

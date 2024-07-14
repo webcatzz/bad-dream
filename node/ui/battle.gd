@@ -3,7 +3,9 @@ extends Node
 
 
 var _following: Actor
-var _old_camera_pos: Vector2
+
+var _camera_control: bool
+var _camera_input: Vector2
 
 @onready var _status: Label = $Layer/Bars/Middle/Padding/Status
 @onready var _order: VBoxContainer = $Layer/Bars/Bottom/Order/List/Scrollbox/Items
@@ -21,7 +23,7 @@ func _ready() -> void:
 	_camera.position = get_viewport().get_camera_2d().get_screen_center_position()
 	_camera.make_current()
 	_camera.reset_smoothing()
-	Battle.turn_started.connect(_on_turn_started)
+	Battle.turn_started.connect(_follow_actor)
 
 
 func run_status(string: String) -> void:
@@ -29,19 +31,6 @@ func run_status(string: String) -> void:
 	await _status.type(string)
 	await get_tree().create_timer(2).timeout
 	_animator.play(&"fade_status")
-
-
-func pan_to(point: Vector2i) -> void:
-	get_tree().paused = true
-	_old_camera_pos = _camera.get_target_position()
-	_camera.position = Iso.from_grid(point)
-	#await get_tree().create_tween().tween_property(_camera, "position", Iso.from_grid(point), 1).set_trans(Tween.TRANS_CUBIC)
-
-
-func pan_back() -> void:
-	_camera.position = _old_camera_pos
-	get_tree().paused = false
-	#await get_tree().create_tween().tween_property(_camera, "position", _old_camera_pos, 1).set_trans(Tween.TRANS_CUBIC)
 
 
 
@@ -62,8 +51,9 @@ func _on_actor_removed(idx: int) -> void:
 
 # camera
 
-func _on_turn_started(actor: Actor) -> void:
+func _follow_actor(actor: Actor) -> void:
 	if _following: _following.position_changed.disconnect(_set_camera_pos_from_grid)
+	_camera_control = false
 	_following = actor
 	
 	_set_camera_pos_from_grid(actor.position)
@@ -72,3 +62,21 @@ func _on_turn_started(actor: Actor) -> void:
 
 func _set_camera_pos_from_grid(point: Vector2) -> void:
 	_camera.position = Iso.from_grid(point)
+
+
+func freefloat() -> void:
+	if _following: _following.position_changed.disconnect(_set_camera_pos_from_grid)
+	_camera_control = true
+
+
+func _unhandled_key_input(event: InputEvent):
+	if _camera_control:
+		_camera_input = Iso.from_grid(Vector2(
+			Input.get_axis("move_left", "move_right"),
+			Input.get_axis("move_up", "move_down"),
+		)).normalized() * 4
+
+
+func _process(_delta: float) -> void:
+	if _camera_control:
+		_camera_input
