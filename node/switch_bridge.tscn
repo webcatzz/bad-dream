@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://2oex1jniyl2w"]
+[gd_scene load_steps=11 format=3 uid="uid://2oex1jniyl2w"]
 
 [ext_resource type="Script" path="res://node/switch_bridge.gd" id="1_qs1w2"]
 [ext_resource type="Texture2D" uid="uid://bvbqbtjc4llvq" path="res://asset/tile/switch_bridge.png" id="2_02rtr"]
 [ext_resource type="Script" path="res://node/triggers/trigger.gd" id="3_kqrwq"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_q237e"]
+[ext_resource type="Texture2D" uid="uid://45uada0lotoc" path="res://asset/smoke.png" id="5_apvrr"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_r3l7m"]
 a = Vector2(8, -8)
@@ -83,6 +85,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.1, 1), Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Particles:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_6a770"]
 length = 0.001
@@ -146,6 +160,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1.1, 1)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Particles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_523kf"]
 _data = {
@@ -153,11 +179,14 @@ _data = {
 "open": SubResource("Animation_vmo78")
 }
 
+[sub_resource type="Curve" id="Curve_vx8lr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="SwitchBridge" type="Node2D"]
 script = ExtResource("1_qs1w2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, 2)
 scale = Vector2(1.1, 1)
 texture = ExtResource("2_02rtr")
 offset = Vector2(0, -28)
@@ -185,5 +214,21 @@ shape = SubResource("SegmentShape2D_r3l7m")
 libraries = {
 "": SubResource("AnimationLibrary_523kf")
 }
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+material = ExtResource("4_q237e")
+position = Vector2(40, 16)
+emitting = false
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("5_apvrr")
+emission_shape = 1
+emission_sphere_radius = 32.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_vx8lr")
 
 [connection signal="triggered" from="Trigger" to="." method="on_interact"]
