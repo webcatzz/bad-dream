@@ -150,4 +150,9 @@ func get_volume(type: String) -> float:
 # internal
 
 func _ready() -> void:
-	settings.load("user://settings.cfg")
+	if settings.load("user://settings.cfg") != OK:
+		settings.load("res://resource/default_settings.cfg")
+	
+	AudioServer.set_bus_volume_db(0, linear_to_db(Data.get_volume("master")))
+	AudioServer.set_bus_volume_db(1, linear_to_db(Data.get_volume("music")))
+	AudioServer.set_bus_volume_db(2, linear_to_db(Data.get_volume("sfx")))

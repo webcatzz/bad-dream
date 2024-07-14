@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://2oex1jniyl2w"]
+[gd_scene load_steps=12 format=3 uid="uid://2oex1jniyl2w"]
 
 [ext_resource type="Script" path="res://node/switch_bridge.gd" id="1_qs1w2"]
 [ext_resource type="Texture2D" uid="uid://bvbqbtjc4llvq" path="res://asset/tile/switch_bridge.png" id="2_02rtr"]
 [ext_resource type="Script" path="res://node/triggers/trigger.gd" id="3_kqrwq"]
+[ext_resource type="AudioStream" uid="uid://b1byjw3c7hupt" path="res://asset/sfx/bridge_fall.mp3" id="4_m3rnb"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_q237e"]
 [ext_resource type="Texture2D" uid="uid://45uada0lotoc" path="res://asset/smoke.png" id="5_apvrr"]
 
@@ -87,7 +88,8 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_vmo78"]
 resource_name = "open"
-length = 1.1
+length = 1.5
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -172,6 +174,21 @@ tracks/6/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SFX")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_m3rnb")
+}],
+"times": PackedFloat32Array(0.25)
+}
+tracks/7/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_523kf"]
 _data = {
@@ -208,6 +225,9 @@ script = ExtResource("3_kqrwq")
 
 [node name="Shape" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("SegmentShape2D_r3l7m")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
