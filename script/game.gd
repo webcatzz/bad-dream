@@ -64,6 +64,7 @@ func over() -> void:
 
 func _ready() -> void:
 	add_child(_pause_menu)
+	add_child(load("res://node/overlay.tscn").instantiate())
 
 
 

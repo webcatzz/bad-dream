@@ -34,4 +34,7 @@ script = ExtResource("3_kqrwq")
 [node name="Shape" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("SegmentShape2D_r3l7m")
 
+[node name="Shape2" type="CollisionShape2D" parent="Trigger"]
+shape = SubResource("SegmentShape2D_r3l7m")
+
 [connection signal="triggered" from="Trigger" to="." method="on_interact"]
