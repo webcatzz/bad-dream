@@ -18,7 +18,7 @@ func run(string: String) -> void:
 
 
 ## Types out a string, pausing at punctuation.
-func type(string: String) -> void:
+func type(string: String = text) -> void:
 	visible_characters = 0
 	text = string
 	
@@ -40,6 +40,7 @@ func _init() -> void:
 	theme_type_variation = &"DialogueLabel"
 	autowrap_mode = TextServer.AUTOWRAP_WORD
 	focus_mode = Control.FOCUS_ALL
+	visible_characters = 0
 
 
 func _gui_input(event: InputEvent) -> void:
