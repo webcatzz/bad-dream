@@ -41,7 +41,7 @@ func _on_actor_added(actor: Actor, idx: int) -> void:
 	order_item.set_actor(actor)
 	
 	_order.add_child(order_item)
-	_order.move_child(order_item, idx + 1)
+	_order.move_child(order_item, idx)
 
 
 func _on_actor_removed(idx: int) -> void:

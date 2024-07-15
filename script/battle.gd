@@ -42,7 +42,7 @@ func start(actors: Array[Actor], region: Rect2i) -> void:
 	
 	# starting order
 	started.emit()
-	current_idx = -1
+	current_idx = order.find(Data.get_leader()) - 1
 	run_turn()
 
 
@@ -118,6 +118,7 @@ func add_actor(actor: Actor) -> void:
 	
 	# adding to order
 	order.insert(idx, actor)
+	if idx <= current_idx: current_idx += 1
 	actor.in_battle = true
 	actor_added.emit(actor, idx)
 
