@@ -88,6 +88,7 @@ func get_party_path_position(actor: Actor) -> Vector2:
 
 func _on_battle_entered() -> void:
 	listening = false
+	input = Vector2.ZERO
 	input_mode = InputMode.GRID
 	_do_battle_setup()
 

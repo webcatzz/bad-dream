@@ -24,7 +24,7 @@ func _init() -> void:
 	super()
 	size.x = 200
 	theme_type_variation = &"DialogueBubble"
-	material = preload("res://asset/shader/dither.tres")
+	material = preload("res://asset/vfx/dither.tres")
 
 
 func _process(_delta: float) -> void:

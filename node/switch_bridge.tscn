@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bvbqbtjc4llvq" path="res://asset/tile/switch_bridge.png" id="2_02rtr"]
 [ext_resource type="Script" path="res://node/triggers/trigger.gd" id="3_kqrwq"]
 [ext_resource type="AudioStream" uid="uid://b1byjw3c7hupt" path="res://asset/sfx/bridge_fall.mp3" id="4_m3rnb"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_q237e"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="4_q237e"]
 [ext_resource type="Texture2D" uid="uid://45uada0lotoc" path="res://asset/smoke.png" id="5_apvrr"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_r3l7m"]
@@ -210,15 +210,9 @@ region_enabled = true
 region_rect = Rect2(0, 0, 32, 64)
 
 [node name="Collision" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
 
-[node name="Shape1" type="CollisionShape2D" parent="Collision"]
-shape = SubResource("SegmentShape2D_r3l7m")
-
-[node name="Shape2" type="CollisionShape2D" parent="Collision"]
-position = Vector2(48, 24)
-shape = SubResource("SegmentShape2D_r3l7m")
+[node name="Shape" type="CollisionPolygon2D" parent="Collision"]
+polygon = PackedVector2Array(-8, 0, 8, -8, 56, 16, 40, 24)
 
 [node name="Trigger" type="Area2D" parent="."]
 script = ExtResource("3_kqrwq")

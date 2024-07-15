@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://node/save_point.gd" id="1_56ck4"]
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="2_ppl06"]
 [ext_resource type="Texture2D" uid="uid://p1b7e7f6qf7r" path="res://asset/phonebooth.png" id="2_qyhcf"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_r7lj4"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="4_r7lj4"]
 [ext_resource type="Texture2D" uid="uid://bv68rtqd5u35p" path="res://asset/switchboard.png" id="5_3it3y"]
 [ext_resource type="Texture2D" uid="uid://dweoqb5o88xjx" path="res://asset/phonebooth_bg.png" id="5_lpghm"]
 [ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/switchboard_plug.png" id="6_8v4uf"]

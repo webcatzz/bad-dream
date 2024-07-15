@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
 [ext_resource type="Texture2D" uid="uid://bu5ragxvhv826" path="res://asset/ui/gear.png" id="2_0ifoi"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="2_k8n41"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="2_k8n41"]
 [ext_resource type="FontFile" uid="uid://dswlaqk5b76ld" path="res://asset/ui/pixel_times.ttf" id="2_kpda6"]
 [ext_resource type="Script" path="res://node/dialogue/label.gd" id="3_5gdxo"]
 [ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_fvslm"]

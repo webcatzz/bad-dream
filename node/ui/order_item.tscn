@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://rpyj2hvrbh2u"]
 
 [ext_resource type="Script" path="res://node/ui/order_item.gd" id="1_e85nb"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="3_80it7"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="3_80it7"]
 [ext_resource type="Texture2D" uid="uid://b6whmvx8l1sgn" path="res://asset/actor/portrait/default.png" id="3_fgpoi"]
 [ext_resource type="Script" path="res://node/ui/labeled_progess_bar.gd" id="4_v38o7"]
 

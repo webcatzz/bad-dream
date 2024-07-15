@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://be240quocrkry"]
 
 [ext_resource type="Script" path="res://node/text_particle.gd" id="1_m4rng"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_qh7be"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="1_qh7be"]
 
 [sub_resource type="Animation" id="Animation_ec6h4"]
 length = 0.001

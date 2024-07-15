@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bgyov2mbuxfeb" path="res://asset/texture.png" id="1_bp8ef"]
 [ext_resource type="Script" path="res://script/game.gd" id="1_l6kv5"]
 [ext_resource type="Script" path="res://node/ui/pause_menu.gd" id="3_3j2kr"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="4_fbxly"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="4_fbxly"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o67p7"]
 bg_color = Color(0.027, 0.02, 0.02, 0.9)

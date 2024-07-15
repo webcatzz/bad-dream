@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bu5e6u4o61sc0"]
 
 [ext_resource type="Script" path="res://node/ui/pause_menu.gd" id="1_7d1m0"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="2_2c233"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="2_2c233"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o67p7"]
 bg_color = Color(0.027, 0.02, 0.02, 0.9)

@@ -8,10 +8,13 @@ func _init(region: Rect2i) -> void:
 	self.region = region
 	diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	update()
-	
-	# generating from collisions
+	generate()
+
+
+func generate() -> void:
 	for x in region.size.x: for y in region.size.y:
 		var point: Vector2i = Vector2i(x, y) + region.position
+		set_point_solid(point, false)
 		
 		var collisions: Array[Dictionary] = query_point(point)
 		if collisions:
@@ -66,5 +69,5 @@ func query_ray(from: Vector2i, ray: Vector2i) -> Dictionary:
 
 
 # Returns high cost if the point collides with a body.
-func _compute_cost(from_id: Vector2i, to_id: Vector2i) -> float:
+func _compute_cost(_from_id: Vector2i, to_id: Vector2i) -> float:
 	return 999 if query_point(to_id) else 1

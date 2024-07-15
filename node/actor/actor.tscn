@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://bey6fhrbn55h0"]
 
 [ext_resource type="Script" path="res://node/actor/actor.gd" id="1_j5pgg"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_p8v8q"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="1_p8v8q"]
 [ext_resource type="Script" path="res://node/spotlight.gd" id="2_wd4nt"]
 [ext_resource type="SpriteFrames" uid="uid://tukt3tca2rch" path="res://asset/actor/sprite/default.tres" id="3_y0ns7"]
-[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/shader/unshaded.tres" id="4_7ieqm"]
+[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/vfx/unshaded.tres" id="4_7ieqm"]
 [ext_resource type="AudioStream" uid="uid://b0pwyevl8fgtr" path="res://asset/sfx/move.mp3" id="5_mlp70"]
 [ext_resource type="AudioStream" uid="uid://c8d4dpg2oxhid" path="res://asset/sfx/spotlight_on.mp3" id="6_ql4jc"]
 [ext_resource type="AudioStream" uid="uid://blxh2fo38mxsd" path="res://asset/sfx/spotlight_off.mp3" id="7_cqwoq"]

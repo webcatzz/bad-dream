@@ -19,7 +19,7 @@ func _draw() -> void:
 				ThemeDB.get_project_theme().default_font,
 				Iso.from_grid(point) + Vector2(8, 3),
 				str(point),
-				0, -1, 10
+				0, -1
 			)
 
 

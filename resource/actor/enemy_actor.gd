@@ -1,8 +1,8 @@
-extends Actor
+class_name EnemyActor extends Actor
 
 
 @export var keep_distance: int
-@export var preferred_facing: Vector2i
+@export var preferred_facing: Vector2i = Vector2i(0, 1)
 
 var paths: Dictionary
 var closest_targets: Array[Actor]
@@ -14,8 +14,9 @@ func _take_turn() -> void:
 	if turn_override:
 		for override: Callable in turn_override: await override.call()
 		turn_override.clear()
-		end_turn()
-		return
+		if is_exhausted():
+			end_turn()
+			return
 	
 	update()
 	

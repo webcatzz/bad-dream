@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="7_kkk1m"]
 [ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/fungus.tres" id="8_3c3ty"]
 [ext_resource type="Resource" uid="uid://y7mxhcoo4325" path="res://resource/actor/fungus2.tres" id="9_hlaus"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="12_7dtxf"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="12_7dtxf"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hh3lc"]
 a = Vector2(16, -16)

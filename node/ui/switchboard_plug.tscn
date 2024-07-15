@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b2srypvgkpbx3" path="res://asset/switchboard_plug.png" id="1_myw13"]
 [ext_resource type="Script" path="res://node/ui/switchboard_plug.gd" id="1_rnl22"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_wxe7t"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="1_wxe7t"]
 
 [node name="SwitchboardPlug" type="Node2D"]
 material = ExtResource("1_wxe7t")

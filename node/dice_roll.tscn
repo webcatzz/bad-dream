@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dkcvlj3ybfd6b"]
 
 [ext_resource type="Script" path="res://node/dice_roll.gd" id="1_adehc"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/shader/dither.tres" id="1_s4y7t"]
+[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="1_s4y7t"]
 [ext_resource type="Texture2D" uid="uid://cg7jqh1fd6yhu" path="res://asset/dice.png" id="2_cvhig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10r2y"]
