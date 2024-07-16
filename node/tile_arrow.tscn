@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://f5bx2106pgsn"]
+
+[ext_resource type="Texture2D" uid="uid://c7lrotopyd20x" path="res://asset/arrow.png" id="1_2lor4"]
+
+[sub_resource type="Curve" id="Curve_jblww"]
+min_value = 0.25
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="GDScript" id="GDScript_pd77o"]
+resource_name = "tile_arrow"
+script/source = "extends Line2D
+
+
+func set_ends(from: Vector2i, to: Vector2i) -> void:
+	global_position = Iso.from_grid(from)
+	var end: Vector2 = Iso.from_grid(to) - global_position
+	
+	set_point_position(1, end)
+	
+	$Cap.position = end
+	if end.x > 0: $Cap.flip_h = true
+	if end.y > 0: $Cap.flip_v = true
+"
+
+[node name="TileArrow" type="Line2D"]
+points = PackedVector2Array(0, 0, -64, -32)
+width = 8.0
+width_curve = SubResource("Curve_jblww")
+default_color = Color(0.027451, 0.0196078, 0.0196078, 1)
+script = SubResource("GDScript_pd77o")
+
+[node name="Cap" type="Sprite2D" parent="."]
+position = Vector2(-64, -32)
+texture = ExtResource("1_2lor4")

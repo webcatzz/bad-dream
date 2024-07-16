@@ -15,9 +15,8 @@ func _take_turn() -> void:
 	if turn_override:
 		for override: Callable in turn_override: await override.call()
 		turn_override.clear()
-		if is_exhausted():
-			end_turn()
-			return
+		end_turn()
+		return
 	
 	update()
 	

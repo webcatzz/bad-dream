@@ -3,7 +3,7 @@ class_name Splash extends Node2D
 
 
 var action: Action ## The action this splash represents. When triggered, it will affect all [Actor]s in [member area].
-var facing: Vector2i
+var cause: Actor
 
 var area: TileHighlight ## Displays area of effect and fetches [Actor]s in range.
 
@@ -35,25 +35,35 @@ func finish() -> void:
 
 func _init(action: Action, cause: Actor) -> void:
 	self.action = action
-	facing = cause.facing
+	self.cause = cause
 	
 	position = cause.node.position
 	modulate = action.get_color()
+	z_index = -1
 	
 	if action.shape:
 		area = TileHighlight.node()
-		area.body_entered.connect(queue_redraw.unbind(1))
-		add_child(area)
 		
 		if action.shape is BitShape:
-			area.from_bitshape(action.shape.turned(facing))
+			area.from_bitshape(action.shape.turned(cause.facing))
 		elif action.shape is BitPath:
 			area.from_bitpath(action.shape)
+		
+		if action.knockback_type:
+			area.body_entered.connect(_on_body_entered_or_exited.unbind(1))
+			area.body_exited.connect(_on_body_entered_or_exited.unbind(1))
+		
+		add_child(area)
 
 
-func _draw() -> void:
-	if action.knockback_type and area:
-		for actor: Actor in get_actors():
-			draw_set_transform(actor.node.global_position - global_position)
-			var end: Vector2 = Iso.from_grid(actor.calculate_knockback(Iso.rotate_grid_vector(action.knockback_vector, facing)))
-			draw_line(Vector2.ZERO, end, Game.PALETTE.red, 8)
+func _on_body_entered_or_exited() -> void:
+	for i: int in range(get_child_count(), 1):
+		remove_child(get_child(i))
+	
+	for actor: Actor in get_actors():
+		var arrow: Line2D = preload("res://node/tile_arrow.tscn").instantiate()
+		add_child(arrow)
+		arrow.set_ends(
+			actor.position,
+			actor.position + actor.calculate_knockback(Iso.rotate_grid_vector(action.knockback_vector, cause.facing))
+		)

@@ -8,6 +8,7 @@ const PALETTE: Dictionary = {
 	"dark_green": Color("#537c44"),
 	"blue": Color("#596faf"),
 	
+	"black": Color("#070505"),
 	"white": Color("#b8aab0"),
 }
 
