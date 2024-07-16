@@ -5,7 +5,8 @@ class_name EnemyActor extends Actor
 @export var preferred_facing: Vector2i = Vector2i(0, 1)
 
 var paths: Dictionary
-var closest_targets: Array[Actor]
+var target_priority: Array[Actor]
+var damage_memory: Dictionary = {}
 
 var turn_override: Array = []
 
@@ -20,7 +21,7 @@ func _take_turn() -> void:
 	
 	update()
 	
-	var target: Actor = closest_targets[0]
+	var target: Actor = target_priority[0]
 	var path: PackedVector2Array = paths[target]
 	
 	if path.size() < keep_distance:
@@ -60,10 +61,24 @@ func update() -> void:
 	for actor: Actor in Data.get_party_undefeated():
 		paths[actor] = get_path_to_actor(actor)
 	
-	closest_targets = Data.get_party_undefeated()
-	closest_targets.sort_custom(func(a: Actor, b: Actor) -> bool:
-		return paths[a].size() < paths[b].size()
+	target_priority = Data.get_party_undefeated()
+	target_priority.sort_custom(func(a: Actor, b: Actor) -> bool:
+		return (
+			paths[a].size() < paths[b].size() or
+			damage_memory.get(a, 0) > damage_memory.get(b, 0)
+		)
 	)
+	prints(self, target_priority)
+
+
+
+# priority
+
+func recieve_action(action: Action, cause: Actor) -> void:
+	super(action, cause)
+	
+	if action.type != Action.Type.HEALING:
+		damage_memory[cause] = damage_memory.get(cause, 0) + action.strength
 
 
 
@@ -91,7 +106,7 @@ func get_path_to_actor(actor: Actor) -> PackedVector2Array:
 		paths.append(path)
 	
 	sort_paths(paths)
-	return paths[0] if paths else []
+	return paths[0] if paths else PackedVector2Array()
 
 
 func sort_paths(paths: Array[PackedVector2Array]) -> void:
