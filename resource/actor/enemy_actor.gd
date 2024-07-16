@@ -26,7 +26,9 @@ func _take_turn() -> void:
 	if path.size() < keep_distance:
 		pass
 	
-	if await follow_path(path):
+	await follow_path(path)
+	
+	if path.size() <= tiles_per_turn:
 		if actions:
 			await perform_action(actions[0])
 	
@@ -34,20 +36,16 @@ func _take_turn() -> void:
 
 
 ## Follows [param path]. Pauses between points in [param path].
-func follow_path(path: PackedVector2Array) -> bool:
+func follow_path(path: PackedVector2Array) -> void:
 	if not path:
 		await Game.get_tree().create_timer(0.2).timeout
-		return true
+		return
 	
 	for point: Vector2i in path:
-		if not can_move(): return false
-		
 		extend_path()
 		move_to(point)
 		node._advance_sprite_frame()
 		await Game.get_tree().create_timer(0.2).timeout
-	
-	return true
 
 
 func perform_action(action: Action) -> void:

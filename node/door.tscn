@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0rs3moyicxl5"]
+[gd_scene load_steps=4 format=3 uid="uid://d0rs3moyicxl5"]
 
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="1_ukf2p"]
 [ext_resource type="Texture2D" uid="uid://boud0d4jnww68" path="res://asset/tile/door.png" id="1_y0qls"]
-[ext_resource type="FontFile" uid="uid://dbdf1vu36hgq2" path="res://asset/ui/knockout-initials.otf" id="2_kuqnj"]
 [ext_resource type="Script" path="res://node/door_label.gd" id="3_6xcxf"]
 
 [node name="Door" type="Node2D"]
@@ -18,21 +17,19 @@ texture = ExtResource("1_y0qls")
 offset = Vector2(0, -24)
 
 [node name="Label" type="Label" parent="."]
-visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -77.5
-offset_top = -88.0
-offset_right = 77.5
+offset_left = -77.0
+offset_top = -70.0
+offset_right = 78.0
 offset_bottom = -62.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_kuqnj")
-theme_override_font_sizes/font_size = 24
-text = "palisade"
+text = "Palisade"
+horizontal_alignment = 1
 script = ExtResource("3_6xcxf")
 
 [connection signal="player_entered" from="Detector" to="Label" method="set_visible" binds= [true]]

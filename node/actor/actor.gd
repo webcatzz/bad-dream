@@ -11,6 +11,7 @@ var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_e
 @onready var _sprite: AnimatedSprite2D = $Sprite
 @onready var _animator: AnimationPlayer = $Animator
 @onready var _path: Line2D = $DuringTurn/Path
+@onready var _step_count: Label = $DuringTurn/StepCount
 
 
 func take_turn() -> void:
@@ -53,12 +54,8 @@ func _ready() -> void:
 	data.position_changed.connect(_on_position_changed)
 	data.position_changed.connect($SFX/Move.play.unbind(1))
 	# turns
-	data.turn_started.connect($DuringTurn.show)
-	data.turn_started.connect(set_spotlight.bind(true))
-	data.turn_ended.connect($DuringTurn.hide)
-	data.turn_ended.connect(set_spotlight.bind(false))
-	data.turn_ended.connect(_path.clear_points)
-	data.turn_ended.connect(_set_sprite_anim.bind("idle"))
+	data.turn_started.connect(_on_turn_started)
+	data.turn_ended.connect(_on_turn_ended)
 	# path
 	data.path_extended.connect(_on_path_extended)
 	data.path_backtracked.connect(_on_path_backtracked)
@@ -79,8 +76,10 @@ func _on_health_changed_by(value: int) -> void:
 		_animator.play(&"damaged")
 		#_play_sprite_anim("hurt")
 		emit_text(str(value), Color.RED)
-	else:
+	elif value > 0:
 		emit_text("+" + str(value), Color.GREEN)
+	else:
+		emit_text("-0", Color.WHITE)
 
 
 func _on_evaded(successful: bool) -> void:
@@ -119,14 +118,36 @@ func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 
 
 
+# turns
+
+func _on_turn_started() -> void:
+	$DuringTurn.show()
+	set_spotlight(true)
+	_update_step_count()
+
+
+func _on_turn_ended() -> void:
+	$DuringTurn.hide()
+	set_spotlight(false)
+	_path.clear_points()
+	_set_sprite_anim("idle")
+
+
+
 # path
 
 func _on_path_extended() -> void:
 	_path.add_point(Iso.from_grid(data.path[-1].position))
+	_update_step_count()
 
 
 func _on_path_backtracked() -> void:
 	_path.remove_point(data.path.size())
+	_update_step_count()
+
+
+func _update_step_count() -> void:
+	_step_count.text = str(data.tiles_per_turn - data.tiles_traveled)
 
 
 

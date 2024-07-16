@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://bey6fhrbn55h0"]
+[gd_scene load_steps=15 format=3 uid="uid://bey6fhrbn55h0"]
 
 [ext_resource type="Script" path="res://node/actor/actor.gd" id="1_j5pgg"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="1_p8v8q"]
 [ext_resource type="Script" path="res://node/spotlight.gd" id="2_wd4nt"]
 [ext_resource type="SpriteFrames" uid="uid://tukt3tca2rch" path="res://asset/actor/sprite/default.tres" id="3_y0ns7"]
-[ext_resource type="Material" uid="uid://cd13ivlfach8v" path="res://asset/vfx/unshaded.tres" id="4_7ieqm"]
 [ext_resource type="AudioStream" uid="uid://b0pwyevl8fgtr" path="res://asset/sfx/move.mp3" id="5_mlp70"]
 [ext_resource type="AudioStream" uid="uid://c8d4dpg2oxhid" path="res://asset/sfx/spotlight_on.mp3" id="6_ql4jc"]
 [ext_resource type="AudioStream" uid="uid://blxh2fo38mxsd" path="res://asset/sfx/spotlight_off.mp3" id="7_cqwoq"]
@@ -130,10 +129,10 @@ libraries = {
 
 [node name="DuringTurn" type="Node2D" parent="."]
 visible = false
+light_mask = 0
 
 [node name="Spotlight" type="Node2D" parent="DuringTurn"]
 z_index = -1
-material = ExtResource("4_7ieqm")
 scale = Vector2(2, 1)
 script = ExtResource("2_wd4nt")
 
@@ -145,6 +144,22 @@ material = ExtResource("1_p8v8q")
 width = 3.0
 default_color = Color(0.721569, 0.666667, 0.690196, 1)
 gradient = SubResource("Gradient_8xtn0")
+
+[node name="StepCount" type="Label" parent="DuringTurn"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -64.0
+offset_right = 16.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
+text = "0"
+horizontal_alignment = 1
 
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
 position = Vector2(0, -64)

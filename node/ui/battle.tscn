@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dlabd5a4ri2ic"]
+[gd_scene load_steps=17 format=3 uid="uid://dlabd5a4ri2ic"]
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
 [ext_resource type="Texture2D" uid="uid://bu5ragxvhv826" path="res://asset/ui/gear.png" id="2_0ifoi"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="2_k8n41"]
-[ext_resource type="FontFile" uid="uid://dswlaqk5b76ld" path="res://asset/ui/pixel_times.ttf" id="2_kpda6"]
 [ext_resource type="Script" path="res://node/dialogue/label.gd" id="3_5gdxo"]
 [ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_fvslm"]
 
@@ -245,6 +244,8 @@ grow_vertical = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 500.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -282,8 +283,6 @@ material = ExtResource("2_k8n41")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("2_kpda6")
-theme_override_font_sizes/font_size = 10
 script = ExtResource("3_5gdxo")
 
 [node name="Bottom" type="PanelContainer" parent="Layer/Bars"]
