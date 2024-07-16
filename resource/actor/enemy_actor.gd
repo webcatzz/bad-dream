@@ -21,8 +21,11 @@ func _take_turn() -> void:
 	update()
 	
 	var target: Actor = closest_targets[0]
-	
 	var path: PackedVector2Array = paths[target]
+	
+	if path.size() < keep_distance:
+		pass
+	
 	if await follow_path(path):
 		if actions:
 			await perform_action(actions[0])
