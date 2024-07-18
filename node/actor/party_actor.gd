@@ -21,7 +21,7 @@ func _ready() -> void:
 	data.battle_entered.connect(_on_battle_entered)
 	data.battle_exited.connect(_on_battle_exited)
 	# backtracking
-	data.path_backtracked.connect(_advance_sprite_frame.bind(-1))
+	data.path_backtracked.connect(advance_animation.bind(-1))
 	_backtrack_timer.timeout.connect(_on_backtrack_timer_timeout)
 
 
@@ -45,7 +45,7 @@ func _physics_process(_delta: float) -> void:
 			1.6
 		)
 		
-		_set_sprite_anim("move" if Data.get_leader().node.input else "idle")
+		set_animation("move" if Data.get_leader().node.input else "idle")
 
 
 
@@ -81,7 +81,7 @@ func _handle_battle_input(event: InputEvent) -> void:
 		if vector and Battle.field.is_point_travellable(data.position + vector):
 			data.extend_path()
 			data.move(vector)
-			_advance_sprite_frame()
+			advance_animation()
 			
 			get_viewport().set_input_as_handled()
 			return
@@ -113,7 +113,7 @@ func _do_battle_setup() -> void:
 	data.position = Iso.to_grid(position.snapped(Vector2(8, 8))).clamp(Battle.field.region.position, Battle.field.region.end)
 	
 	_sprite.stop()
-	_set_sprite_anim("move")
+	set_animation("move")
 	_sprite.frame = 1
 
 

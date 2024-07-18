@@ -48,7 +48,7 @@ func _ready() -> void:
 	# sprite
 	_sprite.sprite_frames = data.sprite
 	_sprite.offset = data.sprite_offset
-	_set_sprite_anim("idle")
+	set_animation("idle")
 	
 	# orientation
 	data.position_changed.connect(_on_position_changed)
@@ -74,7 +74,7 @@ func _on_position_changed(pos: Vector2i) -> void:
 func _on_health_changed_by(value: int) -> void:
 	if value < 0:
 		_animator.play(&"damaged")
-		#_play_sprite_anim("hurt")
+		#play_animation("hurt")
 		emit_text(str(value), Color.RED)
 	elif value > 0:
 		emit_text("+" + str(value), Color.GREEN)
@@ -130,7 +130,7 @@ func _on_turn_ended() -> void:
 	$DuringTurn.hide()
 	set_spotlight(false)
 	_path.clear_points()
-	_set_sprite_anim("idle")
+	set_animation("idle")
 
 
 
@@ -151,23 +151,20 @@ func _update_step_count() -> void:
 
 
 
-# sprite
+# animation
 
-func _set_sprite_anim(anim: String) -> void:
-	if data.sprite.has_animation(anim): _sprite.animation = anim
-	else: match data.facing:
-		Vector2i.DOWN: _sprite.animation = anim + "_down"
-		Vector2i.UP: _sprite.animation = anim + "_up"
-		Vector2i.LEFT: _sprite.animation = anim + "_left"
-		Vector2i.RIGHT: _sprite.animation = anim + "_right"
+func set_animation(key: String) -> void:
+	match data.facing:
+		Vector2i.DOWN: _sprite.animation = key + "_down"
+		Vector2i.UP: _sprite.animation = key + "_up"
+		Vector2i.LEFT: _sprite.animation = key + "_left"
+		Vector2i.RIGHT: _sprite.animation = key + "_right"
 
 
-func _play_sprite_anim(anim: String) -> void:
-	_set_sprite_anim(anim)
+func play_animation(key: String) -> void:
+	set_animation(key)
 	_sprite.play()
 
 
-func _advance_sprite_frame(by: int = 1) -> void:
-	var frame: int = _sprite.frame + by
-	_set_sprite_anim("move")
-	_sprite.frame = posmod(frame, _sprite.sprite_frames.get_frame_count(_sprite.animation))
+func advance_animation(by: int = 1) -> void:
+	_sprite.frame = posmod(_sprite.frame + by, _sprite.sprite_frames.get_frame_count(_sprite.animation))

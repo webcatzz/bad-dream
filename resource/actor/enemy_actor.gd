@@ -19,9 +19,10 @@ func _take_turn() -> void:
 		return
 	
 	update()
-	
 	var target: Actor = target_priority[0]
 	var path: PackedVector2Array = paths[target]
+	
+	status()
 	
 	if path.size() < keep_distance:
 		pass
@@ -44,7 +45,7 @@ func follow_path(path: PackedVector2Array) -> void:
 	for point: Vector2i in path:
 		extend_path()
 		move_to(point)
-		node._advance_sprite_frame()
+		node.advance_animation()
 		await Game.get_tree().create_timer(0.2).timeout
 
 
@@ -112,3 +113,29 @@ func sort_paths(paths: Array[PackedVector2Array]) -> void:
 	paths.sort_custom(func(a: PackedVector2Array, b: PackedVector2Array) -> bool:
 		return a.size() < b.size()
 	)
+
+
+
+# status
+
+func status() -> void:
+	if randf() > 0.25: return
+	
+	var messages: PackedStringArray
+	
+	if health == max_health:
+		messages.append("%s seems awfully smug.")
+	elif health < max_health * 0.25:
+		messages.append("%s seems unsure.")
+	elif health == 1:
+		messages.append("%s looks glassy-eyed.")
+	else:
+		messages.append("%s is drooling.")
+		messages.append("An awful smell is coming off %s.")
+	
+	if path.size() > 10:
+		messages.append("%s takes off!")
+	if status_effects:
+		messages.append("%s is feeling a little queasy.")
+	
+	Battle.ui.run_status(messages[randi() % messages.size()] % name)

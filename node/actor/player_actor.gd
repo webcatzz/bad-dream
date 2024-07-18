@@ -61,12 +61,12 @@ func _handle_free_input(event: InputEvent) -> void:
 			velocity = Iso.from_grid(input).normalized() * 96
 			if not velocity.x: velocity.y *= 0.875
 			
-			_set_sprite_anim("move")
+			set_animation("move")
 			_sprite.play()
 			get_viewport().set_input_as_handled()
 		else:
 			velocity = Vector2.ZERO
-			_set_sprite_anim("idle")
+			set_animation("idle")
 
 
 func _physics_process(_delta: float) -> void:
