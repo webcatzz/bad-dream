@@ -10,7 +10,7 @@
 
 [resource]
 script = ExtResource("3_4fjlo")
-name = "woodcarver"
+name = "Woodcarver"
 max_health = 10
 defense = 0
 resistance = 0

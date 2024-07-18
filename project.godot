@@ -36,6 +36,7 @@ Music="*res://script/music.gd"
 gdscript/warnings/shadowed_variable=0
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/integer_division=0
+gdscript/warnings/narrowing_conversion=0
 
 [dialogue_manager]
 

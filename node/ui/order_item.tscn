@@ -1,24 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://rpyj2hvrbh2u"]
+[gd_scene load_steps=4 format=3 uid="uid://rpyj2hvrbh2u"]
 
 [ext_resource type="Script" path="res://node/ui/order_item.gd" id="1_e85nb"]
 [ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="3_80it7"]
 [ext_resource type="Texture2D" uid="uid://b6whmvx8l1sgn" path="res://asset/actor/portrait/default.png" id="3_fgpoi"]
-[ext_resource type="Script" path="res://node/ui/labeled_progess_bar.gd" id="4_v38o7"]
 
-[node name="OrderItem" type="PanelContainer"]
-offset_right = 81.0
-offset_bottom = 17.0
+[node name="OrderItem" type="HBoxContainer"]
+offset_right = 90.0
+offset_bottom = 23.0
 script = ExtResource("1_e85nb")
 
-[node name="HBox" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="IconPanel" type="PanelContainer" parent="HBox"]
+[node name="IconPanel" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
 theme_type_variation = &"PanelInset"
 
-[node name="Icon" type="TextureRect" parent="HBox/IconPanel"]
+[node name="Icon" type="TextureRect" parent="IconPanel"]
 material = ExtResource("3_80it7")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
@@ -26,29 +22,28 @@ size_flags_vertical = 4
 texture = ExtResource("3_fgpoi")
 expand_mode = 1
 
-[node name="VBox" type="VBoxContainer" parent="HBox"]
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Name" type="Label" parent="HBox/VBox"]
+[node name="Name" type="Label" parent="VBox"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"UILabel"
 text = "actor name"
 
-[node name="Health" type="ProgressBar" parent="HBox/VBox"]
+[node name="Health" type="ProgressBar" parent="VBox"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 step = 1.0
 value = 50.0
 show_percentage = false
-script = ExtResource("4_v38o7")
 
-[node name="Extra" type="MarginContainer" parent="HBox"]
+[node name="Extra" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 
-[node name="StatusEffects" type="HBoxContainer" parent="HBox/Extra"]
+[node name="StatusEffects" type="HBoxContainer" parent="Extra"]
 layout_mode = 2
 size_flags_vertical = 4

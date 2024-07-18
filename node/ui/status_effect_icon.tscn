@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4nrfw3phfovq"]
+
+[ext_resource type="Texture2D" uid="uid://cohpj44hgcbj6" path="res://asset/ui/status_effect_frame.png" id="1_8ars2"]
+[ext_resource type="Script" path="res://node/ui/status_effect_icon.gd" id="1_j0o3l"]
+[ext_resource type="Texture2D" uid="uid://cv0706vu85ymt" path="res://asset/status_effect.png" id="2_i2yvq"]
+
+[node name="StatusEffectIcon" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 12.0
+theme_override_constants/separation = 4
+script = ExtResource("1_j0o3l")
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_8ars2")
+
+[node name="Icon" type="Sprite2D" parent="Frame"]
+position = Vector2(2, 2)
+texture = ExtResource("2_i2yvq")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47451, 0.439216, 0.494118, 1)
+text = "Burn"
+
+[node name="Duration" type="Label" parent="."]
+layout_mode = 2
+text = "for 8 turns"

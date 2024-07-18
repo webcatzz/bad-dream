@@ -52,7 +52,7 @@ func run_turn() -> void:
 	current_actor = order[current_idx] # fetching current actor
 	
 	if not current_actor.is_defeated():
-		turn_started.emit(current_actor)
+		current_actor.turn_started.connect(emit_signal.bind("turn_started", current_actor), CONNECT_ONE_SHOT)
 		await current_actor.take_turn()
 		turn_ended.emit(current_actor)
 	

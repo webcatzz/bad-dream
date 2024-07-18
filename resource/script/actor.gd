@@ -85,7 +85,6 @@ var in_battle: bool: ## Whether the actor is in battle.
 		in_battle = value
 		if in_battle: battle_entered.emit()
 		else: battle_exited.emit()
-var is_turn: bool
 var path: Array[Dictionary] ## Contains all previous orientation states this turn.
 
 # node

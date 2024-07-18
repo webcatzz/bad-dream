@@ -128,7 +128,6 @@ libraries = {
 }
 
 [node name="DuringTurn" type="Node2D" parent="."]
-visible = false
 light_mask = 0
 
 [node name="Spotlight" type="Node2D" parent="DuringTurn"]
@@ -144,22 +143,6 @@ material = ExtResource("1_p8v8q")
 width = 3.0
 default_color = Color(0.721569, 0.666667, 0.690196, 1)
 gradient = SubResource("Gradient_8xtn0")
-
-[node name="StepCount" type="Label" parent="DuringTurn"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -64.0
-offset_right = 16.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
-text = "0"
-horizontal_alignment = 1
 
 [node name="DiceRoll" parent="." instance=ExtResource("8_b6iue")]
 position = Vector2(0, -64)

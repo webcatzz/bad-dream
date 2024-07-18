@@ -33,3 +33,4 @@ script = SubResource("GDScript_pd77o")
 [node name="Cap" type="Sprite2D" parent="."]
 position = Vector2(-64, -32)
 texture = ExtResource("1_2lor4")
+offset = Vector2(0, -0.5)

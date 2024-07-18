@@ -19,6 +19,7 @@ func _ready() -> void:
 	# order
 	Battle.actor_added.connect(_on_actor_added)
 	Battle.actor_removed.connect(_on_actor_removed)
+	Battle.turn_started.connect(_on_turn_started)
 	 # camera
 	_camera.position = get_viewport().get_camera_2d().get_screen_center_position()
 	_camera.make_current()
@@ -35,6 +36,16 @@ func run_status(string: String) -> void:
 
 
 # order
+
+func _on_turn_started(actor: Actor) -> void:
+	$Layer/Bars/Top/CurrentActor.update(actor)
+	var scrollbox: ScrollContainer = $Layer/Bars/Bottom/Order/List/Scrollbox
+	get_tree().create_tween().tween_property(
+		scrollbox, "scroll_vertical",
+		scrollbox.get_child(0).get_child((Battle.current_idx + 1) % Battle.order.size()).offset_top,
+		0.25
+	).set_trans(Tween.TRANS_CUBIC)
+
 
 func _on_actor_added(actor: Actor, idx: int) -> void:
 	var order_item: Control = preload("res://node/ui/order_item.tscn").instantiate()

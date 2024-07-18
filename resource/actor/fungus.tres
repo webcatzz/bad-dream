@@ -8,7 +8,7 @@
 script = ExtResource("2_go37j")
 keep_distance = 0
 preferred_facing = Vector2i(0, 1)
-name = "Fungal Watchman"
+name = "Mushy Scarperer"
 max_health = 10
 defense = 0
 resistance = 0

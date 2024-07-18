@@ -11,7 +11,6 @@ var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_e
 @onready var _sprite: AnimatedSprite2D = $Sprite
 @onready var _animator: AnimationPlayer = $Animator
 @onready var _path: Line2D = $DuringTurn/Path
-@onready var _step_count: Label = $DuringTurn/StepCount
 
 
 func take_turn() -> void:
@@ -123,7 +122,6 @@ func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 func _on_turn_started() -> void:
 	$DuringTurn.show()
 	set_spotlight(true)
-	_update_step_count()
 
 
 func _on_turn_ended() -> void:
@@ -138,16 +136,10 @@ func _on_turn_ended() -> void:
 
 func _on_path_extended() -> void:
 	_path.add_point(Iso.from_grid(data.path[-1].position))
-	_update_step_count()
 
 
 func _on_path_backtracked() -> void:
 	_path.remove_point(data.path.size())
-	_update_step_count()
-
-
-func _update_step_count() -> void:
-	_step_count.text = str(data.tiles_per_turn - data.tiles_traveled)
 
 
 
