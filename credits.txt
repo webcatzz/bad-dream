@@ -1,7 +1,7 @@
 fonts
 - improvgold, sinsgold by somepx @ https://somepx.itch.io/humble-fonts-gold
-- crang by caveras @ https://caveras.net
 - dico by yannic kötter @ https://www.y-koetter.de
+- bangers by vernon adams
 
 shaders
 - dithering shader @ https://godotshaders.com/shader/dithering-screen-door-transparency/

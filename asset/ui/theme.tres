@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://gd3eyxgpeebm" path="res://asset/ui/button.png" id="1_xtn7x"]
 [ext_resource type="Texture2D" uid="uid://cffsunjip1oi7" path="res://asset/ui/progress_bar.png" id="2_0w0ue"]
 [ext_resource type="Texture2D" uid="uid://dn7q0mjfrnnhb" path="res://asset/ui/panel_inset.png" id="2_h5jjq"]
-[ext_resource type="FontFile" uid="uid://ci6i24yc1hxl1" path="res://asset/ui/crang.ttf" id="2_ogcxr"]
 [ext_resource type="FontFile" uid="uid://dupfsabtrmmll" path="res://asset/ui/improv_gold.ttf" id="4_skjgy"]
+[ext_resource type="FontFile" uid="uid://dxmaflhg5ebb5" path="res://asset/ui/bangers.ttf" id="6_n8bwg"]
 [ext_resource type="FontVariation" uid="uid://c6y8b8i1ygsi7" path="res://asset/ui/font.tres" id="7_hvl56"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1jcx"]
@@ -156,7 +156,7 @@ SFXLabel/base_type = &"Label"
 SFXLabel/colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 SFXLabel/colors/font_outline_color = Color(0.027451, 0.0196078, 0.0196078, 1)
 SFXLabel/constants/outline_size = 4
-SFXLabel/fonts/font = ExtResource("2_ogcxr")
+SFXLabel/fonts/font = ExtResource("6_n8bwg")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_33s38")
 UILabel/base_type = &"Label"
 UILabel/styles/normal = SubResource("StyleBoxFlat_vrkgw")
