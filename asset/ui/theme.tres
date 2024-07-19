@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=24 format=3 uid="uid://7ctt2uptjn52"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://7ctt2uptjn52"]
 
 [ext_resource type="FontFile" uid="uid://b4p62uwb8qtsy" path="res://asset/ui/dico.ttf" id="1_o1eur"]
 [ext_resource type="Texture2D" uid="uid://gd3eyxgpeebm" path="res://asset/ui/button.png" id="1_xtn7x"]
@@ -15,21 +15,40 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 1, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+corner_detail = 1
 expand_margin_left = 3.0
 expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
+anti_aliasing = false
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_te4hd"]
-content_margin_left = 6.0
-content_margin_top = 6.0
-content_margin_right = 6.0
+content_margin_left = 0.0
+content_margin_top = 4.0
+content_margin_right = 0.0
 content_margin_bottom = 7.0
 texture = ExtResource("1_xtn7x")
-texture_margin_left = 2.0
-texture_margin_top = 1.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+texture_margin_left = 7.0
+texture_margin_top = 6.0
+texture_margin_right = 7.0
+texture_margin_bottom = 9.0
+region_rect = Rect2(0, 0, 15, 19)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1wbye"]
+content_margin_left = 0.0
+content_margin_top = 6.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+texture = ExtResource("1_xtn7x")
+texture_margin_left = 7.0
+texture_margin_top = 6.0
+texture_margin_right = 7.0
+texture_margin_bottom = 9.0
+region_rect = Rect2(15, 0, 15, 19)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25u10"]
 content_margin_left = 12.0
@@ -125,8 +144,10 @@ default_font = ExtResource("7_hvl56")
 default_font_size = 16
 BoxContainer/constants/separation = 0
 Button/colors/font_color = Color(0.219608, 0.168627, 0.14902, 1)
+Button/colors/font_pressed_color = Color(0.258824, 0.235294, 0.337255, 1)
 Button/styles/focus = SubResource("StyleBoxFlat_t1jcx")
 Button/styles/normal = SubResource("StyleBoxTexture_te4hd")
+Button/styles/pressed = SubResource("StyleBoxTexture_1wbye")
 DialogueBubble/base_type = &"DialogueLabel"
 DialogueBubble/fonts/font = ExtResource("1_o1eur")
 DialogueBubble/styles/normal = SubResource("StyleBoxFlat_25u10")

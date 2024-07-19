@@ -96,7 +96,7 @@ func get_paths_to_actor(actor: Actor) -> Array[PackedVector2Array]:
 	
 	for offset: Vector2i in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 		var target_point: Vector2i = actor.position + offset
-		if position == target_point: return []
+		if position == target_point: return [[]]
 		if not Battle.field.is_point_travellable(target_point, node.get_rid()): continue
 		
 		var pre_target_point: Vector2i = target_point + Iso.rotate_grid_vector(offset, preferred_facing)
