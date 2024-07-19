@@ -39,12 +39,7 @@ func run_status(string: String) -> void:
 
 func _on_turn_started(actor: Actor) -> void:
 	$Layer/Bars/Top/CurrentActor.update(actor)
-	var scrollbox: ScrollContainer = $Layer/Bars/Bottom/Order/List/Scrollbox
-	get_tree().create_tween().tween_property(
-		scrollbox, "scroll_vertical",
-		scrollbox.get_child(0).get_child((Battle.current_idx + 1) % Battle.order.size()).offset_top,
-		0.25
-	).set_trans(Tween.TRANS_CUBIC)
+	$Layer/Bars/Bottom/Order/List/Scrollbox/Items.get_child(0).move_to_front()
 
 
 func _on_actor_added(actor: Actor, idx: int) -> void:

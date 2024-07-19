@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dlabd5a4ri2ic"]
+[gd_scene load_steps=24 format=3 uid="uid://dlabd5a4ri2ic"]
 
 [ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
 [ext_resource type="Texture2D" uid="uid://bu5ragxvhv826" path="res://asset/ui/gear.png" id="2_0ifoi"]
@@ -8,7 +8,6 @@
 [ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_fvslm"]
 [ext_resource type="Texture2D" uid="uid://bcc24l8nysmgi" path="res://asset/ui/current_actor.png" id="3_o0ghd"]
 [ext_resource type="Script" path="res://node/ui/current_actor.gd" id="4_wcldh"]
-[ext_resource type="Texture2D" uid="uid://bbmn3yea2do3d" path="res://asset/ui/diamond.png" id="6_qk0ih"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qkqd"]
 content_margin_left = 8.0
@@ -20,6 +19,18 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="AtlasTexture" id="AtlasTexture_i1mo0"]
 atlas = ExtResource("3_o0ghd")
 region = Rect2(0, 0, 300, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk21r"]
+atlas = ExtResource("3_o0ghd")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32ln7"]
+atlas = ExtResource("3_o0ghd")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eivyi"]
+atlas = ExtResource("3_o0ghd")
+region = Rect2(80, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hgua8"]
 atlas = ExtResource("2_0ifoi")
@@ -311,10 +322,9 @@ offset_left = 228.0
 offset_top = 8.0
 offset_right = 244.0
 offset_bottom = 24.0
-value = 50.0
+value = 100.0
 fill_mode = 3
-texture_progress = ExtResource("6_qk0ih")
-tint_progress = Color(0.580392, 0.356863, 0.156863, 1)
+texture_progress = SubResource("AtlasTexture_rk21r")
 
 [node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/HealthBar"]
 layout_mode = 1
@@ -326,7 +336,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 theme_override_colors/font_shadow_color = Color(0.129412, 0.0980392, 0.0980392, 1)
-theme_override_colors/font_outline_color = Color(0.129412, 0.0980392, 0.0980392, 1)
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -343,10 +352,9 @@ offset_left = 250.0
 offset_top = 8.0
 offset_right = 266.0
 offset_bottom = 24.0
-value = 50.0
+value = 100.0
 fill_mode = 3
-texture_progress = ExtResource("6_qk0ih")
-tint_progress = Color(0.419608, 0.72549, 0.713726, 1)
+texture_progress = SubResource("AtlasTexture_32ln7")
 
 [node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/TilesBar"]
 layout_mode = 1
@@ -358,7 +366,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 theme_override_colors/font_shadow_color = Color(0.129412, 0.0980392, 0.0980392, 1)
-theme_override_colors/font_outline_color = Color(0.129412, 0.0980392, 0.0980392, 1)
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -375,10 +382,9 @@ offset_left = 272.0
 offset_top = 8.0
 offset_right = 288.0
 offset_bottom = 24.0
-value = 50.0
+value = 100.0
 fill_mode = 3
-texture_progress = ExtResource("6_qk0ih")
-tint_progress = Color(0.917647, 0.858824, 0.454902, 1)
+texture_progress = SubResource("AtlasTexture_eivyi")
 
 [node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/ActionsBar"]
 layout_mode = 1
@@ -390,7 +396,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
 theme_override_colors/font_shadow_color = Color(0.129412, 0.0980392, 0.0980392, 1)
-theme_override_colors/font_outline_color = Color(0.129412, 0.0980392, 0.0980392, 1)
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -457,7 +462,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"UILabel"
 theme_override_fonts/font = ExtResource("3_fvslm")
-text = "Setlist"
+text = "Next up!"
 
 [node name="Scrollbox" type="ScrollContainer" parent="Layer/Bars/Bottom/Order/List"]
 z_index = 1

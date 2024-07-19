@@ -4,9 +4,10 @@ class_name EnemyActor extends Actor
 @export var keep_distance: int
 @export var preferred_facing: Vector2i = Vector2i(0, 1)
 
-var paths: Dictionary
-var target_priority: Array[Actor]
 var damage_memory: Dictionary = {}
+
+var target_priority: Array[Actor]
+var paths: Dictionary
 
 var turn_override: Array = []
 
@@ -59,16 +60,18 @@ func perform_action(action: Action) -> void:
 func update() -> void:
 	paths = {}
 	for actor: Actor in Data.get_party_undefeated():
-		paths[actor] = get_path_to_actor(actor)
+		var actor_paths: Array[PackedVector2Array] = get_paths_to_actor(actor)
+		if actor_paths:
+			paths[actor] = actor_paths[0]
 	
-	target_priority = Data.get_party_undefeated()
+	target_priority.clear()
+	target_priority.assign(paths.keys())
 	target_priority.sort_custom(func(a: Actor, b: Actor) -> bool:
 		return (
 			paths[a].size() < paths[b].size() or
 			damage_memory.get(a, 0) > damage_memory.get(b, 0)
 		)
 	)
-	prints(self, target_priority)
 
 
 
@@ -88,7 +91,7 @@ func get_path_to(point: Vector2i) -> PackedVector2Array:
 	return Battle.field.get_point_path(position, point).slice(1)
 
 
-func get_path_to_actor(actor: Actor) -> PackedVector2Array:
+func get_paths_to_actor(actor: Actor) -> Array[PackedVector2Array]:
 	var paths: Array[PackedVector2Array] = []
 	
 	for offset: Vector2i in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
@@ -106,7 +109,7 @@ func get_path_to_actor(actor: Actor) -> PackedVector2Array:
 		paths.append(path)
 	
 	sort_paths(paths)
-	return paths[0] if paths else PackedVector2Array()
+	return paths
 
 
 func sort_paths(paths: Array[PackedVector2Array]) -> void:
@@ -123,13 +126,12 @@ func status() -> void:
 	
 	var messages: PackedStringArray
 	
-	if health == max_health:
-		messages.append("%s seems awfully smug.")
-	elif health < max_health * 0.25:
+	if health < max_health * 0.25:
 		messages.append("%s seems unsure.")
+		messages.append("%s is sweating.")
 	elif health == 1:
 		messages.append("%s looks glassy-eyed.")
-	else:
+	elif is_defeated():
 		messages.append("%s is drooling.")
 		messages.append("An awful smell is coming off %s.")
 	
@@ -138,4 +140,5 @@ func status() -> void:
 	if status_effects:
 		messages.append("%s is feeling a little queasy.")
 	
-	Battle.ui.run_status(messages[randi() % messages.size()] % name)
+	if messages:
+		Battle.ui.run_status(messages[randi() % messages.size()] % name)
