@@ -94,10 +94,12 @@ func _on_defeated() -> void:
 
 func _on_status_effect_added(status_effect: StatusEffect) -> void:
 	var effect_name: String = status_effect.get_type_string()
+	var path: String = "res://node/actor/status_effect/" + effect_name + ".tscn"
 	
-	var vfx: Node2D = load("res://node/actor/status_effect/" + effect_name + ".tscn").instantiate()
-	vfx.name = effect_name
-	_sprite.add_child(vfx)
+	if ResourceLoader.exists("res://node/actor/status_effect/" + effect_name + ".tscn"):
+		var vfx: Node2D = load(path).instantiate()
+		vfx.name = effect_name
+		_sprite.add_child(vfx)
 	
 	emit_text("+ " + effect_name)
 	_update_sprite_color()
@@ -106,7 +108,8 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 	var effect_name: String = status_effect.get_type_string()
 	
-	_sprite.get_node(effect_name).queue_free()
+	if _sprite.get_node(effect_name):
+		_sprite.get_node(effect_name).queue_free()
 	
 	emit_text("- " + effect_name)
 	_update_sprite_color()
