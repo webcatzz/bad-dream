@@ -3,13 +3,24 @@ extends Node
 
 const PALETTE: Dictionary = {
 	"red": Color("#945b28"),
+	
 	"yellow": Color("#eadb74"),
+	"orange": Color("#c19c4d"),
+	"brown": Color("#8a6b3e"),
+	"dark_brown": Color("#523a2a"),
+	"darker_brown": Color("#211919"),
+	
 	"light_green": Color("#a0b335"),
 	"dark_green": Color("#537c44"),
-	"blue": Color("#596faf"),
 	
-	"black": Color("#070505"),
+	"light_blue": Color("#6bb9b6"),
+	"teal": Color("#57627a"),
+	"blue": Color("#596faf"),
+	"dark_blue": Color("#423c56"),
+	
 	"white": Color("#b8aab0"),
+	"gray": Color("#79707e"),
+	"black": Color("#070505"),
 }
 
 @onready var _pause_menu: CanvasLayer = $PauseMenu

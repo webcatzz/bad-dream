@@ -13,6 +13,8 @@ enum Type {
 	SLEEP,
 }
 
+static var colors: PackedColorArray
+
 @export var type: Type ## Dictates the effect's behavior. See [enum Type].
 @export var duration: int = 1 ## How long the effect lasts. Decremented every time [member target]'s turn ends. When it hits 0, the effect ends.
 @export var strength: int = 1 ## General measure of strength. Behavior varies based on [member type].
@@ -72,6 +74,18 @@ func end(target: Actor) -> void:
 
 func get_type_string() -> String:
 	return Type.keys()[type].to_lower()
+
+
+func get_color() -> Color:
+	match type:
+		Type.BURN: return Game.PALETTE.red
+		Type.POISON: return Game.PALETTE.light_green
+		Type.SLOW: return Game.PALETTE.gray
+		Type.DOOM: return Game.PALETTE.black
+		Type.STUN: return Game.PALETTE.yellow
+		Type.GUARD: return Game.PALETTE.light_blue
+		Type.SLEEP: return Game.PALETTE.dark_blue
+		_: return Game.PALETTE.white
 
 
 

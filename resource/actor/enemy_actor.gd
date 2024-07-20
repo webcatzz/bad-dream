@@ -60,9 +60,10 @@ func perform_action(action: Action) -> void:
 func update() -> void:
 	paths = {}
 	for actor: Actor in Data.get_party_undefeated():
-		var actor_paths: Array[PackedVector2Array] = get_paths_to_actor(actor)
-		if actor_paths:
-			paths[actor] = actor_paths[0]
+		if not actor.has_status_effect(StatusEffect.Type.VANISH):
+			var actor_paths: Array[PackedVector2Array] = get_paths_to_actor(actor)
+			if actor_paths:
+				paths[actor] = actor_paths[0]
 	
 	target_priority.clear()
 	target_priority.assign(paths.keys())

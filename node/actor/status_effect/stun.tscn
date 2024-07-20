@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0fd64ucftinf"]
+
+[ext_resource type="Texture2D" uid="uid://w1axrepw5vtj" path="res://asset/actor/stun.png" id="1_dwk7b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsdau"]
+atlas = ExtResource("1_dwk7b")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lx8p"]
+atlas = ExtResource("1_dwk7b")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xnweh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsdau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lx8p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Stun" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xnweh")
+autoplay = "default"
+frame_progress = 0.734875
+offset = Vector2(0, -48)

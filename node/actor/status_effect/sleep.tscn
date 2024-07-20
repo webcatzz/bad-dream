@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfdmlwo3qaxpe"]
+
+[ext_resource type="Texture2D" uid="uid://dbw4y4nk32bfu" path="res://asset/vfx/z.png" id="1_yper5"]
+
+[sub_resource type="Curve" id="Curve_hx6vf"]
+max_value = 15.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 15), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_pfn6o"]
+offsets = PackedFloat32Array(0, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Sleep" type="Node2D"]
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+amount = 2
+lifetime = 3.0
+texture = ExtResource("1_yper5")
+direction = Vector2(1, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 8.0
+angle_max = 15.0
+angle_curve = SubResource("Curve_hx6vf")
+color_ramp = SubResource("Gradient_pfn6o")

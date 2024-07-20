@@ -5,7 +5,6 @@ class_name ActorNode extends CharacterBody2D
 @export var data: Actor = Actor.new()
 
 var text_particle_scene: PackedScene = preload("res://node/text_particle.tscn")
-var status_effect_animations: SpriteFrames = preload("res://asset/actor/status_effect_animation.tres")
 
 @onready var dice: Node2D = $DiceRoll
 @onready var _sprite: AnimatedSprite2D = $Sprite
@@ -96,24 +95,28 @@ func _on_defeated() -> void:
 func _on_status_effect_added(status_effect: StatusEffect) -> void:
 	var effect_name: String = status_effect.get_type_string()
 	
-	if status_effect_animations.has_animation(effect_name):
-		var sprite: AnimatedSprite2D = AnimatedSprite2D.new()
-		sprite.name = effect_name
-		sprite.sprite_frames = status_effect_animations
-		sprite.offset.y = -24
-		_sprite.add_child(sprite)
-		sprite.play(effect_name)
+	var vfx: Node2D = load("res://node/actor/status_effect/" + effect_name + ".tscn").instantiate()
+	vfx.name = effect_name
+	_sprite.add_child(vfx)
 	
 	emit_text("+ " + effect_name)
+	_update_sprite_color()
 
 
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 	var effect_name: String = status_effect.get_type_string()
 	
-	if status_effect_animations.has_animation(effect_name):
-		_sprite.get_node(effect_name).queue_free()
+	_sprite.get_node(effect_name).queue_free()
 	
 	emit_text("- " + effect_name)
+	_update_sprite_color()
+
+
+func _update_sprite_color() -> void:
+	_sprite.self_modulate = Color.WHITE
+	
+	for status_effect: StatusEffect in data.status_effects:
+		_sprite.self_modulate = _sprite.self_modulate.blend(Color(status_effect.get_color(), 0.25))
 
 
 

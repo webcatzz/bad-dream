@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_lrstd")
 name = "Chip"
-description = "Remove one Attribute from a targeted Actor.
+description = "Remove one Trait from a targeted Actor.
 Unfasten a little bit of their essence.
 
 Path requirement:

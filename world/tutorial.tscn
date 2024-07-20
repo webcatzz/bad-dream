@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d03y35yvqf4jr"]
+[gd_scene load_steps=19 format=3 uid="uid://d03y35yvqf4jr"]
 
 [ext_resource type="AudioStream" uid="uid://cc06iro8hukjy" path="res://asset/music/mneme.mp3" id="1_7ux52"]
 [ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_vja1d"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://node/triggers/battle_trigger.gd" id="10_yjnei"]
 [ext_resource type="PackedScene" uid="uid://bey6fhrbn55h0" path="res://node/actor/actor.tscn" id="11_vr45x"]
 [ext_resource type="Resource" uid="uid://caiv82vs4t3u1" path="res://resource/actor/fungus.tres" id="12_p08s6"]
-[ext_resource type="Resource" uid="uid://wo0yu8sbjw5l" path="res://resource/action/geyser.tres" id="13_3q0l6"]
 [ext_resource type="Script" path="res://resource/actor/enemy_actor.gd" id="14_q4u4r"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lr0yq"]
@@ -65,14 +64,14 @@ b = Vector2(16, 0)
 script = ExtResource("14_q4u4r")
 keep_distance = 0
 preferred_facing = Vector2i(0, 1)
-name = "Geezer"
+name = "Actor"
 max_health = 10
 defense = 0
 resistance = 0
 evasion = 0.0
 tiles_per_turn = 5
 actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("13_3q0l6")])
+actions = Array[Resource("res://resource/script/action.gd")]([])
 attributes = Array[int]([])
 sprite_offset = Vector2i(0, -24)
 description = "..."
@@ -193,6 +192,3 @@ position = Vector2(960, 32)
 position = Vector2(368, 280)
 
 [connection signal="interacted_with" from="Bridge" to="Label" method="type"]
-[connection signal="triggered" from="Label2/Trigger" to="Label2" method="type"]
-[connection signal="triggered" from="Label2/Trigger" to="Label2/Trigger" method="queue_free"]
-[connection signal="triggered" from="Battle/BattleTrigger" to="Battle" method="_setup"]
