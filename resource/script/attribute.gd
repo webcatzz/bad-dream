@@ -1,28 +1,35 @@
 class_name Attribute extends Resource
-## Wrapper for [Actor]s' attributes.
+## Static class for [Actor]s' attributes.
 
 
 enum Type {
-	
+	INDULGENCE,
+	TEMPERANCE,
+	SLOTH
 }
 
-@export var type: Type
+const descriptions: PackedStringArray = [
+	"Deal 20% more damage.", # INDULGENCE
+	"Deal 20% less damage.", # TEMPERANCE
+	"Start battles asleep.", # SLOTH
+]
 
-var target: Actor ## The [Actor] this attribute belongs to.
 
-
-func start() -> void:
+static func add(type: Type, actor: Actor) -> void:
+	prints("added", type, "to", actor)
 	match type:
+		Type.TEMPERANCE:
+			pass
+		Type.SLOTH:
+			actor.battle_entered.connect(func() -> void:
+				print(4)
+				var sleep: StatusEffect = StatusEffect.new()
+				sleep.type = StatusEffect.Type.SLEEP
+				actor.add_status_effect(sleep)
+			)
 		_: pass
 
 
-func end() -> void:
+static func remove(type: Type, actor: Actor) -> void:
 	match type:
 		_: pass
-
-
-
-# internal
-
-func _to_string() -> String:
-	return Type.keys()[type]

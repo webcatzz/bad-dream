@@ -10,6 +10,7 @@ enum Type {
 	DOOM, ## Deals [member strength] damage at the end of its duration.
 	STUN, ## Makes [member target] unable to act.
 	GUARD, ## Increases [member target]'s defense by [member strength].
+	SLEEP,
 }
 
 @export var type: Type ## Dictates the effect's behavior. See [enum Type].

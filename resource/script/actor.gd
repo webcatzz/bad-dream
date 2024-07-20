@@ -50,7 +50,7 @@ var current_action: Action ## [Action] the actor is currently taking.
 var current_splash: Splash
 
 # effects
-@export var attributes: Array[Attribute]
+@export var attributes: Array[Attribute.Type]
 var status_effects: Array ## Active [StatusEffect]s. Add effects using [method add_status_effect].
 var modifiers: Dictionary = {
 	"max_health": 0,
@@ -194,7 +194,10 @@ func heal(amount: int) -> void:
 
 ## Evades an attack.
 func try_evade(direction: Vector2i) -> bool:
-	var successful: bool = Battle.field.is_point_travellable(position + direction)
+	var successful: bool = (
+		Battle.field.is_point_travellable(position + direction)
+		and not has_status_effect(StatusEffect.Type.SLEEP)
+	)
 	
 	if successful:
 		facing = -direction
@@ -209,8 +212,6 @@ func guard() -> void:
 	end_turn()
 	var guard: StatusEffect = StatusEffect.new()
 	guard.type = StatusEffect.Type.GUARD
-	guard.duration = 1
-	guard.strength = 1
 	turn_started.connect(guard.end.bind(self))
 	add_status_effect(guard)
 
@@ -290,6 +291,13 @@ func remove_status_effect(status_effect: StatusEffect) -> void:
 	status_effect_removed.emit(status_effect)
 
 
+func has_status_effect(type: StatusEffect.Type) -> bool:
+	for status_effect: StatusEffect in status_effects:
+		if status_effect.type == type:
+			return true
+	return false
+
+
 
 # path
 
@@ -319,6 +327,9 @@ func _init() -> void:
 
 func _export_init() -> void:
 	health = max_health
+	
+	for attribute: Attribute.Type in attributes:
+		Attribute.add(attribute, self)
 
 
 func _on_action_taken() -> void:

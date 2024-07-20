@@ -128,6 +128,7 @@ libraries = {
 }
 
 [node name="DuringTurn" type="Node2D" parent="."]
+visible = false
 light_mask = 0
 
 [node name="Spotlight" type="Node2D" parent="DuringTurn"]
