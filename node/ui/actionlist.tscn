@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfljfixiapbcy"]
+[gd_scene load_steps=5 format=3 uid="uid://cfljfixiapbcy"]
 
 [ext_resource type="Script" path="res://node/ui/actionlist.gd" id="1_7we07"]
 [ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="2_f5yk0"]
 [ext_resource type="Script" path="res://node/ui/looping_itemlist.gd" id="3_6u8cc"]
+[ext_resource type="FontFile" uid="uid://b4p62uwb8qtsy" path="res://asset/ui/dico.ttf" id="4_pi6vs"]
 
 [node name="Actionlist" type="HBoxContainer"]
 offset_right = 120.0
@@ -38,6 +39,8 @@ size_flags_stretch_ratio = 1.75
 [node name="Title" type="Label" parent="Item"]
 layout_mode = 2
 theme_type_variation = &"UILabel"
+theme_override_colors/font_color = Color(0.47451, 0.439216, 0.494118, 1)
+theme_override_fonts/font = ExtResource("4_pi6vs")
 text = "Item"
 text_overrun_behavior = 3
 
@@ -46,6 +49,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"UILabel"
+theme_override_colors/font_color = Color(0.47451, 0.439216, 0.494118, 1)
+theme_override_constants/line_spacing = 1
 text = "Description."
 horizontal_alignment = 2
 autowrap_mode = 2

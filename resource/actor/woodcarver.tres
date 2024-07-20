@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://cjt66dwchr70v"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://cjt66dwchr70v"]
 
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_3ef4e"]
+[ext_resource type="Resource" uid="uid://cyx7krp63sv34" path="res://resource/action/chip.tres" id="1_sques"]
 [ext_resource type="Script" path="res://resource/script/actor.gd" id="3_4fjlo"]
 [ext_resource type="Resource" uid="uid://by1ag7jijnwo2" path="res://resource/action/healpool.tres" id="3_xwecl"]
 [ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://resource/action/strike_out.tres" id="4_u6w21"]
@@ -17,7 +18,7 @@ resistance = 0
 evasion = 0.0
 tiles_per_turn = 10
 actions_per_turn = 1
-actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_3ef4e"), ExtResource("3_xwecl"), ExtResource("4_u6w21"), ExtResource("5_40v7m"), ExtResource("6_eqisw")])
+actions = Array[Resource("res://resource/script/action.gd")]([ExtResource("1_sques"), ExtResource("1_3ef4e"), ExtResource("3_xwecl"), ExtResource("4_u6w21"), ExtResource("5_40v7m"), ExtResource("6_eqisw")])
 attributes = Array[int]([])
 sprite = ExtResource("7_e3qr5")
 sprite_offset = Vector2i(0, -24)

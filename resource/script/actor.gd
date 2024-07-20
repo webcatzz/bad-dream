@@ -320,16 +320,13 @@ func backtrack_path() -> void:
 
 # internal
 
-func _init() -> void:
-	_export_init.call_deferred()
-	action_taken.connect(_on_action_taken)
-
-
-func _export_init() -> void:
+func initialize() -> void:
 	health = max_health
 	
 	for attribute: Attribute.Type in attributes:
 		Attribute.add(attribute, self)
+	
+	action_taken.connect(_on_action_taken)
 
 
 func _on_action_taken() -> void:

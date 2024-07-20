@@ -67,10 +67,11 @@ var command_history: PackedStringArray
 var history_idx: int
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_P and event.shift_pressed:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
 		$Console.show()
 		$Console/Input.grab_focus()
 		history_idx = command_history.size()
+		get_viewport().set_input_as_handled()
 
 
 func console_run(command: String) -> void:
@@ -93,3 +94,5 @@ func console_gui_input(event: InputEvent) -> void:
 		elif event.keycode == KEY_UP and event.pressed and command_history:
 			history_idx = max(history_idx - 1, 0)
 			$Console/Input.text = command_history[history_idx]
+		elif event.keycode == KEY_SHIFT:
+			get_viewport().set_input_as_handled()

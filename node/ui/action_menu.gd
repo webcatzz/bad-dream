@@ -77,8 +77,9 @@ func _on_tab_changed(idx: int) -> void:
 # actions
 
 func _on_actionlist_item_selected(idx: int) -> void:
-	$Actions.display(actor.actions[idx].name, actor.actions[idx].description)
-	set_splash(Splash.new(actor.actions[idx], actor))
+	var action: Action = actor.actions[idx]
+	set_splash(Splash.new(action, actor))
+	$Actions.display(action.name, action.description)
 
 
 func _on_actionlist_item_activated(idx: int) -> void:

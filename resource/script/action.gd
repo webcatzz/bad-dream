@@ -46,7 +46,7 @@ func start(cause: Actor) -> void:
 
 ## Runs effects on all actors in range.
 func run(cause: Actor) -> void:
-	affected = _get_affected_actors(cause.current_splash)
+	affected = _get_affected_actors(cause)
 	
 	if affected:
 		strength = await _get_strength(cause)
@@ -93,9 +93,13 @@ func _might_kill() -> bool:
 
 # splash
 
+func get_shape() -> BitMap:
+	return shape
+
+
 ## Fetches a list of affected actors.
-func _get_affected_actors(splash: Splash) -> Array[Actor]:
-	return splash.get_actors() if shape else Battle.order
+func _get_affected_actors(cause: Actor) -> Array[Actor]:
+	return cause.current_splash.get_actors() if cause.current_splash else Battle.order
 
 
 

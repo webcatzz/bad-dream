@@ -11,6 +11,9 @@ func set_actor(actor: Actor) -> void:
 	actor.defeated.connect($IconPanel/Icon.set_modulate.bind(Color(1, 1, 1, 0.5)))
 	actor.status_effect_added.connect(_on_status_effect_added)
 	actor.status_effect_removed.connect(_on_status_effect_removed)
+	
+	for status_effect: StatusEffect in actor.status_effects:
+		_on_status_effect_added(status_effect)
 
 
 func _on_status_effect_added(status_effect: StatusEffect) -> void:

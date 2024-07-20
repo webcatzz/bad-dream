@@ -16,13 +16,11 @@ const descriptions: PackedStringArray = [
 
 
 static func add(type: Type, actor: Actor) -> void:
-	prints("added", type, "to", actor)
 	match type:
 		Type.TEMPERANCE:
 			pass
 		Type.SLOTH:
 			actor.battle_entered.connect(func() -> void:
-				print(4)
 				var sleep: StatusEffect = StatusEffect.new()
 				sleep.type = StatusEffect.Type.SLEEP
 				actor.add_status_effect(sleep)

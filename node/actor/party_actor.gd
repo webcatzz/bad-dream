@@ -87,14 +87,14 @@ func _handle_battle_input(event: InputEvent) -> void:
 			return
 	
 	# backtracking
-	if event.is_action_pressed(&"shift") and data.tiles_traveled:
+	if event.is_action_pressed(&"backtrack") and data.tiles_traveled:
 		data.backtrack_path()
 		_backtrack_timer.start()
 		get_viewport().set_input_as_handled()
 		
 		# TODO: when actions_per_turn > 1, disable backtracking past the point an action is used
 	
-	elif event.is_action_released(&"shift"):
+	elif event.is_action_released(&"backtrack"):
 		_backtrack_timer.stop()
 		get_viewport().set_input_as_handled()
 	
