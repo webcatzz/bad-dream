@@ -227,15 +227,23 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_force_pass_scroll_events = false
 
+[node name="Console" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Input" type="LineEdit" parent="Console"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+placeholder_text = "Type a command..."
+
 [connection signal="hidden" from="PauseMenu/Overlay/Tabs" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [0]]
 [connection signal="tab_changed" from="PauseMenu/Overlay/Tabs" to="PauseMenu" method="_on_tab_changed" unbinds=1]
 [connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Continue" to="PauseMenu" method="_continue"]
 [connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Settings" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Controls" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [2]]
 [connection signal="pressed" from="PauseMenu/Overlay/Tabs/Buttons/Exit" to="PauseMenu/ConfirmExit" method="popup_centered"]
-[connection signal="value_changed" from="PauseMenu/Overlay/Tabs/Settings/Volume/MasterVolumeSlider" to="PauseMenu" method="_set_volume" binds= ["master"]]
-[connection signal="value_changed" from="PauseMenu/Overlay/Tabs/Settings/Volume/MusicVolumeSlider" to="PauseMenu" method="_set_volume" binds= ["music"]]
-[connection signal="value_changed" from="PauseMenu/Overlay/Tabs/Settings/Volume/SfxVolumeSlider" to="PauseMenu" method="_set_volume" binds= ["sfx"]]
-[connection signal="pressed" from="PauseMenu/Overlay/Tabs/Settings/Button" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [0]]
 [connection signal="pressed" from="PauseMenu/Overlay/Tabs/Controls/Button" to="PauseMenu/Overlay/Tabs" method="set_current_tab" binds= [0]]
 [connection signal="confirmed" from="PauseMenu/ConfirmExit" to="PauseMenu" method="_exit"]
+[connection signal="gui_input" from="Console/Input" to="." method="console_gui_input"]
+[connection signal="text_submitted" from="Console/Input" to="." method="console_run"]

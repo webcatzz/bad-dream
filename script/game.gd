@@ -63,22 +63,33 @@ func over() -> void:
 
 # debug
 
+var command_history: PackedStringArray
+var history_idx: int
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_P and event.shift_pressed:
-		var layer: CanvasLayer = CanvasLayer.new()
-		var input: LineEdit = LineEdit.new()
-		input.anchor_right = Control.ANCHOR_END
-		layer.add_child(input)
-		get_tree().current_scene.add_child(layer)
-		input.grab_focus()
-		
-		await input.text_submitted
-		
-		var command: String = input.text
-		layer.queue_free()
-		
-		if command:
-			var script: GDScript = GDScript.new()
-			script.source_code = "static func run():" + command
-			script.reload()
-			script.run()
+		$Console.show()
+		$Console/Input.grab_focus()
+		history_idx = command_history.size()
+
+
+func console_run(command: String) -> void:
+	$Console.hide()
+	$Console/Input.clear()
+	
+	var script: GDScript = GDScript.new()
+	script.source_code = "static func run():" + command
+	script.reload()
+	script.run()
+	
+	command_history.append(command)
+
+
+func console_gui_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_action_pressed("ui_cancel"):
+			$Console.hide()
+			$Console/Input.clear()
+		elif event.keycode == KEY_UP and event.pressed and command_history:
+			history_idx = max(history_idx - 1, 0)
+			$Console/Input.text = command_history[history_idx]
