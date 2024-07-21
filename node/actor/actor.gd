@@ -37,8 +37,9 @@ func emit_text(string: String, color: Color = Color.WHITE) -> void:
 # internal
 
 func _ready() -> void:
-	if data not in Data.party: data = data.duplicate()
-	data.initialize()
+	if data is EnemyActor:
+		data = data.duplicate()
+		data.initialize()
 	
 	# updating variables
 	data.node = self

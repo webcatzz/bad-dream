@@ -34,7 +34,7 @@ func _ready() -> void:
 		for action: Action in actor.actions:
 			actionlist.add_item(action.name)
 	else:
-		$TypeChooser/Attack.disabled = true
+		$TypeChooser/Attack/Button.disabled = true
 	
 	var inventory: ItemList = $Inventory.list
 	inventory.item_activated.connect(_on_inventory_item_activated)

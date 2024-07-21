@@ -19,6 +19,7 @@ func load_file(idx: int) -> void:
 	# party list
 	for actor_name: String in file.get_value("file", "party", ["woodcarver"]):
 		var actor: Actor = load("res://resource/actor/" + actor_name + ".tres")
+		actor.initialize()
 		party.append(actor)
 		# actor data
 		if file.has_section(actor_name):
@@ -52,6 +53,9 @@ func save_file(idx: int) -> void:
 	
 	# actor data
 	for actor: Actor in party:
+		for attribute: Attribute.Type in actor.attributes:
+			Attribute.remove(attribute, actor)
+		
 		file.set_value(actor.name, "health", actor.health)
 	
 	# inventory

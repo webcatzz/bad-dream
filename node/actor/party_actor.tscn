@@ -21,9 +21,6 @@ script = ExtResource("2_0pyd1")
 [node name="Collision" parent="." index="0"]
 disabled = true
 
-[node name="DuringTurn" parent="." index="3"]
-visible = false
-
 [node name="Spotlight" parent="DuringTurn" index="0"]
 visible = false
 
@@ -45,48 +42,48 @@ layout_mode = 2
 layout_mode = 2
 text = "Time to act!"
 
-[node name="AttackContainer" type="HBoxContainer" parent="DuringTurn/ActionMenu/TypeChooser" index="1"]
+[node name="Attack" type="HBoxContainer" parent="DuringTurn/ActionMenu/TypeChooser" index="1"]
 layout_mode = 2
 
-[node name="Attack" type="Button" parent="DuringTurn/ActionMenu/TypeChooser/AttackContainer" index="0"]
+[node name="Button" type="Button" parent="DuringTurn/ActionMenu/TypeChooser/Attack" index="0"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "attack!"
 
-[node name="Spacer" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/AttackContainer" index="1"]
+[node name="Spacer" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/Attack" index="1"]
 layout_mode = 2
 size_flags_vertical = 8
 texture = ExtResource("4_7v0vb")
 
-[node name="ItemContainer" type="HBoxContainer" parent="DuringTurn/ActionMenu/TypeChooser" index="2"]
+[node name="Item" type="HBoxContainer" parent="DuringTurn/ActionMenu/TypeChooser" index="2"]
 layout_mode = 2
 
-[node name="Spacer1" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/ItemContainer" index="0"]
+[node name="Spacer1" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/Item" index="0"]
 layout_mode = 2
 size_flags_vertical = 8
 texture = SubResource("AtlasTexture_lha7k")
 
-[node name="Item" type="Button" parent="DuringTurn/ActionMenu/TypeChooser/ItemContainer" index="1"]
+[node name="Button" type="Button" parent="DuringTurn/ActionMenu/TypeChooser/Item" index="1"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "item"
 
-[node name="Spacer2" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/ItemContainer" index="2"]
+[node name="Spacer2" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/Item" index="2"]
 layout_mode = 2
 size_flags_vertical = 8
 texture = SubResource("AtlasTexture_lexh4")
 
-[node name="GuardContainer" type="HBoxContainer" parent="DuringTurn/ActionMenu/TypeChooser" index="3"]
+[node name="Guard" type="HBoxContainer" parent="DuringTurn/ActionMenu/TypeChooser" index="3"]
 layout_mode = 2
 
-[node name="Spacer" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/GuardContainer" index="0"]
+[node name="Spacer" type="TextureRect" parent="DuringTurn/ActionMenu/TypeChooser/Guard" index="0"]
 layout_mode = 2
 size_flags_vertical = 8
 texture = ExtResource("4_7v0vb")
 
-[node name="Guard" type="Button" parent="DuringTurn/ActionMenu/TypeChooser/GuardContainer" index="1"]
+[node name="Button" type="Button" parent="DuringTurn/ActionMenu/TypeChooser/Guard" index="1"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -106,6 +103,6 @@ wait_time = 0.15
 [connection signal="hidden" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [0]]
 [connection signal="tab_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_tab_changed"]
 [connection signal="visibility_changed" from="DuringTurn/ActionMenu" to="DuringTurn/ActionMenu" method="_on_visibility_changed"]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/AttackContainer/Attack" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/ItemContainer/Item" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [2]]
-[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/GuardContainer/Guard" to="DuringTurn/ActionMenu" method="_guard"]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Attack/Button" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Item/Button" to="DuringTurn/ActionMenu" method="set_current_tab" binds= [2]]
+[connection signal="pressed" from="DuringTurn/ActionMenu/TypeChooser/Guard/Button" to="DuringTurn/ActionMenu" method="_guard"]
