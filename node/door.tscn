@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0rs3moyicxl5"]
 
 [ext_resource type="Script" path="res://node/triggers/player_detector.gd" id="1_ukf2p"]
-[ext_resource type="Texture2D" uid="uid://boud0d4jnww68" path="res://asset/tile/door.png" id="1_y0qls"]
+[ext_resource type="Texture2D" uid="uid://boud0d4jnww68" path="res://asset/world/door.png" id="1_y0qls"]
 [ext_resource type="Script" path="res://node/door_label.gd" id="3_6xcxf"]
 
 [node name="Door" type="Node2D"]

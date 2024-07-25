@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c520hdu6q2tad" path="res://resource/action/default.tres" id="1_41ksq"]
 [ext_resource type="Script" path="res://resource/actor/enemy_actor.gd" id="2_go37j"]
-[ext_resource type="SpriteFrames" uid="uid://dij16ejkcheu6" path="res://asset/actor/sprite/fungus.tres" id="3_0jyqi"]
+[ext_resource type="SpriteFrames" uid="uid://dij16ejkcheu6" path="res://asset/actor/fungus.tres" id="3_0jyqi"]
 
 [resource]
 script = ExtResource("2_go37j")

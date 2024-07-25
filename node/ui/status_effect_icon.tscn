@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cohpj44hgcbj6" path="res://asset/ui/status_effect_frame.png" id="1_8ars2"]
 [ext_resource type="Script" path="res://node/ui/status_effect_icon.gd" id="1_j0o3l"]
-[ext_resource type="Texture2D" uid="uid://cv0706vu85ymt" path="res://asset/status_effect.png" id="2_i2yvq"]
+[ext_resource type="Texture2D" uid="uid://cv0706vu85ymt" path="res://asset/status_effect_icons.png" id="2_i2yvq"]
 
 [node name="StatusEffectIcon" type="HBoxContainer"]
 offset_right = 40.0

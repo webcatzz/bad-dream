@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://de4ye0lpftwfk" path="res://resource/action/strike_out.tres" id="4_u6w21"]
 [ext_resource type="Resource" uid="uid://lj7sjmdng2ku" path="res://resource/action/stun.tres" id="5_40v7m"]
 [ext_resource type="Resource" uid="uid://8crqvtbxemuw" path="res://resource/action/delayed.tres" id="6_eqisw"]
-[ext_resource type="SpriteFrames" uid="uid://b2kpdnx3nqg05" path="res://asset/actor/sprite/woodcarver.tres" id="7_e3qr5"]
+[ext_resource type="SpriteFrames" uid="uid://b2kpdnx3nqg05" path="res://asset/actor/woodcarver.tres" id="7_e3qr5"]
 
 [resource]
 script = ExtResource("3_4fjlo")

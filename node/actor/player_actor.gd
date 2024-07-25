@@ -3,6 +3,7 @@ class_name PlayerActorNode extends PartyActorNode
 
 # input
 enum InputMode {FREE, GRID}
+const SPEED = 80
 var input_mode: InputMode
 var input: Vector2
 
@@ -58,7 +59,7 @@ func _handle_free_input(event: InputEvent) -> void:
 		
 		if input:
 			data.facing = data.calculate_facing(input)
-			velocity = Iso.from_grid(input).normalized() * 96
+			velocity = Iso.from_grid(input).normalized() * SPEED
 			if not velocity.x: velocity.y *= 0.875
 			
 			set_animation("move")

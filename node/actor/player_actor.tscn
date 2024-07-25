@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cbsp8otdhuoty" path="res://node/actor/party_actor.tscn" id="1_8poer"]
 [ext_resource type="Script" path="res://node/actor/player_actor.gd" id="2_lw7y8"]
-[ext_resource type="SpriteFrames" uid="uid://b2kpdnx3nqg05" path="res://asset/actor/sprite/woodcarver.tres" id="3_4b7xy"]
+[ext_resource type="SpriteFrames" uid="uid://b2kpdnx3nqg05" path="res://asset/actor/woodcarver.tres" id="3_4b7xy"]
 
 [node name="PlayerActor" instance=ExtResource("1_8poer")]
 script = ExtResource("2_lw7y8")

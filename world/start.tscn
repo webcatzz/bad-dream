@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://btwr8lcjua0o5"]
 
-[ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/tile/tileset.tres" id="1_t5706"]
-[ext_resource type="Texture2D" uid="uid://1ksrtenu5yim" path="res://asset/tile/stump.png" id="2_k3j15"]
+[ext_resource type="TileSet" uid="uid://b7em4re6t2a80" path="res://asset/world/tileset.tres" id="1_t5706"]
+[ext_resource type="Texture2D" uid="uid://1ksrtenu5yim" path="res://asset/world/stump.png" id="2_k3j15"]
 [ext_resource type="Script" path="res://node/triggers/dialogue_trigger.gd" id="2_uas5j"]
 [ext_resource type="PackedScene" uid="uid://bhkepa5y5nryx" path="res://node/star_sprite.tscn" id="3_3gtxn"]
 
