@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cohpj44hgcbj6" path="res://asset/ui/status_effect_frame.png" id="1_8ars2"]
 [ext_resource type="Script" path="res://node/ui/status_effect_icon.gd" id="1_j0o3l"]
-[ext_resource type="Texture2D" uid="uid://cv0706vu85ymt" path="res://asset/status_effect_icons.png" id="2_i2yvq"]
+[ext_resource type="Texture2D" uid="uid://cv0706vu85ymt" path="res://asset/status_effect_icons.png" id="3_cw8mi"]
 
 [node name="StatusEffectIcon" type="HBoxContainer"]
 offset_right = 40.0
@@ -16,7 +16,7 @@ texture = ExtResource("1_8ars2")
 
 [node name="Icon" type="Sprite2D" parent="Frame"]
 position = Vector2(2, 2)
-texture = ExtResource("2_i2yvq")
+texture = ExtResource("3_cw8mi")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 8, 8)

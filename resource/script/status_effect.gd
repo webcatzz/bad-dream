@@ -13,8 +13,6 @@ enum Type {
 	SLEEP,
 }
 
-static var colors: PackedColorArray
-
 @export var type: Type ## Dictates the effect's behavior. See [enum Type].
 @export var duration: int = 1 ## How long the effect lasts. Decremented every time [member target]'s turn ends. When it hits 0, the effect ends.
 @export var strength: int = 1 ## General measure of strength. Behavior varies based on [member type].
@@ -38,13 +36,7 @@ func start(target: Actor) -> void:
 			target.modifiers.defense += strength
 	
 	target.turn_ended.connect(_countdown.bind(target))
-	Battle.ended.connect(end)
-
-
-## Stacks the effect with another of the same type.
-func stack(with: StatusEffect) -> void:
-	duration += with.duration
-	strength += with.strength
+	Battle.ended.connect(end.bind(target))
 
 
 ## Ends the effect.
@@ -59,8 +51,7 @@ func end(target: Actor) -> void:
 		Type.SLOW:
 			target.modifiers.tiles_per_turn += strength
 		Type.DOOM:
-			target.damage(strength)
-			# TODO: still triggers if battle ends before effect ends
+			if Battle.active: target.damage(strength)
 		Type.STUN:
 			target.modifiers.actions_per_turn += 1000
 			target.modifiers.tiles_per_turn += 1000
@@ -71,6 +62,9 @@ func end(target: Actor) -> void:
 	Battle.ended.disconnect(end)
 	target.remove_status_effect(self)
 
+
+
+# getters
 
 func get_type_string() -> String:
 	return Type.keys()[type].to_lower()
@@ -92,11 +86,8 @@ func get_color() -> Color:
 # internal
 
 func _countdown(target: Actor) -> void:
-	var duration_left: int = duration
-	
-	while duration_left:
+	for i: int in duration:
 		# TODO: end when battle ends
 		await target.turn_ended
-		duration_left -= 1
 	
 	end(target)

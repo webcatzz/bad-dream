@@ -63,9 +63,9 @@ var modifiers: Dictionary = {
 
 # sprite
 @export_group("Appearance")
-@export var sprite: SpriteFrames = load("res://asset/actor/sprite/default.tres")
+@export var sprite: SpriteFrames = load("res://asset/actor/default.tres")
 @export var sprite_offset: Vector2i = Vector2i(0, -24)
-@export var portrait: Texture2D = load("res://asset/actor/portrait/default.png")
+@export var portrait: Texture2D = load("res://asset/actor/default_icon.png")
 @export_multiline var description: String = "..."
 
 # type affinities
@@ -235,7 +235,7 @@ func use_item(item: Item) -> void:
 
 ## Returns true if the actor has not exhausted [member actions_per_turn].
 func can_act() -> bool:
-	return actions_taken < actions_per_turn and actions
+	return actions_taken < actions_per_turn and actions and not current_action
 
 
 ## Returns true if the actor has not exhausted [member tiles_per_turn].
