@@ -109,7 +109,7 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 func _on_status_effect_removed(status_effect: StatusEffect) -> void:
 	var effect_name: String = status_effect.get_type_string()
 	
-	if _sprite.get_node(effect_name):
+	if _sprite.get_node_or_null(effect_name):
 		_sprite.get_node(effect_name).queue_free()
 	
 	emit_text("- " + effect_name)

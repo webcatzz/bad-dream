@@ -172,7 +172,7 @@ func recieve_action(action: Action, cause: Actor) -> void:
 		facing = -calculate_facing(vector)
 		position += calculate_knockback(vector)
 	if action.status_effect:
-		add_status_effect(action.status_effect)
+		add_status_effect(action.status_effect.duplicate())
 
 
 ## Modifies [param amount] according to the actor's type affinities,
@@ -212,7 +212,7 @@ func guard() -> void:
 	end_turn()
 	var guard: StatusEffect = StatusEffect.new()
 	guard.type = StatusEffect.Type.GUARD
-	turn_started.connect(guard.end.bind(self))
+	turn_started.connect(guard.end)
 	add_status_effect(guard)
 
 

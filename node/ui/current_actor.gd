@@ -25,7 +25,6 @@ func update(actor: Actor) -> void:
 	actor.path_extended.connect(_on_path_changed)
 	actor.path_backtracked.connect(_on_path_changed)
 	actor.status_effect_added.connect(_on_status_effect_added)
-	actor.status_effect_removed.connect(_on_status_effect_removed)
 
 
 func animate_bar(value: int, bar: TextureProgressBar) -> void:
@@ -54,7 +53,3 @@ func _on_status_effect_added(status_effect: StatusEffect) -> void:
 	icon.name = "Status" + str(status_effect.type)
 	icon.set_data(status_effect, Battle.current_actor)
 	$StatusEffects.add_child(icon)
-
-
-func _on_status_effect_removed(status_effect: StatusEffect) -> void:
-	$StatusEffects.get_node("Status" + str(status_effect.type)).queue_free()

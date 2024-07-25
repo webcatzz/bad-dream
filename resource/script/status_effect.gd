@@ -17,9 +17,13 @@ enum Type {
 @export var duration: int = 1 ## How long the effect lasts. Decremented every time [member target]'s turn ends. When it hits 0, the effect ends.
 @export var strength: int = 1 ## General measure of strength. Behavior varies based on [member type].
 
+var target: Actor
+
 
 ## Starts the effect.
 func start(target: Actor) -> void:
+	self.target = target
+	
 	match type:
 		Type.BURN:
 			target.action_taken.connect(target.damage.bind(strength, Action.Type.FIRE), CONNECT_REFERENCE_COUNTED)
@@ -35,12 +39,12 @@ func start(target: Actor) -> void:
 		Type.GUARD:
 			target.modifiers.defense += strength
 	
-	target.turn_ended.connect(_countdown.bind(target))
-	Battle.ended.connect(end.bind(target))
+	target.turn_ended.connect(_countdown)
+	Battle.ended.connect(end)
 
 
 ## Ends the effect.
-func end(target: Actor) -> void:
+func end() -> void:
 	match type:
 		Type.BURN:
 			target.action_taken.disconnect(target.damage)
@@ -85,9 +89,8 @@ func get_color() -> Color:
 
 # internal
 
-func _countdown(target: Actor) -> void:
-	for i: int in duration:
-		# TODO: end when battle ends
-		await target.turn_ended
+func _countdown() -> void:
+	duration -= 1
 	
-	end(target)
+	if not duration:
+		end()
