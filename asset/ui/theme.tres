@@ -16,13 +16,15 @@ texture_margin_bottom = 6.0
 
 [resource]
 default_font = ExtResource("1_at5dj")
+BigLabel/base_type = &"Label"
+BigLabel/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
+BigLabel/fonts/font = ExtResource("1_8gfkp")
 BoxContainer/constants/separation = 0
 GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
+Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_l3qmw")
 SmallLabel/base_type = &"Label"
 SmallLabel/fonts/font = ExtResource("1_xqmmu")
-TitleLabel/base_type = &"Label"
-TitleLabel/fonts/font = ExtResource("1_8gfkp")
 UIPanel/base_type = &"PanelContainer"
 UIPanel/styles/panel = SubResource("StyleBoxTexture_v0djg")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://mu8s6x2r0v7a"]
+[gd_scene load_steps=6 format=3 uid="uid://mu8s6x2r0v7a"]
 
 [ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="1_gdxkv"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]
@@ -8,35 +8,50 @@
 script/source = "extends PanelContainer
 "
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6amw"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+
 [node name="Inventory" type="PanelContainer"]
 offset_right = 306.0
 offset_bottom = 161.0
 script = SubResource("GDScript_kilkw")
 
-[node name="HBox" type="HBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Panel" type="PanelContainer" parent="HBox"]
+[node name="Label" type="Label" parent="VBox"]
+z_index = 1
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t6amw")
+text = "Inventory"
+
+[node name="HBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="VBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"UIPanel"
 
-[node name="ViewportContainer" type="SubViewportContainer" parent="HBox/Panel"]
+[node name="ViewportContainer" type="SubViewportContainer" parent="VBox/HBox/Panel"]
 layout_mode = 2
 
-[node name="Viewport" type="SubViewport" parent="HBox/Panel/ViewportContainer"]
+[node name="Viewport" type="SubViewport" parent="VBox/HBox/Panel/ViewportContainer"]
 process_mode = 2
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(250, 175)
 render_target_update_mode = 4
 
-[node name="Selector" parent="HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("1_gdxkv")]
+[node name="Selector" parent="VBox/HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("1_gdxkv")]
 
-[node name="Camera" type="Camera2D" parent="HBox/Panel/ViewportContainer/Viewport/Selector"]
+[node name="Camera" type="Camera2D" parent="VBox/HBox/Panel/ViewportContainer/Viewport/Selector"]
 
-[node name="Sprite2D" type="Sprite2D" parent="HBox/Panel/ViewportContainer/Viewport"]
+[node name="Sprite2D" type="Sprite2D" parent="VBox/HBox/Panel/ViewportContainer/Viewport"]
 texture = ExtResource("2_ghgf8")
 
-[node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
+[node name="Info" parent="VBox/HBox" instance=ExtResource("2_bx3yy")]
 layout_mode = 2

@@ -27,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_force_pass_scroll_events = false
 
 [connection signal="gui_input" from="Console/Input" to="." method="_console_gui_input"]
 [connection signal="text_submitted" from="Console/Input" to="." method="_console_run"]

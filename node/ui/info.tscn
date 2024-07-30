@@ -34,8 +34,7 @@ script = ExtResource("1_m31sy")
 [node name="Title" type="Label" parent="."]
 custom_minimum_size = Vector2(2.08165e-12, 23)
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
-theme_override_colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
+theme_type_variation = &"BigLabel"
 theme_override_styles/normal = SubResource("StyleBoxTexture_klfpo")
 text = "Info"
 
