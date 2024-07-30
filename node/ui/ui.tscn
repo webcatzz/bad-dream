@@ -9,7 +9,7 @@ content_margin_left = 16.0
 content_margin_top = 16.0
 content_margin_right = 16.0
 content_margin_bottom = 16.0
-bg_color = Color(0.0901961, 0.0745098, 0.105882, 0.74902)
+bg_color = Color(0.0901961, 0.0745098, 0.105882, 1)
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
