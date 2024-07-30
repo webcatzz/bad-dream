@@ -1,133 +1,110 @@
 extends Node
-## Battle manager.
 
 
-signal started
-signal ended
-signal turn_started(actor: Actor)
-signal turn_ended(actor: Actor)
-signal actor_added(actor: Actor, idx: int)
-signal actor_removed(idx: int)
-
-const FieldAStar = preload("res://script/battle_astar.gd") ## Pathfinding algorithm.
-
-var active: bool ## Whether there is a battle currently active.
-var order: Array[Actor] ## The order in which [Actor]s take turns.
-var current_idx: int ## The current index in [member order].
-var current_actor: Actor ## The [Actor] currently taking their turn.
-
-var field: FieldAStar
-var astar_draw: Node2D # DEBUG
-
-var ui: Node
+signal phase_changed
 
 
+var active: bool = false
 
-# battle starting + stopping
+var enemies: Array[Enemy]
+var current_actor: Actor
+var party_phase: bool = false
 
-## Starts a battle between the party and [param actors].
-func start(actors: Array[Actor], region: Rect2i) -> void:
-	active = true
+var history: Array[Dictionary]
+var history_idx: int
+
+@onready var ui: CanvasLayer = $UI
+
+
+func start(enemies: Array[Enemy], region: Rect2i) -> void:
+	self.enemies = enemies
 	
-	# adding ui/camera
-	ui = preload("res://node/ui/battle.tscn").instantiate()
-	add_child(ui)
+	ui.show()
 	
-	# generating field grid
-	field = FieldAStar.new(region)
-	
-	# adding actors
-	for actor: Actor in Data.party: add_actor(actor)
-	for actor: Actor in actors: add_actor(actor)
-	
-	# starting order
-	started.emit()
-	current_idx = order.find(Data.get_leader()) - 1
-	run_turn()
+	cycle()
 
 
-## Loops through [member order] until [method is_won] returns true.
-func run_turn() -> void:
-	current_idx = (current_idx + 1) % order.size()
-	current_actor = order[current_idx] # fetching current actor
+func cycle() -> void:
+	# enemy phase
+	party_phase = false
+	for enemy: Enemy in enemies:
+		pass
 	
-	if not current_actor.is_defeated():
-		current_actor.turn_started.connect(emit_signal.bind("turn_started", current_actor), CONNECT_ONE_SHOT)
-		await current_actor.take_turn()
-		turn_ended.emit(current_actor)
+	# party phase
+	party_phase = true
+	current_actor = Data.party[0]
+	await phase_changed
 	
-	current_actor = null
-	await get_tree().create_timer(0.25).timeout
-	
-	# moving to next turn
-	if not Data.get_party_undefeated():
-		stop()
-		Game.over()
-	else:
-		for actor: Actor in order:
-			if actor not in Data.party and not actor.is_defeated():
-				run_turn()
-				return
-		stop()
+	cycle()
 
 
-## Ends the current battle.
-func stop() -> void:
+func end_party_phase() -> void:
+	phase_changed.emit()
+
+
+func end() -> void:
+	history.clear()
+	party_phase = false
 	active = false
-	field = null
+
+
+
+# history
+
+func undo() -> void:
+	history_idx = max(history_idx - 1, 0)
+	recall_state()
+
+
+func redo() -> void:
+	history_idx = min(history_idx + 1, history.size() - 1)
+	recall_state()
+
+
+func record_state() -> void:
+	if history_idx != history.size() - 1:
+		history.resize(history_idx + 1)
 	
-	# ending battle
-	ended.emit()
-	
-	# removing actors
-	while order: remove_actor(order[-1])
-	
-	# reorder party & regenerate nodes if leader is defeated
-	if Data.get_leader().is_defeated() and Data.get_party_undefeated():
+	history.append({
 		
-		# freeing old leader node
-		var position: Vector2 = Data.get_leader().node.position
-		Data.get_leader().node.queue_free()
-		Data.get_leader().node = null
-		
-		# choosing new leader & freeing its node
-		var new_leader: Actor = Data.get_party_undefeated()[0]
-		new_leader.node.queue_free()
-		new_leader.node = null
-		Data.party.erase(new_leader)
-		Data.party.push_front(new_leader)
-		
-		# spawning party
-		Game.spawn_party(position)
-
-
-
-# actors
-
-## Adds an actor to the current battle's [member order].
-func add_actor(actor: Actor) -> void:
-	var idx: int
+	})
 	
-	if order.is_empty() or order[-1].tiles_per_turn >= actor.tiles_per_turn:
-		idx = order.size() # in case of lowest speed
-	else:
-		for i in order.size():
-			if actor.tiles_per_turn > order[i].tiles_per_turn:
-				idx = i
-				break
-	
-	# adding to order
-	order.insert(idx, actor)
-	if idx <= current_idx: current_idx += 1
-	actor.in_battle = true
-	actor_added.emit(actor, idx)
+	history_idx += 1
 
 
-## Removes an actor from the current battle's [member order].
-func remove_actor(actor: Actor) -> void:
-	var idx: int = order.find(actor)
+func recall_state() -> void:
+	var state: Dictionary = history[history_idx]
+
+
+
+# input
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not party_phase: return
 	
-	# removing from order
-	order.remove_at(idx)
-	actor.in_battle = false
-	actor_removed.emit(idx)
+	if event.is_action_pressed("move_up"):
+		current_actor.move_by(Vector2i.UP)
+	elif event.is_action_pressed("move_down"):
+		current_actor.move_by(Vector2i.DOWN)
+	elif event.is_action_pressed("move_left"):
+		current_actor.move_by(Vector2i.LEFT)
+	elif event.is_action_pressed("move_right"):
+		current_actor.move_by(Vector2i.RIGHT)
+	
+	elif event.is_action_pressed("interact"):
+		pass
+
+
+
+# selector
+
+func _on_selector_actor_entered(actor: Actor) -> void:
+	$Selector/Info.write({
+		"title": actor.name,
+		"description": actor.description,
+	})
+	$Selector/Info.show()
+
+
+func _on_selector_emptied() -> void:
+	$Selector/Info.hide()

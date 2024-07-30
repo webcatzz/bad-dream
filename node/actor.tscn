@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dped56xd2gb5j"]
+
+[ext_resource type="Script" path="res://node/actor.gd" id="1_fjo3h"]
+[ext_resource type="Texture2D" uid="uid://diasf4k8df0wt" path="res://asset/actor/default.png" id="1_qfuap"]
+
+[node name="Actor" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_fjo3h")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, 2.08165e-12, 2.08165e-12, -8, 16, 2.08165e-12, 2.08165e-12, 8)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_qfuap")
+offset = Vector2(2.08165e-12, -24)

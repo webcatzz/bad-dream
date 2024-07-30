@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://n3cvsy0v5l6k"]
+
+[ext_resource type="Script" path="res://node/ui/input_label.gd" id="1_cliph"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwkx7"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.0901961, 0.0745098, 0.105882, 1)
+
+[node name="InputLabel" type="HBoxContainer"]
+theme_override_constants/separation = 4
+script = ExtResource("1_cliph")
+
+[node name="Key" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_vwkx7")
+text = "key"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Action"

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=2 format=3 uid="uid://xnfhvff0ofy7"]
+[gd_resource type="Resource" script_class="Actor" load_steps=2 format=3 uid="uid://b0a5s026rq8gw"]
 
-[ext_resource type="Script" path="res://script/actor.gd" id="1_j16eu"]
+[ext_resource type="Script" path="res://script/actor.gd" id="1_qeiy0"]
 
 [resource]
-script = ExtResource("1_j16eu")
+script = ExtResource("1_qeiy0")
 max_will = 3
 will = 3
 max_stamina = 5

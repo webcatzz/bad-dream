@@ -1,489 +1,97 @@
-[gd_scene load_steps=24 format=3 uid="uid://dlabd5a4ri2ic"]
+[gd_scene load_steps=6 format=3 uid="uid://cici8h4sik1cs"]
 
-[ext_resource type="Script" path="res://node/ui/battle.gd" id="1_wfkej"]
-[ext_resource type="Texture2D" uid="uid://bu5ragxvhv826" path="res://asset/ui/gear.png" id="2_0ifoi"]
-[ext_resource type="FontFile" uid="uid://b4p62uwb8qtsy" path="res://asset/ui/dico.ttf" id="2_75u7k"]
-[ext_resource type="Material" uid="uid://cs41y0404k2al" path="res://asset/vfx/dither.tres" id="2_k8n41"]
-[ext_resource type="Script" path="res://node/dialogue/label.gd" id="3_5gdxo"]
-[ext_resource type="FontVariation" uid="uid://dvms0lc5dpf4o" path="res://asset/ui/improv_gold.tres" id="3_fvslm"]
-[ext_resource type="Texture2D" uid="uid://bcc24l8nysmgi" path="res://asset/ui/current_actor.png" id="3_o0ghd"]
-[ext_resource type="Script" path="res://node/ui/current_actor.gd" id="4_wcldh"]
+[ext_resource type="Script" path="res://script/battle.gd" id="1_wc3dr"]
+[ext_resource type="PackedScene" uid="uid://ehp8f0laqt7d" path="res://node/ui/party_member.tscn" id="2_fwjab"]
+[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="3_4dcam"]
+[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_ggbgi"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qkqd"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fu2s"]
 bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 16.0
+expand_margin_top = 2.0
+expand_margin_right = 48.0
+expand_margin_bottom = 2.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i1mo0"]
-atlas = ExtResource("3_o0ghd")
-region = Rect2(0, 0, 300, 32)
+[node name="Battle" type="Node"]
+script = ExtResource("1_wc3dr")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rk21r"]
-atlas = ExtResource("3_o0ghd")
-region = Rect2(48, 32, 16, 16)
+[node name="UI" type="CanvasLayer" parent="."]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_32ln7"]
-atlas = ExtResource("3_o0ghd")
-region = Rect2(64, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eivyi"]
-atlas = ExtResource("3_o0ghd")
-region = Rect2(80, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hgua8"]
-atlas = ExtResource("2_0ifoi")
-region = Rect2(16, 0, 16, 34)
-
-[sub_resource type="Animation" id="Animation_8iw6o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:region")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(16, 0, 16, 34)]
-}
-
-[sub_resource type="Animation" id="Animation_boa3d"]
-resource_name = "rotate"
-length = 3.2
-loop_mode = 1
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:region")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(16, 0, 16, 34), Rect2(48, 0, 16, 34), Rect2(80, 0, 16, 34), Rect2(112, 0, 16, 34), Rect2(16, 34, 16, 34), Rect2(48, 34, 16, 34), Rect2(80, 34, 16, 34), Rect2(112, 34, 16, 34), Rect2(16, 68, 16, 34), Rect2(48, 68, 16, 34), Rect2(80, 68, 16, 34), Rect2(112, 68, 16, 34), Rect2(16, 102, 16, 34), Rect2(48, 102, 16, 34), Rect2(80, 102, 16, 34), Rect2(112, 102, 16, 34)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_r0ih2"]
-_data = {
-"RESET": SubResource("Animation_8iw6o"),
-"rotate": SubResource("Animation_boa3d")
-}
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qo18q"]
-content_margin_left = 5.0
-
-[sub_resource type="Animation" id="Animation_dvbj0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bars:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(500, 300)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bars:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Modulator:color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Bars/Middle/Padding/Status:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_25bq8"]
-resource_name = "close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bars:size")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(500, 300), Vector2(500, 295), Vector2(500, 420)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bars:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 2.5), Vector2(0, -60)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Modulator:color")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.878431, 0.835294, 0.835294, 1), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("..")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_j72p2"]
-resource_name = "fade_status"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bars/Middle/Padding/Status:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_jilgl"]
-resource_name = "open"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bars:size")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(500, 420), Vector2(500, 300)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bars:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -60), Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Modulator:color")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.88, 0.836, 0.836, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8715n"]
-_data = {
-"RESET": SubResource("Animation_dvbj0"),
-"close": SubResource("Animation_25bq8"),
-"fade_status": SubResource("Animation_j72p2"),
-"open": SubResource("Animation_jilgl")
-}
-
-[node name="BattleUI" type="Node"]
-process_mode = 3
-script = ExtResource("1_wfkej")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+[node name="Margins" type="MarginContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.501961, 0.501961, 0.501961, 1)
-
-[node name="Layer" type="CanvasLayer" parent="."]
-
-[node name="Bars" type="VBoxContainer" parent="Layer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Top" type="PanelContainer" parent="Layer/Bars"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7qkqd")
-
-[node name="CurrentActor" type="HBoxContainer" parent="Layer/Bars/Top"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 8
-script = ExtResource("4_wcldh")
-
-[node name="Art" type="TextureRect" parent="Layer/Bars/Top/CurrentActor"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = SubResource("AtlasTexture_i1mo0")
-
-[node name="Title" type="VBoxContainer" parent="Layer/Bars/Top/CurrentActor/Art"]
-layout_mode = 0
-offset_left = 19.0
-offset_right = 206.0
-offset_bottom = 32.0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/Title"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Now acting..!"
-
-[node name="HBox" type="HBoxContainer" parent="Layer/Bars/Top/CurrentActor/Art/Title"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="The" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/Title/HBox"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "the"
-
-[node name="Name" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/Title/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
-theme_override_fonts/font = ExtResource("2_75u7k")
-text = "Current Actor"
-clip_text = true
-
-[node name="HealthBar" type="TextureProgressBar" parent="Layer/Bars/Top/CurrentActor/Art"]
-layout_mode = 0
-offset_left = 228.0
-offset_top = 8.0
-offset_right = 244.0
-offset_bottom = 24.0
-value = 100.0
-fill_mode = 3
-texture_progress = SubResource("AtlasTexture_rk21r")
-
-[node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/HealthBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
-theme_override_colors/font_shadow_color = Color(0.129412, 0.0980392, 0.0980392, 1)
-text = "5"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Flower" type="Sprite2D" parent="Layer/Bars/Top/CurrentActor/Art/HealthBar"]
-position = Vector2(8, 21)
-texture = ExtResource("3_o0ghd")
-region_enabled = true
-region_rect = Rect2(0, 32, 16, 16)
-
-[node name="TilesBar" type="TextureProgressBar" parent="Layer/Bars/Top/CurrentActor/Art"]
-layout_mode = 0
-offset_left = 250.0
-offset_top = 8.0
-offset_right = 266.0
-offset_bottom = 24.0
-value = 100.0
-fill_mode = 3
-texture_progress = SubResource("AtlasTexture_32ln7")
-
-[node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/TilesBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
-theme_override_colors/font_shadow_color = Color(0.129412, 0.0980392, 0.0980392, 1)
-text = "5"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Flower" type="Sprite2D" parent="Layer/Bars/Top/CurrentActor/Art/TilesBar"]
-position = Vector2(8, 21)
-texture = ExtResource("3_o0ghd")
-region_enabled = true
-region_rect = Rect2(16, 32, 16, 16)
-
-[node name="ActionsBar" type="TextureProgressBar" parent="Layer/Bars/Top/CurrentActor/Art"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 8.0
-offset_right = 288.0
-offset_bottom = 24.0
-value = 100.0
-fill_mode = 3
-texture_progress = SubResource("AtlasTexture_eivyi")
-
-[node name="Label" type="Label" parent="Layer/Bars/Top/CurrentActor/Art/ActionsBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
-theme_override_colors/font_shadow_color = Color(0.129412, 0.0980392, 0.0980392, 1)
-text = "5"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Flower" type="Sprite2D" parent="Layer/Bars/Top/CurrentActor/Art/ActionsBar"]
-position = Vector2(8, 21)
-texture = ExtResource("3_o0ghd")
-region_enabled = true
-region_rect = Rect2(32, 32, 16, 16)
-
-[node name="StatusEffects" type="VBoxContainer" parent="Layer/Bars/Top/CurrentActor"]
-layout_mode = 2
-alignment = 1
-
-[node name="Middle" type="PanelContainer" parent="Layer/Bars"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Padding" type="MarginContainer" parent="Layer/Bars/Middle"]
-layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Status" type="Label" parent="Layer/Bars/Middle/Padding"]
-material = ExtResource("2_k8n41")
-layout_mode = 2
-size_flags_vertical = 0
-script = ExtResource("3_5gdxo")
-
-[node name="Bottom" type="PanelContainer" parent="Layer/Bars"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7qkqd")
-
-[node name="Order" type="HBoxContainer" parent="Layer/Bars/Bottom"]
-layout_mode = 2
-
-[node name="Gear" type="TextureRect" parent="Layer/Bars/Bottom/Order"]
-z_index = 1
-custom_minimum_size = Vector2(4, 34)
-layout_mode = 2
-size_flags_vertical = 4
-texture = SubResource("AtlasTexture_hgua8")
-expand_mode = 1
-stretch_mode = 2
-
-[node name="Animator" type="AnimationPlayer" parent="Layer/Bars/Bottom/Order/Gear"]
-libraries = {
-"": SubResource("AnimationLibrary_r0ih2")
-}
-autoplay = "rotate"
-
-[node name="List" type="VBoxContainer" parent="Layer/Bars/Bottom/Order"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 1
-
-[node name="Label" type="Label" parent="Layer/Bars/Bottom/Order/List"]
+[node name="CurrentActor" type="PanelContainer" parent="UI/Margins"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_type_variation = &"UILabel"
-theme_override_fonts/font = ExtResource("3_fvslm")
-text = "Next up!"
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5fu2s")
 
-[node name="Scrollbox" type="ScrollContainer" parent="Layer/Bars/Bottom/Order/List"]
-z_index = 1
+[node name="VBox" type="VBoxContainer" parent="UI/Margins/CurrentActor"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_qo18q")
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 3
 
-[node name="Items" type="VBoxContainer" parent="Layer/Bars/Bottom/Order/List/Scrollbox"]
+[node name="Label" type="Label" parent="UI/Margins/CurrentActor/VBox"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
+text = "Now acting..."
+
+[node name="HBox" type="HBoxContainer" parent="UI/Margins/CurrentActor/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="The" type="Label" parent="UI/Margins/CurrentActor/VBox/HBox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.721569, 0.666667, 0.690196, 1)
+text = "the"
+
+[node name="Name" type="Label" parent="UI/Margins/CurrentActor/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"TitleLabel"
+text = "Current Actor"
+
+[node name="Party" type="HBoxContainer" parent="UI/Margins"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_constants/separation = 1
 
+[node name="Member" parent="UI/Margins/Party" instance=ExtResource("2_fwjab")]
+layout_mode = 2
+
+[node name="Member2" parent="UI/Margins/Party" instance=ExtResource("2_fwjab")]
+layout_mode = 2
+
+[node name="Member3" parent="UI/Margins/Party" instance=ExtResource("2_fwjab")]
+layout_mode = 2
+
+[node name="Member4" parent="UI/Margins/Party" instance=ExtResource("2_fwjab")]
+layout_mode = 2
+
+[node name="Selector" parent="." instance=ExtResource("3_4dcam")]
+z_index = 1
+
+[node name="Info" parent="Selector" instance=ExtResource("4_ggbgi")]
+visible = false
+offset_left = 40.0
+offset_top = -48.0
+offset_right = 136.0
+offset_bottom = 112.0
+
+[node name="Camera" type="Camera2D" parent="Selector"]
+
 [node name="Camera" type="Camera2D" parent="."]
-position_smoothing_enabled = true
 
-[node name="Modulator" type="CanvasModulate" parent="."]
-
-[node name="Animator" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Layer")
-libraries = {
-"": SubResource("AnimationLibrary_8715n")
-}
+[connection signal="actor_entered" from="Selector" to="." method="_on_selector_actor_entered"]
+[connection signal="emptied" from="Selector" to="." method="_on_selector_emptied"]

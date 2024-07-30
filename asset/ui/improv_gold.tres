@@ -1,6 +1,6 @@
-[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dvms0lc5dpf4o"]
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://b3ts4b6imaqcx"]
 
-[ext_resource type="FontFile" uid="uid://dupfsabtrmmll" path="res://asset/ui/improv_gold.ttf" id="1_vuso1"]
+[ext_resource type="FontFile" uid="uid://ply15jqjd2pd" path="res://asset/ui/improv_gold.ttf" id="1_vuso1"]
 
 [resource]
 base_font = ExtResource("1_vuso1")

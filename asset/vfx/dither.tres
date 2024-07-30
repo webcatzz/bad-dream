@@ -1,6 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cs41y0404k2al"]
-
-[ext_resource type="Shader" path="res://asset/vfx/dither.gdshader" id="1_rekcn"]
-
-[resource]
-shader = ExtResource("1_rekcn")

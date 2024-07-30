@@ -1,8 +1,7 @@
 .DS_STORE
 
 pinboard.md
-userdata
-tester*
+test*
 
 # godot
 *.import

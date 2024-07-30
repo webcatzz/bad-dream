@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://mu8s6x2r0v7a"]
+
+[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="1_gdxkv"]
+[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]
+
+[sub_resource type="GDScript" id="GDScript_kilkw"]
+script/source = "extends PanelContainer
+
+
+var selector: Vector2i
+"
+
+[node name="Inventory" type="PanelContainer"]
+offset_right = 306.0
+offset_bottom = 161.0
+script = SubResource("GDScript_kilkw")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"UIPanel"
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="HBox/Panel"]
+layout_mode = 2
+
+[node name="Viewport" type="SubViewport" parent="HBox/Panel/ViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(250, 175)
+render_target_update_mode = 4
+
+[node name="Selector" parent="HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("1_gdxkv")]
+
+[node name="Camera" type="Camera2D" parent="HBox/Panel/ViewportContainer/Viewport/Selector"]
+
+[node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
+layout_mode = 2
