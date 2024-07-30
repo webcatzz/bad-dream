@@ -34,9 +34,7 @@ content_margin_top = 50.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 texture = ExtResource("1_eu3sh")
-texture_margin_left = 16.0
-texture_margin_top = 48.0
-texture_margin_right = 16.0
+texture_margin_top = 64.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkyh6"]
 content_margin_left = 2.0
@@ -46,8 +44,9 @@ content_margin_bottom = 2.0
 bg_color = Color(0, 0, 0, 1)
 
 [node name="PartyMember" type="PanelContainer"]
-offset_right = 32.0
-offset_bottom = 122.0
+custom_minimum_size = Vector2(30, 2.08165e-12)
+offset_right = 26.0
+offset_bottom = 54.0
 script = SubResource("GDScript_nlyj4")
 
 [node name="Button" type="Button" parent="."]
@@ -65,10 +64,12 @@ layout_mode = 2
 theme_override_constants/separation = 2
 
 [node name="Portrait" type="TextureRect" parent="Panel/VBox"]
+visible = false
 layout_mode = 2
 texture = ExtResource("2_4p7k0")
 
 [node name="WillPanel" type="PanelContainer" parent="Panel/VBox"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nkyh6")
 

@@ -1,61 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://rjvdm85r7cfw"]
+[gd_scene load_steps=4 format=3 uid="uid://rjvdm85r7cfw"]
 
-[ext_resource type="Texture2D" uid="uid://8y0h62tvseq7" path="res://asset/ui/info_title.png" id="1_3wtis"]
+[ext_resource type="Texture2D" uid="uid://c8rkvbngvk6q8" path="res://asset/ui/info.png" id="1_0gys7"]
 [ext_resource type="Script" path="res://node/ui/info.gd" id="1_m31sy"]
-[ext_resource type="Texture2D" uid="uid://1osys5v5oyo8" path="res://asset/ui/info_panel.png" id="2_1w55w"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_klfpo"]
-content_margin_left = 8.0
-content_margin_top = 5.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5sf4"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 12.0
 content_margin_bottom = 6.0
-texture = ExtResource("1_3wtis")
-texture_margin_left = 62.0
+texture = ExtResource("1_0gys7")
+texture_margin_left = 73.0
+texture_margin_top = 23.0
 texture_margin_right = 13.0
+texture_margin_bottom = 18.0
 expand_margin_left = 15.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mq0dx"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 11.0
-texture = ExtResource("2_1w55w")
-texture_margin_left = 4.0
-texture_margin_top = 1.0
-texture_margin_right = 4.0
-texture_margin_bottom = 8.0
-
-[node name="Info" type="VBoxContainer"]
-custom_minimum_size = Vector2(96, 2.08165e-12)
+[node name="Info" type="PanelContainer"]
+custom_minimum_size = Vector2(128, 2.08165e-12)
 offset_right = 96.0
 offset_bottom = 160.0
-theme_override_constants/separation = -2
+theme_override_styles/panel = SubResource("StyleBoxTexture_s5sf4")
 script = ExtResource("1_m31sy")
 
-[node name="Title" type="Label" parent="."]
-custom_minimum_size = Vector2(2.08165e-12, 23)
+[node name="Items" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Items"]
+custom_minimum_size = Vector2(2.08165e-12, 22)
 layout_mode = 2
 theme_type_variation = &"BigLabel"
-theme_override_styles/normal = SubResource("StyleBoxTexture_klfpo")
 text = "Info"
+vertical_alignment = 1
 
-[node name="Panel" type="PanelContainer" parent="."]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_mq0dx")
-
-[node name="Items" type="VBoxContainer" parent="Panel"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Description" type="Label" parent="Panel/Items"]
+[node name="Description" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
+text = "Description. Lorem ipsum odor amet, consectetuer adipiscing elit."
 autowrap_mode = 2
 
-[node name="Tags" type="Label" parent="Panel/Items"]
+[node name="Footer" type="Label" parent="Items"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_type_variation = &"SmallLabel"
-theme_override_colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
+theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
+text = "footer"
 horizontal_alignment = 2
 autowrap_mode = 2
