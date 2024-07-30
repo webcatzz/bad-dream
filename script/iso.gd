@@ -2,12 +2,12 @@ class_name Iso extends Node
 ## Helper class for isometric vectors.
 
 
-const VECTOR: Vector2i = Vector2i(16, 8)
+const VECTOR: Vector2 = Vector2i(16, 8)
 
-const UP: Vector2i = Vector2i(-16, -8)
-const DOWN: Vector2i = VECTOR
-const LEFT: Vector2i = Vector2i(-16, 8)
-const RIGHT: Vector2i = Vector2i(16, -8)
+const UP: Vector2 = Vector2i(-16, -8)
+const DOWN: Vector2 = VECTOR
+const LEFT: Vector2 = Vector2i(-16, 8)
+const RIGHT: Vector2 = Vector2i(16, -8)
 
 
 

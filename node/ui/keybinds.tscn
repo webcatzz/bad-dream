@@ -1,0 +1,150 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0w7sujyua68t"]
+
+[ext_resource type="Script" path="res://node/ui/keybinds.gd" id="1_b5hwv"]
+[ext_resource type="PackedScene" uid="uid://n3cvsy0v5l6k" path="res://node/ui/input_label.tscn" id="1_xx67g"]
+[ext_resource type="StyleBox" uid="uid://dgnvn151jl3mj" path="res://asset/ui/panel.tres" id="3_hwng0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwv3j"]
+content_margin_bottom = 6.0
+
+[node name="Keybinds" type="PanelContainer"]
+custom_minimum_size = Vector2(160, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -39.5
+offset_right = 50.0
+offset_bottom = 39.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"UIPanel"
+script = ExtResource("1_b5hwv")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Scroll/VBox"]
+layout_mode = 2
+theme_type_variation = &"BigLabel"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hwv3j")
+text = "Keybinds"
+
+[node name="MovementLabel" type="Label" parent="Scroll/VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"SmallLabel"
+text = "Movement
+"
+
+[node name="MovementGrid" type="GridContainer" parent="Scroll/VBox"]
+layout_mode = 2
+columns = 2
+
+[node name="Button" type="Button" parent="Scroll/VBox/MovementGrid"]
+layout_mode = 2
+text = "Change"
+
+[node name="MoveUp" parent="Scroll/VBox/MovementGrid" instance=ExtResource("1_xx67g")]
+layout_mode = 2
+size_flags_horizontal = 10
+label = "Move up"
+action = "move_up"
+
+[node name="Button2" type="Button" parent="Scroll/VBox/MovementGrid"]
+layout_mode = 2
+text = "Change"
+
+[node name="MoveDown" parent="Scroll/VBox/MovementGrid" instance=ExtResource("1_xx67g")]
+layout_mode = 2
+size_flags_horizontal = 10
+label = "Move down"
+action = "move_down"
+
+[node name="Button3" type="Button" parent="Scroll/VBox/MovementGrid"]
+layout_mode = 2
+text = "Change"
+
+[node name="MoveLeft" parent="Scroll/VBox/MovementGrid" instance=ExtResource("1_xx67g")]
+layout_mode = 2
+size_flags_horizontal = 10
+label = "Move left"
+action = "move_left"
+
+[node name="Button4" type="Button" parent="Scroll/VBox/MovementGrid"]
+layout_mode = 2
+text = "Change"
+
+[node name="MoveRight" parent="Scroll/VBox/MovementGrid" instance=ExtResource("1_xx67g")]
+layout_mode = 2
+size_flags_horizontal = 10
+label = "Move right"
+action = "move_right"
+
+[node name="HSeparator" type="HSeparator" parent="Scroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"SmallLabel"
+text = "misc"
+
+[node name="Grid" type="GridContainer" parent="Scroll/VBox"]
+layout_mode = 2
+columns = 2
+
+[node name="Button" type="Button" parent="Scroll/VBox/Grid"]
+layout_mode = 2
+text = "Change"
+
+[node name="Interact" parent="Scroll/VBox/Grid" instance=ExtResource("1_xx67g")]
+layout_mode = 2
+size_flags_horizontal = 10
+label = "Interact"
+action = "interact"
+
+[node name="HSeparator2" type="HSeparator" parent="Scroll/VBox"]
+layout_mode = 2
+
+[node name="BattleLabel" type="Label" parent="Scroll/VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"SmallLabel"
+text = "In battle"
+
+[node name="BattleGrid" type="GridContainer" parent="Scroll/VBox"]
+layout_mode = 2
+columns = 2
+
+[node name="Button" type="Button" parent="Scroll/VBox/BattleGrid"]
+layout_mode = 2
+text = "Change"
+
+[node name="Backtrack" parent="Scroll/VBox/BattleGrid" instance=ExtResource("1_xx67g")]
+layout_mode = 2
+size_flags_horizontal = 10
+label = "Backtrack"
+action = "backtrack"
+
+[node name="KeyPopup" type="PopupPanel" parent="."]
+size = Vector2i(141, 44)
+theme_override_styles/panel = ExtResource("3_hwng0")
+
+[node name="Label" type="Label" parent="KeyPopup"]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 129.0
+offset_bottom = 31.0
+text = "Press a key...
+Or press shift+escape to cancel."

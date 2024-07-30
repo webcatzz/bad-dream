@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bl12kuaacdli8"]
+[gd_scene load_steps=7 format=3 uid="uid://bl12kuaacdli8"]
 
 [ext_resource type="Script" path="res://node/ui/menus.gd" id="1_iytjr"]
 [ext_resource type="PackedScene" uid="uid://mu8s6x2r0v7a" path="res://node/ui/inventory.tscn" id="2_e7lfs"]
+[ext_resource type="StyleBox" uid="uid://dgnvn151jl3mj" path="res://asset/ui/panel.tres" id="2_hx6ur"]
+[ext_resource type="PackedScene" uid="uid://c0w7sujyua68t" path="res://node/ui/keybinds.tscn" id="3_ux8ps"]
 [ext_resource type="PackedScene" uid="uid://n3cvsy0v5l6k" path="res://node/ui/input_label.tscn" id="3_xfkwl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f25yb"]
@@ -15,19 +17,6 @@ bg_color = Color(0.0901961, 0.0745098, 0.105882, 1)
 process_mode = 3
 script = ExtResource("1_iytjr")
 
-[node name="Inventory" parent="." instance=ExtResource("2_e7lfs")]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -194.0
-offset_top = -93.0
-offset_right = 194.0
-offset_bottom = 93.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="Overlay" type="PanelContainer" parent="."]
 z_index = -1
 anchors_preset = 15
@@ -36,6 +25,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_f25yb")
+
+[node name="Pause" type="TabContainer" parent="Overlay"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("2_hx6ur")
+tabs_visible = false
+
+[node name="VBox" type="VBoxContainer" parent="Overlay/Pause"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Overlay/Pause/VBox"]
+layout_mode = 2
+theme_type_variation = &"BigLabel"
+text = "Paused."
+horizontal_alignment = 1
+
+[node name="Continue" type="Button" parent="Overlay/Pause/VBox"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Settings" type="Button" parent="Overlay/Pause/VBox"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Exit" type="Button" parent="Overlay/Pause/VBox"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Keybinds" parent="Overlay" instance=ExtResource("3_ux8ps")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Inventory" parent="Overlay" instance=ExtResource("2_e7lfs")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="InputLabel" parent="Overlay" instance=ExtResource("3_xfkwl")]
 layout_mode = 2

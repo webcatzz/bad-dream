@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func _on_position_changed() -> void:
-	position = Iso.from_grid(data.position)
+	create_tween().tween_property(self, "position", Iso.from_grid(data.position), 0.05)

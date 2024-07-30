@@ -35,6 +35,7 @@ var position: Vector2i:
 		position = value
 		position_changed.emit()
 var facing: Vector2i = Vector2i(0, 1)
+var path: Array[Dictionary]
 
 
 func add_will(num: int) -> void:
@@ -64,6 +65,17 @@ func move_to(tile: Vector2i) -> void:
 
 func move_by(vector: Vector2i) -> void:
 	position += vector
+
+
+func extend_path() -> void:
+	path.append({
+		"position": position,
+		"facing": facing
+	})
+
+
+func backtrack_path() -> void:
+	path.resize(path.size() - 1)
 
 
 

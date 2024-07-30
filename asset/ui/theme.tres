@@ -3,20 +3,14 @@
 [ext_resource type="FontVariation" uid="uid://diavu0lgbg5lq" path="res://asset/ui/dico.tres" id="1_8gfkp"]
 [ext_resource type="FontVariation" uid="uid://cuyrj0f073818" path="res://asset/ui/font.tres" id="1_at5dj"]
 [ext_resource type="FontVariation" uid="uid://b3ts4b6imaqcx" path="res://asset/ui/improv_gold.tres" id="1_xqmmu"]
-[ext_resource type="Texture2D" uid="uid://djcgvbsgqa1if" path="res://asset/ui/panel.png" id="3_w1668"]
+[ext_resource type="StyleBox" uid="uid://dgnvn151jl3mj" path="res://asset/ui/panel.tres" id="3_a4tjd"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
+color = Color(0.133333, 0.0862745, 0.117647, 1)
+grow_begin = 0.0
+grow_end = 0.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0djg"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 13.0
-texture = ExtResource("3_w1668")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 6.0
 
 [resource]
 default_font = ExtResource("1_at5dj")
@@ -26,9 +20,11 @@ BigLabel/fonts/font = ExtResource("1_8gfkp")
 BoxContainer/constants/separation = 0
 GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
+HSeparator/constants/separation = 12
+HSeparator/styles/separator = SubResource("StyleBoxLine_7e6k1")
 Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_l3qmw")
 SmallLabel/base_type = &"Label"
 SmallLabel/fonts/font = ExtResource("1_xqmmu")
 UIPanel/base_type = &"PanelContainer"
-UIPanel/styles/panel = SubResource("StyleBoxTexture_v0djg")
+UIPanel/styles/panel = ExtResource("3_a4tjd")

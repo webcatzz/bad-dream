@@ -3,8 +3,9 @@ extends CanvasLayer
 
 enum Menu {
 	NONE = -1,
-	INVENTORY,
 	PAUSE,
+	KEYBINDS,
+	INVENTORY,
 }
 
 var current_menu: Menu = Menu.NONE
@@ -14,17 +15,18 @@ var current_menu: Menu = Menu.NONE
 
 func open(menu: Menu) -> void:
 	close()
+	
 	current_menu = menu
-	get_child(menu).show()
+	_overlay.get_child(menu).show()
 	_overlay.show()
 	
 	get_tree().paused = true
 
 
 func close() -> void:
-	get_child(current_menu).hide()
-	_overlay.hide()
 	current_menu = Menu.NONE
+	_overlay.get_child(current_menu).hide()
+	_overlay.hide()
 	
 	get_tree().paused = false
 
@@ -40,7 +42,8 @@ func toggle(menu: Menu) -> void:
 # internal
 
 func _ready() -> void:
-	for menu: Control in get_children():
+	_overlay.hide()
+	for menu: Control in _overlay.get_children():
 		menu.hide()
 
 

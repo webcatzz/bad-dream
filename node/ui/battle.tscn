@@ -16,6 +16,7 @@ expand_margin_bottom = 2.0
 script = ExtResource("1_wc3dr")
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Margins" type="MarginContainer" parent="UI"]
 anchors_preset = 15
@@ -91,11 +92,11 @@ offset_bottom = 112.0
 
 [node name="Camera" type="Camera2D" parent="Selector"]
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Path" type="Line2D" parent="."]
+z_index = -1
 
-[node name="InputTimer" type="Timer" parent="."]
-wait_time = 0.2
-
-[connection signal="actor_entered" from="Selector" to="." method="_on_selector_actor_entered"]
+[connection signal="body_entered" from="Selector" to="." method="_on_selector_body_entered"]
 [connection signal="emptied" from="Selector" to="." method="_on_selector_emptied"]
-[connection signal="timeout" from="InputTimer" to="." method="_on_input_timer_timeout"]
+[connection signal="released" from="Selector" to="." method="_on_selector_released"]
+[connection signal="squeezed" from="Selector" to="." method="_on_selector_squeezed"]
+[connection signal="tile_changed" from="Selector" to="." method="_on_selector_tile_changed"]

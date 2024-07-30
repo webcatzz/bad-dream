@@ -16,7 +16,7 @@ var history_idx: int
 @onready var ui: CanvasLayer = $UI
 @onready var _selector: CharacterBody2D = $Selector
 @onready var _selector_info: Control = $Selector/Info
-@onready var _input_timer: Timer = $InputTimer
+@onready var _path: Line2D = $Path
 
 
 func start(enemies: Array[Enemy], region: Rect2i) -> void:
@@ -31,11 +31,11 @@ func cycle() -> void:
 	# enemy phase
 	party_phase = false
 	for enemy: Enemy in enemies:
-		pass
+		current_actor = enemy
 	
 	# party phase
 	party_phase = true
-	current_actor = Data.party[0]
+	current_actor = null
 	await phase_changed
 	
 	cycle()
@@ -46,6 +46,7 @@ func end_party_phase() -> void:
 
 
 func end() -> void:
+	ui.hide()
 	history.clear()
 	party_phase = false
 	active = false
@@ -69,7 +70,8 @@ func record_state() -> void:
 		history.resize(history_idx + 1)
 	
 	history.append({
-		
+		"enemies": enemies.map(func(enemy: Enemy) -> Enemy: return enemy.duplicate()),
+		"party": Data.party.map(func(actor: Actor) -> Actor: return actor.duplicate()),
 	})
 	
 	history_idx += 1
@@ -86,34 +88,19 @@ func recall_state() -> void:
 # input
 
 func _unhandled_key_input(_event: InputEvent) -> void:
-	if party_phase and Input.is_action_pressed("interact"):
-		if _selector.visible:
-			current_actor = _selector.get_actor()
-			_selector.hide()
-			_input_timer.start()
-		else:
-			current_actor = null
-			_selector.show()
-			_input_timer.stop()
-
-
-func _on_input_timer_timeout() -> void:
-	if Input.is_action_pressed("backtrack"):
-		undo()
-		return
+	if not party_phase: return
 	
-	var input: Vector2 = Vector2(
-		Input.get_axis("move_left", "move_right"),
-		Input.get_axis("move_up", "move_down"),
-	)
-	input[input.abs().min_axis_index()] = 0
-	current_actor.move_by(input)
+	if current_actor:
+		
+		if Input.is_action_pressed("backtrack"):
+			undo()
 
 
 
 # selector
 
-func _on_selector_actor_entered(actor: Actor) -> void:
+func _on_selector_body_entered(body: Node2D) -> void:
+	var actor: Actor = body.data
 	_selector_info.write({
 		"title": actor.name,
 		"description": actor.description,
@@ -123,3 +110,25 @@ func _on_selector_actor_entered(actor: Actor) -> void:
 
 func _on_selector_emptied() -> void:
 	_selector_info.hide()
+
+
+func _on_selector_squeezed() -> void:
+	current_actor = _selector.get_body().data
+	_selector_info.hide()
+	_path.points = current_actor.path.map(func(point: Dictionary) -> Vector2:
+		return Iso.from_grid(point.position)
+	)
+
+
+func _on_selector_released() -> void:
+	current_actor = null
+	_selector_info.show()
+	_path.clear_points()
+
+
+func _on_selector_tile_changed() -> void:
+	current_actor.extend_path()
+	current_actor.move_to(_selector.tile)
+	_path.points = current_actor.path.map(func(point: Dictionary) -> Vector2:
+		return Iso.from_grid(point.position)
+	)

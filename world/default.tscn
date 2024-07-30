@@ -31,6 +31,7 @@ y_sort_enabled = true
 tile_set = SubResource("TileSet_7tn6j")
 format = 2
 layer_0/y_sort_enabled = true
+layer_0/z_index = -2
 layer_0/tile_data = PackedInt32Array(-1, 0, 0, 0, 0, 0, 131071, 0, 0, 65535, 0, 0, -2, 0, 0, -65537, 0, 0, -131073, 0, 0, -131072, 0, 0, -65536, 0, 0)
 
 [node name="Actor" parent="." instance=ExtResource("2_i7r07")]
