@@ -21,6 +21,8 @@ var history_idx: int
 
 func start(enemies: Array[Enemy], region: Rect2i) -> void:
 	self.enemies = enemies
+	for actor: Actor in Data.party + enemies:
+		actor.position = Iso.to_grid(actor.node.position)
 	
 	ui.show()
 	
@@ -80,8 +82,6 @@ func record_state() -> void:
 func recall_state() -> void:
 	if not history: return
 	var state: Dictionary = history[history_idx]
-	
-	
 
 
 
@@ -115,6 +115,7 @@ func _on_selector_emptied() -> void:
 func _on_selector_squeezed() -> void:
 	current_actor = _selector.get_body().data
 	_selector_info.hide()
+	
 	_path.points = current_actor.path.map(func(point: Dictionary) -> Vector2:
 		return Iso.from_grid(point.position)
 	)
@@ -123,12 +124,14 @@ func _on_selector_squeezed() -> void:
 func _on_selector_released() -> void:
 	current_actor = null
 	_selector_info.show()
+	
 	_path.clear_points()
 
 
 func _on_selector_tile_changed() -> void:
 	current_actor.extend_path()
 	current_actor.move_to(_selector.tile)
+	
 	_path.points = current_actor.path.map(func(point: Dictionary) -> Vector2:
 		return Iso.from_grid(point.position)
 	)

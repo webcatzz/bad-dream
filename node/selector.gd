@@ -54,14 +54,21 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		release() if is_squeezed else squeeze()
 	
 	elif is_squeezed:
-		if Input.is_action_pressed("move_down"): tile += Vector2i.DOWN
-		elif Input.is_action_pressed("move_up"): tile += Vector2i.UP
-		elif Input.is_action_pressed("move_left"): tile += Vector2i.LEFT
-		elif Input.is_action_pressed("move_right"): tile += Vector2i.RIGHT
+		var input: Vector2i
+		if Input.is_action_pressed("move_down"): input = Vector2i.DOWN
+		elif Input.is_action_pressed("move_up"): input = Vector2i.UP
+		elif Input.is_action_pressed("move_left"): input = Vector2i.LEFT
+		elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
 		else: return
 		
-		create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
-		tile_changed.emit()
+		var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+		query.position = Iso.from_grid(tile + input)
+		query.collision_mask = 0b11
+		
+		if not get_tree().current_scene.get_world_2d().direct_space_state.intersect_point(query):
+			tile += input
+			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
+			tile_changed.emit()
 
 
 

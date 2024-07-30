@@ -2,6 +2,15 @@ extends Node
 
 
 
+# collisions
+
+func collide_point(point: Vector2i) -> Array[Dictionary]:
+	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	query.position = Iso.from_grid(point)
+	return get_tree().current_scene.get_world_2d().direct_space_state.intersect_point(query)
+
+
+
 # debug
 
 var command_history: PackedStringArray

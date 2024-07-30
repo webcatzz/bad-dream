@@ -37,6 +37,11 @@ var position: Vector2i:
 var facing: Vector2i = Vector2i(0, 1)
 var path: Array[Dictionary]
 
+var node: Node2D
+
+
+
+# will
 
 func add_will(num: int) -> void:
 	will += num

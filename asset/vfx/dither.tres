@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://boaku1t0g72kp"]
+
+[ext_resource type="Shader" path="res://asset/vfx/dither.gdshader" id="1_m75tu"]
+
+[resource]
+shader = ExtResource("1_m75tu")
