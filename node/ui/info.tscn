@@ -39,6 +39,10 @@ theme_override_colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
 text = "Description. Lorem ipsum odor amet, consectetuer adipiscing elit."
 autowrap_mode = 2
 
+[node name="Custom" type="VBoxContainer" parent="Items"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
 [node name="Footer" type="Label" parent="Items"]
 layout_mode = 2
 size_flags_vertical = 10

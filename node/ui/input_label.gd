@@ -1,8 +1,8 @@
 extends HBoxContainer
 
 
-@export var action: String
 @export var label: String
+@export var action: String
 
 
 func _ready() -> void:

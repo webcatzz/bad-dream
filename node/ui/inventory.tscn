@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://mu8s6x2r0v7a"]
+[gd_scene load_steps=7 format=3 uid="uid://mu8s6x2r0v7a"]
 
 [ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="1_gdxkv"]
 [ext_resource type="Texture2D" uid="uid://djcgvbsgqa1if" path="res://asset/ui/panel.png" id="1_jsmsl"]
@@ -8,10 +8,6 @@
 [sub_resource type="GDScript" id="GDScript_kilkw"]
 script/source = "extends PanelContainer
 "
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6amw"]
-content_margin_left = 5.0
-content_margin_right = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wauan"]
 texture = ExtResource("1_jsmsl")
@@ -27,14 +23,6 @@ script = SubResource("GDScript_kilkw")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="VBox"]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"SmallLabel"
-theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t6amw")
-text = "Inventory"
 
 [node name="HBox" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
@@ -72,6 +60,14 @@ color = Color(0.0901961, 0.0745098, 0.105882, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="VBox/HBox/Panel/ViewportContainer/Viewport"]
 texture = ExtResource("2_ghgf8")
+
+[node name="Label" type="Label" parent="VBox/HBox/Panel"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"SmallLabel"
+theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
+text = "Inventory"
 
 [node name="Info" parent="VBox/HBox" instance=ExtResource("2_bx3yy")]
 layout_mode = 2
