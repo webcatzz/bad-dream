@@ -93,5 +93,9 @@ offset_bottom = 112.0
 
 [node name="Camera" type="Camera2D" parent="."]
 
+[node name="InputTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="actor_entered" from="Selector" to="." method="_on_selector_actor_entered"]
 [connection signal="emptied" from="Selector" to="." method="_on_selector_emptied"]
+[connection signal="timeout" from="InputTimer" to="." method="_on_input_timer_timeout"]

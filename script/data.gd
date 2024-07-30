@@ -12,7 +12,8 @@ func load_file(idx: int) -> void:
 	
 	# party list
 	for actor_name: String in file.get_value("file", "party", ["woodcarver"]):
-		pass
+		var actor: Actor = load("res://resource/actor/" + actor_name + ".tres")
+		party.append(actor)
 
 
 

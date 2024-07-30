@@ -44,10 +44,10 @@ func _ready() -> void:
 		menu.hide()
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("inventory"):
+func _unhandled_key_input(_event: InputEvent) -> void:
+	if Input.is_action_pressed("inventory"):
 		toggle(Menu.INVENTORY)
-	elif event.is_action_pressed("ui_cancel"):
+	elif Input.is_action_pressed("ui_cancel"):
 		if current_menu == Menu.NONE:
 			open(Menu.PAUSE)
 		else:

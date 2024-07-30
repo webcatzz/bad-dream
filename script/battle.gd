@@ -14,6 +14,9 @@ var history: Array[Dictionary]
 var history_idx: int
 
 @onready var ui: CanvasLayer = $UI
+@onready var _selector: CharacterBody2D = $Selector
+@onready var _selector_info: Control = $Selector/Info
+@onready var _input_timer: Timer = $InputTimer
 
 
 func start(enemies: Array[Enemy], region: Rect2i) -> void:
@@ -73,38 +76,50 @@ func record_state() -> void:
 
 
 func recall_state() -> void:
+	if not history: return
 	var state: Dictionary = history[history_idx]
+	
+	
 
 
 
 # input
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if not party_phase: return
+func _unhandled_key_input(_event: InputEvent) -> void:
+	if party_phase and Input.is_action_pressed("interact"):
+		if _selector.visible:
+			current_actor = _selector.get_actor()
+			_selector.hide()
+			_input_timer.start()
+		else:
+			current_actor = null
+			_selector.show()
+			_input_timer.stop()
+
+
+func _on_input_timer_timeout() -> void:
+	if Input.is_action_pressed("backtrack"):
+		undo()
+		return
 	
-	if event.is_action_pressed("move_up"):
-		current_actor.move_by(Vector2i.UP)
-	elif event.is_action_pressed("move_down"):
-		current_actor.move_by(Vector2i.DOWN)
-	elif event.is_action_pressed("move_left"):
-		current_actor.move_by(Vector2i.LEFT)
-	elif event.is_action_pressed("move_right"):
-		current_actor.move_by(Vector2i.RIGHT)
-	
-	elif event.is_action_pressed("interact"):
-		pass
+	var input: Vector2 = Vector2(
+		Input.get_axis("move_left", "move_right"),
+		Input.get_axis("move_up", "move_down"),
+	)
+	input[input.abs().min_axis_index()] = 0
+	current_actor.move_by(input)
 
 
 
 # selector
 
 func _on_selector_actor_entered(actor: Actor) -> void:
-	$Selector/Info.write({
+	_selector_info.write({
 		"title": actor.name,
 		"description": actor.description,
 	})
-	$Selector/Info.show()
+	_selector_info.show()
 
 
 func _on_selector_emptied() -> void:
-	$Selector/Info.hide()
+	_selector_info.hide()

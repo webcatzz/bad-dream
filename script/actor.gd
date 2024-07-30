@@ -30,7 +30,10 @@ var conditions: Array[Condition]
 @export var actions: Array[Action]
 @export var limit_break: LimitBreak
 
-var position: Vector2i
+var position: Vector2i:
+	set(value):
+		position = value
+		position_changed.emit()
 var facing: Vector2i = Vector2i(0, 1)
 
 

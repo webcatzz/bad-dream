@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ehp8f0laqt7d"]
+[gd_scene load_steps=8 format=3 uid="uid://ehp8f0laqt7d"]
 
 [ext_resource type="Texture2D" uid="uid://tmebnnw8xj3c" path="res://asset/ui/party_member.png" id="1_eu3sh"]
 [ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/portrait/default.png" id="2_4p7k0"]
@@ -30,18 +30,11 @@ expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_edb4o"]
 content_margin_left = 4.0
-content_margin_top = 50.0
+content_margin_top = 54.0
 content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_bottom = 8.0
 texture = ExtResource("1_eu3sh")
 texture_margin_top = 64.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkyh6"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0, 1)
 
 [node name="PartyMember" type="PanelContainer"]
 custom_minimum_size = Vector2(30, 2.08165e-12)
@@ -61,21 +54,16 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_edb4o")
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 4
 
 [node name="Portrait" type="TextureRect" parent="Panel/VBox"]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 texture = ExtResource("2_4p7k0")
 
-[node name="WillPanel" type="PanelContainer" parent="Panel/VBox"]
-visible = false
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nkyh6")
-
-[node name="WillSlots" parent="Panel/VBox/WillPanel" instance=ExtResource("3_88ikc")]
+[node name="WillSlots" parent="Panel/VBox" instance=ExtResource("3_88ikc")]
 custom_minimum_size = Vector2(20, 6)
 layout_mode = 2
 max_value = 3.0
-value = 2.0
+value = 1.0
 slots = 3

@@ -1,8 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://kbwiruw68gy0"]
+[gd_scene load_steps=7 format=3 uid="uid://kbwiruw68gy0"]
 
 [ext_resource type="Texture2D" uid="uid://1ul7ykpmsykc" path="res://asset/world/tile.png" id="1_hkbj1"]
 [ext_resource type="PackedScene" uid="uid://dped56xd2gb5j" path="res://node/actor.tscn" id="2_i7r07"]
 [ext_resource type="Resource" uid="uid://dvo8fw8wyjfrh" path="res://resource/actor/actor.tres" id="3_gau5k"]
+
+[sub_resource type="GDScript" id="GDScript_1dcpk"]
+script/source = "extends Node2D
+
+
+func _ready() -> void:
+	Battle.start([], Rect2i())
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bpdj4"]
 texture = ExtResource("1_hkbj1")
@@ -16,6 +24,7 @@ tile_size = Vector2i(32, 16)
 sources/0 = SubResource("TileSetAtlasSource_bpdj4")
 
 [node name="Game" type="Node2D"]
+script = SubResource("GDScript_1dcpk")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
