@@ -58,8 +58,6 @@ color = Color(0.0901961, 0.0745098, 0.105882, 1)
 
 [node name="Selector" parent="VBox/HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("1_gdxkv")]
 
-[node name="Camera" type="Camera2D" parent="VBox/HBox/Panel/ViewportContainer/Viewport/Selector"]
-
 [node name="Label" type="Label" parent="VBox/HBox/Panel"]
 layout_mode = 2
 size_flags_horizontal = 0

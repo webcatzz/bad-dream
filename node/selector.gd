@@ -7,10 +7,15 @@ signal squeezed
 signal released
 signal tile_changed
 
+@export var controllable: bool = true:
+	set(value):
+		controllable = value
+		$Camera.enabled = controllable
+		if controllable: $Camera.make_current()
 
-var is_squeezed: bool = false
 var tile: Vector2i
 var body: Node2D
+var is_squeezed: bool = false
 
 
 func get_body() -> Node2D:
@@ -40,7 +45,7 @@ func release() -> void:
 # internal
 
 func _physics_process(_delta: float) -> void:
-	if is_squeezed: return
+	if not controllable or is_squeezed: return
 	
 	velocity = Iso.from_grid(Vector2(
 		Input.get_axis("move_left", "move_right"),
@@ -56,10 +61,9 @@ func _physics_process(_delta: float) -> void:
 
 
 func _unhandled_key_input(_event: InputEvent) -> void:
+	if not controllable: return
+	
 	if Input.is_action_pressed("interact"):
-		_squeeze_sprite()
-	elif Input.is_action_just_released("interact"):
-		_release_sprite()
 		release() if is_squeezed else squeeze()
 	
 	elif is_squeezed:
@@ -75,9 +79,6 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 			tile += input
 			tile_changed.emit()
 			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
-
-
-
 
 
 func _on_body_entered(body: Node2D) -> void:

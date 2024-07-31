@@ -27,5 +27,8 @@ offset = Vector2(2.08165e-12, -2)
 region_enabled = true
 region_rect = Rect2(2.08165e-12, 2.08165e-12, 34, 20)
 
+[node name="Camera" type="Camera2D" parent="."]
+enabled = false
+
 [connection signal="body_entered" from="Area" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_body_exited"]

@@ -25,9 +25,9 @@ func start(enemies: Array[Enemy], region: Rect2i) -> void:
 		actor.position = Iso.to_grid(actor.node.position)
 	
 	for actor: Actor in Data.party:
-		var member: Control = load("res://node/ui/party_member.tscn").instantiate()
-		member.actor = actor
-		$UI/Margins/Party.add_child(member)
+		var control: Control = load("res://node/ui/party_member.tscn").instantiate()
+		control.actor = actor
+		$UI/Margins/Party.add_child(control)
 	
 	ui.show()
 	
@@ -39,11 +39,15 @@ func cycle() -> void:
 	party_phase = false
 	for enemy: Enemy in enemies:
 		current_actor = enemy
+		await get_tree().create_timer(1).timeout
 	
 	# party phase
 	party_phase = true
 	current_actor = null
+	#_selector.controllable = true
 	await phase_changed
+	
+	_selector.controllable = false
 	
 	cycle()
 
@@ -93,12 +97,13 @@ func recall_state() -> void:
 # input
 
 func _unhandled_key_input(_event: InputEvent) -> void:
-	if not party_phase: return
-	
-	if current_actor:
+	if party_phase:
 		
 		if Input.is_action_pressed("backtrack"):
 			undo()
+		
+		elif Input.is_action_pressed("ui_cancel"):
+			$EndPhaseConfirm.popup_centered()
 
 
 

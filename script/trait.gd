@@ -12,17 +12,6 @@ enum Type {
 	VENGEFUL,
 }
 
-const descriptions: PackedStringArray = [
-	"Keep going.", # ANIMA
-	
-	"+1 attack.", # STRENGTH
-	"-1 attack.", # TEMPERANCE
-	"+1 MONOLITH.", # MONOLITH
-	"-1 MONOLITH.", # RUST
-	"Start battles asleep.", # SLOTH
-	"When hit, counterattack.", # VENGEFUL
-]
-
 
 static func add(type: Type, actor: Actor) -> void:
 	match type:
@@ -40,8 +29,16 @@ static func remove(type: Type, actor: Actor) -> void:
 # getters
 
 static func name(type: Type) -> String:
-	return Type.keys()[type]
+	return Type.keys()[type].capitalize()
 
 
 static func describe(type: Type) -> String:
-	return descriptions[type]
+	match type:
+		Type.ANIMA: return "Keep going."
+		Type.STRENGTH: return "+1 attack."
+		Type.TEMPERANCE: return "-1 attack."
+		Type.MONOLITH: return "+1 MONOLITH."
+		Type.RUST: return "-1 MONOLITH."
+		Type.SLOTH: return "Start battles asleep."
+		Type.VENGEFUL: return "When hit, counterattack."
+		_: return ""

@@ -33,6 +33,7 @@ theme_override_constants/separation = 1
 
 [node name="Selector" parent="." instance=ExtResource("3_owmi7")]
 z_index = 1
+controllable = false
 
 [node name="Info" parent="Selector" instance=ExtResource("4_bncr4")]
 visible = false
@@ -40,8 +41,6 @@ offset_left = 40.0
 offset_top = -48.0
 offset_right = 136.0
 offset_bottom = 112.0
-
-[node name="Camera" type="Camera2D" parent="Selector"]
 
 [node name="Path" type="Line2D" parent="."]
 z_index = -1
@@ -51,8 +50,18 @@ width = 8.0
 default_color = Color(1, 1, 1, 0.501961)
 gradient = SubResource("Gradient_grat1")
 
+[node name="EndPhaseConfirm" type="ConfirmationDialog" parent="."]
+title = "Would you like to exit?"
+size = Vector2i(200, 80)
+borderless = true
+min_size = Vector2i(0, 0)
+ok_button_text = "Yes"
+dialog_text = "Are you satisfied with your actions?"
+cancel_button_text = "No"
+
 [connection signal="body_entered" from="Selector" to="." method="_on_selector_body_entered"]
 [connection signal="emptied" from="Selector" to="." method="_on_selector_emptied"]
 [connection signal="released" from="Selector" to="." method="_on_selector_released"]
 [connection signal="squeezed" from="Selector" to="." method="_on_selector_squeezed"]
 [connection signal="tile_changed" from="Selector" to="." method="_on_selector_tile_changed"]
+[connection signal="confirmed" from="EndPhaseConfirm" to="." method="end_party_phase"]
