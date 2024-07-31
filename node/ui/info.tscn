@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://rjvdm85r7cfw"]
+[gd_scene load_steps=4 format=3 uid="uid://rjvdm85r7cfw"]
 
 [ext_resource type="Texture2D" uid="uid://c8rkvbngvk6q8" path="res://asset/ui/info.png" id="1_0gys7"]
 [ext_resource type="Script" path="res://node/ui/info.gd" id="1_m31sy"]
-[ext_resource type="PackedScene" uid="uid://ccejf2n5cg7co" path="res://node/ui/trait_label.tscn" id="3_pvfmv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5sf4"]
 content_margin_left = 12.0
@@ -34,18 +33,9 @@ theme_type_variation = &"BigLabel"
 text = "Info"
 vertical_alignment = 1
 
-[node name="Description" type="Label" parent="Items"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
-text = "Description. Lorem ipsum odor amet, consectetuer adipiscing elit."
-autowrap_mode = 2
-
-[node name="Custom" type="VBoxContainer" parent="Items"]
+[node name="Controls" type="VBoxContainer" parent="Items"]
 layout_mode = 2
 theme_override_constants/separation = 8
-
-[node name="StateLabel" parent="Items/Custom" instance=ExtResource("3_pvfmv")]
-layout_mode = 2
 
 [node name="Footer" type="Label" parent="Items"]
 layout_mode = 2

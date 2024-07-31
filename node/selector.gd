@@ -31,6 +31,7 @@ func squeeze() -> void:
 	_squeeze_sprite()
 	$Sprite.position = Vector2.ZERO
 	$Collision.disabled = true
+	
 	squeezed.emit()
 
 
@@ -38,6 +39,7 @@ func release() -> void:
 	is_squeezed = false
 	_release_sprite()
 	$Collision.disabled = false
+	
 	released.emit()
 
 

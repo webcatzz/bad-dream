@@ -22,8 +22,9 @@ func start(enemies: Array[Enemy], region: Rect2i) -> void:
 		actor.position = Iso.to_grid(actor.node.position)
 	
 	_visuals = preload("res://node/battle_visuals.tscn").instantiate()
-	add_child(_visuals)
+	add_child.call_deferred(_visuals)
 	
+	active = true
 	cycle()
 
 

@@ -2,9 +2,9 @@ extends Node
 
 
 @onready var _ui: CanvasLayer = $UI
-@onready var _selector: CharacterBody2D = $SVisual/elector
-@onready var _selector_info: Control = $Visual/Selector/Info
-@onready var _path: Line2D = $Visual/Path
+@onready var _selector: CharacterBody2D = $Selector
+@onready var _selector_info: Control = $Selector/Info
+@onready var _path: Line2D = $Path
 
 
 func _ready() -> void:
@@ -12,6 +12,12 @@ func _ready() -> void:
 		var control: Control = load("res://node/ui/party_member.tscn").instantiate()
 		control.actor = actor
 		_ui.get_node("Margins/Party").add_child(control)
+	
+	Battle.phase_changed.connect(_on_phase_changed)
+
+
+func _on_phase_changed(is_party_phase: bool) -> void:
+	_selector.controllable = is_party_phase
 
 
 
@@ -19,9 +25,23 @@ func _ready() -> void:
 
 func _on_selector_body_entered(body: Node2D) -> void:
 	var actor: Actor = body.data
+	var controls: Array[Control] = []
+	
+	if actor.traits:
+		var traits: VBoxContainer = VBoxContainer.new()
+		traits.add_theme_constant_override("separation", 4)
+		controls.append(traits)
+		
+		traits.add_child(Label.new())
+		traits.get_child(0).text = "Traits"
+		
+		for trait_type: Trait.Type in actor.traits:
+			traits.add_child(preload("res://node/ui/trait_label.tscn").instantiate())
+			traits.get_child(-1).write(trait_type)
+	
 	_selector_info.write({
 		"title": actor.name,
-		"description": actor.description,
+		"controls": controls
 	})
 	_selector_info.show()
 
@@ -31,10 +51,9 @@ func _on_selector_emptied() -> void:
 
 
 func _on_selector_squeezed() -> void:
-	var body: Node2D = _selector.get_body()
-	if not body: return
+	if not _selector.body: return
 	
-	Battle.current_actor = body.data
+	Battle.current_actor = _selector.body.data
 	_selector_info.hide()
 	
 	_path.points = Battle.current_actor.path.map(func(point: Dictionary) -> Vector2:

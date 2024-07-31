@@ -35,6 +35,8 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(_event: InputEvent) -> void:
+	if Battle.active: return
+	
 	player_node.velocity = Iso.from_grid(Vector2(
 		Input.get_axis("move_left", "move_right"),
 		Input.get_axis("move_up", "move_down"),
@@ -42,6 +44,8 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if Battle.active: return
+	
 	player_node.move_and_slide()
 	$Camera.position = player_node.position
 	
