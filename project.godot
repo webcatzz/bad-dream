@@ -29,6 +29,20 @@ window/size/window_width_override=1950
 window/size/window_height_override=1200
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/bitmap_editor/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://asset/": "green",
+"res://node/": "blue",
+"res://resource/": "teal",
+"res://script/": "orange",
+"res://world/": "purple"
+}
+
 [gui]
 
 theme/custom="res://asset/ui/theme.tres"

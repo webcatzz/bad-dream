@@ -10,6 +10,7 @@ signal tile_changed
 
 var is_squeezed: bool = false
 var tile: Vector2i
+var body: Node2D
 
 
 func get_body() -> Node2D:
@@ -17,17 +18,20 @@ func get_body() -> Node2D:
 
 
 func squeeze() -> void:
+	body = get_body()
+	if not body: return
+	
 	is_squeezed = true
 	tile = Iso.to_grid(position)
+	_squeeze_sprite()
 	$Sprite.position = Vector2.ZERO
-	$Sprite.region_rect.position.x = 34
 	$Collision.disabled = true
 	squeezed.emit()
 
 
 func release() -> void:
 	is_squeezed = false
-	$Sprite.region_rect.position.x = 0
+	_release_sprite()
 	$Collision.disabled = false
 	released.emit()
 
@@ -53,6 +57,9 @@ func _physics_process(_delta: float) -> void:
 
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("interact"):
+		_squeeze_sprite()
+	elif Input.is_action_just_released("interact"):
+		_release_sprite()
 		release() if is_squeezed else squeeze()
 	
 	elif is_squeezed:
@@ -63,11 +70,11 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
 		else: return
 		
-		var body: Node2D = get_body()
+		body.force_update_transform()
 		if not body.test_move(body.transform, Iso.from_grid(input)):
 			tile += input
-			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
 			tile_changed.emit()
+			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
 
 
 
@@ -81,3 +88,11 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(_body: Node2D) -> void:
 	if not is_squeezed and not $Area.get_overlapping_bodies():
 		emptied.emit()
+
+
+func _squeeze_sprite() -> void:
+	$Sprite.region_rect.position.x = 34
+
+
+func _release_sprite() -> void:
+	$Sprite.region_rect.position.x = 0

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdlsolkbcjfb6"]
+
+[ext_resource type="Texture2D" uid="uid://dyafy4jkkyt3v" path="res://asset/world/room.png" id="1_gtpw5"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bql3g"]
+texture = ExtResource("1_gtpw5")
+texture_region_size = Vector2i(32, 20)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -2)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/size_in_atlas = Vector2i(1, 3)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 23)
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[sub_resource type="TileSet" id="TileSet_lkad4"]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_bql3g")
+
+[node name="Woodcarver" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_lkad4")
+format = 2
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(-1, 0, 0, 0, 0, 0, -65537, 0, 0, -131073, 0, 0, -131072, 0, 0, -65536, 0, 0, -131074, 0, 0, -196609, 0, 0, -262145, 0, 0, -262144, 0, 0, -196608, 0, 0, -131071, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, -65538, 0, 0, -2, 0, 0, 65535, 0, 0, 131071, 0, 0, 131072, 0, 0, 65534, 0, 0, 131070, 0, 0, -3, 0, 0, 196607, 0, 0, 262143, 0, 0, -327680, 65536, 0, -393216, 65536, 0, -262143, 65536, 0, -196607, 65536, 0, -131070, 65536, 0)
