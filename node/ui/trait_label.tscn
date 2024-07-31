@@ -13,7 +13,7 @@ script = ExtResource("1_plhnr")
 [node name="Frame" type="TextureRect" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 texture = ExtResource("1_4hs35")
 stretch_mode = 2
 
@@ -33,4 +33,5 @@ text = "Trait"
 [node name="Description" type="Label" parent="Text"]
 layout_mode = 2
 theme_type_variation = &"SmallLabel"
+theme_override_colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
 text = "Description"

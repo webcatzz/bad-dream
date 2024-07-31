@@ -1,16 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cici8h4sik1cs"]
+[gd_scene load_steps=6 format=3 uid="uid://dirpegqs8dgvp"]
 
-[ext_resource type="Script" path="res://script/battle.gd" id="1_26yex"]
-[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="3_owmi7"]
-[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_bncr4"]
-[ext_resource type="Material" uid="uid://boaku1t0g72kp" path="res://asset/vfx/dither.tres" id="5_gmf4j"]
+[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="1_8w6a8"]
+[ext_resource type="Script" path="res://node/battle_visuals.gd" id="1_wm5vt"]
+[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_kubpi"]
+[ext_resource type="Material" uid="uid://boaku1t0g72kp" path="res://asset/vfx/dither.tres" id="3_pyv7u"]
 
 [sub_resource type="Gradient" id="Gradient_grat1"]
 offsets = PackedFloat32Array(0, 0.95, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Battle" type="Node"]
-script = ExtResource("1_26yex")
+[node name="BattleVisuals" type="Node"]
+script = ExtResource("1_wm5vt")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -31,11 +31,11 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 1
 
-[node name="Selector" parent="." instance=ExtResource("3_owmi7")]
+[node name="Selector" parent="." instance=ExtResource("1_8w6a8")]
 z_index = 1
 controllable = false
 
-[node name="Info" parent="Selector" instance=ExtResource("4_bncr4")]
+[node name="Info" parent="Selector" instance=ExtResource("2_kubpi")]
 visible = false
 offset_left = 40.0
 offset_top = -48.0
@@ -44,7 +44,7 @@ offset_bottom = 112.0
 
 [node name="Path" type="Line2D" parent="."]
 z_index = -1
-material = ExtResource("5_gmf4j")
+material = ExtResource("3_pyv7u")
 points = PackedVector2Array(-100, -1)
 width = 8.0
 default_color = Color(1, 1, 1, 0.501961)
@@ -58,10 +58,3 @@ min_size = Vector2i(0, 0)
 ok_button_text = "Yes"
 dialog_text = "Are you satisfied with your actions?"
 cancel_button_text = "No"
-
-[connection signal="body_entered" from="Selector" to="." method="_on_selector_body_entered"]
-[connection signal="emptied" from="Selector" to="." method="_on_selector_emptied"]
-[connection signal="released" from="Selector" to="." method="_on_selector_released"]
-[connection signal="squeezed" from="Selector" to="." method="_on_selector_squeezed"]
-[connection signal="tile_changed" from="Selector" to="." method="_on_selector_tile_changed"]
-[connection signal="confirmed" from="EndPhaseConfirm" to="." method="end_party_phase"]

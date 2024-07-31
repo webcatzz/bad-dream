@@ -18,8 +18,8 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 
 Data="*res://script/data.gd"
 Game="*res://node/game.tscn"
-Battle="*res://node/battle.tscn"
 Menus="*res://node/ui/menus.tscn"
+Battle="*res://script/battle.gd"
 
 [display]
 

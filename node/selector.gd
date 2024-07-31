@@ -44,6 +44,10 @@ func release() -> void:
 
 # internal
 
+func _ready() -> void:
+	controllable = controllable
+
+
 func _physics_process(_delta: float) -> void:
 	if not controllable or is_squeezed: return
 	
