@@ -17,6 +17,11 @@ func select() -> void:
 
 func deselect() -> void:
 	modulate.v = 0.5
+
+
+func _ready() -> void:
+	$Panel/VBox/WillSlots.slots = actor.max_will
+	$Panel/VBox/WillSlots.value = actor.will
 "
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xojs"]

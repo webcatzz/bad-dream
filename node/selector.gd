@@ -13,7 +13,7 @@ var tile: Vector2i
 
 
 func get_body() -> Node2D:
-	return $Area.get_overlapping_bodies()[0]
+	return $Area.get_overlapping_bodies()[0] if $Area.get_overlapping_bodies() else null
 
 
 func squeeze() -> void:
@@ -21,12 +21,14 @@ func squeeze() -> void:
 	tile = Iso.to_grid(position)
 	$Sprite.position = Vector2.ZERO
 	$Sprite.region_rect.position.x = 34
+	$Collision.disabled = true
 	squeezed.emit()
 
 
 func release() -> void:
 	is_squeezed = false
 	$Sprite.region_rect.position.x = 0
+	$Collision.disabled = false
 	released.emit()
 
 
@@ -61,11 +63,8 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
 		else: return
 		
-		var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
-		query.position = Iso.from_grid(tile + input)
-		query.collision_mask = 0b11
-		
-		if not get_tree().current_scene.get_world_2d().direct_space_state.intersect_point(query):
+		var body: Node2D = get_body()
+		if not body.test_move(body.transform, Iso.from_grid(input)):
 			tile += input
 			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
 			tile_changed.emit()

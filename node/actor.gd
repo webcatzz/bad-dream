@@ -7,6 +7,7 @@ class_name ActorNode extends CharacterBody2D
 func _ready() -> void:
 	if data not in Data.party:
 		data = data.duplicate()
+		data.position = Iso.to_grid(position)
 	
 	data.position_changed.connect(_on_position_changed)
 

@@ -24,6 +24,11 @@ func start(enemies: Array[Enemy], region: Rect2i) -> void:
 	for actor: Actor in Data.party + enemies:
 		actor.position = Iso.to_grid(actor.node.position)
 	
+	for actor: Actor in Data.party:
+		var member: Control = load("res://node/ui/party_member.tscn").instantiate()
+		member.actor = actor
+		$UI/Margins/Party.add_child(member)
+	
 	ui.show()
 	
 	cycle()
@@ -113,7 +118,10 @@ func _on_selector_emptied() -> void:
 
 
 func _on_selector_squeezed() -> void:
-	current_actor = _selector.get_body().data
+	var body: Node2D = _selector.get_body()
+	if not body: return
+	
+	current_actor = body.data
 	_selector_info.hide()
 	
 	_path.points = current_actor.path.map(func(point: Dictionary) -> Vector2:

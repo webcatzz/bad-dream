@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cici8h4sik1cs"]
+[gd_scene load_steps=7 format=3 uid="uid://cici8h4sik1cs"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_26yex"]
-[ext_resource type="PackedScene" uid="uid://ehp8f0laqt7d" path="res://node/ui/party_member.tscn" id="2_eua0x"]
 [ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="3_owmi7"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_bncr4"]
 [ext_resource type="Material" uid="uid://boaku1t0g72kp" path="res://asset/vfx/dither.tres" id="5_gmf4j"]
@@ -21,7 +20,6 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 script = ExtResource("1_26yex")
 
 [node name="UI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Margins" type="MarginContainer" parent="UI"]
 anchors_preset = 15
@@ -64,7 +62,7 @@ text = "the"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_type_variation = &"TitleLabel"
+theme_type_variation = &"BigLabel"
 text = "Current Actor"
 
 [node name="Party" type="HBoxContainer" parent="UI/Margins"]
@@ -72,18 +70,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 1
-
-[node name="Member" parent="UI/Margins/Party" instance=ExtResource("2_eua0x")]
-layout_mode = 2
-
-[node name="Member2" parent="UI/Margins/Party" instance=ExtResource("2_eua0x")]
-layout_mode = 2
-
-[node name="Member3" parent="UI/Margins/Party" instance=ExtResource("2_eua0x")]
-layout_mode = 2
-
-[node name="Member4" parent="UI/Margins/Party" instance=ExtResource("2_eua0x")]
-layout_mode = 2
 
 [node name="Selector" parent="." instance=ExtResource("3_owmi7")]
 z_index = 1
