@@ -37,6 +37,7 @@ controllable = false
 
 [node name="Info" parent="Selector" instance=ExtResource("4_6ejxx")]
 visible = false
+z_index = 1
 offset_left = 40.0
 offset_top = -48.0
 offset_right = 168.0

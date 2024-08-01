@@ -9,9 +9,9 @@ enum Type {
 @export var duration: int = 1
 
 
-func add(actor: Actor) -> void:
+func add(_actor: Actor) -> void:
 	pass
 
 
-func remove(actor: Actor) -> void:
+func remove(_actor: Actor) -> void:
 	pass

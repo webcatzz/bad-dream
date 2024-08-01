@@ -78,6 +78,7 @@ func add_to_path() -> void:
 
 
 func unpath() -> void:
+	stamina += 1
 	var point: Dictionary = path.pop_back()
 	position = point.position
 	facing = point.facing
@@ -86,12 +87,12 @@ func unpath() -> void:
 
 # actions
 
-func take_action(action: Action) -> void:
+func take_action(_action: Action) -> void:
 	var accuracy: float = float(will) / max_will * 0.5 + 0.5
 	if randf() > accuracy: return
 
 
-func recieve_action(action: Action) -> void:
+func recieve_action(_action: Action) -> void:
 	if randf() < evasion: return
 
 

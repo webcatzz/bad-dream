@@ -5,18 +5,20 @@ extends Selector
 @onready var _path: Line2D = $Path
 
 
-func squeeze() -> bool:
-	if super():
-		Battle.current_actor = body.data
-		_info.hide()
-		_update_path()
-		
-		return true
-	return false
+func squeeze() -> void:
+	super()
+	
+	Battle.current_actor = body.data
+	_info.hide()
+	_update_path()
+	
+	Battle.current_actor.reoriented.connect(_on_actor_reoriented)
 
 
 func release() -> void:
 	super()
+	
+	Battle.current_actor.reoriented.disconnect(_on_actor_reoriented)
 	
 	Battle.current_actor = null
 	_info.show()
@@ -24,8 +26,7 @@ func release() -> void:
 
 
 func move(motion: Vector2i) -> void:
-	super(motion)
-	_update_path()
+	Battle.history.record_motion(motion)
 
 
 
@@ -74,3 +75,12 @@ func _update_path() -> void:
 	_path.points = Battle.current_actor.path.map(func(point: Dictionary) -> Vector2:
 		return Iso.from_grid(point.position)
 	)
+
+
+func _on_actor_reoriented() -> void:
+	_set_position(Battle.current_actor.position)
+
+
+func _set_position(tile: Vector2i) -> void:
+	super(tile)
+	_update_path()

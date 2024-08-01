@@ -8,23 +8,12 @@ var body: Node2D
 var is_squeezed: bool = false
 
 
-func get_body() -> Node2D:
-	return $Area.get_overlapping_bodies()[0] if $Area.get_overlapping_bodies() else null
-
-
-func squeeze() -> bool:
-	body = get_body()
-	
-	if body and _can_squeeze(body):
-		is_squeezed = true
-		tile = Iso.to_grid(body.position)
-		$Collision.disabled = true
-		$Area.monitoring = false
-		$Sprite.position = Vector2.ZERO
-		_squeeze_sprite()
-		
-		return true
-	return false
+func squeeze() -> void:
+	is_squeezed = true
+	tile = Iso.to_grid(body.position)
+	$Collision.disabled = true
+	$Area.monitoring = false
+	_squeeze_sprite()
 
 
 func release() -> void:
@@ -35,10 +24,7 @@ func release() -> void:
 
 
 func move(motion: Vector2i) -> void:
-	if _can_move(motion):
-		tile += motion
-		Battle.history.record_motion(motion)
-		create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
+	_set_position(tile + motion)
 
 
 func set_controllable(value: bool) -> void:
@@ -50,7 +36,7 @@ func set_controllable(value: bool) -> void:
 
 # virtual
 
-func _can_squeeze(body: Node2D) -> bool:
+func _can_squeeze(_body: Node2D) -> bool:
 	return true
 
 
@@ -59,7 +45,7 @@ func _can_move(motion: Vector2i) -> bool:
 	return not body.test_move(body.transform, Iso.from_grid(motion))
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	pass
 
 
@@ -94,17 +80,32 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 	if not controllable: return
 	
 	if Input.is_action_pressed("interact"):
-		release() if is_squeezed else squeeze()
+		if is_squeezed:
+			release()
+		elif $Area.has_overlapping_bodies():
+			body = $Area.get_overlapping_bodies()[0]
+			if _can_squeeze(body):
+				squeeze()
 	
 	elif is_squeezed:
-		if Input.is_action_pressed("move_down"): move(Vector2i.DOWN)
-		elif Input.is_action_pressed("move_up"): move(Vector2i.UP)
-		elif Input.is_action_pressed("move_left"): move(Vector2i.LEFT)
-		elif Input.is_action_pressed("move_right"): move(Vector2i.RIGHT)
+		var input: Vector2i
+		if Input.is_action_pressed("move_down"): input = Vector2i.DOWN
+		elif Input.is_action_pressed("move_up"): input = Vector2i.UP
+		elif Input.is_action_pressed("move_left"): input = Vector2i.LEFT
+		elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
+		
+		if input and _can_move(input):
+			move(input)
+
+
+func _set_position(tile: Vector2i) -> void:
+	self.tile = tile
+	create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
 
 
 func _squeeze_sprite() -> void:
 	$Sprite.region_rect.position.x = 34
+	$Sprite.position = Vector2.ZERO
 
 
 func _release_sprite() -> void:

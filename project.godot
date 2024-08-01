@@ -21,6 +21,11 @@ Game="*res://node/game.tscn"
 Menus="*res://node/ui/menus.tscn"
 Battle="*res://script/battle.gd"
 
+[debug]
+
+gdscript/warnings/shadowed_variable=0
+gdscript/warnings/narrowing_conversion=0
+
 [display]
 
 window/size/viewport_width=650
