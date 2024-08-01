@@ -43,6 +43,7 @@ func cycle() -> void:
 	current_actor = null
 	phase_changed.emit(true)
 	await phase_changed
+	history.clear()
 	
 	cycle()
 
@@ -92,10 +93,5 @@ func recall_state() -> void:
 # input
 
 func _unhandled_key_input(_event: InputEvent) -> void:
-	if party_phase:
-		
-		if Input.is_action_pressed("backtrack"):
-			undo()
-		
-		elif Input.is_action_pressed("ui_cancel"):
-			$EndPhaseConfirm.popup_centered()
+	if history and Input.is_action_pressed("backtrack"):
+		undo()

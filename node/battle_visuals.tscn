@@ -7,7 +7,7 @@
 
 [sub_resource type="Gradient" id="Gradient_grat1"]
 offsets = PackedFloat32Array(0, 0.95, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(0.0901961, 0.0745098, 0.105882, 0, 0.0901961, 0.0745098, 0.105882, 1, 0.0901961, 0.0745098, 0.105882, 0)
 
 [node name="BattleVisuals" type="Node"]
 script = ExtResource("1_wm5vt")
@@ -45,9 +45,8 @@ offset_bottom = 112.0
 [node name="Path" type="Line2D" parent="."]
 z_index = -1
 material = ExtResource("3_pyv7u")
-points = PackedVector2Array(-100, -1)
 width = 8.0
-default_color = Color(1, 1, 1, 0.501961)
+default_color = Color(0.0901961, 0.0745098, 0.105882, 1)
 gradient = SubResource("Gradient_grat1")
 
 [node name="EndPhaseConfirm" type="ConfirmationDialog" parent="."]
