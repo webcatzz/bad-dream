@@ -73,14 +73,11 @@ func move_by(vector: Vector2i) -> void:
 
 
 func extend_path() -> void:
+	stamina -= 1
 	path.append({
 		"position": position,
 		"facing": facing
 	})
-
-
-func backtrack_path() -> void:
-	path.resize(path.size() - 1)
 
 
 
@@ -106,3 +103,10 @@ func take_action(action: Action) -> void:
 
 func recieve_action(action: Action) -> void:
 	if randf() < evasion: return
+
+
+
+# checks
+
+func can_move() -> bool:
+	return stamina > 0

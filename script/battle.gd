@@ -35,8 +35,7 @@ func cycle() -> void:
 	
 	for enemy: Enemy in enemies:
 		current_actor = enemy
-		await get_tree().create_timer(1).timeout
-	
+		#await get_tree().create_timer(1).timeout
 	
 	# party phase
 	party_phase = true

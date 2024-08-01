@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://mu8s6x2r0v7a"]
 
-[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector.tscn" id="1_gdxkv"]
+[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector/selector.tscn" id="1_gdxkv"]
 [ext_resource type="Texture2D" uid="uid://djcgvbsgqa1if" path="res://asset/ui/panel.png" id="1_jsmsl"]
 [ext_resource type="PackedScene" uid="uid://cdlsolkbcjfb6" path="res://world/inventory/woodcarver.tscn" id="2_8bpus"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]

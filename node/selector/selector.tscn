@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://blh6nodlg5r3u"]
 
-[ext_resource type="Script" path="res://node/selector.gd" id="1_25gv6"]
-[ext_resource type="Texture2D" uid="uid://cd154irku8mjf" path="res://asset/selector.png" id="1_yor4f"]
+[ext_resource type="Script" path="res://node/selector/selector.gd" id="1_eruir"]
+[ext_resource type="Texture2D" uid="uid://cd154irku8mjf" path="res://asset/selector.png" id="2_4lpai"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w5b05"]
 radius = 1.0
 
 [node name="Selector" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_25gv6")
+script = ExtResource("1_eruir")
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-16, 2.08165e-12, 2.08165e-12, -8, 16, 2.08165e-12, 2.08165e-12, 8)
@@ -22,7 +22,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_w5b05")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_yor4f")
+texture = ExtResource("2_4lpai")
 offset = Vector2(2.08165e-12, -2)
 region_enabled = true
 region_rect = Rect2(2.08165e-12, 2.08165e-12, 34, 20)

@@ -6,7 +6,6 @@ enum Menu {
 	PAUSE,
 	KEYBINDS,
 	INVENTORY,
-	MAX,
 }
 
 var current_menu: Menu = Menu.NONE

@@ -42,5 +42,3 @@ func _console_gui_input(event: InputEvent) -> void:
 		elif event.keycode == KEY_UP and event.pressed and command_history:
 			history_idx = max(history_idx - 1, 0)
 			$Console/Input.text = command_history[history_idx]
-		elif event.keycode == KEY_SHIFT:
-			get_viewport().set_input_as_handled()

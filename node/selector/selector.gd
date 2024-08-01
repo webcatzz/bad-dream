@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Selector extends CharacterBody2D
 
 
 signal body_entered(body: Node2D)
@@ -22,25 +22,42 @@ func get_body() -> Node2D:
 	return $Area.get_overlapping_bodies()[0] if $Area.get_overlapping_bodies() else null
 
 
-func squeeze() -> void:
+func squeeze() -> bool:
 	body = get_body()
-	if not body: return
 	
-	is_squeezed = true
-	tile = Iso.to_grid(position)
-	_squeeze_sprite()
-	$Sprite.position = Vector2.ZERO
-	$Collision.disabled = true
-	
-	squeezed.emit()
+	if _can_squeeze(body):
+		is_squeezed = true
+		tile = Iso.to_grid(body.position)
+		$Collision.disabled = true
+		$Area.monitoring = false
+		$Sprite.position = Vector2.ZERO
+		_squeeze_sprite()
+		
+		squeezed.emit()
+		
+		return true
+	return false
 
 
 func release() -> void:
 	is_squeezed = false
-	_release_sprite()
 	$Collision.disabled = false
+	$Area.monitoring = true
+	_release_sprite()
 	
 	released.emit()
+
+
+
+# virtual
+
+func _can_squeeze(body: Node2D) -> bool:
+	return body != null
+
+
+func _can_move(motion: Vector2i) -> bool:
+	body.force_update_transform()
+	return not body.test_move(body.transform, Iso.from_grid(motion))
 
 
 
@@ -80,8 +97,7 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
 		else: return
 		
-		body.force_update_transform()
-		if not body.test_move(body.transform, Iso.from_grid(input)):
+		if _can_move(input):
 			tile += input
 			tile_changed.emit()
 			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
