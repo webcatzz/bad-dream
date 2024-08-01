@@ -15,6 +15,4 @@ func record_motion(motion: Vector2i) -> void:
 func record_action() -> void:
 	create_action("action")
 	
-	#add_do_method(actor.r.bind(actor.position + motion))
-	
 	commit_action()

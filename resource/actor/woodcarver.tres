@@ -6,8 +6,8 @@
 script = ExtResource("1_j16eu")
 max_will = 3
 will = 3
-max_stamina = 5
-stamina = 5
+max_stamina = 25
+stamina = 25
 attack = 0
 defense = 0
 evasion = 0.0

@@ -29,7 +29,7 @@ func move(motion: Vector2i) -> void:
 
 
 
-# virtual
+# internal
 
 func _can_squeeze(body: Node2D) -> bool:
 	return body is ActorNode and body.data in Data.party
@@ -39,12 +39,8 @@ func _can_move(motion: Vector2i) -> bool:
 	return body.data.can_move() and super(motion)
 
 
-
-# internal
-
-
 func _on_body_entered(body: Node2D) -> void:
-	super(body)
+	if is_squeezed: return
 	
 	var actor: Actor = body.data
 	var controls: Array[Control] = []
@@ -66,6 +62,12 @@ func _on_body_entered(body: Node2D) -> void:
 		"controls": controls
 	})
 	_info.show()
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if is_squeezed: return
+	
+	_info.hide()
 
 
 func _update_path() -> void:

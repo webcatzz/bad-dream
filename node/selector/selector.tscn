@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://blh6nodlg5r3u"]
 
-[ext_resource type="Script" path="res://node/selector/selector.gd" id="1_eruir"]
+[ext_resource type="Script" path="res://node/selector/selector.gd" id="1_1wok6"]
 [ext_resource type="Texture2D" uid="uid://cd154irku8mjf" path="res://asset/selector.png" id="2_4lpai"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w5b05"]
@@ -8,7 +8,7 @@ radius = 1.0
 
 [node name="Selector" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_eruir")
+script = ExtResource("1_1wok6")
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-16, 2.08165e-12, 2.08165e-12, -8, 16, 2.08165e-12, 2.08165e-12, 8)

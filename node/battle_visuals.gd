@@ -14,5 +14,5 @@ func _ready() -> void:
 	Battle.phase_changed.connect(_on_phase_changed)
 
 
-func _on_phase_changed(is_party_phase: bool) -> void:
-	_selector.controllable = is_party_phase
+func _on_phase_changed() -> void:
+	_selector.set_controllable(Battle.party_phase)

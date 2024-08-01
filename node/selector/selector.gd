@@ -1,16 +1,7 @@
 class_name Selector extends CharacterBody2D
 
 
-signal body_entered(body: Node2D)
-signal emptied
-signal squeezed
-signal released
-
-@export var controllable: bool = true:
-	set(value):
-		controllable = value
-		$Camera.enabled = controllable
-		if controllable: $Camera.make_current()
+@export var controllable: bool = true
 
 var tile: Vector2i
 var body: Node2D
@@ -24,15 +15,13 @@ func get_body() -> Node2D:
 func squeeze() -> bool:
 	body = get_body()
 	
-	if _can_squeeze(body):
+	if body and _can_squeeze(body):
 		is_squeezed = true
 		tile = Iso.to_grid(body.position)
 		$Collision.disabled = true
 		$Area.monitoring = false
 		$Sprite.position = Vector2.ZERO
 		_squeeze_sprite()
-		
-		squeezed.emit()
 		
 		return true
 	return false
@@ -43,8 +32,6 @@ func release() -> void:
 	$Collision.disabled = false
 	$Area.monitoring = true
 	_release_sprite()
-	
-	released.emit()
 
 
 func move(motion: Vector2i) -> void:
@@ -54,11 +41,17 @@ func move(motion: Vector2i) -> void:
 		create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
 
 
+func set_controllable(value: bool) -> void:
+	controllable = value
+	$Camera.enabled = value
+	if controllable: $Camera.make_current()
+
+
 
 # virtual
 
 func _can_squeeze(body: Node2D) -> bool:
-	return body != null
+	return true
 
 
 func _can_move(motion: Vector2i) -> bool:
@@ -66,11 +59,19 @@ func _can_move(motion: Vector2i) -> bool:
 	return not body.test_move(body.transform, Iso.from_grid(motion))
 
 
+func _on_body_entered(body: Node2D) -> void:
+	pass
+
+
+func _on_body_exited(_body: Node2D) -> void:
+	pass
+
+
 
 # internal
 
 func _ready() -> void:
-	controllable = controllable
+	set_controllable(controllable)
 
 
 func _physics_process(_delta: float) -> void:
@@ -100,16 +101,6 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		elif Input.is_action_pressed("move_up"): move(Vector2i.UP)
 		elif Input.is_action_pressed("move_left"): move(Vector2i.LEFT)
 		elif Input.is_action_pressed("move_right"): move(Vector2i.RIGHT)
-
-
-func _on_body_entered(body: Node2D) -> void:
-	if not is_squeezed:
-		body_entered.emit(body)
-
-
-func _on_body_exited(_body: Node2D) -> void:
-	if not is_squeezed and not $Area.get_overlapping_bodies():
-		emptied.emit()
 
 
 func _squeeze_sprite() -> void:

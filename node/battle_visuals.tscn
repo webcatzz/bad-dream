@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://tjgdcwwqwt8b"]
+[gd_scene load_steps=7 format=3 uid="uid://tjgdcwwqwt8b"]
 
 [ext_resource type="Script" path="res://node/battle_visuals.gd" id="1_wm5vt"]
-[ext_resource type="Script" path="res://node/selector/selector.gd" id="2_gkqxr"]
+[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector/selector.tscn" id="2_ya8x5"]
+[ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_72ybk"]
+[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_6ejxx"]
+[ext_resource type="Material" uid="uid://boaku1t0g72kp" path="res://asset/vfx/dither.tres" id="5_tc0g6"]
+
+[sub_resource type="Gradient" id="Gradient_8njv2"]
+offsets = PackedFloat32Array(0, 0.95, 1)
+colors = PackedColorArray(0.0901961, 0.0745098, 0.105882, 0, 0.0901961, 0.0745098, 0.105882, 1, 0.0901961, 0.0745098, 0.105882, 0)
 
 [node name="BattleVisuals" type="Node"]
 script = ExtResource("1_wm5vt")
@@ -24,5 +31,20 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("2_gkqxr")
+[node name="Selector" parent="." instance=ExtResource("2_ya8x5")]
+script = ExtResource("3_72ybk")
+controllable = false
+
+[node name="Info" parent="Selector" instance=ExtResource("4_6ejxx")]
+visible = false
+offset_left = 40.0
+offset_top = -48.0
+offset_right = 168.0
+offset_bottom = 112.0
+
+[node name="Path" type="Line2D" parent="Selector"]
+top_level = true
+z_index = -1
+material = ExtResource("5_tc0g6")
+width = 8.0
+gradient = SubResource("Gradient_8njv2")

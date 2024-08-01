@@ -1,7 +1,7 @@
 extends Node
 
 
-signal phase_changed(is_party_phase: bool)
+signal phase_changed
 
 
 var active: bool = false
@@ -19,8 +19,9 @@ func start(enemies: Array[Enemy], region: Rect2i) -> void:
 	self.enemies = enemies
 	for actor: Actor in Data.party + enemies:
 		actor.position = Iso.to_grid(actor.node.position)
+		actor.reoriented.emit()
 	
-	_visuals = preload("res://node/battle_visuals.tscn").instantiate()
+	_visuals = load("res://node/battle_visuals.tscn").instantiate()
 	add_child.call_deferred(_visuals)
 	
 	history = BattleHistory.new()
@@ -32,11 +33,10 @@ func start(enemies: Array[Enemy], region: Rect2i) -> void:
 func cycle() -> void:
 	# enemy phase
 	party_phase = false
-	phase_changed.emit(false)
 	
 	for enemy: Enemy in enemies:
 		current_actor = enemy
-		#await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.5).timeout
 	
 	# party phase
 	party_phase = true
@@ -45,7 +45,7 @@ func cycle() -> void:
 	for actor: Actor in Data.party:
 		actor.stamina = actor.max_stamina
 	
-	phase_changed.emit(true)
+	phase_changed.emit()
 	await phase_changed
 	
 	cycle()
