@@ -10,8 +10,8 @@ func _ready() -> void:
 		data.position = Iso.to_grid(position)
 		data.node = self
 	
-	data.position_changed.connect(_on_position_changed)
+	data.reoriented.connect(_on_reoriented)
 
 
-func _on_position_changed() -> void:
+func _on_reoriented() -> void:
 	create_tween().tween_property(self, "position", Iso.from_grid(data.position), 0.05)

@@ -1,14 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dirpegqs8dgvp"]
+[gd_scene load_steps=3 format=3 uid="uid://tjgdcwwqwt8b"]
 
 [ext_resource type="Script" path="res://node/battle_visuals.gd" id="1_wm5vt"]
-[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector/selector.tscn" id="2_cvpof"]
-[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_kubpi"]
-[ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_fsqo4"]
-[ext_resource type="Material" uid="uid://boaku1t0g72kp" path="res://asset/vfx/dither.tres" id="3_pyv7u"]
-
-[sub_resource type="Gradient" id="Gradient_grat1"]
-offsets = PackedFloat32Array(0, 0.95, 1)
-colors = PackedColorArray(0.0901961, 0.0745098, 0.105882, 0, 0.0901961, 0.0745098, 0.105882, 1, 0.0901961, 0.0745098, 0.105882, 0)
+[ext_resource type="Script" path="res://node/selector/selector.gd" id="2_gkqxr"]
 
 [node name="BattleVisuals" type="Node"]
 script = ExtResource("1_wm5vt")
@@ -30,34 +23,6 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_constants/separation = 1
 
-[node name="Selector" parent="." instance=ExtResource("2_cvpof")]
-z_index = 1
-script = ExtResource("3_fsqo4")
-
-[node name="Info" parent="Selector" instance=ExtResource("2_kubpi")]
-visible = false
-offset_left = 40.0
-offset_top = -48.0
-offset_right = 136.0
-offset_bottom = 112.0
-
-[node name="Path" type="Line2D" parent="Selector"]
-top_level = true
-z_index = -1
-material = ExtResource("3_pyv7u")
-width = 8.0
-gradient = SubResource("Gradient_grat1")
-
-[node name="EndPhaseConfirm" type="ConfirmationDialog" parent="."]
-title = "Would you like to exit?"
-size = Vector2i(200, 80)
-borderless = true
-min_size = Vector2i(0, 0)
-ok_button_text = "Yes"
-dialog_text = "Are you satisfied with your actions?"
-cancel_button_text = "No"
-
-[connection signal="emptied" from="Selector" to="Selector/Info" method="hide"]
-[connection signal="tile_changed" from="Selector" to="Selector" method="_on_tile_changed"]
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("2_gkqxr")

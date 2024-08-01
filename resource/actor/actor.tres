@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_7vxov")
-path_type = 0
-path_limit = 1
+move_type = 0
+move_limit = 1
 max_will = 1
 will = 1
 max_stamina = 1

@@ -10,8 +10,7 @@ var enemies: Array[Enemy]
 var current_actor: Actor
 var party_phase: bool = false
 
-var history: Array[Dictionary]
-var history_idx: int
+var history: BattleHistory
 
 var _visuals: Node
 
@@ -23,6 +22,8 @@ func start(enemies: Array[Enemy], region: Rect2i) -> void:
 	
 	_visuals = preload("res://node/battle_visuals.tscn").instantiate()
 	add_child.call_deferred(_visuals)
+	
+	history = BattleHistory.new()
 	
 	active = true
 	cycle()
@@ -40,57 +41,30 @@ func cycle() -> void:
 	# party phase
 	party_phase = true
 	current_actor = null
+	
+	for actor: Actor in Data.party:
+		actor.stamina = actor.max_stamina
+	
 	phase_changed.emit(true)
 	await phase_changed
-	history.clear()
 	
 	cycle()
 
 
 func end_party_phase() -> void:
+	history = null
 	phase_changed.emit()
 
 
 func end() -> void:
 	remove_child(_visuals)
-	history.clear()
-	party_phase = false
+	if party_phase: end_party_phase()
 	active = false
-
-
-
-# history
-
-func undo() -> void:
-	history_idx = max(history_idx - 1, 0)
-	recall_state()
-
-
-func redo() -> void:
-	history_idx = min(history_idx + 1, history.size() - 1)
-	recall_state()
-
-
-func record_state() -> void:
-	if history_idx != history.size() - 1:
-		history.resize(history_idx + 1)
-	
-	history.append({
-		"enemies": enemies.map(func(enemy: Enemy) -> Enemy: return enemy.duplicate()),
-		"party": Data.party.map(func(actor: Actor) -> Actor: return actor.duplicate()),
-	})
-	
-	history_idx += 1
-
-
-func recall_state() -> void:
-	if not history: return
-	var state: Dictionary = history[history_idx]
 
 
 
 # input
 
 func _unhandled_key_input(_event: InputEvent) -> void:
-	if history and Input.is_action_pressed("backtrack"):
-		undo()
+	if history and history.has_undo() and Input.is_action_pressed("backtrack"):
+		history.undo()

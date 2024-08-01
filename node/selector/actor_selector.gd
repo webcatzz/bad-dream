@@ -23,6 +23,11 @@ func release() -> void:
 	_path.clear_points()
 
 
+func move(motion: Vector2i) -> void:
+	super(motion)
+	_update_path()
+
+
 
 # virtual
 
@@ -36,11 +41,6 @@ func _can_move(motion: Vector2i) -> bool:
 
 
 # internal
-
-func _on_tile_changed() -> void:
-	Battle.current_actor.extend_path()
-	Battle.current_actor.move_to(tile)
-	_update_path()
 
 
 func _on_body_entered(body: Node2D) -> void:

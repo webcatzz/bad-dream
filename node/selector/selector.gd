@@ -5,7 +5,6 @@ signal body_entered(body: Node2D)
 signal emptied
 signal squeezed
 signal released
-signal tile_changed
 
 @export var controllable: bool = true:
 	set(value):
@@ -46,6 +45,13 @@ func release() -> void:
 	_release_sprite()
 	
 	released.emit()
+
+
+func move(motion: Vector2i) -> void:
+	if _can_move(motion):
+		tile += motion
+		Battle.history.record_motion(motion)
+		create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
 
 
 
@@ -90,17 +96,10 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		release() if is_squeezed else squeeze()
 	
 	elif is_squeezed:
-		var input: Vector2i
-		if Input.is_action_pressed("move_down"): input = Vector2i.DOWN
-		elif Input.is_action_pressed("move_up"): input = Vector2i.UP
-		elif Input.is_action_pressed("move_left"): input = Vector2i.LEFT
-		elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
-		else: return
-		
-		if _can_move(input):
-			tile += input
-			tile_changed.emit()
-			create_tween().tween_property(self, "position", Iso.from_grid(tile), 0.05)
+		if Input.is_action_pressed("move_down"): move(Vector2i.DOWN)
+		elif Input.is_action_pressed("move_up"): move(Vector2i.UP)
+		elif Input.is_action_pressed("move_left"): move(Vector2i.LEFT)
+		elif Input.is_action_pressed("move_right"): move(Vector2i.RIGHT)
 
 
 func _on_body_entered(body: Node2D) -> void:
