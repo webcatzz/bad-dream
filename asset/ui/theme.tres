@@ -1,9 +1,9 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dgmj0hxwf48uj"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b6cn1uktrvyhy"]
 
-[ext_resource type="FontVariation" uid="uid://diavu0lgbg5lq" path="res://asset/ui/dico.tres" id="1_8gfkp"]
-[ext_resource type="FontVariation" uid="uid://cuyrj0f073818" path="res://asset/ui/font.tres" id="1_at5dj"]
-[ext_resource type="FontVariation" uid="uid://b3ts4b6imaqcx" path="res://asset/ui/improv_gold.tres" id="1_xqmmu"]
-[ext_resource type="StyleBox" uid="uid://dgnvn151jl3mj" path="res://asset/ui/panel.tres" id="3_a4tjd"]
+[ext_resource type="FontVariation" path="res://asset/ui/dico.tres" id="1_8gfkp"]
+[ext_resource type="FontVariation" path="res://asset/ui/font.tres" id="1_at5dj"]
+[ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
+[ext_resource type="FontVariation" uid="uid://ceajj6lvyrs2m" path="res://asset/ui/small.tres" id="3_orj8f"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
 color = Color(0.133333, 0.0862745, 0.117647, 1)
@@ -23,9 +23,20 @@ GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
 HSeparator/constants/separation = 12
 HSeparator/styles/separator = SubResource("StyleBoxLine_7e6k1")
+ItemList/colors/guide_color = Color(0.133333, 0.0862745, 0.117647, 1)
+ItemList/styles/panel = ExtResource("3_a4tjd")
 Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
+LabelMuted/base_type = &"Label"
+LabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_l3qmw")
 SmallLabel/base_type = &"Label"
-SmallLabel/fonts/font = ExtResource("1_xqmmu")
+SmallLabel/fonts/font = ExtResource("3_orj8f")
+SmallLabelMuted/base_type = &"Label"
+SmallLabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
+SmallLabelMuted/fonts/font = ExtResource("3_orj8f")
 UIPanel/base_type = &"PanelContainer"
 UIPanel/styles/panel = ExtResource("3_a4tjd")

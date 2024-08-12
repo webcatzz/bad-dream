@@ -9,53 +9,42 @@ signal condition_added(condition: Condition)
 signal condition_removed(condition: Condition)
 # orientation
 signal reoriented
+# battle
+signal battle_moved(motion: Vector2i)
 
-@export var max_will: int = 1
+# key stats
 @export var will: int = 1
-
-@export var max_stamina: int = 1
+@export var max_will: int = 1
 @export var stamina: int = 1
-
+@export var max_stamina: int = 1
+# stats
 @export var attack: int
 @export var defense: int
 @export_range(0, 1, 0.05) var evasion: float
-
+# modifiers
 @export var traits: Array[Trait.Type]
 var conditions: Array[Condition]
-
+# actions
 @export var actions: Array[Action]
-@export var limit_break: LimitBreak
-
+@export_group("Limit break", "limit_break_")
+@export var limit_break_action: Action
+@export var limit_break_max: int
+@export var limit_break_progress: int
+# orientation
 var position: Vector2i
 var facing: Vector2i = Vector2i(0, 1)
 var path: Array[Dictionary]
-
-var node: Node2D
-
-
-
-# will
-
-func add_will(num: int) -> void:
-	will += num
-	will_changed.emit(num)
+# node
+var node: ActorNode
 
 
 
-# conditions
+# movement
 
-func add_condition(condition: Condition) -> void:
-	conditions.append(condition)
-	condition_added.emit(condition)
+func set_position(tile: Vector2i) -> void:
+	position = tile
+	reoriented.emit()
 
-
-func remove_condition(condition: Condition) -> void:
-	conditions.erase(condition)
-	condition_removed.emit(condition)
-
-
-
-# orientation
 
 func move_to(tile: Vector2i) -> void:
 	facing = calc_facing(tile - position)
@@ -69,12 +58,16 @@ func move_by(motion: Vector2i) -> void:
 	reoriented.emit()
 
 
+
+# path
+
 func add_to_path() -> void:
 	stamina -= 1
 	path.append({
 		"position": position,
 		"facing": facing
 	})
+	reoriented.emit()
 
 
 func unpath() -> void:
@@ -85,15 +78,30 @@ func unpath() -> void:
 	reoriented.emit()
 
 
-# actions
 
-func take_action(_action: Action) -> void:
-	var accuracy: float = float(will) / max_will * 0.5 + 0.5
-	if randf() > accuracy: return
+# will
+
+func add_will(num: int) -> void:
+	will += num
+	will_changed.emit(num)
 
 
-func recieve_action(_action: Action) -> void:
-	if randf() < evasion: return
+
+# taking actions
+
+func take_action(action: Action) -> void:
+	pass
+
+
+
+# recieving actions
+
+func recieve_action(action: Action) -> void:
+	pass
+
+
+func recieve_damage(num: int) -> void:
+	add_will(num - defense)
 
 
 
@@ -101,6 +109,10 @@ func recieve_action(_action: Action) -> void:
 
 func can_move() -> bool:
 	return stamina > 0
+
+
+func can_take_action(action: Action) -> bool:
+	return action.cost <= stamina
 
 
 func calc_facing(motion: Vector2i) -> Vector2i:

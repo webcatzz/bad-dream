@@ -1,65 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhlf38hykjvuy"]
+[gd_scene load_steps=2 format=3 uid="uid://lrbs2cikh6r2"]
 
-[ext_resource type="Script" path="res://script/game.gd" id="1_1g8ru"]
-[ext_resource type="PackedScene" uid="uid://n3cvsy0v5l6k" path="res://node/ui/input_label.tscn" id="2_gu34p"]
+[ext_resource type="Script" path="res://script/game.gd" id="1_3vabh"]
 
 [node name="Game" type="Node"]
-process_mode = 3
-script = ExtResource("1_1g8ru")
+script = ExtResource("1_3vabh")
 
-[node name="Controls" type="CanvasLayer" parent="."]
-
-[node name="Margins" type="MarginContainer" parent="Controls"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="Keys" type="VBoxContainer" parent="Controls/Margins"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_constants/separation = 2
-
-[node name="Interact" parent="Controls/Margins/Keys" instance=ExtResource("2_gu34p")]
-layout_mode = 2
-size_flags_horizontal = 8
-label = "Interact"
-action = "interact"
-
-[node name="Inventory" parent="Controls/Margins/Keys" instance=ExtResource("2_gu34p")]
-layout_mode = 2
-size_flags_horizontal = 8
-label = "Open inventory"
-action = "inventory"
-
-[node name="Console" type="CanvasLayer" parent="."]
-layer = 128
-visible = false
-
-[node name="Input" type="LineEdit" parent="Console"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 16.0
-grow_horizontal = 2
-placeholder_text = "Enter a command..."
-
-[node name="MouseFilter" type="CanvasLayer" parent="."]
-layer = 128
-
-[node name="Control" type="Control" parent="MouseFilter"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_force_pass_scroll_events = false
-
-[connection signal="gui_input" from="Console/Input" to="." method="_console_gui_input"]
-[connection signal="text_submitted" from="Console/Input" to="." method="_console_run"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

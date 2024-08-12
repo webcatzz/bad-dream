@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://4qfgw3tbjge6"]
+
+[ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
+[ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
+[ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
+[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_obwcm"]
+
+[node name="Battle" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_1d4h5")
+
+[node name="UI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Margins" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Party" type="HBoxContainer" parent="UI/Margins"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
+visible = false
+z_index = 1
+script = ExtResource("3_1tu8e")
+
+[node name="Info" parent="Selector" instance=ExtResource("4_obwcm")]
+visible = false
+offset_left = 40.0
+offset_top = -48.0
+offset_right = 168.0
+offset_bottom = 112.0
+
+[node name="Path" type="Line2D" parent="Selector"]
+visible = false
+top_level = true
+z_index = -1

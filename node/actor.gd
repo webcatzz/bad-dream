@@ -1,17 +1,29 @@
 class_name ActorNode extends CharacterBody2D
 
 
-@export var data: Actor
+@export var resource: Actor = Actor.new()
 
+@onready var _will_slots: WillSlots = $WillSlots
+
+
+func set_collision(value: bool) -> void:
+	$Collision.disabled = value
+
+
+func set_will_visible(value: bool) -> void:
+	_will_slots.visible = value
+
+
+
+#internal
 
 func _ready() -> void:
-	if data not in Data.party:
-		data = data.duplicate()
-		data.position = Iso.to_grid(position)
-		data.node = self
+	if resource not in Save.party:
+		resource = resource.duplicate()
+		resource.node = self
 	
-	data.reoriented.connect(_on_reoriented)
+	resource.reoriented.connect(_on_reoriented)
 
 
 func _on_reoriented() -> void:
-	create_tween().tween_property(self, "position", Iso.from_grid(data.position), 0.05)
+	position = Iso.from_grid(resource.position)

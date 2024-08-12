@@ -4,7 +4,6 @@ extends CanvasLayer
 enum Menu {
 	NONE = -1,
 	PAUSE,
-	KEYBINDS,
 	INVENTORY,
 }
 
@@ -57,8 +56,8 @@ func _ready() -> void:
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("inventory"):
 		toggle(Menu.INVENTORY)
+		get_viewport().set_input_as_handled()
 	elif Input.is_action_pressed("ui_cancel"):
-		if current_menu == Menu.NONE:
-			open(Menu.PAUSE)
-		else:
-			close()
+		if current_menu == Menu.NONE: open(Menu.PAUSE)
+		else: close()
+		get_viewport().set_input_as_handled()

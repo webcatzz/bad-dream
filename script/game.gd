@@ -1,44 +1,13 @@
 extends Node
 
 
-
-# collisions
-
-func collide_point(query: PhysicsPointQueryParameters2D) -> Array[Dictionary]:
-	return get_tree().current_scene.get_world_2d().direct_space_state.intersect_point(query)
-
-
-
-# debug
-
-var command_history: PackedStringArray
-var history_idx: int
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
-		$Console.show()
-		$Console/Input.grab_focus()
-		history_idx = command_history.size()
-		get_viewport().set_input_as_handled()
+# state
+var current_place: String
+var current_battle: Battle
+# nodes
+var party_node: Node2D
 
 
-func _console_run(command: String) -> void:
-	$Console.hide()
-	$Console/Input.clear()
-	
-	var script: GDScript = GDScript.new()
-	script.source_code = "static func run():" + command
-	script.reload()
-	script.run()
-	
-	command_history.append(command)
-
-
-func _console_gui_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if Input.is_action_pressed("ui_cancel"):
-			$Console.hide()
-			$Console/Input.clear()
-		elif event.keycode == KEY_UP and event.pressed and command_history:
-			history_idx = max(history_idx - 1, 0)
-			$Console/Input.text = command_history[history_idx]
+func set_place(key: String) -> void:
+	current_place = key
+	get_tree().change_scene_to_file("res://place/%s.tscn" % key)

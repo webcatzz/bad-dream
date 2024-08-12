@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://duy50ygutmf6e"]
+[gd_scene load_steps=2 format=3 uid="uid://dcc7mtt5f6blg"]
 
-[ext_resource type="Script" path="res://node/party.gd" id="1_rsq5n"]
+[ext_resource type="Script" path="res://node/party.gd" id="1_k7fyg"]
 
 [node name="Party" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_rsq5n")
+script = ExtResource("1_k7fyg")
 
 [node name="Camera" type="Camera2D" parent="."]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="Collision" type="CollisionPolygon2D" parent="InteractionArea"]
+polygon = PackedVector2Array(-64, 2.08165e-12, 2.08165e-12, -32, 64, 2.08165e-12, 2.08165e-12, 32)

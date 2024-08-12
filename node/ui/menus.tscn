@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl12kuaacdli8"]
+[gd_scene load_steps=5 format=3 uid="uid://bl12kuaacdli8"]
 
 [ext_resource type="Script" path="res://node/ui/menus.gd" id="1_iytjr"]
 [ext_resource type="PackedScene" uid="uid://mu8s6x2r0v7a" path="res://node/ui/inventory.tscn" id="2_e7lfs"]
-[ext_resource type="PackedScene" uid="uid://c0w7sujyua68t" path="res://node/ui/keybinds.tscn" id="3_ux8ps"]
-[ext_resource type="PackedScene" uid="uid://n3cvsy0v5l6k" path="res://node/ui/input_label.tscn" id="3_xfkwl"]
+[ext_resource type="PackedScene" uid="uid://qlnpt1lljwvb" path="res://node/ui/input_label.tscn" id="3_xfkwl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f25yb"]
 content_margin_left = 16.0
@@ -54,19 +53,13 @@ text = "Settings"
 layout_mode = 2
 text = "Exit"
 
-[node name="Keybinds" parent="Overlay" instance=ExtResource("3_ux8ps")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
 [node name="Inventory" parent="Overlay" instance=ExtResource("2_e7lfs")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="InputLabel" parent="Overlay" instance=ExtResource("3_xfkwl")]
+[node name="CloseInput" parent="Overlay" instance=ExtResource("3_xfkwl")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8

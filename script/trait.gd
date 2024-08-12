@@ -3,13 +3,15 @@ class_name Trait extends Resource
 
 enum Type {
 	ANIMA,
-	
+	# attack
 	STRENGTH,
 	TEMPERANCE,
-	MONOLITH,
+	# defense
+	GLEAM,
 	RUST,
+	# special
 	SLOTH,
-	VENGEFUL,
+	VENGE,
 }
 
 
@@ -35,10 +37,10 @@ static func name(type: Type) -> String:
 static func describe(type: Type) -> String:
 	match type:
 		Type.ANIMA: return "Keep going."
-		Type.STRENGTH: return "+1 attack."
-		Type.TEMPERANCE: return "-1 attack."
-		Type.MONOLITH: return "+1 MONOLITH."
+		Type.STRENGTH: return "+1 STRIKE."
+		Type.TEMPERANCE: return "-1 STRIKE."
+		Type.GLEAM: return "+1 MONOLITH."
 		Type.RUST: return "-1 MONOLITH."
 		Type.SLOTH: return "Start battles asleep."
-		Type.VENGEFUL: return "When hit, counterattack."
+		Type.VENGE: return "When hit, counterattack."
 		_: return ""

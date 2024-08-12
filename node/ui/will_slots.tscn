@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnsacio6dp4bq"]
+[gd_scene load_steps=5 format=3 uid="uid://drh2tql3fjumc"]
 
 [ext_resource type="Texture2D" uid="uid://c6sv7l0jykcx2" path="res://asset/ui/will_slot.png" id="1_l2fgc"]
 [ext_resource type="Script" path="res://node/ui/will_slots.gd" id="2_agd1s"]

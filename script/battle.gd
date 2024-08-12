@@ -1,70 +1,83 @@
-extends Node
+class_name Battle extends Node2D
 
 
 signal phase_changed
 
+enum Phase {PARTY, ENEMY}
 
-var active: bool = false
+@export var enemy_nodes: Array[ActorNode]
 
 var enemies: Array[Enemy]
+var phase: Phase
+# party phase
 var current_actor: Actor
-var party_phase: bool = false
+var history: PhaseHistory
 
-var history: BattleHistory
+@onready var _party: HBoxContainer = $UI/Margins/Party
+@onready var selector: CharacterBody2D = $Selector
 
-var _visuals: Node
 
-
-func start(enemies: Array[Enemy], region: Rect2i) -> void:
-	self.enemies = enemies
-	for actor: Actor in Data.party + enemies:
-		actor.position = Iso.to_grid(actor.node.position)
-		actor.reoriented.emit()
+func start() -> void:
+	Game.current_battle = self
+	Game.party_node.set_enabled(false)
 	
-	_visuals = load("res://node/battle_visuals.tscn").instantiate()
-	add_child.call_deferred(_visuals)
+	for actor: Actor in Save.party + enemies:
+		ready_actor(actor)
 	
-	history = BattleHistory.new()
+	for actor: Actor in Save.party:
+		var figure: Control = load("res://node/ui/party_member.tscn").instantiate()
+		figure.actor = actor
+		_party.add_child(figure)
 	
-	active = true
 	cycle()
 
 
 func cycle() -> void:
 	# enemy phase
-	party_phase = false
-	
-	for enemy: Enemy in enemies:
-		current_actor = enemy
-		await get_tree().create_timer(0.5).timeout
+	phase = Phase.ENEMY
+	await get_tree().process_frame
+	end_phase()
 	
 	# party phase
-	party_phase = true
-	current_actor = null
+	phase = Phase.PARTY
 	
-	for actor: Actor in Data.party:
-		actor.stamina = actor.max_stamina
+	history = PhaseHistory.new()
+	history.battle = self
 	
-	phase_changed.emit()
+	selector.set_enabled(true)
+	selector.position = Save.player.node.position
+	
 	await phase_changed
+	
+	selector.set_enabled(false)
+	history = null
 	
 	cycle()
 
 
-func end_party_phase() -> void:
-	history = null
+func end_phase() -> void:
 	phase_changed.emit()
 
 
 func end() -> void:
-	remove_child(_visuals)
-	if party_phase: end_party_phase()
-	active = false
+	Game.current_battle = null
+	Game.party_node.set_enabled(true)
 
 
 
-# input
+# actors
 
-func _unhandled_key_input(_event: InputEvent) -> void:
-	if history and history.has_undo() and Input.is_action_pressed("backtrack"):
-		history.undo()
+func ready_actor(actor: Actor) -> void:
+	actor.set_position(Iso.to_grid(actor.node.position))
+
+
+func free_actor(actor: Actor) -> void:
+	pass
+
+
+
+# internal
+
+func _ready() -> void:
+	for node: ActorNode in enemy_nodes:
+		enemies.append(node.resource)

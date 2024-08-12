@@ -1,4 +1,4 @@
-@tool extends ProgressBar
+@tool class_name WillSlots extends ProgressBar
 
 
 @export var slots: int = 1:

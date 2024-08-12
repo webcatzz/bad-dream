@@ -6,12 +6,12 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5sf4"]
 content_margin_left = 12.0
 content_margin_top = 0.0
-content_margin_right = 12.0
+content_margin_right = 13.0
 content_margin_bottom = 6.0
 texture = ExtResource("1_0gys7")
 texture_margin_left = 73.0
-texture_margin_top = 23.0
-texture_margin_right = 13.0
+texture_margin_top = 24.0
+texture_margin_right = 14.0
 texture_margin_bottom = 18.0
 expand_margin_left = 15.0
 
@@ -35,13 +35,14 @@ vertical_alignment = 1
 
 [node name="Controls" type="VBoxContainer" parent="Items"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 8
 
 [node name="Footer" type="Label" parent="Items"]
+custom_minimum_size = Vector2(2.08165e-12, 5)
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 1
 theme_type_variation = &"SmallLabel"
 theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
-text = "footer"
 horizontal_alignment = 2
 autowrap_mode = 2

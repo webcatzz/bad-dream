@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://bysegvxpv7ca6"]
+
+[ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="2_sogkj"]
+[ext_resource type="Script" path="res://node/interactable.gd" id="3_qchtp"]
+[ext_resource type="Script" path="res://node/trigger.gd" id="4_rw075"]
+[ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="4_wnixx"]
+[ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="5_xrbn1"]
+[ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="6_akm5s"]
+[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy.tres" id="7_ct64e"]
+
+[sub_resource type="GDScript" id="GDScript_1yuwk"]
+script/source = "extends Node2D
+"
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+script = SubResource("GDScript_1yuwk")
+
+[node name="Party" parent="." instance=ExtResource("2_sogkj")]
+
+[node name="Interactable" type="Area2D" parent="."]
+position = Vector2(128, -16)
+script = ExtResource("3_qchtp")
+
+[node name="Collision" parent="Interactable" instance=ExtResource("5_xrbn1")]
+
+[node name="Battle" parent="." node_paths=PackedStringArray("enemy_nodes") instance=ExtResource("4_wnixx")]
+enemy_nodes = [NodePath("Actor")]
+
+[node name="PlayerDetector" type="Area2D" parent="Battle"]
+position = Vector2(64, 32)
+script = ExtResource("4_rw075")
+free_on_enter = true
+
+[node name="Collision" parent="Battle/PlayerDetector" instance=ExtResource("5_xrbn1")]
+
+[node name="Actor" parent="Battle" instance=ExtResource("6_akm5s")]
+position = Vector2(112, 40)
+resource = ExtResource("7_ct64e")
+
+[connection signal="player_entered" from="Battle/PlayerDetector" to="Battle" method="start"]

@@ -1,13 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://mu8s6x2r0v7a"]
+[gd_scene load_steps=6 format=3 uid="uid://mu8s6x2r0v7a"]
 
-[ext_resource type="PackedScene" uid="uid://blh6nodlg5r3u" path="res://node/selector/selector.tscn" id="1_gdxkv"]
+[ext_resource type="Script" path="res://node/ui/inventory.gd" id="1_2micu"]
 [ext_resource type="Texture2D" uid="uid://djcgvbsgqa1if" path="res://asset/ui/panel.png" id="1_jsmsl"]
-[ext_resource type="PackedScene" uid="uid://cdlsolkbcjfb6" path="res://world/inventory/woodcarver.tscn" id="2_8bpus"]
+[ext_resource type="PackedScene" uid="uid://bb4tbahw8ijki" path="res://place/inventory/woodcarver.tscn" id="2_8bpus"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]
-
-[sub_resource type="GDScript" id="GDScript_kilkw"]
-script/source = "extends PanelContainer
-"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wauan"]
 texture = ExtResource("1_jsmsl")
@@ -19,34 +15,32 @@ texture_margin_bottom = 6.0
 [node name="Inventory" type="PanelContainer"]
 offset_right = 306.0
 offset_bottom = 161.0
-script = SubResource("GDScript_kilkw")
+script = ExtResource("1_2micu")
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = -1
 
-[node name="HBox" type="HBoxContainer" parent="VBox"]
-layout_mode = 2
-
-[node name="Panel" type="PanelContainer" parent="VBox/HBox"]
+[node name="Panel" type="PanelContainer" parent="HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"UIPanel"
 theme_override_styles/panel = SubResource("StyleBoxTexture_wauan")
 
-[node name="ViewportContainer" type="SubViewportContainer" parent="VBox/HBox/Panel"]
+[node name="ViewportContainer" type="SubViewportContainer" parent="HBox/Panel"]
 layout_mode = 2
 
-[node name="Viewport" type="SubViewport" parent="VBox/HBox/Panel/ViewportContainer"]
+[node name="Viewport" type="SubViewport" parent="HBox/Panel/ViewportContainer"]
 process_mode = 2
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(250, 175)
+size = Vector2i(275, 200)
 render_target_update_mode = 4
 
-[node name="Background" type="CanvasLayer" parent="VBox/HBox/Panel/ViewportContainer/Viewport"]
+[node name="Background" type="CanvasLayer" parent="HBox/Panel/ViewportContainer/Viewport"]
 layer = -1
 
-[node name="Color" type="ColorRect" parent="VBox/HBox/Panel/ViewportContainer/Viewport/Background"]
+[node name="Color" type="ColorRect" parent="HBox/Panel/ViewportContainer/Viewport/Background"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -54,19 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0901961, 0.0745098, 0.105882, 1)
 
-[node name="Woodcarver" parent="VBox/HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("2_8bpus")]
+[node name="Woodcarver" parent="HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("2_8bpus")]
 
-[node name="Selector" parent="VBox/HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("1_gdxkv")]
-
-[node name="Label" type="Label" parent="VBox/HBox/Panel"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_type_variation = &"SmallLabel"
-theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
-theme_override_colors/font_outline_color = Color(0.0901961, 0.0745098, 0.105882, 1)
-theme_override_constants/outline_size = 4
-text = "inventory>woodcarver"
-
-[node name="Info" parent="VBox/HBox" instance=ExtResource("2_bx3yy")]
+[node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
 layout_mode = 2
