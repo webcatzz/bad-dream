@@ -52,3 +52,4 @@ color = Color(0.0901961, 0.0745098, 0.105882, 1)
 
 [node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
 layout_mode = 2
+footer = "Item"

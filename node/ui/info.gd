@@ -1,6 +1,9 @@
 extends PanelContainer
 
 
+@export var footer: String
+
+
 func set_title(title: String) -> void: # also clears everything else
 	$Items/Title.text = title
 	clear_controls()
@@ -45,3 +48,10 @@ func add_list(title: String) -> VBoxContainer:
 	vbox.add_child(label)
 	
 	return vbox
+
+
+
+# internal
+
+func _ready() -> void:
+	set_footer(footer)
