@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cawdmi2vustej"]
+
+[ext_resource type="FontFile" uid="uid://b5u4mbbabaq3i" path="res://asset/ui/regular.ttf" id="1_bjfvg"]
+
+[resource]
+base_font = ExtResource("1_bjfvg")
+spacing_top = -4
+spacing_bottom = -2

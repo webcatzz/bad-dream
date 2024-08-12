@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://b6cn1uktrvyhy"]
 
 [ext_resource type="FontVariation" path="res://asset/ui/dico.tres" id="1_8gfkp"]
-[ext_resource type="FontVariation" path="res://asset/ui/font.tres" id="1_at5dj"]
 [ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
-[ext_resource type="FontVariation" uid="uid://ceajj6lvyrs2m" path="res://asset/ui/small.tres" id="3_orj8f"]
+[ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/small.tres" id="3_orj8f"]
+[ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/regular.tres" id="5_k2md1"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
 color = Color(0.133333, 0.0862745, 0.117647, 1)
@@ -13,7 +13,7 @@ grow_end = 0.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
 
 [resource]
-default_font = ExtResource("1_at5dj")
+default_font = ExtResource("5_k2md1")
 AcceptDialog/styles/panel = ExtResource("3_a4tjd")
 BigLabel/base_type = &"Label"
 BigLabel/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)

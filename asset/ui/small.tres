@@ -1,6 +1,6 @@
-[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://ceajj6lvyrs2m"]
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bvvbk00ygmbqu"]
 
-[ext_resource type="FontFile" uid="uid://d32qw4kbg1gb2" path="res://asset/ui/small.ttf" id="1_8jngu"]
+[ext_resource type="FontFile" uid="uid://vgsyh8j0ptwx" path="res://asset/ui/small.ttf" id="1_8jngu"]
 
 [resource]
 base_font = ExtResource("1_8jngu")
