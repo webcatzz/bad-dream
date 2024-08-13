@@ -19,12 +19,16 @@ static func add(type: Type, actor: Actor) -> void:
 	match type:
 		Type.STRENGTH: actor.attack += 1
 		Type.TEMPERANCE: actor.attack -= 1
+		Type.GLEAM: actor.defense += 1
+		Type.RUST: actor.defense -= 1
 
 
 static func remove(type: Type, actor: Actor) -> void:
 	match type:
 		Type.STRENGTH: actor.attack -= 1
 		Type.TEMPERANCE: actor.attack += 1
+		Type.GLEAM: actor.defense -= 1
+		Type.RUST: actor.defense += 1
 
 
 

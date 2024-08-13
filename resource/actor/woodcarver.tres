@@ -4,14 +4,14 @@
 
 [resource]
 script = ExtResource("1_fi5jp")
-will = 1
-max_will = 1
+will = 2
+max_will = 3
 stamina = 5
 max_stamina = 5
 attack = 0
 defense = 0
 evasion = 0.0
-traits = Array[int]([0, 0])
+traits = Array[int]([0])
 actions = Array[Resource("res://script/action.gd")]([])
 limit_break_max = 0
 limit_break_progress = 0

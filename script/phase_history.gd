@@ -19,3 +19,10 @@ func add_motion(actor: Actor, motion: Vector2i) -> void:
 
 func add_action() -> void:
 	pass
+
+
+
+# internal
+
+func _init(from: Battle) -> void:
+	battle = from

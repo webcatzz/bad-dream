@@ -1,4 +1,4 @@
-extends PanelContainer
+class_name InfoPanel extends PanelContainer
 
 
 @export var footer: String
@@ -30,24 +30,27 @@ func focus_controls() -> void:
 	find_next_valid_focus().grab_focus()
 
 
-func add_description(text: String) -> void:
-	var label: Label = Label.new()
-	label.text = text
-	label.theme_type_variation = &"LabelMuted"
-	add_control(label)
-
-
-func add_list(title: String) -> VBoxContainer:
+func create_list(title: String = "") -> VBoxContainer:
 	var vbox: VBoxContainer = VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 4)
-	add_control(vbox)
-	
-	var label: Label = Label.new()
-	label.text = title
-	label.theme_type_variation = &"SmallLabelMuted"
-	vbox.add_child(label)
+	if title: vbox.add_child(create_label(title, &"SmallLabelMuted"))
 	
 	return vbox
+
+
+func create_slice(title: String = "") -> HBoxContainer:
+	var hbox: HBoxContainer = HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 4)
+	if title: hbox.add_child(create_label(title, &"SmallLabelMuted"))
+	
+	return hbox
+
+
+func create_label(text: String, type: StringName) -> Label:
+	var label: Label = Label.new()
+	label.text = text
+	label.theme_type_variation = type
+	return label
 
 
 

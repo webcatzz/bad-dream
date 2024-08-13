@@ -33,16 +33,22 @@ func start() -> void:
 
 
 func cycle() -> void:
-	# enemy phase
+	await do_enemy_phase()
+	await do_party_phase()
+	cycle()
+
+
+func do_enemy_phase() -> void:
 	phase = Phase.ENEMY
-	await get_tree().process_frame
+	await _announce("Enemy Phase")
+	
 	end_phase()
-	
-	# party phase
+
+
+func do_party_phase() -> void:
 	phase = Phase.PARTY
-	
-	history = PhaseHistory.new()
-	history.battle = self
+	history = PhaseHistory.new(self)
+	await _announce("Party Phase")
 	
 	selector.set_enabled(true)
 	selector.position = Save.player.node.position
@@ -51,8 +57,6 @@ func cycle() -> void:
 	
 	selector.set_enabled(false)
 	history = null
-	
-	cycle()
 
 
 func end_phase() -> void:
@@ -81,3 +85,9 @@ func free_actor(actor: Actor) -> void:
 func _ready() -> void:
 	for node: ActorNode in enemy_nodes:
 		enemies.append(node.resource)
+
+
+func _announce(text: String) -> void:
+	$UI/Phase/Label.text = text
+	$UI/Phase/Animator.play("wipe")
+	await get_tree().create_timer(0.8).timeout

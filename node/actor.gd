@@ -3,7 +3,7 @@ class_name ActorNode extends CharacterBody2D
 
 @export var resource: Actor = Actor.new()
 
-@onready var _will_slots: WillSlots = $WillSlots
+@onready var _will_slots: Slots = $WillSlots
 
 
 func set_collision(value: bool) -> void:
@@ -18,7 +18,7 @@ func set_will_visible(value: bool) -> void:
 #internal
 
 func _ready() -> void:
-	if resource not in Save.party:
+	if resource is Enemy:
 		resource = resource.duplicate()
 		resource.node = self
 	

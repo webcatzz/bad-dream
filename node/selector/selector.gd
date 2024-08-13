@@ -36,6 +36,7 @@ func select(body: Node2D) -> void:
 	
 	_area.monitoring = false
 	_sprite.position = Vector2.ZERO
+	_set_sprite_squeezed(true)
 
 
 func deselect() -> void:
@@ -43,18 +44,11 @@ func deselect() -> void:
 	mode = Mode.FREE
 	
 	_area.monitoring = true
+	_set_sprite_squeezed(false)
 
 
 func match_position(node: Node2D = selected) -> void:
 	position = node.position
-
-
-
-# internal
-
-func _ready() -> void:
-	_camera.enabled = true
-	set_enabled(enabled)
 
 
 
@@ -109,3 +103,18 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	pass
+
+
+
+# sprite
+
+func _set_sprite_squeezed(value: bool) -> void:
+	_sprite.region_rect.position.x = 34 if value else 0
+
+
+
+# internal
+
+func _ready() -> void:
+	_camera.enabled = true
+	set_enabled(enabled)
