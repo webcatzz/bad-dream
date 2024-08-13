@@ -36,7 +36,7 @@ vertical_alignment = 1
 [node name="Controls" type="VBoxContainer" parent="Items"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="Footer" type="Label" parent="Items"]
 custom_minimum_size = Vector2(2.08165e-12, 5)

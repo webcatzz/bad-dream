@@ -49,35 +49,32 @@ func _on_body_entered(body: Node2D) -> void:
 	_info.set_title(actor.name)
 	_info.set_footer("Enemy actor" if actor is Enemy else "Party actor")
 	
-	var key_stats: VBoxContainer = _info.create_list()
-	_info.add_control(key_stats)
-	
-	var will: HBoxContainer = _info.create_slice("Will")
+	var will: HBoxContainer = _info.add_slice()
+	will.add_child(_info.create_label("Will", &"SmallLabelMuted"))
 	will.add_child(Slots.from(actor.will, actor.max_will))
-	key_stats.add_child(will)
-	
-	var stamina: HBoxContainer = _info.create_slice("Stamina")
+	var stamina: HBoxContainer = _info.add_slice()
+	stamina.add_child(_info.create_label("Stamina", &"SmallLabelMuted"))
 	stamina.add_child(Slots.from(actor.stamina, actor.max_stamina))
-	key_stats.add_child(stamina)
 	
-	#_info.add_control(_info.create_label("Stamina: %s" % actor.stamina, &"SmallLabel"))
+	_info.add_spacer()
 	
 	if actor.traits:
-		var traits: VBoxContainer = _info.create_list("Traits")
+		_info.add_label("Traits", &"SmallLabelMuted")
 		for trait_type: Trait.Type in actor.traits:
 			var label: Control = preload("res://node/ui/trait_label.tscn").instantiate()
 			label.write(trait_type)
-			traits.add_child(label)
-		_info.add_control(traits)
+			_info.add_control(label)
 	else:
 		_info.add_control(_info.create_label("No traits.\nA tabula rasa.", &"SmallLabelMuted"))
 	
+	_info.add_spacer()
+	
 	if actor.conditions:
-		var conditions: VBoxContainer = _info.create_list("Conditions")
+		_info.add_label("Conditions", &"SmallLabelMuted")
 		for condition: Condition in actor.conditions:
 			var label: Control = preload("res://node/ui/condition_label.tscn").instantiate()
 			label.write(condition)
-			conditions.add_child(label)
+			_info.add_control(label)
 	
 	_info.show()
 

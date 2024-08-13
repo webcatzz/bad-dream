@@ -30,20 +30,20 @@ func focus_controls() -> void:
 	find_next_valid_focus().grab_focus()
 
 
-func create_list(title: String = "") -> VBoxContainer:
-	var vbox: VBoxContainer = VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 4)
-	if title: vbox.add_child(create_label(title, &"SmallLabelMuted"))
-	
-	return vbox
-
-
-func create_slice(title: String = "") -> HBoxContainer:
+func add_slice() -> HBoxContainer:
 	var hbox: HBoxContainer = HBoxContainer.new()
 	hbox.add_theme_constant_override("separation", 4)
-	if title: hbox.add_child(create_label(title, &"SmallLabelMuted"))
+	add_control(hbox)
 	
 	return hbox
+
+
+func add_label(text: String, type: StringName) -> void:
+	add_control(create_label(text, type))
+
+
+func add_spacer() -> void:
+	add_control(Control.new())
 
 
 func create_label(text: String, type: StringName) -> Label:

@@ -18,6 +18,7 @@ texture = ExtResource("3_crv1g")
 offset = Vector2(2.08165e-12, -24)
 
 [node name="WillSlots" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 3
 anchors_preset = 5
