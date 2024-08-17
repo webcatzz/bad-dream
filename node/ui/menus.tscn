@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bl12kuaacdli8"]
+[gd_scene load_steps=6 format=3 uid="uid://bl12kuaacdli8"]
 
 [ext_resource type="Script" path="res://node/ui/menus.gd" id="1_iytjr"]
 [ext_resource type="PackedScene" uid="uid://mu8s6x2r0v7a" path="res://node/ui/inventory.tscn" id="2_e7lfs"]
+[ext_resource type="Script" path="res://node/ui/console.gd" id="3_pmsvj"]
 [ext_resource type="PackedScene" uid="uid://qlnpt1lljwvb" path="res://node/ui/input_label.tscn" id="3_xfkwl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f25yb"]
@@ -58,6 +59,19 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="Console" type="PanelContainer" parent="Overlay"]
+visible = false
+custom_minimum_size = Vector2(400, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"UIPanel"
+
+[node name="LineEdit" type="LineEdit" parent="Overlay/Console"]
+layout_mode = 2
+placeholder_text = "Enter a command..."
+script = ExtResource("3_pmsvj")
 
 [node name="CloseInput" parent="Overlay" instance=ExtResource("3_xfkwl")]
 layout_mode = 2

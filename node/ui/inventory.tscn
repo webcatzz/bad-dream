@@ -19,7 +19,6 @@ script = ExtResource("1_2micu")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = -1
 
 [node name="Panel" type="PanelContainer" parent="HBox"]
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bysegvxpv7ca6"]
+[gd_scene load_steps=12 format=3 uid="uid://bysegvxpv7ca6"]
 
 [ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="2_sogkj"]
 [ext_resource type="Script" path="res://node/interactable.gd" id="3_qchtp"]
@@ -7,14 +7,33 @@
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="5_xrbn1"]
 [ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="6_akm5s"]
 [ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy.tres" id="7_ct64e"]
+[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="8_gbf4g"]
 
 [sub_resource type="GDScript" id="GDScript_1yuwk"]
 script/source = "extends Node2D
 "
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]
+texture = ExtResource("8_gbf4g")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[sub_resource type="TileSet" id="TileSet_5pimg"]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0npwg")
+
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 script = SubResource("GDScript_1yuwk")
+
+[node name="Tiles" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray(0, 0, 254, 255, 253, 255, 0, 0, 0, 0, 0, 0, 0, 0, 254, 255, 254, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 252, 255, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_5pimg")
+metadata/_edit_group_ = true
 
 [node name="Party" parent="." instance=ExtResource("2_sogkj")]
 

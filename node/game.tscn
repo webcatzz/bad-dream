@@ -5,4 +5,16 @@
 [node name="Game" type="Node"]
 script = ExtResource("1_3vabh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Layer" type="CanvasLayer" parent="."]
+
+[node name="Margins" type="MarginContainer" parent="Layer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Controls" type="VBoxContainer" parent="Layer/Margins"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8

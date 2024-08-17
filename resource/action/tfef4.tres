@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://bgqtc4e6c6rxk"]
+
+[ext_resource type="Script" path="res://script/action.gd" id="1_3jndb"]
+
+[resource]
+script = ExtResource("1_3jndb")
+name = "Actifwfon"
+description = "O ?????"
+cost = 1
+type = 0
+damage = 0

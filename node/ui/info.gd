@@ -38,12 +38,16 @@ func add_slice() -> HBoxContainer:
 	return hbox
 
 
-func add_label(text: String, type: StringName) -> void:
-	add_control(create_label(text, type))
+func add_label(text: String, type: StringName) -> Label:
+	var label: Label = create_label(text, type)
+	add_control(label)
+	return label
 
 
-func add_spacer() -> void:
-	add_control(Control.new())
+func add_spacer(expand: bool = false) -> void:
+	var control: Control = Control.new()
+	if expand: control.size_flags_vertical = SIZE_EXPAND_FILL
+	add_control(control)
 
 
 func create_label(text: String, type: StringName) -> Label:

@@ -1,16 +1,59 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b6cn1uktrvyhy"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://b6cn1uktrvyhy"]
 
 [ext_resource type="FontVariation" path="res://asset/ui/dico.tres" id="1_8gfkp"]
 [ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
+[ext_resource type="Texture2D" uid="uid://tu1i6naypxml" path="res://asset/ui/button.png" id="3_jqc7o"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/small.tres" id="3_orj8f"]
 [ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/regular.tres" id="5_k2md1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlryj"]
+bg_color = Color(0.133333, 0.0862745, 0.117647, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_470eu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("3_jqc7o")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 5, 5)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sg7gm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("3_jqc7o")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(5, 2.08165e-12, 5, 5)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
 color = Color(0.133333, 0.0862745, 0.117647, 1)
 grow_begin = 0.0
 grow_end = 0.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4354b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_su2df"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rafet"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siyyr"]
+bg_color = Color(0.133333, 0.0862745, 0.117647, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8h85v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pluvp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oba07"]
 
 [resource]
 default_font = ExtResource("5_k2md1")
@@ -18,13 +61,27 @@ AcceptDialog/styles/panel = ExtResource("3_a4tjd")
 BigLabel/base_type = &"Label"
 BigLabel/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
 BigLabel/fonts/font = ExtResource("1_8gfkp")
+BigLabelMuted/base_type = &"Label"
+BigLabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
+BigLabelMuted/fonts/font = ExtResource("1_8gfkp")
 BoxContainer/constants/separation = 0
+Button/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
+Button/colors/font_focus_color = Color(0.6, 0.576471, 0.639216, 1)
+Button/colors/font_pressed_color = Color(0.27451, 0.278431, 0.341176, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_tlryj")
+Button/styles/normal = SubResource("StyleBoxTexture_470eu")
+Button/styles/pressed = SubResource("StyleBoxTexture_sg7gm")
 GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
 HSeparator/constants/separation = 12
 HSeparator/styles/separator = SubResource("StyleBoxLine_7e6k1")
+ItemList/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
+ItemList/colors/font_selected_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/guide_color = Color(0.133333, 0.0862745, 0.117647, 1)
-ItemList/styles/panel = ExtResource("3_a4tjd")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_4354b")
+ItemList/styles/panel = SubResource("StyleBoxEmpty_su2df")
+ItemList/styles/selected = SubResource("StyleBoxEmpty_rafet")
+ItemList/styles/selected_focus = SubResource("StyleBoxFlat_siyyr")
 Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
 LabelMuted/base_type = &"Label"
 LabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
@@ -38,5 +95,8 @@ SmallLabel/fonts/font = ExtResource("3_orj8f")
 SmallLabelMuted/base_type = &"Label"
 SmallLabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
 SmallLabelMuted/fonts/font = ExtResource("3_orj8f")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_8h85v")
 UIPanel/base_type = &"PanelContainer"
 UIPanel/styles/panel = ExtResource("3_a4tjd")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_pluvp")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_oba07")

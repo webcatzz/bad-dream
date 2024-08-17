@@ -1,16 +1,21 @@
 class_name Selector extends CharacterBody2D
 
 
+signal mode_changed(mode: Mode)
+
 enum Mode {
 	DISABLED,
 	FREE,
 	MOVE,
-	ACT,
+	ACT, # used in actor selector
 }
 
 @export var enabled: bool = false
 
-var mode: Mode
+var mode: Mode:
+	set(value):
+		mode = value
+		mode_changed.emit(mode)
 var selected: Node2D
 
 @onready var _collision: CollisionPolygon2D = $Collision
@@ -47,6 +52,15 @@ func deselect() -> void:
 	_set_sprite_squeezed(false)
 
 
+func auto_select() -> void:
+	var body: Node2D = get_body_below()
+	if can_select(body): select(body)
+
+
+func can_select(body: Node2D) -> bool:
+	return body != null
+
+
 func match_position(node: Node2D = selected) -> void:
 	position = node.position
 
@@ -57,24 +71,23 @@ func match_position(node: Node2D = selected) -> void:
 func _unhandled_key_input(_event: InputEvent) -> void:
 	match mode:
 		Mode.FREE:
-			if Input.is_action_pressed("interact"):
-				if _area.has_overlapping_bodies():
-					select(_area.get_overlapping_bodies()[0])
-					get_viewport().set_input_as_handled()
+			if Input.is_action_just_pressed("interact"):
+				auto_select()
+				get_viewport().set_input_as_handled()
 			else:
 				velocity = 8 * Iso.from_grid(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
 				if velocity: get_viewport().set_input_as_handled()
 		
 		Mode.MOVE:
-			if Input.is_action_pressed("interact"):
+			if Input.is_action_just_pressed("interact"):
 				deselect()
 				get_viewport().set_input_as_handled()
 			else:
 				var input: Vector2i
-				if Input.is_action_pressed("move_up"): input = Vector2i.UP
-				elif Input.is_action_pressed("move_down"): input = Vector2i.DOWN
-				elif Input.is_action_pressed("move_left"): input = Vector2i.LEFT
-				elif Input.is_action_pressed("move_right"): input = Vector2i.RIGHT
+				if Input.is_action_just_pressed("move_up"): input = Vector2i.UP
+				elif Input.is_action_just_pressed("move_down"): input = Vector2i.DOWN
+				elif Input.is_action_just_pressed("move_left"): input = Vector2i.LEFT
+				elif Input.is_action_just_pressed("move_right"): input = Vector2i.RIGHT
 				else: return
 				move(input)
 				get_viewport().set_input_as_handled()
@@ -103,6 +116,10 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	pass
+
+
+func get_body_below() -> Node2D:
+	return _area.get_overlapping_bodies()[0] if _area.monitoring and _area.has_overlapping_bodies() else null
 
 
 

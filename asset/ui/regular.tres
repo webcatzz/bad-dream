@@ -5,4 +5,4 @@
 [resource]
 base_font = ExtResource("1_bjfvg")
 spacing_top = -4
-spacing_bottom = -2
+spacing_bottom = -3

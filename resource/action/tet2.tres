@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://dt1a83n8oevx"]
+
+[ext_resource type="Script" path="res://script/action.gd" id="1_w6baa"]
+
+[resource]
+script = ExtResource("1_w6baa")
+name = "Fuck"
+description = "Ok ? Ok? O"
+cost = 1
+type = 0
+damage = 0

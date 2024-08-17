@@ -5,6 +5,7 @@ enum Menu {
 	NONE = -1,
 	PAUSE,
 	INVENTORY,
+	CONSOLE,
 }
 
 var current_menu: Menu = Menu.NONE
@@ -54,10 +55,10 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(_event: InputEvent) -> void:
-	if Input.is_action_pressed("inventory"):
+	if Input.is_action_just_pressed("inventory"):
 		toggle(Menu.INVENTORY)
 		get_viewport().set_input_as_handled()
-	elif Input.is_action_pressed("ui_cancel"):
+	elif Input.is_action_just_pressed("ui_cancel"):
 		if current_menu == Menu.NONE: open(Menu.PAUSE)
 		else: close()
 		get_viewport().set_input_as_handled()

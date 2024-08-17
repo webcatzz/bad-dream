@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://buac1fbxayyf7"]
+
+[ext_resource type="Script" path="res://node/ui/list_panel.gd" id="1_dpt8j"]
+[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="1_oip7a"]
+
+[node name="ListPanel" type="BoxContainer"]
+offset_right = 248.0
+offset_bottom = 149.0
+theme_override_constants/separation = -1
+script = ExtResource("1_dpt8j")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"UIPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"SmallLabelMuted"
+text = "Title"
+
+[node name="List" type="ItemList" parent="Panel/VBox"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Cancel" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Info" parent="." instance=ExtResource("1_oip7a")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="item_activated" from="Panel/VBox/List" to="." method="_on_item_activated"]
+[connection signal="item_selected" from="Panel/VBox/List" to="." method="_on_item_selected"]
+[connection signal="pressed" from="Panel/VBox/Cancel" to="." method="_on_cancel_pressed"]

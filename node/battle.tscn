@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=9 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_obwcm"]
+[ext_resource type="PackedScene" uid="uid://buac1fbxayyf7" path="res://node/ui/list_panel.tscn" id="6_x6eri"]
 
 [sub_resource type="Animation" id="Animation_cvt8g"]
 resource_name = "RESET"
@@ -46,31 +47,31 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ipfdj"]
-resource_name = "wipe"
+resource_name = "announce"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:size:x")
+tracks/0/path = NodePath(".:size")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.15, 0.25, 0.65, 0.8, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 650.0, 650.0, 650.0, 650.0, 0.0]
+"values": [Vector2(2.08165e-12, 96), Vector2(650, 96), Vector2(650, 96), Vector2(650, 96), Vector2(650, 96), Vector2(2.08165e-12, 96)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:x")
+tracks/1/path = NodePath(".:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.65, 0.8, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-2.08165e-12, -2.08165e-12, -2.08165e-12, 650.0]
+"values": [Vector2(-2.08165e-12, 152), Vector2(-1.25197e-11, 152), Vector2(-2.08165e-12, 152), Vector2(650, 152)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -88,12 +89,16 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibfeb"]
 _data = {
 "RESET": SubResource("Animation_cvt8g"),
-"wipe": SubResource("Animation_ipfdj")
+"announce": SubResource("Animation_ipfdj")
 }
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Node2D" node_paths=PackedStringArray("_party", "_selector_mode_label", "_action_menu", "_animator")]
 y_sort_enabled = true
 script = ExtResource("1_1d4h5")
+_party = NodePath("UI/Margins/Party")
+_selector_mode_label = NodePath("UI/Selector/Mode/HBox/Mode")
+_action_menu = NodePath("UI/Selector/List")
+_animator = NodePath("UI/Animator")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -123,11 +128,6 @@ text = "Enemy Phase"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Animator" type="AnimationPlayer" parent="UI/Phase"]
-libraries = {
-"": SubResource("AnimationLibrary_ibfeb")
-}
-
 [node name="Margins" type="MarginContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,19 +140,75 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
+[node name="Selector" type="HBoxContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Mode" type="MarginContainer" parent="UI/Selector"]
+layout_mode = 2
+
+[node name="HBox" type="VBoxContainer" parent="UI/Selector/Mode"]
+layout_mode = 2
+theme_override_constants/separation = 1
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/Selector/Mode/HBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Selector mode"
+
+[node name="Mode" type="Label" parent="UI/Selector/Mode/HBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"BigLabel"
+text = "DISABLED"
+
+[node name="List" parent="UI/Selector" instance=ExtResource("6_x6eri")]
 visible = false
+layout_mode = 2
+theme_override_constants/separation = -3
+vertical = true
+title = "Actions"
+
+[node name="Animator" type="AnimationPlayer" parent="UI"]
+root_node = NodePath("../Phase")
+libraries = {
+"": SubResource("AnimationLibrary_ibfeb")
+}
+
+[node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
 z_index = 1
 script = ExtResource("3_1tu8e")
 
-[node name="Info" parent="Selector" instance=ExtResource("4_obwcm")]
-visible = false
+[node name="UI" type="TabContainer" parent="Selector"]
+custom_minimum_size = Vector2(2.08165e-12, 160)
 offset_left = 40.0
 offset_top = -48.0
-offset_right = 168.0
-offset_bottom = 112.0
+offset_right = 80.0
+offset_bottom = -8.0
+current_tab = 0
+tabs_visible = false
+
+[node name="Info" parent="Selector/UI" instance=ExtResource("4_obwcm")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ActionMenu" parent="Selector/UI" instance=ExtResource("6_x6eri")]
+visible = false
+layout_mode = 2
+title = "Actions"
+metadata/_tab_index = 1
 
 [node name="Path" type="Line2D" parent="Selector"]
 visible = false
 top_level = true
 z_index = -1
+
+[connection signal="chosen" from="UI/Selector/List" to="Selector" method="_on_action_menu_chosen"]
+[connection signal="chosen" from="UI/Selector/List" to="." method="close_action_menu" unbinds=1]
+[connection signal="mode_changed" from="Selector" to="." method="_on_selector_mode_changed"]
+[connection signal="chosen" from="Selector/UI/ActionMenu" to="Selector" method="_on_action_menu_chosen"]

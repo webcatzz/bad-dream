@@ -17,7 +17,7 @@ func set_enabled(value: bool) -> void:
 
 
 func _unhandled_key_input(_event: InputEvent) -> void:
-	if Input.is_action_pressed("interact"):
+	if Input.is_action_just_pressed("interact"):
 		if _interaction_area.has_overlapping_areas():
 			_interaction_area.get_overlapping_areas()[0].interact()
 			get_viewport().set_input_as_handled()
