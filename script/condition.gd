@@ -9,18 +9,21 @@ enum Type {
 
 @export var type: Type
 @export var duration: int = 1
+@export var strength: int = 1
+
+var actor: Actor
 
 
-func add(actor: Actor) -> void:
+func apply() -> void:
 	match type:
 		Type.SPEED:
-			actor.path_extended.connect(_speed_listener.bind(actor))
+			actor.reoriented.connect(_speed_listener)
 
 
-func remove(actor: Actor) -> void:
+func unapply() -> void:
 	match type:
 		Type.SPEED:
-			actor.path_extended.disconnect(_speed_listener)
+			actor.reoriented.disconnect(_speed_listener)
 
 
 
@@ -33,5 +36,5 @@ func name() -> String:
 
 # internal
 
-func _speed_listener(actor: Actor) -> void:
+func _speed_listener() -> void:
 	pass

@@ -4,13 +4,12 @@ class_name Actor extends Character
 # key stats
 signal will_changed(by: int)
 signal stamina_changed
-# conditions
+# modifiers
+signal trait_removed(type: Trait.Type)
 signal condition_added(condition: Condition)
 signal condition_removed(condition: Condition)
 # orientation
 signal reoriented
-# battle
-signal battle_moved(motion: Vector2i)
 
 # key stats
 @export var will: int = 1
@@ -102,6 +101,30 @@ func recieve_action(action: Action) -> void:
 
 func recieve_damage(num: int) -> void:
 	add_will(num - defense)
+
+
+
+# modifiers
+
+func add_trait(type: Trait.Type) -> void:
+	Trait.apply(type, self)
+	traits.append(type)
+
+
+func remove_trait(type: Trait.Type) -> void:
+	Trait.unapply(type, self)
+	traits.erase(type)
+
+
+func add_condition(condition: Condition) -> void:
+	condition.actor = self
+	condition.apply()
+	conditions.append(condition)
+
+
+func remove_condition(condition: Condition) -> void:
+	condition.unapply()
+	conditions.erase(condition)
 
 
 

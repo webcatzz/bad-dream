@@ -12,5 +12,3 @@ enum Type {
 @export var type: Type
 @export var damage: int
 @export var condition: Condition
-
-

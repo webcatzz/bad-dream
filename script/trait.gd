@@ -15,7 +15,7 @@ enum Type {
 }
 
 
-static func add(type: Type, actor: Actor) -> void:
+static func apply(type: Type, actor: Actor) -> void:
 	match type:
 		Type.STRENGTH: actor.attack += 1
 		Type.TEMPERANCE: actor.attack -= 1
@@ -23,7 +23,7 @@ static func add(type: Type, actor: Actor) -> void:
 		Type.RUST: actor.defense -= 1
 
 
-static func remove(type: Type, actor: Actor) -> void:
+static func unapply(type: Type, actor: Actor) -> void:
 	match type:
 		Type.STRENGTH: actor.attack -= 1
 		Type.TEMPERANCE: actor.attack += 1

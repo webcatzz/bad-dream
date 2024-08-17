@@ -6,8 +6,17 @@
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/small.tres" id="3_orj8f"]
 [ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/regular.tres" id="5_k2md1"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlryj"]
-bg_color = Color(0.133333, 0.0862745, 0.117647, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m3oix"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("3_jqc7o")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(5, 2.08165e-12, 5, 5)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_470eu"]
 content_margin_left = 4.0
@@ -21,7 +30,7 @@ texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 region_rect = Rect2(2.08165e-12, 2.08165e-12, 5, 5)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sg7gm"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pntu"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -31,7 +40,7 @@ texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
-region_rect = Rect2(5, 2.08165e-12, 5, 5)
+region_rect = Rect2(10, 0, 5, 5)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
 color = Color(0.133333, 0.0862745, 0.117647, 1)
@@ -46,6 +55,8 @@ grow_end = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siyyr"]
 bg_color = Color(0.133333, 0.0862745, 0.117647, 1)
+border_width_top = 2
+border_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
 
@@ -68,16 +79,16 @@ BoxContainer/constants/separation = 0
 Button/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
 Button/colors/font_focus_color = Color(0.6, 0.576471, 0.639216, 1)
 Button/colors/font_pressed_color = Color(0.27451, 0.278431, 0.341176, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_tlryj")
+Button/styles/focus = SubResource("StyleBoxTexture_m3oix")
 Button/styles/normal = SubResource("StyleBoxTexture_470eu")
-Button/styles/pressed = SubResource("StyleBoxTexture_sg7gm")
+Button/styles/pressed = SubResource("StyleBoxTexture_6pntu")
 GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
 HSeparator/constants/separation = 12
 HSeparator/styles/separator = SubResource("StyleBoxLine_7e6k1")
 ItemList/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/font_selected_color = Color(0.6, 0.576471, 0.639216, 1)
-ItemList/colors/guide_color = Color(0.133333, 0.0862745, 0.117647, 1)
+ItemList/colors/guide_color = Color(0.133333, 0.0862745, 0.117647, 0.501961)
 ItemList/styles/focus = SubResource("StyleBoxEmpty_4354b")
 ItemList/styles/panel = SubResource("StyleBoxEmpty_su2df")
 ItemList/styles/selected = SubResource("StyleBoxEmpty_rafet")
