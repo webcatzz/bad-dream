@@ -109,17 +109,6 @@ func _on_body_entered(body: Node2D) -> void:
 				var label: Control = preload("res://node/ui/condition_label.tscn").instantiate()
 				label.write(condition)
 				_info.add_control(label)
-		
-		if actor in Save.party:
-			_info.add_spacer(true)
-			
-			var deselect_input: Control = preload("res://node/ui/input_label.tscn").instantiate()
-			deselect_input.label = "Select"
-			_info.add_control(deselect_input)
-			
-			var action_menu_input: Control = preload("res://node/ui/input_bar.tscn").instantiate()
-			action_menu_input.label = "Open actions"
-			_info.add_control(action_menu_input)
 	
 	else:
 		_info.add_label("???", &"BigLabelMuted").size_flags_horizontal = Control.SIZE_SHRINK_CENTER
