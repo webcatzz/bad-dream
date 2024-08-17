@@ -102,7 +102,6 @@ _action_menu = NodePath("UI/Selector/List")
 _animator = NodePath("UI/Animator")
 
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
-z_index = 1
 script = ExtResource("3_1tu8e")
 
 [node name="UI" type="TabContainer" parent="Selector"]

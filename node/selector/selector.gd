@@ -22,7 +22,7 @@ var hold_started: int
 
 @onready var _collision: CollisionPolygon2D = $Collision
 @onready var _area: Area2D = $Area
-@onready var _sprite: Sprite2D = $Sprite
+@onready var _sprite: Node2D = $Sprite
 @onready var _camera: Camera2D = $Camera
 
 
@@ -43,7 +43,7 @@ func select(body: Node2D) -> void:
 	
 	_area.monitoring = false
 	_sprite.position = Vector2.ZERO
-	_set_sprite_squeezed(true)
+	update_sprite()
 
 
 func deselect() -> void:
@@ -51,7 +51,6 @@ func deselect() -> void:
 	mode = Mode.FREE
 	
 	_area.monitoring = true
-	_set_sprite_squeezed(false)
 
 
 func auto_select() -> void:
@@ -73,12 +72,14 @@ func match_position(node: Node2D = selected) -> void:
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
 		hold_started = Time.get_ticks_msec()
+		update_sprite()
 		get_viewport().set_input_as_handled()
 		
 		_on_interact()
 	
 	elif Input.is_action_just_released("interact"):
 		var hold_duration: int = Time.get_ticks_msec() - hold_started
+		update_sprite()
 		get_viewport().set_input_as_handled()
 		
 		if hold_duration > 500:
@@ -133,11 +134,11 @@ func _physics_process(_delta: float) -> void:
 # area
 
 func _on_body_entered(body: Node2D) -> void:
-	pass
+	update_sprite()
 
 
 func _on_body_exited(body: Node2D) -> void:
-	pass
+	update_sprite()
 
 
 func get_body_below() -> Node2D:
@@ -147,8 +148,25 @@ func get_body_below() -> Node2D:
 
 # sprite
 
-func _set_sprite_squeezed(value: bool) -> void:
-	_sprite.region_rect.position.x = 34 if value else 0
+func update_sprite() -> void:
+	if mode == Mode.FREE:
+		if Input.is_action_pressed("interact"):
+			_set_sprite_distance(-2)
+		elif get_body_below():
+			_set_sprite_distance(4)
+		else:
+			_set_sprite_distance(0)
+	else:
+		_set_sprite_distance(-2)
+
+
+func _set_sprite_distance(value: int) -> void:
+	value += 16
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property($Sprite/Left, "position:x", -value, 0.05)
+	tween.tween_property($Sprite/Right, "position:x", value, 0.05)
+	tween.tween_property($Sprite/Top, "position:y", -value / 2, 0.05)
+	tween.tween_property($Sprite/Down, "position:y", value / 2, 0.05)
 
 
 

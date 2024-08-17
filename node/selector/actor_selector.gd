@@ -78,6 +78,8 @@ func move(motion: Vector2i) -> void:
 # area
 
 func _on_body_entered(body: Node2D) -> void:
+	super(body)
+	
 	var actor: Actor = body.resource
 	_info.set_title(actor.name)
 	_info.set_footer("Enemy actor" if actor is Enemy else "Party actor")
@@ -122,5 +124,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
+	super(body)
+	
 	if not get_body_below():
 		_ui.hide()

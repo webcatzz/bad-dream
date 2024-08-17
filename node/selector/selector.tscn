@@ -8,6 +8,7 @@
 radius = 2.0
 
 [node name="Selector" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 0
 script = ExtResource("1_bc45w")
 
@@ -23,11 +24,34 @@ shape = SubResource("CircleShape2D_hqi8d")
 [node name="Camera" type="Camera2D" parent="."]
 enabled = false
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Left" type="Sprite2D" parent="Sprite"]
+position = Vector2(-16, 0)
 texture = ExtResource("3_t3jce")
-offset = Vector2(2.08165e-12, -1)
+offset = Vector2(2, -1)
 region_enabled = true
-region_rect = Rect2(0, 0, 34, 20)
+region_rect = Rect2(0, 6, 6, 8)
+
+[node name="Right" type="Sprite2D" parent="Sprite"]
+position = Vector2(16, 0)
+texture = ExtResource("3_t3jce")
+offset = Vector2(-2, -1)
+region_enabled = true
+region_rect = Rect2(28, 6, 6, 8)
+
+[node name="Top" type="Sprite2D" parent="Sprite"]
+position = Vector2(0, -8)
+texture = ExtResource("3_t3jce")
+region_enabled = true
+region_rect = Rect2(12, 0, 10, 6)
+
+[node name="Down" type="Sprite2D" parent="Sprite"]
+position = Vector2(0, 8)
+texture = ExtResource("3_t3jce")
+offset = Vector2(0, -2)
+region_enabled = true
+region_rect = Rect2(12, 14, 10, 6)
 
 [connection signal="body_entered" from="Area" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_body_exited"]
