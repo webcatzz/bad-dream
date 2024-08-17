@@ -18,6 +18,8 @@ var mode: Mode:
 		mode_changed.emit(mode)
 var selected: Node2D
 
+var hold_started: int
+
 @onready var _collision: CollisionPolygon2D = $Collision
 @onready var _area: Area2D = $Area
 @onready var _sprite: Sprite2D = $Sprite
@@ -69,28 +71,48 @@ func match_position(node: Node2D = selected) -> void:
 # input
 
 func _unhandled_key_input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("interact"):
+		hold_started = Time.get_ticks_msec()
+		get_viewport().set_input_as_handled()
+		
+		_on_interact()
+	
+	elif Input.is_action_just_released("interact"):
+		var hold_duration: int = Time.get_ticks_msec() - hold_started
+		get_viewport().set_input_as_handled()
+		
+		if hold_duration > 500:
+			_on_interact_held()
+	
+	else:
+		_on_other_input()
+
+
+func _on_interact() -> void:
+	deselect() if selected else auto_select()
+	get_viewport().set_input_as_handled()
+
+
+func _on_interact_held() -> void:
+	pass
+
+
+func _on_other_input() -> void:
 	match mode:
 		Mode.FREE:
-			if Input.is_action_just_pressed("interact"):
-				auto_select()
-				get_viewport().set_input_as_handled()
-			else:
-				velocity = 8 * Iso.from_grid(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
-				if velocity: get_viewport().set_input_as_handled()
+			velocity = 8 * Iso.from_grid(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
+			if velocity: get_viewport().set_input_as_handled()
 		
 		Mode.MOVE:
-			if Input.is_action_just_pressed("interact"):
-				deselect()
-				get_viewport().set_input_as_handled()
-			else:
-				var input: Vector2i
-				if Input.is_action_just_pressed("move_up"): input = Vector2i.UP
-				elif Input.is_action_just_pressed("move_down"): input = Vector2i.DOWN
-				elif Input.is_action_just_pressed("move_left"): input = Vector2i.LEFT
-				elif Input.is_action_just_pressed("move_right"): input = Vector2i.RIGHT
-				else: return
-				move(input)
-				get_viewport().set_input_as_handled()
+			var input: Vector2i
+			if Input.is_action_just_pressed("move_up"): input = Vector2i.UP
+			elif Input.is_action_just_pressed("move_down"): input = Vector2i.DOWN
+			elif Input.is_action_just_pressed("move_left"): input = Vector2i.LEFT
+			elif Input.is_action_just_pressed("move_right"): input = Vector2i.RIGHT
+			else: return
+			
+			move(input)
+			get_viewport().set_input_as_handled()
 
 
 func move(motion: Vector2i) -> void:

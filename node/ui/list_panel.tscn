@@ -36,6 +36,8 @@ text = "Cancel"
 layout_mode = 2
 size_flags_vertical = 3
 
+[connection signal="focus_entered" from="Panel/VBox/List" to="." method="_on_list_focus_entered"]
 [connection signal="item_activated" from="Panel/VBox/List" to="." method="_on_item_activated"]
 [connection signal="item_selected" from="Panel/VBox/List" to="." method="_on_item_selected"]
+[connection signal="focus_entered" from="Panel/VBox/Cancel" to="." method="_on_cancel_focus_entered"]
 [connection signal="pressed" from="Panel/VBox/Cancel" to="." method="_on_cancel_pressed"]

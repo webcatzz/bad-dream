@@ -1,9 +1,6 @@
 extends Selector
 
 
-var hold_started: int
-var hold_duration: int
-
 @onready var _ui: TabContainer = $UI
 @onready var _info: InfoPanel = $UI/Info
 @onready var _action_menu: Control = $UI/ActionMenu
@@ -41,7 +38,7 @@ func match_position(node: Node2D = selected) -> void:
 # action menu
 
 func open_action_menu() -> void:
-	auto_select()
+	if not selected: auto_select()
 	mode = Mode.ACT
 	
 	Game.current_battle.open_action_menu(selected.resource)
@@ -63,23 +60,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		Game.current_battle.history.undo()
 		get_viewport().set_input_as_handled()
 	
-	elif selected or can_select(get_body_below()):
-		if Input.is_action_just_pressed("interact"):
-			hold_started = Time.get_ticks_msec()
-			get_viewport().set_input_as_handled()
-		elif Input.is_action_just_released("interact"):
-			hold_duration = Time.get_ticks_msec() - hold_started
-			get_viewport().set_input_as_handled()
-			
-			if hold_duration > 500:
-				open_action_menu()
-			else:
-				deselect() if selected else auto_select()
-		else:
-			super(event)
-	
 	else:
 		super(event)
+
+
+func _on_interact_held() -> void:
+	if selected:
+		open_action_menu()
 
 
 func move(motion: Vector2i) -> void:

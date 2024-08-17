@@ -4,6 +4,8 @@ extends BoxContainer
 signal chosen(resource: Resource)
 
 @export var title: String
+@export var cancel_first: bool
+@export_multiline var blurb: String
 
 var items: Array[Resource]
 
@@ -21,14 +23,17 @@ func add_item(resource: Resource) -> void:
 	_list.add_item(resource.name)
 
 
-func focus_list() -> void:
-	_list.grab_focus()
-	_list.select(0)
-	_on_item_selected(0)
+func focus_first() -> void:
+	find_next_valid_focus().grab_focus()
 
 
 
 # internal
+
+func _ready() -> void:
+	$Panel/VBox/Label.text = title
+	if cancel_first: $Panel/VBox.move_child($Panel/VBox/Cancel, 1)
+
 
 func _on_item_selected(idx: int) -> void:
 	_info.set_title(items[idx].name)
@@ -39,9 +44,15 @@ func _on_item_activated(idx: int) -> void:
 	chosen.emit(items[idx])
 
 
-func _ready() -> void:
-	$Panel/VBox/Label.text = title
-
-
 func _on_cancel_pressed() -> void:
 	chosen.emit(null)
+
+
+func _on_list_focus_entered() -> void:
+	_list.select(0)
+	_on_item_selected(0)
+
+
+func _on_cancel_focus_entered() -> void:
+	_info.set_title("")
+	_info.add_label(blurb, &"LabelMuted")

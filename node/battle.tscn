@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=10 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
+[ext_resource type="PackedScene" uid="uid://bdqhjnpkpshbe" path="res://node/ui/input_bar.tscn" id="2_gr01j"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_obwcm"]
@@ -100,6 +101,34 @@ _selector_mode_label = NodePath("UI/Selector/Mode/HBox/Mode")
 _action_menu = NodePath("UI/Selector/List")
 _animator = NodePath("UI/Animator")
 
+[node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
+z_index = 1
+script = ExtResource("3_1tu8e")
+
+[node name="UI" type="TabContainer" parent="Selector"]
+custom_minimum_size = Vector2(2.08165e-12, 160)
+offset_left = 40.0
+offset_top = -48.0
+offset_right = 80.0
+offset_bottom = -8.0
+current_tab = 0
+tabs_visible = false
+
+[node name="Info" parent="Selector/UI" instance=ExtResource("4_obwcm")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ActionMenu" parent="Selector/UI" instance=ExtResource("6_x6eri")]
+visible = false
+layout_mode = 2
+title = "Actions"
+metadata/_tab_index = 1
+
+[node name="Path" type="Line2D" parent="Selector"]
+visible = false
+top_level = true
+z_index = -1
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Phase" type="ColorRect" parent="UI"]
@@ -167,12 +196,19 @@ size_flags_horizontal = 8
 theme_type_variation = &"BigLabel"
 text = "DISABLED"
 
+[node name="InputBar" parent="UI/Selector/Mode/HBox" instance=ExtResource("2_gr01j")]
+layout_mode = 2
+size_flags_horizontal = 8
+label = "Act"
+
 [node name="List" parent="UI/Selector" instance=ExtResource("6_x6eri")]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = -3
 vertical = true
 title = "Actions"
+cancel_first = true
+blurb = "Select an action."
 
 [node name="Animator" type="AnimationPlayer" parent="UI"]
 root_node = NodePath("../Phase")
@@ -180,35 +216,7 @@ libraries = {
 "": SubResource("AnimationLibrary_ibfeb")
 }
 
-[node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
-z_index = 1
-script = ExtResource("3_1tu8e")
-
-[node name="UI" type="TabContainer" parent="Selector"]
-custom_minimum_size = Vector2(2.08165e-12, 160)
-offset_left = 40.0
-offset_top = -48.0
-offset_right = 80.0
-offset_bottom = -8.0
-current_tab = 0
-tabs_visible = false
-
-[node name="Info" parent="Selector/UI" instance=ExtResource("4_obwcm")]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="ActionMenu" parent="Selector/UI" instance=ExtResource("6_x6eri")]
-visible = false
-layout_mode = 2
-title = "Actions"
-metadata/_tab_index = 1
-
-[node name="Path" type="Line2D" parent="Selector"]
-visible = false
-top_level = true
-z_index = -1
-
-[connection signal="chosen" from="UI/Selector/List" to="Selector" method="_on_action_menu_chosen"]
-[connection signal="chosen" from="UI/Selector/List" to="." method="close_action_menu" unbinds=1]
 [connection signal="mode_changed" from="Selector" to="." method="_on_selector_mode_changed"]
 [connection signal="chosen" from="Selector/UI/ActionMenu" to="Selector" method="_on_action_menu_chosen"]
+[connection signal="chosen" from="UI/Selector/List" to="Selector" method="_on_action_menu_chosen"]
+[connection signal="chosen" from="UI/Selector/List" to="." method="close_action_menu" unbinds=1]

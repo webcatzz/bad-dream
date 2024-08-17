@@ -95,7 +95,7 @@ func open_action_menu(actor: Actor) -> void:
 		_action_menu.add_item(action)
 	
 	_action_menu.show()
-	_action_menu.focus_list()
+	_action_menu.focus_first()
 
 
 func close_action_menu() -> void:
