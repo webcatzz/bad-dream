@@ -13,6 +13,7 @@ var phase: Phase
 # party phase
 var current_actor: Actor
 var history: PhaseHistory
+var action_highlight: TileHighlight
 
 @export_group("Scene")
 @export var _party: HBoxContainer
@@ -21,6 +22,9 @@ var history: PhaseHistory
 @export var _action_menu: Control
 @export var _animator: AnimationPlayer
 
+
+
+# cycling
 
 func start() -> void:
 	Game.current_battle = self
@@ -87,7 +91,7 @@ func free_actor(actor: Actor) -> void:
 
 
 
-# party phase
+# action menu
 
 func open_action_menu(actor: Actor) -> void:
 	_action_menu.clear()
@@ -100,6 +104,14 @@ func open_action_menu(actor: Actor) -> void:
 
 func close_action_menu() -> void:
 	_action_menu.hide()
+
+
+func on_action_selected(action: Action) -> void:
+	if action_highlight: action_highlight.queue_free()
+	action_highlight = TileHighlight.new()
+	action_highlight.from_bitshape(action.shape)
+	action_highlight.position += selector.position
+	add_child(action_highlight)
 
 
 

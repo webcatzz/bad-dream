@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="Action" load_steps=4 format=3 uid="uid://dphudg4r3tb4r"]
 
-[ext_resource type="Script" path="res://script/condition.gd" id="1_8fic7"]
 [ext_resource type="Script" path="res://script/action.gd" id="1_h2646"]
+[ext_resource type="Script" path="res://script/bitshape.gd" id="2_x12vc"]
 
-[sub_resource type="Resource" id="Resource_v6ihb"]
-script = ExtResource("1_8fic7")
-type = 0
-duration = 1
-strength = 1
+[sub_resource type="BitMap" id="BitMap_6dfry"]
+data = {
+"data": PackedByteArray(81, 241),
+"size": Vector2i(4, 4)
+}
+script = ExtResource("2_x12vc")
+offset = Vector2i(0, 0)
 
 [resource]
 script = ExtResource("1_h2646")
@@ -16,4 +18,4 @@ description = "Ok ? Ok? OKKKK ?????"
 cost = 1
 type = 0
 damage = 0
-condition = SubResource("Resource_v6ihb")
+shape = SubResource("BitMap_6dfry")

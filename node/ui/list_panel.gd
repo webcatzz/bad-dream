@@ -1,6 +1,7 @@
 extends BoxContainer
 
 
+signal selected(resource: Resource)
 signal chosen(resource: Resource)
 
 @export var title: String
@@ -38,6 +39,7 @@ func _ready() -> void:
 func _on_item_selected(idx: int) -> void:
 	_info.set_title(items[idx].name)
 	_info.add_label(items[idx].description, &"LabelMuted")
+	selected.emit(items[idx])
 
 
 func _on_item_activated(idx: int) -> void:

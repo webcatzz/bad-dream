@@ -104,31 +104,22 @@ _animator = NodePath("UI/Animator")
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
 script = ExtResource("3_1tu8e")
 
-[node name="UI" type="TabContainer" parent="Selector"]
-custom_minimum_size = Vector2(2.08165e-12, 160)
+[node name="Info" parent="Selector" instance=ExtResource("4_obwcm")]
+custom_minimum_size = Vector2(128, 160)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 40.0
 offset_top = -48.0
-offset_right = 80.0
-offset_bottom = -8.0
-current_tab = 0
-tabs_visible = false
-
-[node name="Info" parent="Selector/UI" instance=ExtResource("4_obwcm")]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="ActionMenu" parent="Selector/UI" instance=ExtResource("6_x6eri")]
-visible = false
-layout_mode = 2
-title = "Actions"
-metadata/_tab_index = 1
+offset_right = 168.0
+offset_bottom = 1.0
 
 [node name="Path" type="Line2D" parent="Selector"]
-visible = false
 top_level = true
 z_index = -1
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Phase" type="ColorRect" parent="UI"]
 visible = false
@@ -216,6 +207,6 @@ libraries = {
 }
 
 [connection signal="mode_changed" from="Selector" to="." method="_on_selector_mode_changed"]
-[connection signal="chosen" from="Selector/UI/ActionMenu" to="Selector" method="_on_action_menu_chosen"]
 [connection signal="chosen" from="UI/Selector/List" to="Selector" method="_on_action_menu_chosen"]
 [connection signal="chosen" from="UI/Selector/List" to="." method="close_action_menu" unbinds=1]
+[connection signal="selected" from="UI/Selector/List" to="." method="on_action_selected"]

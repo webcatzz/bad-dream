@@ -32,6 +32,11 @@ window/size/window_width_override=1950
 window/size/window_height_override=1200
 window/stretch/mode="viewport"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/bitmap_editor/plugin.cfg")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://scstaq2668nh"]
+
+[node name="TileHighlightPolygon" type="Node2D"]
+
+[node name="Fill" type="Polygon2D" parent="."]
+
+[node name="Border" type="Line2D" parent="."]
+closed = true
+width = 2.0
