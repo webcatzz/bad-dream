@@ -2,6 +2,7 @@ extends Selector
 
 
 @onready var _info: InfoPanel = $Info
+@onready var _menu: TabContainer = $ActorMenu
 @onready var _path: Line2D = $Path
 
 
@@ -34,17 +35,15 @@ func match_position(node: Node2D = selected) -> void:
 
 # action menu
 
-func open_action_menu() -> void:
+func open_actor_menu() -> void:
 	if not selected: auto_select()
 	mode = Mode.ACT
 	
-	Game.battle.action_menu.open(selected.resource)
+	_menu.open(selected.resource)
 
 
-func _on_action_activated(action: Action) -> void:
-	if action:
-		selected.resource.send_action(action)
-		await get_tree().create_timer(1).timeout
+func on_action_taken() -> void:
+	await get_tree().create_timer(1).timeout
 	deselect()
 
 
@@ -72,8 +71,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		super(event)
 
 
-func _on_interact_held() -> void:
-	if selected: open_action_menu()
+func _on_interact() -> void:
+	super()
+	if selected: open_actor_menu()
 
 
 func move(motion: Vector2i) -> void:

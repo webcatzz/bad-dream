@@ -1,16 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://scstaq2668nh"]
-
-[ext_resource type="Texture2D" uid="uid://nnkulns7ndwa" path="res://asset/ui/squiggle.png" id="1_s76bd"]
+[gd_scene format=3 uid="uid://scstaq2668nh"]
 
 [node name="TileHighlightPolygon" type="Node2D"]
 
 [node name="Fill" type="Polygon2D" parent="."]
+z_index = -1
 texture_repeat = 2
-texture = ExtResource("1_s76bd")
+color = Color(1, 1, 1, 0.0627451)
 polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 
 [node name="Border" type="Line2D" parent="."]
-visible = false
+z_index = 1
 points = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 closed = true
-width = 2.0
+width = 1.0
+default_color = Color(1, 1, 1, 0.25098)
+joint_mode = 2

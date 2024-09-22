@@ -1,52 +1,47 @@
-extends PanelContainer
+extends TabContainer
 
 
-signal selected(action: Action)
-signal activated(action: Action)
+enum Tab {
+	MAIN,
+	ACTIONS,
+}
 
 var actor: Actor
 var action_highlight: TileHighlight
 var buttons: Array[Button]
 
+@onready var _action_list: ItemList = $Actions/List
+
 
 func open(actor: Actor) -> void:
 	self.actor = actor
-	
-	for action: Action in actor.actions:
-		add(action)
-	
+	_open_main()
 	show()
-	$VBox/Cancel.grab_focus()
 
 
 func close() -> void:
 	hide()
-	clear()
+
+
+func _open_main() -> void:
+	current_tab = Tab.MAIN
+	$Main/Attack.grab_focus()
 
 
 
-# items
+# actions
 
-func add(action: Action) -> void:
-	var button: Button = Button.new()
+func _open_actions() -> void:
+	_action_list.clear()
 	
-	button.text = action.name
-	button.disabled = not actor.can_send_action(action)
+	for action: Action in actor.actions:
+		var idx: int = _action_list.add_item(action.name)
+		_action_list.set_item_disabled(idx, not actor.can_send_action(action))
 	
-	button.theme_type_variation = &"ActionButton"
-	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	
-	button.focus_entered.connect(_on_selected.bind(action))
-	button.pressed.connect(_on_activated.bind(action))
-	
-	buttons.append(button)
-	$VBox.add_child(button)
-
-
-func clear() -> void:
-	for button: Button in buttons:
-		button.queue_free()
-	buttons.clear()
+	current_tab = Tab.ACTIONS
+	_action_list.grab_focus()
+	_action_list.select(0)
+	_action_list.item_selected.emit(0)
 
 
 func set_highlight(action: Action) -> void:
@@ -66,12 +61,14 @@ func clear_highlight() -> void:
 
 # internal
 
-func _on_selected(action: Action = null) -> void:
-	if action: set_highlight(action)
-	selected.emit(action)
+
+func _on_action_selected(idx: int) -> void:
+	set_highlight(actor.actions[idx])
 
 
-func _on_activated(action: Action = null) -> void:
-	if action_highlight: clear_highlight()
+func _on_action_activated(idx: int) -> void:
+	clear_highlight()
 	close()
-	activated.emit(action)
+	
+	actor.send_action(actor.actions[idx])
+	get_parent().on_action_taken()

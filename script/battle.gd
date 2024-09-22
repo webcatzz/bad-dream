@@ -15,9 +15,9 @@ var phase: Phase
 var field: BattleField
 var history: PhaseHistory
 
-@onready var selector: CharacterBody2D = $Selector
-@onready var action_menu: PanelContainer = $UI/Phase/Party/VBox/ActionMenu
-@onready var _party: HBoxContainer = $UI/Phase/Party/Party
+@export_group("Node")
+@export var selector: CharacterBody2D
+@export var _party: Control
 
 
 

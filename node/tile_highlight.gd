@@ -11,10 +11,3 @@ func add_polygon(polygon: PackedVector2Array) -> void:
 func from_bitshape(bitshape: BitShape) -> void:
 	for polygon: PackedVector2Array in bitshape.to_polygons():
 		add_polygon(polygon)
-
-
-
-# internal
-
-func _init() -> void:
-	z_index = -1
