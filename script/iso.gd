@@ -1,4 +1,4 @@
-class_name Iso extends Node
+class_name Iso
 
 
 const VECTOR: Vector2 = Vector2i(16, 8)
@@ -25,6 +25,18 @@ static func to_grid(vector: Vector2) -> Vector2i:
 		vector.x - vector.y,
 		vector.x + vector.y
 	)
+
+
+static func rotate_grid_vector(vector: Vector2i, to: Vector2i) -> Vector2i:
+	match to:
+		Vector2i.LEFT:
+			return Vector2i(-vector.y, vector.x)
+		Vector2i.RIGHT:
+			return Vector2i(vector.y, -vector.x)
+		Vector2i.UP:
+			return -vector
+		_:
+			return vector
 
 
 

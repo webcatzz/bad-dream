@@ -1,11 +1,12 @@
-extends HBoxContainer
+extends PanelContainer
+
+
+@onready var _name: Label = $Margins/HBox/Name
+@onready var _duration: Slots = $Margins/HBox/Duration
+@onready var _color: ColorRect = $Color
 
 
 func write(condition: Condition) -> void:
-	$Name.text = condition.name()
-	$Duration.text = "for %s turns" % condition.duration
-	
-	$Frame/Icon.region_rect.position = Vector2(
-		condition.type % $Frame/Icon.texture.get_width(),
-		condition.type / $Frame/Icon.texture.get_width()
-	) * 8
+	_name.text = condition.name()
+	_duration.set_values(condition.duration_left, condition.duration)
+	_color.color = condition.color()

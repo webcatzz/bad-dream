@@ -152,10 +152,12 @@ func update_sprite() -> void:
 	if mode == Mode.FREE:
 		if Input.is_action_pressed("interact"):
 			_set_sprite_distance(-2)
-		elif get_body_below():
-			_set_sprite_distance(4)
 		else:
-			_set_sprite_distance(0)
+			var below: Node2D = get_body_below()
+			if below and can_select(below):
+				_set_sprite_distance(4)
+			else:
+				_set_sprite_distance(0)
 	else:
 		_set_sprite_distance(-2)
 

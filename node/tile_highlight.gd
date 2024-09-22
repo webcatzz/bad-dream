@@ -9,12 +9,7 @@ func add_polygon(polygon: PackedVector2Array) -> void:
 
 
 func from_bitshape(bitshape: BitShape) -> void:
-	position += Iso.from_grid(bitshape.offset)
-	
-	for polygon: PackedVector2Array in bitshape.opaque_to_polygons(Rect2i(Vector2i.ZERO, bitshape.get_size()), 0):
-		for i: int in polygon.size():
-			polygon[i] = Iso.from_grid(polygon[i])
-		
+	for polygon: PackedVector2Array in bitshape.to_polygons():
 		add_polygon(polygon)
 
 
@@ -22,5 +17,4 @@ func from_bitshape(bitshape: BitShape) -> void:
 # internal
 
 func _init() -> void:
-	position.x = -16
 	z_index = -1

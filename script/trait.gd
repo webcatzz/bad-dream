@@ -9,9 +9,11 @@ enum Type {
 	# defense
 	GLEAM,
 	RUST,
+	# knockback
 	# special
 	SLOTH,
 	VENGE,
+	BACKSTAB,
 }
 
 
@@ -41,10 +43,17 @@ static func name(type: Type) -> String:
 static func describe(type: Type) -> String:
 	match type:
 		Type.ANIMA: return "Keep going."
-		Type.STRENGTH: return "+1 STRIKE."
-		Type.TEMPERANCE: return "-1 STRIKE."
-		Type.GLEAM: return "+1 MONOLITH."
-		Type.RUST: return "-1 MONOLITH."
+		Type.STRENGTH: return "+1 ATK."
+		Type.TEMPERANCE: return "-1 ATK."
+		Type.GLEAM: return "+1 DEF."
+		Type.RUST: return "-1 DEF."
 		Type.SLOTH: return "Start battles asleep."
-		Type.VENGE: return "When hit, counterattack."
+		Type.VENGE: return "When hit, hit back."
+		Type.BACKSTAB: return "+1 ATK from behind."
 		_: return ""
+
+
+static func color(type: Type) -> Color:
+	match type:
+		Type.ANIMA: return Palette.TEXT_NORMAL
+		_: return Palette.TEXT_NORMAL

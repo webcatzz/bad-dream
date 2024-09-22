@@ -3,7 +3,7 @@ extends Node
 
 # state
 var current_place: String
-var current_battle: Battle
+var battle: Battle
 # nodes
 var party_node: Node2D
 

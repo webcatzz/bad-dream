@@ -2,43 +2,42 @@ class_name Battle extends Node2D
 
 
 signal phase_changed
+signal enemy_phase_started
+signal party_phase_started
 
-enum Phase {PARTY, ENEMY}
+enum Phase {ENEMY, PARTY}
 
 @export var enemy_nodes: Array[ActorNode]
 
 var enemies: Array[Enemy]
-var field: BattleField
 var phase: Phase
-# party phase
-var current_actor: Actor
+# helpers
+var field: BattleField
 var history: PhaseHistory
-var action_highlight: TileHighlight
 
-@export_group("Scene")
-@export var _party: HBoxContainer
-@export var _selector_mode_label: Label
 @onready var selector: CharacterBody2D = $Selector
-@export var _action_menu: Control
-@export var _animator: AnimationPlayer
+@onready var action_menu: PanelContainer = $UI/Phase/Party/VBox/ActionMenu
+@onready var _party: HBoxContainer = $UI/Phase/Party/Party
 
 
 
 # cycling
 
 func start() -> void:
-	Game.current_battle = self
+	Game.battle = self
 	Game.party_node.set_enabled(false)
+	field = BattleField.new()
 	$UI.show()
 	
 	for actor: Actor in Save.party + enemies:
 		ready_actor(actor)
 	
-	for actor: Actor in Save.party:
-		var figure: Control = load("res://node/ui/party_member.tscn").instantiate()
-		figure.actor = actor
-		_party.add_child(figure)
+	#for actor: Actor in Save.party:
+		#var figure: Control = load("res://node/ui/party_member.tscn").instantiate()
+		#figure.actor = actor
+		#_party.add_child(figure)
 	
+	#announce("Battle start!", Palette.RED)
 	cycle()
 
 
@@ -50,15 +49,24 @@ func cycle() -> void:
 
 func do_enemy_phase() -> void:
 	phase = Phase.ENEMY
-	#await _announce("Enemy Phase")
+	$UI/Phase.current_tab = phase
+	
+	enemy_phase_started.emit()
+	#await announce("Enemy Phase", Palette.RED)
 	
 	end_phase()
 
 
 func do_party_phase() -> void:
 	phase = Phase.PARTY
+	$UI/Phase.current_tab = phase
 	history = PhaseHistory.new(self)
-	await _announce("Party Phase")
+	
+	for actor: Actor in Save.party:
+		actor.stamina = actor.max_stamina
+	
+	party_phase_started.emit()
+	await announce("Party Phase", Palette.BLUE)
 	
 	selector.set_enabled(true)
 	selector.position = Save.player.node.position
@@ -74,7 +82,7 @@ func end_phase() -> void:
 
 
 func end() -> void:
-	Game.current_battle = null
+	Game.battle = null
 	Game.party_node.set_enabled(true)
 	$UI.hide()
 
@@ -91,27 +99,15 @@ func free_actor(actor: Actor) -> void:
 
 
 
-# action menu
+# announcements
 
-func open_action_menu(actor: Actor) -> void:
-	_action_menu.clear()
-	for action: Action in actor.actions:
-		_action_menu.add_item(action)
+func announce(text: String, color: Color) -> void:
+	$UI/Announcement/Label.text = text
+	$UI/Announcement/Color.color = color
+	$UI/Announcement/Squiggles.modulate = Palette.light(color)
 	
-	_action_menu.show()
-	_action_menu.focus_first()
-
-
-func close_action_menu() -> void:
-	_action_menu.hide()
-
-
-func on_action_selected(action: Action) -> void:
-	if action_highlight: action_highlight.queue_free()
-	action_highlight = TileHighlight.new()
-	action_highlight.from_bitshape(action.shape)
-	action_highlight.position += selector.position
-	add_child(action_highlight)
+	$UI/Announcement/Animator.play("announce")
+	await get_tree().create_timer(0.8).timeout
 
 
 
@@ -120,13 +116,3 @@ func on_action_selected(action: Action) -> void:
 func _ready() -> void:
 	for node: ActorNode in enemy_nodes:
 		enemies.append(node.resource)
-
-
-func _announce(text: String) -> void:
-	$UI/Phase/Label.text = text
-	_animator.play("announce")
-	await get_tree().create_timer(0.8).timeout
-
-
-func _on_selector_mode_changed(mode: Selector.Mode) -> void:
-	_selector_mode_label.text = Selector.Mode.keys()[mode]

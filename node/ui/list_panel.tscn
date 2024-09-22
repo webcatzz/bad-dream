@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://buac1fbxayyf7"]
+[gd_scene load_steps=4 format=3 uid="uid://buac1fbxayyf7"]
 
 [ext_resource type="Script" path="res://node/ui/list_panel.gd" id="1_dpt8j"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="1_oip7a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjn3h"]
+bg_color = Color(0.0705882, 0.0627451, 0.0823529, 1)
 
 [node name="ListPanel" type="BoxContainer"]
 offset_right = 248.0
@@ -13,6 +16,7 @@ script = ExtResource("1_dpt8j")
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"UIPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_vjn3h")
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2

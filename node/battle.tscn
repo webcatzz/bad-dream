@@ -1,11 +1,134 @@
-[gd_scene load_steps=10 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=32 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://bdqhjnpkpshbe" path="res://node/ui/input_bar.tscn" id="2_gr01j"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
-[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="4_obwcm"]
-[ext_resource type="PackedScene" uid="uid://buac1fbxayyf7" path="res://node/ui/list_panel.tscn" id="6_x6eri"]
+[ext_resource type="PackedScene" uid="uid://bpisvawsnlfmb" path="res://node/ui/actor_info.tscn" id="5_gtbxe"]
+[ext_resource type="Texture2D" uid="uid://b21gkqtv4oqrb" path="res://asset/squiggle.png" id="6_vrnyd"]
+[ext_resource type="FontFile" uid="uid://cg2bgrjyucilx" path="res://asset/ui/font/poool.ttf" id="7_mg71a"]
+[ext_resource type="Script" path="res://node/action_menu.gd" id="10_oftmg"]
+[ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="11_imcxk"]
+
+[sub_resource type="Gradient" id="Gradient_ujx1i"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.0901961, 0.0745098, 0.105882, 1, 0.176471, 0.0745098, 0.105882, 0, 0.0901961, 0.0745098, 0.105882, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oie36"]
+gradient = SubResource("Gradient_ujx1i")
+width = 1
+height = 160
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7ogj"]
+texture = SubResource("GradientTexture2D_oie36")
+texture_margin_top = 80.0
+texture_margin_bottom = 80.0
+draw_center = false
+
+[sub_resource type="Gradient" id="Gradient_fupyp"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kyn3n"]
+gradient = SubResource("Gradient_fupyp")
+width = 1
+height = 8
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0eu36"]
+content_margin_bottom = 0.0
+texture = SubResource("GradientTexture2D_kyn3n")
+texture_margin_bottom = 8.0
+
+[sub_resource type="Gradient" id="Gradient_iv0aw"]
+interpolation_mode = 2
+colors = PackedColorArray(0.176471, 0.0745098, 0.105882, 0, 0.0901961, 0.0745098, 0.105882, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yybh5"]
+gradient = SubResource("Gradient_iv0aw")
+width = 1
+height = 86
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nuxj8"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("GradientTexture2D_yybh5")
+
+[sub_resource type="FontVariation" id="FontVariation_68van"]
+base_font = ExtResource("7_mg71a")
+spacing_top = -12
+spacing_bottom = -14
+
+[sub_resource type="Animation" id="Animation_6x1u3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ohxix"]
+resource_name = "fade_out"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gd7ut"]
+_data = {
+"RESET": SubResource("Animation_6x1u3"),
+"fade_out": SubResource("Animation_ohxix")
+}
+
+[sub_resource type="Gradient" id="Gradient_hto8t"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_voaok"]
+gradient = SubResource("Gradient_hto8t")
+width = 1
+height = 8
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0jutx"]
+content_margin_top = 0.0
+texture = SubResource("GradientTexture2D_voaok")
+texture_margin_top = 8.0
+
+[sub_resource type="FontVariation" id="FontVariation_p0bwp"]
+base_font = ExtResource("7_mg71a")
+spacing_top = -14
+spacing_bottom = -18
+
+[sub_resource type="Gradient" id="Gradient_qxie1"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qxpjf"]
+gradient = SubResource("Gradient_qxie1")
+width = 1
+height = 96
+fill_to = Vector2(0, 1)
 
 [sub_resource type="Animation" id="Animation_cvt8g"]
 resource_name = "RESET"
@@ -93,26 +216,25 @@ _data = {
 "announce": SubResource("Animation_ipfdj")
 }
 
-[node name="Battle" type="Node2D" node_paths=PackedStringArray("_party", "_selector_mode_label", "_action_menu", "_animator")]
+[node name="Battle" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_1d4h5")
-_party = NodePath("UI/Margins/Party")
-_selector_mode_label = NodePath("UI/Selector/Mode/HBox/Mode")
-_action_menu = NodePath("UI/Selector/List")
-_animator = NodePath("UI/Animator")
 
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
+visible = false
 script = ExtResource("3_1tu8e")
 
-[node name="Info" parent="Selector" instance=ExtResource("4_obwcm")]
-custom_minimum_size = Vector2(128, 160)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Info" parent="Selector" instance=ExtResource("5_gtbxe")]
 offset_left = 40.0
 offset_top = -48.0
 offset_right = 168.0
-offset_bottom = 1.0
+offset_bottom = 112.0
+
+[node name="ConfirmEndPhase" type="ConfirmationDialog" parent="Selector"]
+size = Vector2i(200, 80)
+borderless = true
+min_size = Vector2i(0, 0)
+dialog_text = "End the current phase?"
 
 [node name="Path" type="Line2D" parent="Selector"]
 top_level = true
@@ -121,10 +243,149 @@ z_index = -1
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="Phase" type="ColorRect" parent="UI"]
+[node name="Gradient" type="PanelContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_f7ogj")
+
+[node name="Phase" type="TabContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+tabs_visible = false
+
+[node name="Enemy" type="PanelContainer" parent="UI/Phase"]
 visible = false
-clip_children = 2
-custom_minimum_size = Vector2(2.08165e-12, 96)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Banner" type="PanelContainer" parent="UI/Phase/Enemy"]
+clip_children = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_0eu36")
+
+[node name="Color" type="ColorRect" parent="UI/Phase/Enemy/Banner"]
+layout_mode = 2
+color = Color(0.898039, 0.266667, 0.380392, 1)
+
+[node name="Squiggles" type="TextureRect" parent="UI/Phase/Enemy/Banner"]
+modulate = Color(0.929412, 0.337255, 0.27451, 1)
+layout_mode = 2
+texture = ExtResource("6_vrnyd")
+stretch_mode = 1
+
+[node name="Padding" type="MarginContainer" parent="UI/Phase/Enemy/Banner"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Title" type="Label" parent="UI/Phase/Enemy/Banner/Padding"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+theme_type_variation = &"Heading1"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.899486, 0.703395, 0.576563, 1)
+text = "Enemy Phase"
+
+[node name="Party" type="PanelContainer" parent="UI/Phase"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBox" type="VBoxContainer" parent="UI/Phase/Party"]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 2
+
+[node name="Margins" type="MarginContainer" parent="UI/Phase/Party/VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+
+[node name="InputBar" parent="UI/Phase/Party/VBox/Margins" instance=ExtResource("2_gr01j")]
+layout_mode = 2
+label = "Act"
+
+[node name="ActionMenu" type="PanelContainer" parent="UI/Phase/Party/VBox"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nuxj8")
+script = ExtResource("10_oftmg")
+
+[node name="VBox" type="HBoxContainer" parent="UI/Phase/Party/VBox/ActionMenu"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="UI/Phase/Party/VBox/ActionMenu/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_68van")
+theme_override_font_sizes/font_size = 80
+text = "ACT,"
+
+[node name="Cancel" type="Button" parent="UI/Phase/Party/VBox/ActionMenu/VBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"ActionButton"
+theme_override_fonts/font = ExtResource("11_imcxk")
+text = "Cancel"
+
+[node name="Animator" type="AnimationPlayer" parent="UI/Phase/Party/VBox/ActionMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_gd7ut")
+}
+
+[node name="Banner" type="PanelContainer" parent="UI/Phase/Party/VBox"]
+clip_children = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_0jutx")
+
+[node name="Color" type="ColorRect" parent="UI/Phase/Party/VBox/Banner"]
+layout_mode = 2
+color = Color(0.341176, 0.454902, 0.831373, 1)
+
+[node name="Squiggles" type="TextureRect" parent="UI/Phase/Party/VBox/Banner"]
+modulate = Color(0.301961, 0.537255, 0.65098, 1)
+layout_mode = 2
+texture = ExtResource("6_vrnyd")
+stretch_mode = 1
+
+[node name="Padding" type="MarginContainer" parent="UI/Phase/Party/VBox/Banner"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBox" type="HBoxContainer" parent="UI/Phase/Party/VBox/Banner/Padding"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="UI/Phase/Party/VBox/Banner/Padding/HBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_type_variation = &"Heading1"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.899486, 0.703395, 0.576563, 1)
+theme_override_fonts/font = SubResource("FontVariation_p0bwp")
+theme_override_font_sizes/font_size = 64
+text = "Party Phase"
+
+[node name="Party" type="HBoxContainer" parent="UI/Phase/Party"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Announcement" type="TextureRect" parent="UI"]
+visible = false
+clip_children = 1
+custom_minimum_size = Vector2(0, 96)
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -133,8 +394,30 @@ offset_top = -48.0
 offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("GradientTexture2D_qxpjf")
 
-[node name="Label" type="Label" parent="UI/Phase"]
+[node name="Color" type="ColorRect" parent="UI/Announcement"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.999173, 1)
+color = Color(0.514275, 0.75936, 0.315182, 1)
+
+[node name="Squiggles" type="TextureRect" parent="UI/Announcement"]
+modulate = Color(0.372456, 0.803063, 0.451853, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_vrnyd")
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="UI/Announcement"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,70 +426,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"BigLabel"
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Enemy Phase"
+theme_override_colors/font_shadow_color = Color(0.899486, 0.703395, 0.576563, 1)
+theme_override_fonts/font = ExtResource("7_mg71a")
+theme_override_font_sizes/font_size = 128
+text = "Party Phase"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Margins" type="MarginContainer" parent="UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Party" type="HBoxContainer" parent="UI/Margins"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
-[node name="Selector" type="HBoxContainer" parent="UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 2
-
-[node name="Mode" type="MarginContainer" parent="UI/Selector"]
-layout_mode = 2
-
-[node name="HBox" type="VBoxContainer" parent="UI/Selector/Mode"]
-layout_mode = 2
-theme_override_constants/separation = 1
-alignment = 2
-
-[node name="Label" type="Label" parent="UI/Selector/Mode/HBox"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Selector mode"
-
-[node name="Mode" type="Label" parent="UI/Selector/Mode/HBox"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_type_variation = &"BigLabel"
-text = "DISABLED"
-
-[node name="InputBar" parent="UI/Selector/Mode/HBox" instance=ExtResource("2_gr01j")]
-layout_mode = 2
-size_flags_horizontal = 8
-label = "Act"
-
-[node name="List" parent="UI/Selector" instance=ExtResource("6_x6eri")]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = -3
-vertical = true
-title = "Actions"
-cancel_first = true
-blurb = "Select an action."
-
-[node name="Animator" type="AnimationPlayer" parent="UI"]
-root_node = NodePath("../Phase")
+[node name="Animator" type="AnimationPlayer" parent="UI/Announcement"]
 libraries = {
 "": SubResource("AnimationLibrary_ibfeb")
 }
 
-[connection signal="mode_changed" from="Selector" to="." method="_on_selector_mode_changed"]
-[connection signal="chosen" from="UI/Selector/List" to="Selector" method="_on_action_menu_chosen"]
-[connection signal="chosen" from="UI/Selector/List" to="." method="close_action_menu" unbinds=1]
-[connection signal="selected" from="UI/Selector/List" to="." method="on_action_selected"]
+[connection signal="confirmed" from="Selector/ConfirmEndPhase" to="." method="end_phase"]
+[connection signal="activated" from="UI/Phase/Party/VBox/ActionMenu" to="Selector" method="_on_action_activated"]
+[connection signal="focus_entered" from="UI/Phase/Party/VBox/ActionMenu/VBox/Cancel" to="UI/Phase/Party/VBox/ActionMenu" method="_on_selected"]
+[connection signal="pressed" from="UI/Phase/Party/VBox/ActionMenu/VBox/Cancel" to="UI/Phase/Party/VBox/ActionMenu" method="_on_activated"]

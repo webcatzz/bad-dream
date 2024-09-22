@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://bsmul7001bppa"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://bsmul7001bppa"]
 
 [ext_resource type="Script" path="res://script/enemy.gd" id="1_j2ty3"]
+[ext_resource type="Script" path="res://script/action.gd" id="1_wy4vy"]
 
 [resource]
 script = ExtResource("1_j2ty3")
+movement = 0
 will = 1
 max_will = 1
 stamina = 1
@@ -12,7 +14,9 @@ attack = 0
 defense = 0
 evasion = 0.0
 traits = Array[int]([])
-actions = Array[Resource("res://script/action.gd")]([])
+actions = Array[ExtResource("1_wy4vy")]([])
 limit_break_max = 0
 limit_break_progress = 0
+type_weak = Array[int]([])
+type_strong = Array[int]([])
 name = "Actor"

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bk1bhmmg24pol"]
+
+[ext_resource type="Shader" path="res://asset/vfx/wave.gdshader" id="1_hom6c"]
+
+[resource]
+shader = ExtResource("1_hom6c")
+shader_parameter/FREQUENCY = 0.5
+shader_parameter/AMPLITUDE = 0.5
+shader_parameter/SPEED = 2.0

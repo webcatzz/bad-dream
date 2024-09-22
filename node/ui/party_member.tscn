@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c4rj8gc5e1hpf"]
 
 [ext_resource type="Texture2D" uid="uid://tmebnnw8xj3c" path="res://asset/ui/party_member.png" id="1_eu3sh"]
-[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/portrait/default.png" id="2_4p7k0"]
+[ext_resource type="Texture2D" uid="uid://fkg8kws8qwow" path="res://asset/actor/portrait/default.png" id="2_kxmv5"]
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="3_e188c"]
 
 [sub_resource type="GDScript" id="GDScript_nlyj4"]
@@ -32,14 +32,14 @@ func _on_will_changed() -> void:
 	$Panel/VBox/WillSlots.value = actor.will
 "
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xojs"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itwye"]
 bg_color = Color(0, 0, 1, 1)
 expand_margin_left = 4.0
 expand_margin_top = 16.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xojs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_edb4o"]
 content_margin_left = 4.0
@@ -58,8 +58,8 @@ script = SubResource("GDScript_nlyj4")
 [node name="Button" type="Button" parent="."]
 z_index = -1
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_3xojs")
 theme_override_styles/focus = SubResource("StyleBoxFlat_itwye")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3xojs")
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -72,11 +72,10 @@ theme_override_constants/separation = 4
 [node name="Portrait" type="TextureRect" parent="Panel/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("2_4p7k0")
+texture = ExtResource("2_kxmv5")
 
 [node name="WillSlots" type="Control" parent="Panel/VBox"]
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("3_e188c")
-max = null

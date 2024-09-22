@@ -2,43 +2,37 @@
 
 
 @export var max: int = 1:
-	set(val):
-		max = max(val, 1)
-		update()
+	set(val): max = max(val, 1); _update()
 
 @export var value: int:
-	set(val):
-		value = min(val, max)
-		update()
+	set(val): value = min(val, max); _update()
 
+@export var color: Color = Palette.TEXT_NORMAL:
+	set(val): color = val; _update()
+
+
+func set_values(value: int, max: int) -> void:
+	self.max = max
+	self.value = value
+
+
+
+# internal
 
 func _ready() -> void:
-	update()
+	_update()
 
 
-func update() -> void:
+func _update() -> void:
 	custom_minimum_size = Vector2(max * 6 + max - 1, 6)
 	queue_redraw()
 
 
 func _draw() -> void:
 	for slot: int in max:
-		if slot >= value:
-			draw_texture_rect_region(
-				preload("res://asset/ui/slot.png"),
-				Rect2(Vector2(slot * 7, 0), Vector2(6, 6)),
-				Rect2(Vector2.ZERO, Vector2(6, 6))
-			)
-		else:
-			draw_texture_rect_region(
-				preload("res://asset/ui/slot.png"),
-				Rect2(Vector2(slot * 7, 0), Vector2(6, 6)),
-				Rect2(Vector2(6, 0), Vector2(6, 6))
-			)
-
-
-static func from(value: int, max: int) -> Slots:
-	var slots: Slots = Slots.new()
-	slots.max = max
-	slots.value = value
-	return slots
+		draw_texture_rect_region(
+			preload("res://asset/ui/slot.png"),
+			Rect2(Vector2(slot * 7, 0), Vector2(6, 6)),
+			Rect2(Vector2.ZERO if slot >= value else Vector2(6, 0), Vector2(6, 6)),
+			color
+		)

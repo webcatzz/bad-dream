@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=3 format=3 uid="uid://dyhd51d2wbdjc"]
+
+[ext_resource type="Script" path="res://script/action.gd" id="1_y7qcw"]
+[ext_resource type="Script" path="res://script/actor.gd" id="5_0dfdj"]
+
+[resource]
+script = ExtResource("5_0dfdj")
+will = 2
+max_will = 3
+stamina = 8
+max_stamina = 8
+attack = 0
+defense = 0
+evasion = 0.0
+traits = Array[int]([0])
+actions = Array[ExtResource("1_y7qcw")]([])
+limit_break_max = 0
+limit_break_progress = 0
+type_weak = Array[int]([])
+type_strong = Array[int]([])
+name = "Woodcarver"

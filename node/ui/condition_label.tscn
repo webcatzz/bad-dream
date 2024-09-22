@@ -1,34 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7omxrg7nc1dx"]
+[gd_scene load_steps=3 format=3 uid="uid://c7omxrg7nc1dx"]
 
 [ext_resource type="Script" path="res://node/ui/condition_label.gd" id="1_0fyau"]
-[ext_resource type="Texture2D" uid="uid://dlsm5vs7hl5sq" path="res://asset/ui/state_frame.png" id="2_l5e31"]
-[ext_resource type="Texture2D" uid="uid://o432abn3y3g2" path="res://asset/ui/trait_icons.png" id="3_wm8ln"]
+[ext_resource type="Script" path="res://node/ui/slots.gd" id="4_1aqjd"]
 
-[node name="ConditionLabel" type="HBoxContainer"]
-offset_right = 60.0
-offset_bottom = 8.0
-theme_override_constants/separation = 4
+[node name="ConditionLabel" type="PanelContainer"]
+offset_right = 83.0
+offset_bottom = 4.0
 script = ExtResource("1_0fyau")
 
-[node name="Frame" type="TextureRect" parent="."]
+[node name="Color" type="ColorRect" parent="."]
 layout_mode = 2
-size_flags_vertical = 0
-texture = ExtResource("2_l5e31")
-stretch_mode = 2
+color = Color(0.898039, 0.266667, 0.380392, 1)
 
-[node name="Icon" type="Sprite2D" parent="Frame"]
-position = Vector2(5, 5)
-texture = ExtResource("3_wm8ln")
-region_enabled = true
-region_rect = Rect2(2.08165e-12, 2.08165e-12, 8, 8)
-
-[node name="Name" type="Label" parent="."]
+[node name="Margins" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_type_variation = &"SmallLabel"
-text = "effect"
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 1
 
-[node name="Duration" type="Label" parent="."]
+[node name="HBox" type="HBoxContainer" parent="Margins"]
 layout_mode = 2
-theme_type_variation = &"SmallLabel"
-theme_override_colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
-text = "for 4 turns"
+theme_override_constants/separation = 3
+
+[node name="Name" type="Label" parent="Margins/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.0745098, 0.105882, 1)
+text = "Condition"
+
+[node name="Duration" type="Control" parent="Margins/HBox"]
+custom_minimum_size = Vector2(27, 6)
+layout_mode = 2
+size_flags_vertical = 8
+script = ExtResource("4_1aqjd")
+max = 4
+value = 2
+color = Color(0.0901961, 0.0745098, 0.105882, 0.501961)

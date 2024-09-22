@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb4tbahw8ijki"]
 
-[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/portrait/default.png" id="1_8prki"]
+[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/icon/default.png" id="1_8prki"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="1_l04c8"]
 
 [node name="Woodcarver" type="Node2D"]

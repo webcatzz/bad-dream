@@ -1,0 +1,134 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpisvawsnlfmb"]
+
+[ext_resource type="Texture2D" uid="uid://c8rkvbngvk6q8" path="res://asset/ui/info.png" id="1_qhajh"]
+[ext_resource type="Script" path="res://node/ui/actor_info.gd" id="2_jr0fl"]
+[ext_resource type="Material" uid="uid://bk1bhmmg24pol" path="res://asset/vfx/wave.tres" id="3_ekr3r"]
+[ext_resource type="Script" path="res://node/ui/slots.gd" id="4_b0aou"]
+[ext_resource type="PackedScene" uid="uid://dnpfg3qq2mr68" path="res://node/ui/trait_label.tscn" id="5_ytoah"]
+[ext_resource type="PackedScene" uid="uid://c7omxrg7nc1dx" path="res://node/ui/condition_label.tscn" id="6_gcqww"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5sf4"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 13.0
+content_margin_bottom = 6.0
+texture = ExtResource("1_qhajh")
+texture_margin_left = 73.0
+texture_margin_top = 24.0
+texture_margin_right = 14.0
+texture_margin_bottom = 18.0
+expand_margin_left = 15.0
+
+[node name="Info" type="PanelContainer"]
+custom_minimum_size = Vector2(128, 160)
+offset_right = 128.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_s5sf4")
+script = ExtResource("2_jr0fl")
+
+[node name="Items" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Items"]
+custom_minimum_size = Vector2(2.08165e-12, 22)
+layout_mode = 2
+theme_type_variation = &"Heading2"
+text = "Actor"
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Items/Title"]
+material = ExtResource("3_ekr3r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Controls" type="VBoxContainer" parent="Items"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Stats" type="HBoxContainer" parent="Items/Controls"]
+layout_mode = 2
+
+[node name="Key" type="GridContainer" parent="Items/Controls/Stats"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="WillLabel" type="Label" parent="Items/Controls/Stats/Key"]
+layout_mode = 2
+theme_type_variation = &"LabelSmallMuted"
+text = "Will"
+
+[node name="WillSlots" type="Control" parent="Items/Controls/Stats/Key"]
+custom_minimum_size = Vector2(20, 6)
+layout_mode = 2
+script = ExtResource("4_b0aou")
+max = 3
+value = 2
+
+[node name="StaminaLabel" type="Label" parent="Items/Controls/Stats/Key"]
+layout_mode = 2
+theme_type_variation = &"LabelSmallMuted"
+text = "stamina"
+
+[node name="StaminaSlots" type="Control" parent="Items/Controls/Stats/Key"]
+custom_minimum_size = Vector2(27, 6)
+layout_mode = 2
+script = ExtResource("4_b0aou")
+max = 4
+value = 1
+
+[node name="Other" type="Label" parent="Items/Controls/Stats"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"LabelSmallMuted"
+theme_override_constants/line_spacing = 1
+text = "ATK 0
+DEF 0
+EVA 0"
+horizontal_alignment = 2
+
+[node name="Traits" type="VBoxContainer" parent="Items/Controls"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Label" type="Label" parent="Items/Controls/Traits"]
+layout_mode = 2
+theme_type_variation = &"LabelMuted"
+text = "Traits"
+
+[node name="TraitLabel" parent="Items/Controls/Traits" instance=ExtResource("5_ytoah")]
+layout_mode = 2
+
+[node name="TraitLabel2" parent="Items/Controls/Traits" instance=ExtResource("5_ytoah")]
+layout_mode = 2
+
+[node name="Conditions" type="VBoxContainer" parent="Items/Controls"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Label" type="Label" parent="Items/Controls/Conditions"]
+layout_mode = 2
+theme_type_variation = &"LabelMuted"
+text = "Conditions"
+
+[node name="ConditionLabel" parent="Items/Controls/Conditions" instance=ExtResource("6_gcqww")]
+layout_mode = 2
+
+[node name="Footer" type="Label" parent="Items"]
+custom_minimum_size = Vector2(2.08165e-12, 5)
+layout_mode = 2
+size_flags_vertical = 1
+theme_type_variation = &"LabelSmall"
+theme_override_colors/font_color = Color(0.176471, 0.101961, 0.133333, 1)
+text = "Actor"
+horizontal_alignment = 2
+autowrap_mode = 2

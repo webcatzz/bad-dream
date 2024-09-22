@@ -37,8 +37,12 @@ script = ExtResource("3_qchtp")
 
 [node name="Collision" parent="Interactable" instance=ExtResource("5_xrbn1")]
 
+[node name="Actor" parent="." instance=ExtResource("6_akm5s")]
+position = Vector2(112, 40)
+resource = ExtResource("7_ct64e")
+
 [node name="Battle" parent="." node_paths=PackedStringArray("enemy_nodes") instance=ExtResource("4_wnixx")]
-enemy_nodes = [NodePath("Actor")]
+enemy_nodes = [NodePath("../Actor")]
 
 [node name="PlayerDetector" type="Area2D" parent="Battle"]
 position = Vector2(64, 32)
@@ -46,9 +50,5 @@ script = ExtResource("4_rw075")
 free_on_enter = true
 
 [node name="Collision" parent="Battle/PlayerDetector" instance=ExtResource("5_xrbn1")]
-
-[node name="Actor" parent="Battle" instance=ExtResource("6_akm5s")]
-position = Vector2(112, 40)
-resource = ExtResource("7_ct64e")
 
 [connection signal="player_entered" from="Battle/PlayerDetector" to="Battle" method="start"]
