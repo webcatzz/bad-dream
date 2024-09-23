@@ -42,7 +42,7 @@ func open_actor_menu() -> void:
 	_menu.open(selected.resource)
 
 
-func on_action_taken() -> void:
+func deselect_delayed() -> void:
 	await get_tree().create_timer(1).timeout
 	deselect()
 
@@ -51,11 +51,7 @@ func on_action_taken() -> void:
 # input
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if Input.is_action_pressed("undo"):
-		Game.battle.history.undo()
-		get_viewport().set_input_as_handled()
-	
-	elif Input.is_action_pressed("end_phase"):
+	if Input.is_action_pressed("end_phase"):
 		$ConfirmEndPhase.popup_centered()
 		get_viewport().set_input_as_handled()
 	
@@ -72,8 +68,17 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _on_interact() -> void:
-	super()
-	if selected: open_actor_menu()
+	if mode != Mode.MOVE:
+		super()
+		if selected: open_actor_menu()
+
+
+func _on_other_input() -> void:
+	if mode == Mode.MOVE and Input.is_action_just_pressed("undo"):
+		Game.battle.history.undo()
+		get_viewport().set_input_as_handled()
+	else:
+		super()
 
 
 func move(motion: Vector2i) -> void:

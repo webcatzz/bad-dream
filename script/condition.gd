@@ -19,17 +19,20 @@ var duration_left: int
 
 func apply() -> void:
 	duration_left = duration
-	Game.battle.phase_changed
 	
 	match type:
 		Type.SPEED:
 			actor.reoriented.connect(_speed_listener)
+		Type.BURN:
+			actor.action_sent.connect(actor.damage.bind(1))
 
 
 func unapply() -> void:
 	match type:
 		Type.SPEED:
 			actor.reoriented.disconnect(_speed_listener)
+		Type.BURN:
+			actor.action_sent.disconnect(actor.damage.bind(1))
 
 
 static func from(type: Type, duration: int, strength: int = 1) -> Condition:

@@ -68,8 +68,10 @@ func do_party_phase() -> void:
 	party_phase_started.emit()
 	await announce("Party Phase", Palette.BLUE)
 	
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(selector, "position", Iso.from_grid(Save.player.position), 0.1)
+	await tween.finished
 	selector.set_enabled(true)
-	selector.position = Save.player.node.position
 	
 	await phase_changed
 	

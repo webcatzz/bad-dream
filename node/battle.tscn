@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=34 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://bdqhjnpkpshbe" path="res://node/ui/input_bar.tscn" id="2_gr01j"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://node/action_menu.gd" id="10_oftmg"]
 [ext_resource type="Texture2D" uid="uid://btb0jjvrvb712" path="res://asset/icon/x.png" id="11_e3eu4"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="11_imcxk"]
+[ext_resource type="PackedScene" uid="uid://qlnpt1lljwvb" path="res://node/ui/input_label.tscn" id="11_lj0co"]
 
 [sub_resource type="Gradient" id="Gradient_8geuf"]
 colors = PackedColorArray(0.0935, 0.077, 0.11, 0.501961, 0.0935, 0.077, 0.11, 0)
@@ -204,10 +205,10 @@ z_index = -1
 
 [node name="ActorMenu" type="TabContainer" parent="Selector"]
 visible = false
-offset_left = 32.0
+offset_left = 36.0
 offset_top = -48.0
-offset_right = 61.0
-offset_bottom = -22.0
+offset_right = 75.0
+offset_bottom = -41.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_ekkal")
 current_tab = 0
 tabs_visible = false
@@ -250,13 +251,13 @@ theme_override_fonts/font = ExtResource("11_imcxk")
 text = "Cancel"
 icon = ExtResource("11_e3eu4")
 
-[node name="Actions" type="VBoxContainer" parent="Selector/ActorMenu"]
+[node name="Action" type="VBoxContainer" parent="Selector/ActorMenu"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 1
 
-[node name="Cancel" type="Button" parent="Selector/ActorMenu/Actions"]
+[node name="Cancel" type="Button" parent="Selector/ActorMenu/Action"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"ClearButton"
@@ -264,7 +265,7 @@ theme_override_fonts/font = ExtResource("11_imcxk")
 text = "Cancel"
 icon = ExtResource("11_e3eu4")
 
-[node name="List" type="ItemList" parent="Selector/ActorMenu/Actions"]
+[node name="List" type="ItemList" parent="Selector/ActorMenu/Action"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
 size_flags_vertical = 3
@@ -274,11 +275,29 @@ item_count = 2
 item_0/text = "Action"
 item_1/text = "Action"
 
+[node name="Movement" type="VBoxContainer" parent="Selector/ActorMenu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+metadata/_tab_index = 2
+
+[node name="Stop" type="Button" parent="Selector/ActorMenu/Movement"]
+layout_mode = 2
+theme_type_variation = &"ClearButton"
+theme_override_fonts/font = ExtResource("11_imcxk")
+text = "Stop"
+icon = ExtResource("11_e3eu4")
+alignment = 0
+
+[node name="Backtrack" parent="Selector/ActorMenu/Movement" instance=ExtResource("11_lj0co")]
+layout_mode = 2
+label = "Backtrack"
+action = "undo"
+
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
 
 [node name="Gradient" type="PanelContainer" parent="UI"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -446,10 +465,14 @@ libraries = {
 }
 
 [connection signal="confirmed" from="Selector/ConfirmEndPhase" to="." method="end_phase"]
-[connection signal="pressed" from="Selector/ActorMenu/Main/Attack" to="Selector/ActorMenu" method="_open_actions"]
+[connection signal="pressed" from="Selector/ActorMenu/Main/Attack" to="Selector/ActorMenu" method="_open_action"]
+[connection signal="pressed" from="Selector/ActorMenu/Main/Move" to="Selector/ActorMenu" method="_open_movement"]
+[connection signal="pressed" from="Selector/ActorMenu/Main/Guard" to="Selector/ActorMenu" method="_on_guard_pressed"]
 [connection signal="pressed" from="Selector/ActorMenu/Main/Cancel" to="Selector" method="deselect"]
 [connection signal="pressed" from="Selector/ActorMenu/Main/Cancel" to="Selector/ActorMenu" method="close"]
-[connection signal="focus_entered" from="Selector/ActorMenu/Actions/Cancel" to="Selector/ActorMenu" method="clear_highlight"]
-[connection signal="pressed" from="Selector/ActorMenu/Actions/Cancel" to="Selector/ActorMenu" method="_open_main"]
-[connection signal="item_activated" from="Selector/ActorMenu/Actions/List" to="Selector/ActorMenu" method="_on_action_activated"]
-[connection signal="item_selected" from="Selector/ActorMenu/Actions/List" to="Selector/ActorMenu" method="_on_action_selected"]
+[connection signal="focus_entered" from="Selector/ActorMenu/Action/Cancel" to="Selector/ActorMenu" method="clear_highlight"]
+[connection signal="pressed" from="Selector/ActorMenu/Action/Cancel" to="Selector/ActorMenu" method="_open_main"]
+[connection signal="focus_entered" from="Selector/ActorMenu/Action/List" to="Selector/ActorMenu" method="_on_action_selected" binds= [0]]
+[connection signal="item_activated" from="Selector/ActorMenu/Action/List" to="Selector/ActorMenu" method="_on_action_activated"]
+[connection signal="item_selected" from="Selector/ActorMenu/Action/List" to="Selector/ActorMenu" method="_on_action_selected"]
+[connection signal="pressed" from="Selector/ActorMenu/Movement/Stop" to="Selector/ActorMenu" method="_close_movement"]

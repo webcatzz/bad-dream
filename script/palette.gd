@@ -8,11 +8,11 @@ const LIGHT_RED: Color = Color("#ed5646")
 const ORANGE: Color = Color("#ff8919")
 const LIGHT_ORANGE: Color = Color("#f4a233")
 
-const BLUE: Color = Color("#5774d4")
-const LIGHT_BLUE: Color = Color("#4d89a6")
-
 const GREEN: Color = Color("#83c250")
 const LIGHT_GREEN: Color = Color("#5fcd73")
+
+const BLUE: Color = Color("#5774d4")
+const LIGHT_BLUE: Color = Color("#4d89a6")
 
 const PURPLE: Color = Color("#9372c2")
 const LIGHT_PURPLE: Color = Color("#807bd2")

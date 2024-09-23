@@ -9,6 +9,7 @@ signal trait_removed(type: Trait.Type)
 signal condition_added(condition: Condition)
 signal condition_removed(condition: Condition)
 # actions
+signal action_sent
 signal missed
 signal evaded
 signal evade_failed
@@ -113,6 +114,7 @@ func send_action(action: Action) -> void:
 
 func guard() -> void:
 	add_condition(Condition.from(Condition.Type.GUARD, 1))
+	stamina = 0
 
 
 
@@ -134,7 +136,7 @@ func recieve_action(action: Action, cause: Actor) -> void:
 		add_condition(action.condition.duplicate())
 
 
-func damage(num: int, type: Action.Type) -> void:
+func damage(num: int, type: Action.Type = Action.Type.NONE) -> void:
 	var damage: int = -max(num - defense, 0)
 	if type in type_weak: damage *= 2
 	elif type in type_strong: damage /= 2

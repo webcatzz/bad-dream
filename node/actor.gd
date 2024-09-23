@@ -53,8 +53,8 @@ func _update_will_slots() -> void:
 func _on_stamina_changed() -> void:
 	if not resource.stamina:
 		await get_tree().create_timer(1).timeout
-		$Sprite.self_modulate.a = 1 if resource.stamina else 0.75
 		$ExhaustParticles.emitting = true
+	$Sprite.self_modulate.a = 1 if resource.stamina else 0.75
 
 
 func _on_condition_added(condition: Condition) -> void:

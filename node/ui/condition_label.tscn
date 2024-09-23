@@ -5,7 +5,7 @@
 
 [node name="ConditionLabel" type="PanelContainer"]
 offset_right = 83.0
-offset_bottom = 4.0
+offset_bottom = 9.0
 script = ExtResource("1_0fyau")
 
 [node name="Color" type="ColorRect" parent="."]
