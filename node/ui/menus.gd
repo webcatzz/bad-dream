@@ -9,12 +9,14 @@ enum Menu {
 }
 
 var current_menu: Menu = Menu.NONE
+var last_focus: Control
 
 @onready var _overlay: Control = $Overlay
 
 
 func open(menu: Menu) -> void:
 	close()
+	last_focus = get_viewport().gui_get_focus_owner()
 	
 	current_menu = menu
 	_overlay.get_child(menu).show()
@@ -35,13 +37,11 @@ func close() -> void:
 	
 	_overlay.hide()
 	get_tree().paused = false
+	if last_focus: last_focus.grab_focus()
 
 
 func toggle(menu: Menu) -> void:
-	if current_menu == menu:
-		close()
-	else:
-		open(menu)
+	close() if current_menu == menu else open(menu)
 
 
 

@@ -40,7 +40,14 @@ static func rotate_grid_vector(vector: Vector2i, to: Vector2i) -> Vector2i:
 
 
 
-# snapping
+# misc
+
+static func get_direction(vector: Vector2i) -> Vector2i:
+	if vector.x < 0:
+		return UP if vector.y < 0 else LEFT
+	else:
+		return RIGHT if vector.y < 0 else DOWN
+
 
 static func snap(vector: Vector2) -> Vector2:
 	vector = vector.snapped(Vector2(16, 8))

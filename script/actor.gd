@@ -31,7 +31,6 @@ signal reoriented
 var conditions: Array[Condition]
 # actions
 @export var actions: Array[Action]
-var acted_this_phase: bool
 @export_group("Limit break", "limit_break_")
 @export var limit_break_action: Action
 @export var limit_break_max: int
@@ -44,6 +43,8 @@ var acted_this_phase: bool
 var position: Vector2i
 var facing: Vector2i = Vector2i(0, 1)
 var path: Array[Dictionary]
+# pocket
+var pocket: Item
 # node
 var node: ActorNode
 
@@ -109,6 +110,7 @@ func send_action(action: Action) -> void:
 	else:
 		missed.emit()
 	
+	action_sent.emit()
 	stamina = 0
 
 

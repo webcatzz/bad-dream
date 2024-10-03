@@ -1,10 +1,14 @@
 extends Node2D
 
 
-var input: Vector2
+const PATH_SEPARATION: int = 4
+const FOLLOW_SPEED: float = 2.4
 
 var player_node: ActorNode
 var party_nodes: Array[ActorNode]
+
+var input: Vector2
+var path: PackedVector2Array
 
 @onready var _camera: Camera2D = $Camera
 @onready var _interaction_area: Area2D = $InteractionArea
@@ -12,9 +16,13 @@ var party_nodes: Array[ActorNode]
 
 func set_enabled(value: bool) -> void:
 	set_process_unhandled_key_input(value)
+	set_physics_process(value)
 	input = Vector2.ZERO
 	if value: _camera.make_current()
 
+
+
+# internal
 
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
@@ -28,6 +36,16 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 func _physics_process(_delta: float) -> void:
 	player_node.velocity = input * 8
 	player_node.move_and_slide()
+	
+	if path[-1].distance_squared_to(player_node.position) > 256:
+		path.remove_at(0)
+		path.append(player_node.position)
+	
+	for party_node: ActorNode in party_nodes:
+		party_node.resource.facing = Iso.to_grid(Iso.get_direction(
+			Save.player.node.global_position - global_position
+		))
+		party_node.position = path[PATH_SEPARATION * Save.party.find(party_node.resource, 1)]
 
 
 func _ready() -> void:
@@ -43,6 +61,9 @@ func _ready() -> void:
 		if not actor.node:
 			actor.node = load("res://node/actor.tscn").instantiate()
 			actor.node.resource = actor
+			
+			if i:
+				actor.node.set_collision(false)
 		
 		actor.node.position = position
 		add_child.call_deferred(actor.node)
@@ -52,8 +73,13 @@ func _ready() -> void:
 	for i: int in range(1, Save.party.size()):
 		party_nodes.append(Save.party[i].node)
 	
-	# reparenting children
+	# reparenting non-actor children
 	for child: Node in children:
 		child.reparent(player_node)
 	
+	# camera
 	_camera.make_current.call_deferred()
+	
+	# path
+	path.resize(PATH_SEPARATION * Save.party.size())
+	path.fill(position)

@@ -37,7 +37,7 @@ func _open_action() -> void:
 	_action_list.clear()
 	
 	for action: Action in actor.actions:
-		var idx: int = _action_list.add_item(action.name)
+		var idx: int = _action_list.add_item(action.name + " " + "*".repeat(action.cost))
 		_action_list.set_item_disabled(idx, not actor.can_send_action(action))
 	
 	current_tab = Tab.ACTION
@@ -56,6 +56,7 @@ func _open_movement() -> void:
 func _close_movement() -> void:
 	_selector.mode = Selector.Mode.ACT
 	_open_main()
+	$Main/Move.grab_focus()
 
 
 
@@ -84,13 +85,4 @@ func _on_action_activated(idx: int) -> void:
 	clear_highlight()
 	close()
 	actor.send_action(actor.actions[idx])
-	_selector.deselect_delayed()
-
-
-
-# guarding
-
-func _on_guard_pressed() -> void:
-	close()
-	actor.guard()
 	_selector.deselect_delayed()

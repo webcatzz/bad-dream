@@ -12,7 +12,7 @@ func emit_text(string: String, color: Color = Palette.WHITE) -> void:
 
 
 func set_collision(value: bool) -> void:
-	$Collision.disabled = value
+	$Collision.disabled = not value
 
 
 

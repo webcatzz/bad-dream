@@ -6,7 +6,6 @@ class_name Item extends Resource
 @export_multiline var description: String
 
 @export var shape: BitMap
-var position: Vector2i # used by party inventories
 
 
 func get_points() -> Array[Vector2i]:
