@@ -1,11 +1,17 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://bsmul7001bppa"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bsmul7001bppa"]
 
-[ext_resource type="Script" path="res://script/enemy.gd" id="1_j2ty3"]
 [ext_resource type="Script" path="res://script/action.gd" id="1_wy4vy"]
 
+[sub_resource type="GDScript" id="GDScript_25l6l"]
+script/source = "extends Enemy
+
+
+func act():
+	pass
+"
+
 [resource]
-script = ExtResource("1_j2ty3")
-movement = 0
+script = SubResource("GDScript_25l6l")
 will = 1
 max_will = 1
 stamina = 1

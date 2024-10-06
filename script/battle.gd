@@ -1,6 +1,11 @@
 class_name Battle extends Node2D
 
 
+# state
+signal started
+signal cycled
+signal ended
+# phase
 signal phase_changed
 signal enemy_phase_started
 signal party_phase_started
@@ -9,6 +14,7 @@ enum Phase {ENEMY, PARTY}
 
 @export var enemy_nodes: Array[ActorNode]
 
+var cycle_idx: int = -1
 var enemies: Array[Enemy]
 var phase: Phase
 # helpers
@@ -42,8 +48,10 @@ func start() -> void:
 
 
 func cycle() -> void:
+	cycle_idx += 1
 	await do_enemy_phase()
 	await do_party_phase()
+	cycled.emit()
 	cycle()
 
 
@@ -52,7 +60,10 @@ func do_enemy_phase() -> void:
 	$UI/Phase.current_tab = phase
 	
 	enemy_phase_started.emit()
-	#await announce("Enemy Phase", Palette.RED)
+	await announce("Enemy Phase", Palette.RED)
+	
+	for enemy: Enemy in enemies:
+		await enemy.act()
 	
 	end_phase()
 

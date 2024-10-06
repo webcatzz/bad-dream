@@ -5,6 +5,9 @@ var space: PhysicsDirectSpaceState2D = Game.get_tree().current_scene.get_world_2
 var tile_shape: ConvexPolygonShape2D = ConvexPolygonShape2D.new()
 
 
+
+# tiles
+
 func collide_tile(tile: Vector2i) -> Array[Node2D]:
 	var params: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 	params.shape = tile_shape
@@ -63,19 +66,19 @@ func find_actors_in(polygons: Array[PackedVector2Array], offset: Vector2) -> Arr
 
 
 
-# internal
+# updating
 
-func _init() -> void: # region: Rect2i
-	#self.region = region
-	#diagonal_mode = DIAGONAL_MODE_NEVER
-	#update()
-	#
-	tile_shape.points = [Vector2(-16, 0), Vector2(0, -8), Vector2(16, 0), Vector2(0, 8)]
-	#
-	#generate()
+func update_region() -> void:
+	region = Rect2i(Save.player.position, Vector2i.ZERO)
+	for actor: Actor in Save.party + Game.battle.enemies:
+		region.expand(actor.position)
+	region.grow_individual(8, 8, 9, 9)
+	
+	update()
+	update_collision()
 
 
-func generate() -> void:
+func update_collision() -> void:
 	for x in region.size.x: for y in region.size.y:
 		var tile: Vector2i = Vector2i(x, y) + region.position
 		set_point_solid(tile, false)
@@ -84,3 +87,12 @@ func generate() -> void:
 			if not collider is ActorNode:
 				set_point_solid(tile, true)
 				break
+
+
+
+# internal
+
+func _init() -> void:
+	diagonal_mode = DIAGONAL_MODE_NEVER
+	tile_shape.points = [Vector2(-16, 0), Vector2(0, -8), Vector2(16, 0), Vector2(0, 8)]
+	update_region()

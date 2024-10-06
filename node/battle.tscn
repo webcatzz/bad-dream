@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=33 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://bdqhjnpkpshbe" path="res://node/ui/input_bar.tscn" id="2_gr01j"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://node/actor_menu.gd" id="10_oftmg"]
 [ext_resource type="Texture2D" uid="uid://btb0jjvrvb712" path="res://asset/ui/icon/x.png" id="11_e3eu4"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="11_imcxk"]
-[ext_resource type="PackedScene" uid="uid://qlnpt1lljwvb" path="res://node/ui/input_label.tscn" id="11_lj0co"]
 
 [sub_resource type="Gradient" id="Gradient_8geuf"]
 colors = PackedColorArray(0.0935, 0.077, 0.11, 0.501961, 0.0935, 0.077, 0.11, 0)
@@ -184,6 +183,7 @@ selector = NodePath("Selector")
 _party = NodePath("UI/Phase/Party/Party")
 
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
+visible = false
 script = ExtResource("3_1tu8e")
 
 [node name="Info" parent="Selector" instance=ExtResource("5_gtbxe")]
@@ -286,15 +286,58 @@ text = "Stop"
 icon = ExtResource("11_e3eu4")
 alignment = 0
 
-[node name="Label" type="Label" parent="Selector/ActorMenu/Movement"]
+[node name="Controls" type="HBoxContainer" parent="Selector/ActorMenu/Movement"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
+
+[node name="Movement" type="GridContainer" parent="Selector/ActorMenu/Movement/Controls"]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="Q" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
-text = "Stamina: 0/5"
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Backtrack" parent="Selector/ActorMenu/Movement" instance=ExtResource("11_lj0co")]
+[node name="W" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
-label = "Backtrack"
-action = "undo"
+theme_type_variation = &"LabelSmall"
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="A" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Selector/ActorMenu/Movement/Controls"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "Shift"
+
+[node name="Stamina" type="Label" parent="Selector/ActorMenu/Movement"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "Stamina: 4/5"
 
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
