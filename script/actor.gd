@@ -31,6 +31,7 @@ signal reoriented
 var conditions: Array[Condition]
 # actions
 @export var actions: Array[Action]
+var acted_this_phase: bool = false
 @export_group("Limit break", "limit_break_")
 @export var limit_break_action: Action
 @export var limit_break_max: int
@@ -112,6 +113,7 @@ func send_action(action: Action) -> void:
 	
 	action_sent.emit()
 	stamina = 0
+	acted_this_phase = true
 
 
 func guard() -> void:

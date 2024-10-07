@@ -1,14 +1,12 @@
 extends InfoPanel
 
 
-@onready var _title: Label = $Items/Title
-
 @onready var _will: Slots = $Items/Controls/Stats/Key/WillSlots
 @onready var _stamina: Slots = $Items/Controls/Stats/Key/StaminaSlots
 @onready var _other: Label = $Items/Controls/Stats/Other
 
-@onready var _traits: VBoxContainer = $Items/Controls/Traits
-@onready var _conditions: VBoxContainer = $Items/Controls/Conditions
+@onready var _traits: GridContainer = $Items/Controls/Traits/Grid
+@onready var _conditions: GridContainer = $Items/Controls/Conditions/Grid
 
 
 func write(actor: Actor) -> void:
@@ -18,25 +16,34 @@ func write(actor: Actor) -> void:
 	_stamina.set_values(actor.stamina, actor.max_stamina)
 	_other.text = "ATK %s\nDEF %s\nEVA %s" % [actor.attack, actor.defense, actor.evasion]
 	
-	for i: int in range(1, _traits.get_child_count()):
-		_traits.get_child(i).queue_free()
-	for i: int in range(1, _conditions.get_child_count()):
-		_conditions.get_child(i).queue_free()
+	for child: Control in _traits.get_children() + _conditions.get_children():
+		child.queue_free()
 	
 	if actor.traits:
 		for trait_type: Trait.Type in actor.traits:
-			var label: Control = preload("res://node/ui/trait_label.tscn").instantiate()
-			_traits.add_child(label)
-			label.write(trait_type)
-		_traits.show()
+			var name_label: Label = Label.new()
+			name_label.text = Trait.name(trait_type)
+			_traits.add_child(name_label)
+			var desc_label: Label = Label.new()
+			desc_label.text = Trait.describe(trait_type)
+			desc_label.theme_type_variation = &"LabelSmall"
+			desc_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			_traits.add_child(desc_label)
+		_traits.get_parent().show()
 	else:
-		_traits.hide()
+		_traits.get_parent().hide()
 	
 	if actor.conditions:
 		for condition: Condition in actor.conditions:
-			var label: Control = preload("res://node/ui/condition_label.tscn").instantiate()
-			_conditions.add_child(label)
-			label.write(condition)
-		_conditions.show()
+			var name_label: Label = Label.new()
+			name_label.text = condition.name()
+			_traits.add_child(name_label)
+			var slots: Slots = Slots.new()
+			slots.set_values(condition.duration_left, condition.duration)
+			slots.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			_traits.add_child(slots)
+		_conditions.get_parent().show()
 	else:
-		_conditions.hide()
+		_conditions.get_parent().hide()
+	
+	size = Vector2.ZERO

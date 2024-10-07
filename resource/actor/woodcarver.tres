@@ -19,4 +19,6 @@ traits = Array[int]([0])
 actions = Array[ExtResource("1_y8c52")]([ExtResource("1_yolib"), ExtResource("2_bky7o"), ExtResource("3_mt67c")])
 limit_break_max = 0
 limit_break_progress = 0
+type_weak = Array[int]([])
+type_strong = Array[int]([])
 name = "Woodcarver"

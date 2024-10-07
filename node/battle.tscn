@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bdqhjnpkpshbe" path="res://node/ui/input_bar.tscn" id="2_gr01j"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
+[ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="5_4tpi5"]
 [ext_resource type="PackedScene" uid="uid://bpisvawsnlfmb" path="res://node/ui/actor_info.tscn" id="5_gtbxe"]
 [ext_resource type="Texture2D" uid="uid://ck0rrpppgu5x7" path="res://asset/ui/icon/attack.png" id="6_voli6"]
 [ext_resource type="Texture2D" uid="uid://b21gkqtv4oqrb" path="res://asset/squiggle.png" id="6_vrnyd"]
@@ -13,19 +14,8 @@
 [ext_resource type="Script" path="res://node/actor_menu.gd" id="10_oftmg"]
 [ext_resource type="Texture2D" uid="uid://btb0jjvrvb712" path="res://asset/ui/icon/x.png" id="11_e3eu4"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="11_imcxk"]
-
-[sub_resource type="Gradient" id="Gradient_8geuf"]
-colors = PackedColorArray(0.0935, 0.077, 0.11, 0.501961, 0.0935, 0.077, 0.11, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hh64r"]
-gradient = SubResource("Gradient_8geuf")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-metadata/_snap_enabled = true
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ekkal"]
-texture = SubResource("GradientTexture2D_hh64r")
+[ext_resource type="Script" path="res://node/ui/slots.gd" id="12_ixvq1"]
+[ext_resource type="Texture2D" uid="uid://crp0gmvnk1y2t" path="res://asset/ui/icon/pocket.png" id="12_nv6bv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k8v3"]
 bg_color = Color(0, 0, 1, 0.752941)
@@ -183,67 +173,57 @@ selector = NodePath("Selector")
 _party = NodePath("UI/Phase/Party/Party")
 
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
-visible = false
 script = ExtResource("3_1tu8e")
 
 [node name="Info" parent="Selector" instance=ExtResource("5_gtbxe")]
 visible = false
+custom_minimum_size = Vector2(96, 0)
 offset_left = 40.0
 offset_top = -48.0
-offset_right = 168.0
-offset_bottom = 112.0
+offset_right = 136.0
+offset_bottom = 55.0
 
-[node name="ConfirmEndPhase" type="ConfirmationDialog" parent="Selector"]
-size = Vector2i(200, 80)
-borderless = true
-min_size = Vector2i(0, 0)
-dialog_text = "End the current phase?"
-
-[node name="Path" type="Line2D" parent="Selector"]
-top_level = true
-z_index = -1
-
-[node name="ActorMenu" type="TabContainer" parent="Selector"]
+[node name="Menu" type="TabContainer" parent="Selector"]
 visible = false
 offset_left = 36.0
 offset_top = -48.0
 offset_right = 75.0
 offset_bottom = -33.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_ekkal")
+theme_override_styles/panel = ExtResource("5_4tpi5")
 current_tab = 0
 tabs_visible = false
 script = ExtResource("10_oftmg")
 
-[node name="Main" type="VBoxContainer" parent="Selector/ActorMenu"]
+[node name="Main" type="VBoxContainer" parent="Selector/Menu"]
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 0
 
-[node name="Attack" type="Button" parent="Selector/ActorMenu/Main"]
+[node name="Attack" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
 theme_type_variation = &"ClearButton"
 text = "Attack"
 icon = ExtResource("6_voli6")
 alignment = 0
 
-[node name="Move" type="Button" parent="Selector/ActorMenu/Main"]
+[node name="Move" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
 theme_type_variation = &"ClearButton"
 text = "Move"
 icon = ExtResource("7_obso1")
 alignment = 0
 
-[node name="Pocket" type="Button" parent="Selector/ActorMenu/Main"]
+[node name="Pocket" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
 theme_type_variation = &"ClearButton"
 text = "Pocket"
 icon = ExtResource("8_wfk6e")
 alignment = 0
 
-[node name="Spacer" type="Control" parent="Selector/ActorMenu/Main"]
+[node name="Spacer" type="Control" parent="Selector/Menu/Main"]
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="Selector/ActorMenu/Main"]
+[node name="Cancel" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"ClearButton"
@@ -251,13 +231,13 @@ theme_override_fonts/font = ExtResource("11_imcxk")
 text = "Cancel"
 icon = ExtResource("11_e3eu4")
 
-[node name="Action" type="VBoxContainer" parent="Selector/ActorMenu"]
+[node name="Action" type="VBoxContainer" parent="Selector/Menu"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 1
 
-[node name="Cancel" type="Button" parent="Selector/ActorMenu/Action"]
+[node name="Cancel" type="Button" parent="Selector/Menu/Action"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"ClearButton"
@@ -265,20 +245,20 @@ theme_override_fonts/font = ExtResource("11_imcxk")
 text = "Cancel"
 icon = ExtResource("11_e3eu4")
 
-[node name="List" type="ItemList" parent="Selector/ActorMenu/Action"]
+[node name="List" type="ItemList" parent="Selector/Menu/Action"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
 theme_override_styles/selected_focus = SubResource("StyleBoxFlat_8k8v3")
 
-[node name="Movement" type="VBoxContainer" parent="Selector/ActorMenu"]
+[node name="Movement" type="VBoxContainer" parent="Selector/Menu"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 2
 
-[node name="Stop" type="Button" parent="Selector/ActorMenu/Movement"]
+[node name="Stop" type="Button" parent="Selector/Menu/Movement"]
 layout_mode = 2
 theme_type_variation = &"ClearButton"
 theme_override_fonts/font = ExtResource("11_imcxk")
@@ -286,18 +266,18 @@ text = "Stop"
 icon = ExtResource("11_e3eu4")
 alignment = 0
 
-[node name="Controls" type="HBoxContainer" parent="Selector/ActorMenu/Movement"]
+[node name="Controls" type="HBoxContainer" parent="Selector/Menu/Movement"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 4
 
-[node name="Movement" type="GridContainer" parent="Selector/ActorMenu/Movement/Controls"]
+[node name="Movement" type="GridContainer" parent="Selector/Menu/Movement/Controls"]
 layout_mode = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 2
 
-[node name="Q" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+[node name="Q" type="Label" parent="Selector/Menu/Movement/Controls/Movement"]
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
@@ -305,7 +285,7 @@ text = "Q"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="W" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+[node name="W" type="Label" parent="Selector/Menu/Movement/Controls/Movement"]
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
@@ -313,7 +293,7 @@ text = "W"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="A" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+[node name="A" type="Label" parent="Selector/Menu/Movement/Controls/Movement"]
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
@@ -321,7 +301,7 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="S" type="Label" parent="Selector/ActorMenu/Movement/Controls/Movement"]
+[node name="S" type="Label" parent="Selector/Menu/Movement/Controls/Movement"]
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
@@ -329,15 +309,71 @@ text = "S"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="Selector/ActorMenu/Movement/Controls"]
+[node name="Label" type="Label" parent="Selector/Menu/Movement/Controls"]
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Shift"
 
-[node name="Stamina" type="Label" parent="Selector/ActorMenu/Movement"]
+[node name="Stamina" type="VBoxContainer" parent="Selector/Menu/Movement"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="Selector/Menu/Movement/Stamina"]
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
-text = "Stamina: 4/5"
+text = "Stamina"
+
+[node name="Slots" type="Control" parent="Selector/Menu/Movement/Stamina"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+script = ExtResource("12_ixvq1")
+
+[node name="Pocket" type="VBoxContainer" parent="Selector/Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+metadata/_tab_index = 3
+
+[node name="Item" type="HBoxContainer" parent="Selector/Menu/Pocket"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Icon" type="TextureRect" parent="Selector/Menu/Pocket/Item"]
+layout_mode = 2
+texture = ExtResource("12_nv6bv")
+
+[node name="Name" type="Label" parent="Selector/Menu/Pocket/Item"]
+layout_mode = 2
+text = "Item"
+
+[node name="Spacer" type="Control" parent="Selector/Menu/Pocket"]
+layout_mode = 2
+
+[node name="Use" type="Button" parent="Selector/Menu/Pocket"]
+layout_mode = 2
+theme_type_variation = &"ClearButton"
+text = "Use item"
+alignment = 0
+
+[node name="Cancel" type="Button" parent="Selector/Menu/Pocket"]
+layout_mode = 2
+theme_type_variation = &"ClearButton"
+theme_override_fonts/font = ExtResource("11_imcxk")
+text = "Cancel"
+icon = ExtResource("11_e3eu4")
+alignment = 0
+
+[node name="Path" type="Line2D" parent="Selector"]
+top_level = true
+z_index = -1
+default_color = Color(0.6, 0.576471, 0.639216, 1)
+
+[node name="ConfirmEndPhase" type="ConfirmationDialog" parent="Selector"]
+size = Vector2i(107, 58)
+visible = true
+borderless = true
+min_size = Vector2i(0, 0)
+dialog_text = "End the current phase?"
 
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
@@ -510,14 +546,17 @@ libraries = {
 "": SubResource("AnimationLibrary_ibfeb")
 }
 
+[connection signal="pressed" from="Selector/Menu/Main/Attack" to="Selector/Menu" method="_open_action"]
+[connection signal="pressed" from="Selector/Menu/Main/Move" to="Selector/Menu" method="_open_movement"]
+[connection signal="pressed" from="Selector/Menu/Main/Pocket" to="Selector/Menu" method="_open_pocket"]
+[connection signal="pressed" from="Selector/Menu/Main/Cancel" to="Selector" method="deselect"]
+[connection signal="pressed" from="Selector/Menu/Main/Cancel" to="Selector/Menu" method="close"]
+[connection signal="focus_entered" from="Selector/Menu/Action/Cancel" to="Selector/Menu" method="clear_highlight"]
+[connection signal="pressed" from="Selector/Menu/Action/Cancel" to="Selector/Menu" method="_open_main"]
+[connection signal="focus_entered" from="Selector/Menu/Action/List" to="Selector/Menu" method="_on_action_selected" binds= [0]]
+[connection signal="item_activated" from="Selector/Menu/Action/List" to="Selector/Menu" method="_on_action_activated"]
+[connection signal="item_selected" from="Selector/Menu/Action/List" to="Selector/Menu" method="_on_action_selected"]
+[connection signal="gui_input" from="Selector/Menu/Movement/Stop" to="Selector/Menu" method="_on_movement_gui_input"]
+[connection signal="pressed" from="Selector/Menu/Movement/Stop" to="Selector/Menu" method="_open_main"]
+[connection signal="pressed" from="Selector/Menu/Pocket/Cancel" to="Selector/Menu" method="_open_main"]
 [connection signal="confirmed" from="Selector/ConfirmEndPhase" to="." method="end_phase"]
-[connection signal="pressed" from="Selector/ActorMenu/Main/Attack" to="Selector/ActorMenu" method="_open_action"]
-[connection signal="pressed" from="Selector/ActorMenu/Main/Move" to="Selector/ActorMenu" method="_open_movement"]
-[connection signal="pressed" from="Selector/ActorMenu/Main/Cancel" to="Selector" method="deselect"]
-[connection signal="pressed" from="Selector/ActorMenu/Main/Cancel" to="Selector/ActorMenu" method="close"]
-[connection signal="focus_entered" from="Selector/ActorMenu/Action/Cancel" to="Selector/ActorMenu" method="clear_highlight"]
-[connection signal="pressed" from="Selector/ActorMenu/Action/Cancel" to="Selector/ActorMenu" method="_open_main"]
-[connection signal="focus_entered" from="Selector/ActorMenu/Action/List" to="Selector/ActorMenu" method="_on_action_selected" binds= [0]]
-[connection signal="item_activated" from="Selector/ActorMenu/Action/List" to="Selector/ActorMenu" method="_on_action_activated"]
-[connection signal="item_selected" from="Selector/ActorMenu/Action/List" to="Selector/ActorMenu" method="_on_action_selected"]
-[connection signal="pressed" from="Selector/ActorMenu/Movement/Stop" to="Selector/ActorMenu" method="_close_movement"]

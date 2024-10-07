@@ -1,12 +1,11 @@
 extends PanelContainer
 
 
-@onready var _name: Label = $Margins/HBox/Name
-@onready var _duration: Slots = $Margins/HBox/Duration
-@onready var _color: ColorRect = $Color
+@onready var _name: Label = $HBox/Name
+@onready var _duration: Slots = $HBox/Duration
 
 
 func write(condition: Condition) -> void:
 	_name.text = condition.name()
 	_duration.set_values(condition.duration_left, condition.duration)
-	_color.color = condition.color()
+	#_color.color = condition.color()

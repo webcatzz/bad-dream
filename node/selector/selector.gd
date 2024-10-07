@@ -1,21 +1,15 @@
 class_name Selector extends CharacterBody2D
 
 
-signal mode_changed(mode: Mode)
-
 enum Mode {
 	DISABLED,
-	FREE,
 	MOVE,
-	ACT, # used in actor selector
+	MENU,
 }
 
 @export var enabled: bool = false
 
-var mode: Mode:
-	set(value):
-		mode = value
-		mode_changed.emit(mode)
+var mode: Mode
 var selected: Node2D
 
 var hold_started: int
@@ -25,9 +19,12 @@ var hold_started: int
 @onready var _sprite: Node2D = $Sprite
 @onready var _camera: Camera2D = $Camera
 
+@onready var _info: InfoPanel = $Info
+@onready var _menu: TabContainer = $Menu
+
 
 func set_enabled(value: bool) -> void:
-	mode = Mode.FREE if value else Mode.DISABLED
+	mode = Mode.MOVE if value else Mode.DISABLED
 	
 	visible = value
 	_area.monitoring = value
@@ -36,10 +33,15 @@ func set_enabled(value: bool) -> void:
 	if value: _camera.make_current()
 
 
+
+# selection
+
 func select(body: Node2D) -> void:
 	selected = body
-	mode = Mode.MOVE
 	match_position()
+	
+	mode = Mode.MENU
+	_menu.open(selected.resource)
 	
 	_area.monitoring = false
 	_sprite.position = Vector2.ZERO
@@ -48,9 +50,13 @@ func select(body: Node2D) -> void:
 
 func deselect() -> void:
 	selected = null
-	mode = Mode.FREE
-	
+	mode = Mode.MOVE
 	_area.monitoring = true
+
+
+func deselect_delayed() -> void:
+	await get_tree().create_timer(1).timeout
+	deselect()
 
 
 func auto_select() -> void:
@@ -70,58 +76,27 @@ func match_position(node: Node2D = selected) -> void:
 # input
 
 func _unhandled_key_input(_event: InputEvent) -> void:
+	if mode == Mode.MENU: return
+	
 	if Input.is_action_just_pressed("interact"):
-		hold_started = Time.get_ticks_msec()
-		update_sprite()
+		deselect() if selected else auto_select()
 		get_viewport().set_input_as_handled()
-		
-		_on_interact()
 	
 	elif Input.is_action_just_released("interact"):
-		var hold_duration: int = Time.get_ticks_msec() - hold_started
 		update_sprite()
 		get_viewport().set_input_as_handled()
-		
-		if hold_duration > 500:
-			_on_interact_held()
 	
 	else:
-		_on_other_input()
-
-
-func _on_interact() -> void:
-	deselect() if selected else auto_select()
-	get_viewport().set_input_as_handled()
-
-
-func _on_interact_held() -> void:
-	pass
-
-
-func _on_other_input() -> void:
-	match mode:
-		Mode.FREE:
-			velocity = 8 * Iso.from_grid(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
-			if velocity: get_viewport().set_input_as_handled()
-		
-		Mode.MOVE:
-			var input: Vector2i
-			if Input.is_action_just_pressed("move_up"): input = Vector2i.UP
-			elif Input.is_action_just_pressed("move_down"): input = Vector2i.DOWN
-			elif Input.is_action_just_pressed("move_left"): input = Vector2i.LEFT
-			elif Input.is_action_just_pressed("move_right"): input = Vector2i.RIGHT
-			else: return
-			
-			move(input)
-			get_viewport().set_input_as_handled()
+		velocity = 8 * Iso.from_grid(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
+		if velocity: get_viewport().set_input_as_handled()
 
 
 func move(motion: Vector2i) -> void:
-	selected.position += Iso.from_grid(motion)
+	pass #selected.position += Iso.from_grid(motion)
 
 
 func _physics_process(_delta: float) -> void:
-	if mode == Mode.FREE:
+	if mode == Mode.MOVE:
 		if velocity:
 			move_and_slide()
 		else:
@@ -131,7 +106,20 @@ func _physics_process(_delta: float) -> void:
 
 
 
+# menu
+
+func open_menu() -> void:
+	if not selected: auto_select()
+	mode = Mode.MENU
+	_menu.open(selected.resource)
+
+
+
 # area
+
+func get_body_below() -> Node2D:
+	return _area.get_overlapping_bodies()[0] if _area.monitoring and _area.has_overlapping_bodies() else null
+
 
 func _on_body_entered(body: Node2D) -> void:
 	update_sprite()
@@ -141,20 +129,15 @@ func _on_body_exited(body: Node2D) -> void:
 	update_sprite()
 
 
-func get_body_below() -> Node2D:
-	return _area.get_overlapping_bodies()[0] if _area.monitoring and _area.has_overlapping_bodies() else null
-
-
 
 # sprite
 
 func update_sprite() -> void:
-	if mode == Mode.FREE:
+	if mode == Mode.MOVE:
 		if Input.is_action_pressed("interact"):
 			_set_sprite_distance(-2)
 		else:
-			var below: Node2D = get_body_below()
-			if below and can_select(below):
+			if can_select(get_body_below()):
 				_set_sprite_distance(4)
 			else:
 				_set_sprite_distance(0)

@@ -5,6 +5,7 @@ enum Tab {
 	MAIN,
 	ACTION,
 	MOVEMENT,
+	POCKET,
 }
 
 var actor: Actor
@@ -17,7 +18,7 @@ var buttons: Array[Button]
 
 func open(actor: Actor) -> void:
 	self.actor = actor
-	_open_main()
+	_open_main(Tab.ACTION)
 	show()
 
 
@@ -28,9 +29,10 @@ func close() -> void:
 
 # openers
 
-func _open_main() -> void:
+func _open_main(from: Tab = current_tab) -> void:
 	current_tab = Tab.MAIN
-	$Main/Attack.grab_focus()
+	$Main.get_child(from - 1).grab_focus()
+	$Main/Pocket.disabled = actor.pocket == null
 
 
 func _open_action() -> void:
@@ -47,16 +49,14 @@ func _open_action() -> void:
 
 
 func _open_movement() -> void:
-	_selector.mode = Selector.Mode.MOVE
-	
 	current_tab = Tab.MOVEMENT
 	$Movement/Stop.grab_focus()
+	update_stamina()
 
 
-func _close_movement() -> void:
-	_selector.mode = Selector.Mode.ACT
-	_open_main()
-	$Main/Move.grab_focus()
+func _open_pocket() -> void:
+	current_tab = Tab.POCKET
+	$Pocket/Item/Name.text = actor.pocket.name
 
 
 
@@ -86,3 +86,28 @@ func _on_action_activated(idx: int) -> void:
 	close()
 	actor.send_action(actor.actions[idx])
 	_selector.deselect_delayed()
+
+
+
+# movement
+
+func _on_movement_gui_input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("undo"):
+		Game.battle.history.undo()
+	else:
+		var input: Vector2i
+		if Input.is_action_just_pressed("move_up"): input = Vector2i.UP
+		elif Input.is_action_just_pressed("move_down"): input = Vector2i.DOWN
+		elif Input.is_action_just_pressed("move_left"): input = Vector2i.LEFT
+		elif Input.is_action_just_pressed("move_right"): input = Vector2i.RIGHT
+		else: return
+		
+		if _selector.selected.resource.can_move() and not _selector.selected.test_move(_selector.selected.transform, Iso.from_grid(input)):
+			Game.battle.history.add_motion(_selector.selected.resource, input)
+	
+	update_stamina()
+	accept_event()
+
+
+func update_stamina() -> void:
+	$Movement/Stamina/Slots.set_values(actor.stamina, actor.max_stamina)

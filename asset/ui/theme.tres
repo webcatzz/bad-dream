@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://b6cn1uktrvyhy"]
+[gd_resource type="Theme" load_steps=29 format=3 uid="uid://b6cn1uktrvyhy"]
 
 [ext_resource type="FontVariation" uid="uid://ca33gbbls8g15" path="res://asset/ui/font/salisbury_bold.tres" id="2_agdo7"]
 [ext_resource type="FontVariation" uid="uid://diavu0lgbg5lq" path="res://asset/ui/font/dico.tres" id="2_n7vnc"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/font/regular.tres" id="5_3gh3t"]
 [ext_resource type="FontFile" uid="uid://cg2bgrjyucilx" path="res://asset/ui/font/poool.ttf" id="5_j5xth"]
 [ext_resource type="FontFile" uid="uid://cb2h4e8jdii7x" path="res://asset/ui/font/made_mountain.otf" id="6_o8i2m"]
+[ext_resource type="FontFile" uid="uid://bdumnxolhwtqd" path="res://asset/ui/font/dos.ttf" id="6_u232t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fes03"]
 content_margin_left = 8.0
@@ -126,7 +127,8 @@ Heading2/font_sizes/font_size = 24
 Heading2/fonts/font = SubResource("FontVariation_m08ty")
 Heading3/base_type = &"Label"
 Heading3/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
-Heading3/fonts/font = ExtResource("2_n7vnc")
+Heading3/font_sizes/font_size = 24
+Heading3/fonts/font = ExtResource("6_u232t")
 Heading3Muted/base_type = &"Label"
 Heading3Muted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
 Heading3Muted/fonts/font = ExtResource("2_n7vnc")

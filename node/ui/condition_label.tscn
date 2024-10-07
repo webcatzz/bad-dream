@@ -4,31 +4,22 @@
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="4_1aqjd"]
 
 [node name="ConditionLabel" type="PanelContainer"]
-offset_right = 83.0
-offset_bottom = 9.0
+offset_right = 60.0
+offset_bottom = 7.0
 script = ExtResource("1_0fyau")
 
-[node name="Color" type="ColorRect" parent="."]
+[node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
-color = Color(0.898039, 0.266667, 0.380392, 1)
+theme_override_constants/separation = 4
 
-[node name="Margins" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 1
-
-[node name="HBox" type="HBoxContainer" parent="Margins"]
-layout_mode = 2
-theme_override_constants/separation = 3
-
-[node name="Name" type="Label" parent="Margins/HBox"]
+[node name="Name" type="Label" parent="HBox"]
+custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0745098, 0.105882, 1)
 text = "Condition"
+clip_text = true
 
-[node name="Duration" type="Control" parent="Margins/HBox"]
+[node name="Duration" type="Control" parent="HBox"]
 custom_minimum_size = Vector2(27, 6)
 layout_mode = 2
 size_flags_vertical = 8

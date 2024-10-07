@@ -1,17 +1,18 @@
 class_name InfoPanel extends PanelContainer
 
 
-@export var footer: String
+@onready var _title: Label = $Items/Header/Title
+@onready var _subtitle: Label = $Items/Header/HBox/Subtitle
 
 
 func set_title(title: String) -> void: # also clears everything else
-	$Items/Title.text = title
+	_title.text = title
 	clear_controls()
-	set_footer("")
+	set_subtitle("")
 
 
-func set_footer(footer: String) -> void:
-	$Items/Footer.text = footer
+func set_subtitle(subtitle: String) -> void:
+	_subtitle.text = subtitle
 
 
 
@@ -55,10 +56,3 @@ func create_label(text: String, type: StringName) -> Label:
 	label.text = text
 	label.theme_type_variation = type
 	return label
-
-
-
-# internal
-
-func _ready() -> void:
-	set_footer(footer)
