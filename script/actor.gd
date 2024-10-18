@@ -153,7 +153,7 @@ func heal(num: int) -> void:
 
 func try_evade(direction: Vector2i) -> bool:
 	if randf() <= evasion:
-		if Game.battle.field.is_tile_open(position + direction) and not is_incapacitated():
+		if Game.battle.field.is_tile_open(Game.battle.field.point_params(position + direction)) and not is_incapacitated():
 			facing = -direction
 			position += direction
 			evaded.emit()
@@ -234,3 +234,10 @@ func calc_knockback(vector: Vector2i) -> Vector2i:
 
 func accuracy() -> float:
 	return float(will) / max_will * 0.5 + 0.5
+
+
+
+# string
+
+func _to_string() -> String:
+	return name

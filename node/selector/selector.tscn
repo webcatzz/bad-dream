@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://v4jedypaiwv2"]
+[gd_scene load_steps=6 format=3 uid="uid://v4jedypaiwv2"]
 
 [ext_resource type="Script" path="res://node/selector/selector.gd" id="1_bc45w"]
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="2_vyhxu"]
+[ext_resource type="Script" path="res://node/selector/sprite.gd" id="3_buhq0"]
 [ext_resource type="Texture2D" uid="uid://dpfvgey2di1ur" path="res://asset/selector.png" id="3_t3jce"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqi8d"]
 radius = 2.0
 
 [node name="Selector" type="CharacterBody2D"]
-z_index = 1
 collision_layer = 0
 script = ExtResource("1_bc45w")
 
@@ -25,8 +25,12 @@ shape = SubResource("CircleShape2D_hqi8d")
 enabled = false
 
 [node name="Sprite" type="Node2D" parent="."]
+z_index = -2
+scale = Vector2(1, 0.5)
+script = ExtResource("3_buhq0")
 
 [node name="Left" type="Sprite2D" parent="Sprite"]
+visible = false
 position = Vector2(-16, 0)
 texture = ExtResource("3_t3jce")
 offset = Vector2(2, -1)
@@ -34,6 +38,7 @@ region_enabled = true
 region_rect = Rect2(0, 6, 6, 8)
 
 [node name="Right" type="Sprite2D" parent="Sprite"]
+visible = false
 position = Vector2(16, 0)
 texture = ExtResource("3_t3jce")
 offset = Vector2(-2, -1)
@@ -41,12 +46,14 @@ region_enabled = true
 region_rect = Rect2(28, 6, 6, 8)
 
 [node name="Top" type="Sprite2D" parent="Sprite"]
+visible = false
 position = Vector2(0, -8)
 texture = ExtResource("3_t3jce")
 region_enabled = true
 region_rect = Rect2(12, 0, 10, 6)
 
 [node name="Down" type="Sprite2D" parent="Sprite"]
+visible = false
 position = Vector2(0, 8)
 texture = ExtResource("3_t3jce")
 offset = Vector2(0, -2)

@@ -3,19 +3,16 @@ class_name BattleField extends AStarGrid2D
 
 var space: PhysicsDirectSpaceState2D = Game.get_tree().current_scene.get_world_2d().direct_space_state
 var tile_shape: ConvexPolygonShape2D = ConvexPolygonShape2D.new()
+var tile_query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 
 
 
 # tiles
 
 func collide_tile(tile: Vector2i) -> Array[Node2D]:
-	var params: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
-	params.shape = tile_shape
-	params.transform.origin = tile
-	
 	var colliders: Array[Node2D] = []
 	
-	for collision: Dictionary in space.intersect_shape(params):
+	for collision: Dictionary in space.intersect_shape(tile_params(tile)):
 		colliders.append(collision.collider)
 	
 	return colliders
@@ -29,7 +26,7 @@ func collide_ray(ray: Vector2i, from: Vector2i) -> Vector2i:
 	for i: int in range(1, absi(ray[ray.abs().max_axis_index()]) + 1):
 		new_ray = last_ray + unit
 		
-		if is_tile_open(from + new_ray):
+		if is_tile_open(point_params(from + new_ray)):
 			last_ray = new_ray
 		else:
 			return last_ray
@@ -37,12 +34,24 @@ func collide_ray(ray: Vector2i, from: Vector2i) -> Vector2i:
 	return ray
 
 
-func is_tile_open(tile: Vector2i) -> bool:
+func is_tile_open(params: PhysicsPointQueryParameters2D) -> bool:
+	return not space.intersect_point(params, 1)
+
+
+
+# query params
+
+func point_params(tile: Vector2i) -> PhysicsPointQueryParameters2D:
+	var params: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	params.position = Iso.from_grid(tile)
+	return params
+
+
+func tile_params(tile: Vector2i) -> PhysicsShapeQueryParameters2D:
 	var params: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+	params.transform.origin = Iso.from_grid(tile)
 	params.shape = tile_shape
-	params.transform.origin = tile
-	
-	return not space.intersect_shape(params, 1)
+	return params
 
 
 
@@ -66,13 +75,20 @@ func find_actors_in(polygons: Array[PackedVector2Array], offset: Vector2) -> Arr
 
 
 
+# pathing
+
+func get_tile_path(from: Vector2i, to: Vector2i) -> PackedVector2Array:
+	return get_point_path(from, to).slice(1)
+
+
+
 # updating
 
 func update_region() -> void:
 	region = Rect2i(Save.player.position, Vector2i.ZERO)
 	for actor: Actor in Save.party + Game.battle.enemies:
-		region.expand(actor.position)
-	region.grow_individual(8, 8, 9, 9)
+		region = region.expand(actor.position)
+	region = region.grow_individual(8, 8, 9, 9)
 	
 	update()
 	update_collision()
@@ -94,5 +110,5 @@ func update_collision() -> void:
 
 func _init() -> void:
 	diagonal_mode = DIAGONAL_MODE_NEVER
-	tile_shape.points = [Vector2(-16, 0), Vector2(0, -8), Vector2(16, 0), Vector2(0, 8)]
-	update_region()
+	tile_shape.points = [Vector2(-14, 0), Vector2(0, -7), Vector2(14, 0), Vector2(0, 7)]
+	tile_query.shape = tile_shape

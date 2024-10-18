@@ -19,7 +19,7 @@ var enemies: Array[Enemy]
 var phase: Phase
 # helpers
 var field: BattleField
-var history: PhaseHistory
+var tile_highlight: TileHighlight
 
 @export_group("Node")
 @export var selector: CharacterBody2D
@@ -60,9 +60,11 @@ func do_enemy_phase() -> void:
 	$UI/Phase.current_tab = phase
 	
 	enemy_phase_started.emit()
-	await announce("Enemy Phase", Palette.RED)
+	announce("Enemy Phase", Palette.RED)
+	await get_tree().create_timer(1).timeout
 	
 	for enemy: Enemy in enemies:
+		field.update_region()
 		await enemy.act()
 	
 	end_phase()
@@ -71,13 +73,13 @@ func do_enemy_phase() -> void:
 func do_party_phase() -> void:
 	phase = Phase.PARTY
 	$UI/Phase.current_tab = phase
-	history = PhaseHistory.new(self)
 	
 	for actor: Actor in Save.party:
 		actor.stamina = actor.max_stamina
 	
 	party_phase_started.emit()
-	await announce("Party Phase", Palette.BLUE)
+	announce("Party Phase", Palette.BLUE)
+	await get_tree().create_timer(0.8).timeout
 	
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(selector, "position", Iso.from_grid(Save.player.position), 0.1)
@@ -87,7 +89,6 @@ func do_party_phase() -> void:
 	await phase_changed
 	
 	selector.set_enabled(false)
-	history = null
 
 
 func end_phase() -> void:
@@ -118,9 +119,29 @@ func announce(text: String, color: Color) -> void:
 	$UI/Announcement/Label.text = text
 	$UI/Announcement/Color.color = color
 	$UI/Announcement/Squiggles.modulate = Palette.light(color)
-	
 	$UI/Announcement/Animator.play("announce")
-	await get_tree().create_timer(0.8).timeout
+
+
+
+# highlights
+
+func set_highlight(bitshape: BitShape) -> void:
+	clear_highlight()
+	tile_highlight = TileHighlight.new()
+	tile_highlight.from_bitshape(bitshape)
+	add_child(tile_highlight)
+
+
+func clear_highlight() -> void:
+	if tile_highlight:
+		tile_highlight.queue_free()
+		tile_highlight = null
+
+
+func preview_action(action: Action, cause: Actor) -> void:
+	var shape: BitShape = action.shape.rotated(cause.facing)
+	shape.offset += cause.position
+	set_highlight(shape)
 
 
 

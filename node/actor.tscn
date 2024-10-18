@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bfh386uub7bov"]
+[gd_scene load_steps=35 format=3 uid="uid://bfh386uub7bov"]
 
 [ext_resource type="Script" path="res://node/actor.gd" id="1_8lbif"]
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="2_26hms"]
@@ -337,34 +337,17 @@ scale_curve = SubResource("CurveTexture_tf65g")
 color = Color(0.513726, 0.760784, 0.313726, 1)
 alpha_curve = SubResource("CurveTexture_368o1")
 
-[sub_resource type="Curve" id="Curve_h1gn3"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-
-[sub_resource type="CurveTexture" id="CurveTexture_7drdv"]
-curve = SubResource("Curve_h1gn3")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7ylw"]
-particle_flag_disable_z = true
-spread = 180.0
-initial_velocity_min = 4.0
-initial_velocity_max = 24.0
-scale_min = 0.5
-scale_curve = SubResource("CurveTexture_7drdv")
-color = Color(0.6, 0.576471, 0.639216, 1)
-
 [sub_resource type="Curve" id="Curve_tlsgu"]
-_data = [Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="CurveTexture" id="CurveTexture_g3u5u"]
 curve = SubResource("Curve_tlsgu")
 
 [sub_resource type="Curve" id="Curve_ydp1h"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
 metadata/_snap_enabled = true
 
 [sub_resource type="CurveTexture" id="CurveTexture_6ye68"]
@@ -372,13 +355,40 @@ curve = SubResource("Curve_ydp1h")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0i5h5"]
 particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 2, 1)
+spread = 180.0
+initial_velocity_max = 32.0
+scale_min = 0.75
+scale_curve = SubResource("CurveTexture_6ye68")
+color = Color(0.6, 0.576471, 0.639216, 1)
+alpha_curve = SubResource("CurveTexture_g3u5u")
+
+[sub_resource type="Curve" id="Curve_qdjrg"]
+_data = [Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_oad2g"]
+curve = SubResource("Curve_qdjrg")
+
+[sub_resource type="Curve" id="Curve_veyd4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_bcx5r"]
+curve = SubResource("Curve_veyd4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3uog3"]
+particle_flag_disable_z = true
 spread = 180.0
 initial_velocity_min = 32.0
 initial_velocity_max = 64.0
 scale_min = 0.5
-scale_curve = SubResource("CurveTexture_6ye68")
+scale_curve = SubResource("CurveTexture_bcx5r")
 color = Color(0.6, 0.576471, 0.639216, 1)
-alpha_curve = SubResource("CurveTexture_g3u5u")
+alpha_curve = SubResource("CurveTexture_oad2g")
 
 [node name="Actor" type="CharacterBody2D"]
 collision_layer = 2
@@ -456,15 +466,23 @@ process_material = SubResource("ParticleProcessMaterial_jg1q6")
 texture = ExtResource("7_kh208")
 
 [node name="MoveParticles" type="GPUParticles2D" parent="."]
-emitting = false
-process_material = SubResource("ParticleProcessMaterial_p7ylw")
-texture = ExtResource("9_vxyjf")
-
-[node name="ExhaustParticles" type="GPUParticles2D" parent="."]
+z_index = -1
 material = ExtResource("3_cgkie")
 emitting = false
+amount = 2
 process_material = SubResource("ParticleProcessMaterial_0i5h5")
 texture = ExtResource("9_vxyjf")
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.9
+local_coords = true
+
+[node name="ExhaustParticles" type="GPUParticles2D" parent="."]
+material = ExtResource("3_cgkie")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_3uog3")
+texture = ExtResource("9_vxyjf")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+local_coords = true

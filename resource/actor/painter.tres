@@ -18,4 +18,4 @@ limit_break_max = 0
 limit_break_progress = 0
 type_weak = Array[int]([])
 type_strong = Array[int]([])
-name = "Woodcarver"
+name = "Painter"

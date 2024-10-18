@@ -7,20 +7,27 @@ var paths: Dictionary
 
 
 func act() -> void:
-	pass
+	await follow_path(get_path_to_actor(pick_target()))
+	
+	if can_send_action(actions[0]):
+		Game.battle.preview_action(actions[0], self)
+		await Game.get_tree().create_timer(1).timeout
+		Game.battle.clear_highlight()
+		send_action(actions[0])
+		await Game.get_tree().create_timer(1).timeout
 
 
 
 # priority
 
-func get_target() -> Actor:
-	return rank_targets()[randi_range(0, 1)]
+func pick_target() -> Actor:
+	return rank_targets()[0]
 
 
 func rank_targets() -> Array[Actor]:
 	var ranking: Dictionary # fix [Actor, int]
 	for actor: Actor in Save.party:
-		ranking[actor] = damage_memory[actor]/2.0 - get_paths_to_actor(actor)[0].size()
+		ranking[actor] = damage_memory.get(actor, 0) - get_path_to_actor(actor).size()
 	
 	var list: Array[Actor] = Save.party.duplicate()
 	list.sort_custom(func(a: Actor, b: Actor) -> bool: return ranking[a] > ranking[b])
@@ -38,35 +45,35 @@ func recieve_action(action: Action, cause: Actor) -> void:
 # pathing
 
 func follow_path(path: PackedVector2Array) -> void:
-	#if not path:
-		#await Game.get_tree().create_timer(0.2).timeout
-		#return
-	
 	for point: Vector2i in path:
 		add_to_path()
 		move_to(point)
 		await Game.get_tree().create_timer(0.2).timeout
+		if not stamina: return
 
 
-func get_path_to(point: Vector2i) -> PackedVector2Array:
-	return Game.battle.field.get_point_path(position, point).slice(1)
+func get_path_to_actor(actor: Actor) -> PackedVector2Array:
+	return get_paths_to_actor(actor)[0]
 
 
 func get_paths_to_actor(actor: Actor) -> Array[PackedVector2Array]:
 	var paths: Array[PackedVector2Array] = []
 	
 	for offset: Vector2i in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
-		var target_point: Vector2i = actor.position + offset
-		if position == target_point: return [[]]
-		if not Game.battle.field.is_point_travellable(target_point, node.get_rid()): continue
+		var target_tile: Vector2i = actor.position + offset
+		if target_tile == position: return [[]]
 		
-		var pre_target_point: Vector2i = target_point + offset
-		if not Game.battle.field.is_point_travellable(pre_target_point, node.get_rid()): continue
+		Game.battle.field.tile_query.exclude.append(node.get_rid())
 		
-		var path: PackedVector2Array = get_path_to(pre_target_point)
-		if not path and position != pre_target_point: continue
+		if not Game.battle.field.is_tile_open(Game.battle.field.point_params(target_tile)): continue
+		var pre_target_tile: Vector2i = target_tile + offset
+		if not Game.battle.field.is_tile_open(Game.battle.field.point_params(pre_target_tile)): continue
 		
-		path.append(target_point)
+		Game.battle.field.tile_query.exclude.clear()
+		
+		var path: PackedVector2Array = Game.battle.field.get_tile_path(position, pre_target_tile)
+		if not path and position != pre_target_tile: continue
+		path.append(target_tile)
 		paths.append(path)
 	
 	sort_paths(paths)

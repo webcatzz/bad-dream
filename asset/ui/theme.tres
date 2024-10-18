@@ -55,9 +55,9 @@ region_rect = Rect2(10, 0, 5, 5)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qim47"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qauny"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8ekx"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcfny"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xw3l8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mm2hd"]
 
@@ -82,10 +82,8 @@ spacing_bottom = -6
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rafet"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siyyr"]
-bg_color = Color(0.133333, 0.0862745, 0.117647, 1)
-border_width_top = 2
-border_color = Color(0, 0, 0, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hoyh8"]
+bg_color = Color(0, 0, 1, 0.752941)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
 
@@ -109,11 +107,12 @@ Button/styles/focus = SubResource("StyleBoxTexture_m3oix")
 Button/styles/normal = SubResource("StyleBoxTexture_470eu")
 Button/styles/pressed = SubResource("StyleBoxTexture_6pntu")
 ClearButton/base_type = &"Button"
+ClearButton/colors/font_disabled_color = Color(1, 1, 1, 0.25098)
 ClearButton/colors/font_focus_color = Color(1, 1, 1, 1)
 ClearButton/colors/font_pressed_color = Color(0, 0, 1, 1)
 ClearButton/styles/disabled = SubResource("StyleBoxEmpty_qim47")
-ClearButton/styles/focus = SubResource("StyleBoxEmpty_qauny")
-ClearButton/styles/normal = SubResource("StyleBoxEmpty_hcfny")
+ClearButton/styles/focus = SubResource("StyleBoxEmpty_h8ekx")
+ClearButton/styles/normal = SubResource("StyleBoxEmpty_xw3l8")
 ClearButton/styles/pressed = SubResource("StyleBoxEmpty_mm2hd")
 GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
@@ -134,11 +133,11 @@ Heading3Muted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
 Heading3Muted/fonts/font = ExtResource("2_n7vnc")
 ItemList/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/font_selected_color = Color(0.6, 0.576471, 0.639216, 1)
-ItemList/colors/guide_color = Color(0.133333, 0.0862745, 0.117647, 0.501961)
+ItemList/colors/guide_color = Color(0, 0, 0, 0)
 ItemList/styles/focus = SubResource("StyleBoxEmpty_4354b")
 ItemList/styles/panel = SubResource("StyleBoxEmpty_su2df")
 ItemList/styles/selected = SubResource("StyleBoxEmpty_rafet")
-ItemList/styles/selected_focus = SubResource("StyleBoxFlat_siyyr")
+ItemList/styles/selected_focus = SubResource("StyleBoxFlat_hoyh8")
 Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
 LabelMuted/base_type = &"Label"
 LabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)

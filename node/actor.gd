@@ -12,7 +12,7 @@ func emit_text(string: String, color: Color = Palette.WHITE) -> void:
 
 
 func set_collision(value: bool) -> void:
-	$Collision.disabled = not value
+	$Collision.set_disabled.call_deferred(not value)
 
 
 
@@ -28,6 +28,8 @@ func _ready() -> void:
 	# modifiers
 	resource.condition_added.connect(_on_condition_added)
 	resource.condition_removed.connect(_on_condition_removed)
+	# actions
+	resource.action_sent.connect(_on_action_sent)
 	# orientation
 	resource.reoriented.connect(_on_reoriented)
 	
@@ -51,9 +53,7 @@ func _update_will_slots() -> void:
 
 
 func _on_stamina_changed() -> void:
-	if not resource.stamina:
-		await get_tree().create_timer(1).timeout
-		$ExhaustParticles.emitting = true
+	if not resource.stamina: $ExhaustParticles.restart()
 	$Sprite.self_modulate.a = 1 if resource.stamina else 0.75
 
 
@@ -76,6 +76,12 @@ func _blend_condition_colors() -> void:
 	$Sprite.self_modulate = color
 
 
+func _on_action_sent() -> void:
+	await get_tree().create_timer(1).timeout
+	$ExhaustParticles.emitting = true
+
+
 func _on_reoriented() -> void:
 	#get_tree().create_tween().tween_property(self, "position", Iso.from_grid(resource.position), 0.1)
 	position = Iso.from_grid(resource.position)
+	$MoveParticles.restart()

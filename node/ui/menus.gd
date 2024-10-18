@@ -41,7 +41,10 @@ func close() -> void:
 
 
 func toggle(menu: Menu) -> void:
-	close() if current_menu == menu else open(menu)
+	if current_menu == menu:
+		close()
+	else:
+		open(menu)
 
 
 

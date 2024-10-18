@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="4_b0aou"]
 
 [node name="ActorInfo" instance=ExtResource("1_ipgl7")]
-offset_right = 89.0
-offset_bottom = 71.0
+offset_right = 88.0
+offset_bottom = 81.0
 script = ExtResource("2_jr0fl")
 
 [node name="Title" parent="Items/Header" index="0"]
@@ -22,30 +22,30 @@ theme_override_constants/separation = 12
 [node name="Key" type="GridContainer" parent="Items/Controls/Stats" index="0"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 1
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 2
 columns = 2
 
 [node name="WillLabel" type="Label" parent="Items/Controls/Stats/Key" index="0"]
 layout_mode = 2
-theme_type_variation = &"LabelSmall"
 text = "Will"
 
 [node name="WillSlots" type="Control" parent="Items/Controls/Stats/Key" index="1"]
 custom_minimum_size = Vector2(20, 6)
 layout_mode = 2
+size_flags_vertical = 8
 script = ExtResource("4_b0aou")
 max = 3
 value = 2
 
 [node name="StaminaLabel" type="Label" parent="Items/Controls/Stats/Key" index="2"]
 layout_mode = 2
-theme_type_variation = &"LabelSmall"
-text = "stamina"
+text = "Stamina"
 
 [node name="StaminaSlots" type="Control" parent="Items/Controls/Stats/Key" index="3"]
 custom_minimum_size = Vector2(27, 6)
 layout_mode = 2
+size_flags_vertical = 8
 script = ExtResource("4_b0aou")
 max = 4
 value = 1

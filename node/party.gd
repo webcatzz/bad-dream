@@ -19,6 +19,9 @@ func set_enabled(value: bool) -> void:
 	set_physics_process(value)
 	input = Vector2.ZERO
 	if value: _camera.make_current()
+	
+	for party_node: ActorNode in party_nodes:
+		party_node.set_collision(not value)
 
 
 

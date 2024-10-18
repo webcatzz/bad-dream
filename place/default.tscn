@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="4_wnixx"]
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="5_xrbn1"]
 [ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="6_akm5s"]
-[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="7_ct64e"]
+[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/test.tres" id="7_ct64e"]
 [ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="8_gbf4g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]

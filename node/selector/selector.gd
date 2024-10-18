@@ -12,8 +12,6 @@ enum Mode {
 var mode: Mode
 var selected: Node2D
 
-var hold_started: int
-
 @onready var _collision: CollisionPolygon2D = $Collision
 @onready var _area: Area2D = $Area
 @onready var _sprite: Node2D = $Sprite
@@ -91,10 +89,6 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		if velocity: get_viewport().set_input_as_handled()
 
 
-func move(motion: Vector2i) -> void:
-	pass #selected.position += Iso.from_grid(motion)
-
-
 func _physics_process(_delta: float) -> void:
 	if mode == Mode.MOVE:
 		if velocity:
@@ -134,24 +128,14 @@ func _on_body_exited(body: Node2D) -> void:
 
 func update_sprite() -> void:
 	if mode == Mode.MOVE:
-		if Input.is_action_pressed("interact"):
-			_set_sprite_distance(-2)
+		if can_select(get_body_below()):
+			_sprite.expand(4)
+			_sprite.modulate.a = 1
 		else:
-			if can_select(get_body_below()):
-				_set_sprite_distance(4)
-			else:
-				_set_sprite_distance(0)
+			_sprite.expand(0)
+			_sprite.modulate.a = 0.25
 	else:
-		_set_sprite_distance(-2)
-
-
-func _set_sprite_distance(value: int) -> void:
-	value += 16
-	var tween: Tween = get_tree().create_tween()
-	tween.tween_property($Sprite/Left, "position:x", -value, 0.05)
-	tween.tween_property($Sprite/Right, "position:x", value, 0.05)
-	tween.tween_property($Sprite/Top, "position:y", -value / 2, 0.05)
-	tween.tween_property($Sprite/Down, "position:y", value / 2, 0.05)
+		_sprite.expand(-6)
 
 
 
