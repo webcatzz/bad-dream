@@ -73,14 +73,14 @@ func match_position(node: Node2D = selected) -> void:
 
 # input
 
-func _unhandled_key_input(_event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	if mode == Mode.MENU: return
 	
-	if Input.is_action_just_pressed("interact"):
+	if event.is_action_pressed("interact"):
 		deselect() if selected else auto_select()
 		get_viewport().set_input_as_handled()
 	
-	elif Input.is_action_just_released("interact"):
+	elif event.is_action_released("interact"):
 		update_sprite()
 		get_viewport().set_input_as_handled()
 	

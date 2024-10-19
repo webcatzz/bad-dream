@@ -82,6 +82,10 @@ func _on_action_sent() -> void:
 
 
 func _on_reoriented() -> void:
-	#get_tree().create_tween().tween_property(self, "position", Iso.from_grid(resource.position), 0.1)
-	position = Iso.from_grid(resource.position)
+	var new_pos: Vector2 = Iso.from_grid(resource.position)
+	var displacement: Vector2 = position - new_pos
+	$MoveParticles.process_material.direction = Vector3(displacement.x, displacement.y, 0)
+	
+	position = new_pos
+	$MoveParticles.process_material.angle_max = $MoveParticles.process_material.angle_min
 	$MoveParticles.restart()

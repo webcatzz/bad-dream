@@ -11,8 +11,9 @@ func act() -> void:
 	
 	if can_send_action(actions[0]):
 		Game.battle.preview_action(actions[0], self)
-		await Game.get_tree().create_timer(1).timeout
+		await Game.get_tree().create_timer(0.5).timeout
 		Game.battle.clear_highlight()
+		
 		send_action(actions[0])
 		await Game.get_tree().create_timer(1).timeout
 
@@ -63,13 +64,13 @@ func get_paths_to_actor(actor: Actor) -> Array[PackedVector2Array]:
 		var target_tile: Vector2i = actor.position + offset
 		if target_tile == position: return [[]]
 		
-		Game.battle.field.tile_query.exclude.append(node.get_rid())
+		var params: PhysicsPointQueryParameters2D = Game.battle.field.point_params(target_tile)
+		params.exclude.append(node.get_rid())
+		if not Game.battle.field.is_tile_open(params): continue
 		
-		if not Game.battle.field.is_tile_open(Game.battle.field.point_params(target_tile)): continue
 		var pre_target_tile: Vector2i = target_tile + offset
-		if not Game.battle.field.is_tile_open(Game.battle.field.point_params(pre_target_tile)): continue
-		
-		Game.battle.field.tile_query.exclude.clear()
+		params.position = Iso.from_grid(pre_target_tile)
+		if not Game.battle.field.is_tile_open(params): continue
 		
 		var path: PackedVector2Array = Game.battle.field.get_tile_path(position, pre_target_tile)
 		if not path and position != pre_target_tile: continue

@@ -338,7 +338,7 @@ color = Color(0.513726, 0.760784, 0.313726, 1)
 alpha_curve = SubResource("CurveTexture_368o1")
 
 [sub_resource type="Curve" id="Curve_tlsgu"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
@@ -357,9 +357,11 @@ curve = SubResource("Curve_ydp1h")
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2, 2, 1)
-spread = 180.0
-initial_velocity_max = 32.0
-scale_min = 0.75
+spread = 30.0
+initial_velocity_min = 64.0
+initial_velocity_max = 128.0
+scale_min = 0.5
+scale_max = 0.75
 scale_curve = SubResource("CurveTexture_6ye68")
 color = Color(0.6, 0.576471, 0.639216, 1)
 alpha_curve = SubResource("CurveTexture_g3u5u")
@@ -469,10 +471,10 @@ texture = ExtResource("7_kh208")
 z_index = -1
 material = ExtResource("3_cgkie")
 emitting = false
-amount = 2
+amount = 1
 process_material = SubResource("ParticleProcessMaterial_0i5h5")
 texture = ExtResource("9_vxyjf")
-lifetime = 0.5
+lifetime = 0.25
 one_shot = true
 explosiveness = 0.9
 local_coords = true

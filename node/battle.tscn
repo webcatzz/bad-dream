@@ -168,11 +168,10 @@ _data = {
 "announce": SubResource("Animation_ipfdj")
 }
 
-[node name="Battle" type="Node2D" node_paths=PackedStringArray("selector", "_party")]
+[node name="Battle" type="Node2D" node_paths=PackedStringArray("selector")]
 y_sort_enabled = true
 script = ExtResource("1_1d4h5")
 selector = NodePath("Selector")
-_party = NodePath("UI/Phase/Party/Party")
 
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
 visible = false
@@ -337,7 +336,7 @@ text = "Stamina"
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 script = ExtResource("12_ixvq1")
-color = Color(1, 1, 1, 1)
+fill_color = Color(1, 1, 1, 1)
 
 [node name="Pocket" type="VBoxContainer" parent="Selector/Menu"]
 visible = false

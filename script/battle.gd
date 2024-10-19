@@ -23,7 +23,6 @@ var tile_highlight: TileHighlight
 
 @export_group("Node")
 @export var selector: CharacterBody2D
-@export var _party: Control
 
 
 
@@ -44,6 +43,8 @@ func start() -> void:
 		#_party.add_child(figure)
 	
 	#announce("Battle start!", Palette.RED)
+	started.emit()
+	
 	cycle()
 
 
@@ -99,6 +100,7 @@ func end() -> void:
 	Game.battle = null
 	Game.party_node.set_enabled(true)
 	$UI.hide()
+	ended.emit()
 
 
 

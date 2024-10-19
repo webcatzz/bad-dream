@@ -57,11 +57,11 @@ func _ready() -> void:
 		_overlay.get_child(i).hide()
 
 
-func _unhandled_key_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("inventory"):
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("inventory"):
 		toggle(Menu.INVENTORY)
 		get_viewport().set_input_as_handled()
-	elif Input.is_action_just_pressed("ui_cancel"):
+	elif event.is_action_pressed("ui_cancel"):
 		if current_menu == Menu.NONE: open(Menu.PAUSE)
 		else: close()
 		get_viewport().set_input_as_handled()

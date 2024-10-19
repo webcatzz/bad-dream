@@ -103,7 +103,7 @@ func add_will(num: int) -> void:
 
 func send_action(action: Action) -> void:
 	if randf() <= accuracy():
-		var affected: Array[Actor] = Game.battle.field.find_actors_in(action.shape.to_polygons(), Iso.from_grid(position))
+		var affected: Array[Actor] = Game.battle.field.collide_action(action, self)
 		
 		for actor: Actor in affected:
 			actor.recieve_action(action, self)
@@ -233,7 +233,7 @@ func calc_knockback(vector: Vector2i) -> Vector2i:
 
 
 func accuracy() -> float:
-	return float(will) / max_will * 0.5 + 0.5
+	return 0.5 * will / max_will + 0.5
 
 
 

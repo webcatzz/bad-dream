@@ -35,13 +35,16 @@ func match_position(node: Node2D = selected) -> void:
 # input
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if mode == Mode.MENU: return
+	if mode == Mode.MENU:
+		if event.is_action_pressed("interact"):
+			pass
 	
-	if event.keycode in range(KEY_1, KEY_1 + Save.party.size()) and event.pressed:
-		match_position(Save.party[event.keycode - KEY_1].node)
-		get_viewport().set_input_as_handled()
 	else:
-		super(event)
+		if event.keycode in range(KEY_1, KEY_1 + Save.party.size()) and event.pressed:
+			match_position(Save.party[event.keycode - KEY_1].node)
+			get_viewport().set_input_as_handled()
+		else:
+			super(event)
 
 
 

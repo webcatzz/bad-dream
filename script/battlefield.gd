@@ -55,17 +55,20 @@ func tile_params(tile: Vector2i) -> PhysicsShapeQueryParameters2D:
 
 
 
-# something else
+# actions
 
-func find_actors_in(polygons: Array[PackedVector2Array], offset: Vector2) -> Array[Actor]:
+func collide_action(action: Action, cause: Actor) -> Array[Actor]:
 	var actors: Array[Actor] = []
 	
 	var params: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 	params.shape = ConvexPolygonShape2D.new()
-	params.transform.origin = offset
+	params.transform.origin = Iso.from_grid(cause.position)
+	params.collision_mask = 0b10
 	
-	for polygon: PackedVector2Array in polygons:
+	for polygon: PackedVector2Array in action.shape.rotated(cause.facing).to_polygons():
 		params.shape.points = polygon
+		
+		print(space.intersect_shape(params)) # []
 		
 		for collision: Dictionary in space.intersect_shape(params):
 			if collision.collider is ActorNode:

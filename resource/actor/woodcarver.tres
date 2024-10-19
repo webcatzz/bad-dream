@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("1_fi5jp")
-will = 2
+will = 3
 max_will = 3
 stamina = 8
 max_stamina = 8

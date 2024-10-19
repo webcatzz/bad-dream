@@ -22,6 +22,7 @@ Menus="*res://node/ui/menus.tscn"
 
 [debug]
 
+gdscript/warnings/shadowed_variable=0
 gdscript/warnings/narrowing_conversion=0
 
 [display]

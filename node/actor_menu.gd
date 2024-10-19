@@ -104,15 +104,15 @@ func _on_action_list_focus_exited() -> void:
 
 # movement
 
-func _on_movement_gui_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("undo"):
+func _on_movement_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("undo"):
 		history.undo()
 	else:
 		var input: Vector2i
-		if Input.is_action_just_pressed("move_up"): input = Vector2i.UP
-		elif Input.is_action_just_pressed("move_down"): input = Vector2i.DOWN
-		elif Input.is_action_just_pressed("move_left"): input = Vector2i.LEFT
-		elif Input.is_action_just_pressed("move_right"): input = Vector2i.RIGHT
+		if event.is_action_pressed("move_up"): input = Vector2i.UP
+		elif event.is_action_pressed("move_down"): input = Vector2i.DOWN
+		elif event.is_action_pressed("move_left"): input = Vector2i.LEFT
+		elif event.is_action_pressed("move_right"): input = Vector2i.RIGHT
 		else: return
 		
 		if actor.can_move() and not actor.node.test_move(actor.node.transform, Iso.from_grid(input)):

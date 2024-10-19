@@ -7,8 +7,11 @@
 @export var value: int:
 	set(val): value = min(val, max); _update()
 
-@export var color: Color = Palette.TEXT_NORMAL:
-	set(val): color = val; _update()
+@export var fill_color: Color = Palette.TEXT_NORMAL:
+	set(val): fill_color = val; _update()
+
+@export var border_color: Color = Palette.TEXT_NORMAL:
+	set(val): border_color = val; _update()
 
 
 func set_values(value: int, max: int) -> void:
@@ -34,5 +37,5 @@ func _draw() -> void:
 			preload("res://asset/ui/slot.png"),
 			Rect2(Vector2(slot * 7, 0), Vector2(6, 6)),
 			Rect2(Vector2.ZERO if slot >= value else Vector2(6, 0), Vector2(6, 6)),
-			color
+			border_color if slot >= value else fill_color
 		)

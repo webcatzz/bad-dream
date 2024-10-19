@@ -25,7 +25,7 @@ func run() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if event.is_action_pressed("ui_cancel"):
 			Menus.close()
 			clear()
 		elif event.pressed:
