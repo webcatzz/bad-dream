@@ -6,6 +6,7 @@ enum Tab {
 	ACTION,
 	MOVEMENT,
 	POCKET,
+	STOP,
 }
 
 var actor: Actor
@@ -29,7 +30,7 @@ func close() -> void:
 	_selector.deselect()
 
 
-func cancel() -> void:
+func undo_and_close() -> void:
 	hide()
 	while history.has_undo():
 		await get_tree().create_timer(0.05).timeout
@@ -78,14 +79,20 @@ func _open_pocket() -> void:
 	$Pocket/Item/Name.text = actor.pocket.name
 
 
+func _open_stop() -> void:
+	current_tab = Tab.STOP
+	$Stop/Commit.grab_focus()
 
-# highlights
+
+
+# action list
 
 func _on_action_selected(idx: int) -> void:
 	Game.battle.preview_action(actor.actions[idx], actor)
 
 
 func _on_action_activated(idx: int) -> void:
+	accept_event()
 	Game.battle.clear_highlight()
 	close()
 	actor.send_action(actor.actions[idx])

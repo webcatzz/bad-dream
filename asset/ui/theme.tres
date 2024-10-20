@@ -1,13 +1,10 @@
-[gd_resource type="Theme" load_steps=29 format=3 uid="uid://b6cn1uktrvyhy"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://b6cn1uktrvyhy"]
 
 [ext_resource type="FontVariation" uid="uid://ca33gbbls8g15" path="res://asset/ui/font/salisbury_bold.tres" id="2_agdo7"]
-[ext_resource type="FontVariation" uid="uid://diavu0lgbg5lq" path="res://asset/ui/font/dico.tres" id="2_n7vnc"]
 [ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
 [ext_resource type="Texture2D" uid="uid://tu1i6naypxml" path="res://asset/ui/button.png" id="3_jqc7o"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="4_r5xpk"]
 [ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/font/regular.tres" id="5_3gh3t"]
-[ext_resource type="FontFile" uid="uid://cg2bgrjyucilx" path="res://asset/ui/font/poool.ttf" id="5_j5xth"]
-[ext_resource type="FontFile" uid="uid://cb2h4e8jdii7x" path="res://asset/ui/font/made_mountain.otf" id="6_o8i2m"]
 [ext_resource type="FontFile" uid="uid://bdumnxolhwtqd" path="res://asset/ui/font/dos.ttf" id="6_u232t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fes03"]
@@ -66,16 +63,6 @@ color = Color(0.133333, 0.0862745, 0.117647, 1)
 grow_begin = 0.0
 grow_end = 0.0
 
-[sub_resource type="FontVariation" id="FontVariation_vwbx1"]
-base_font = ExtResource("5_j5xth")
-spacing_top = -18
-spacing_bottom = -14
-
-[sub_resource type="FontVariation" id="FontVariation_m08ty"]
-base_font = ExtResource("6_o8i2m")
-spacing_top = -8
-spacing_bottom = -6
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4354b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_su2df"]
@@ -95,7 +82,6 @@ bg_color = Color(0, 0, 1, 0.752941)
 
 [resource]
 default_font = ExtResource("5_3gh3t")
-AcceptDialog/styles/panel = ExtResource("3_a4tjd")
 ActionButton/base_type = &"Button"
 ActionButton/fonts/font = ExtResource("2_agdo7")
 ActionButton/styles/normal = SubResource("StyleBoxFlat_fes03")
@@ -118,19 +104,10 @@ GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
 HSeparator/constants/separation = 12
 HSeparator/styles/separator = SubResource("StyleBoxLine_7e6k1")
-Heading1/base_type = &"Label"
-Heading1/font_sizes/font_size = 64
-Heading1/fonts/font = SubResource("FontVariation_vwbx1")
-Heading2/base_type = &"Label"
-Heading2/font_sizes/font_size = 24
-Heading2/fonts/font = SubResource("FontVariation_m08ty")
 Heading3/base_type = &"Label"
 Heading3/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
 Heading3/font_sizes/font_size = 24
 Heading3/fonts/font = ExtResource("6_u232t")
-Heading3Muted/base_type = &"Label"
-Heading3Muted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
-Heading3Muted/fonts/font = ExtResource("2_n7vnc")
 ItemList/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/font_selected_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/guide_color = Color(0, 0, 0, 0)
@@ -139,13 +116,8 @@ ItemList/styles/panel = SubResource("StyleBoxEmpty_su2df")
 ItemList/styles/selected = SubResource("StyleBoxEmpty_rafet")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_hoyh8")
 Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
-LabelMuted/base_type = &"Label"
-LabelMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
 LabelSmall/base_type = &"Label"
 LabelSmall/fonts/font = ExtResource("4_r5xpk")
-LabelSmallMuted/base_type = &"Label"
-LabelSmallMuted/colors/font_color = Color(0.27451, 0.278431, 0.341176, 1)
-LabelSmallMuted/fonts/font = ExtResource("4_r5xpk")
 MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16

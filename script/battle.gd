@@ -21,8 +21,7 @@ var phase: Phase
 var field: BattleField
 var tile_highlight: TileHighlight
 
-@export_group("Node")
-@export var selector: CharacterBody2D
+@onready var selector: CharacterBody2D = $Selector
 
 
 
@@ -66,7 +65,9 @@ func do_enemy_phase() -> void:
 	
 	for enemy: Enemy in enemies:
 		field.update_region()
+		await selector.move_to(enemy.position)
 		await enemy.act()
+		enemy.stamina = enemy.max_stamina
 	
 	end_phase()
 
@@ -75,21 +76,20 @@ func do_party_phase() -> void:
 	phase = Phase.PARTY
 	$UI/Phase.current_tab = phase
 	
-	for actor: Actor in Save.party:
-		actor.stamina = actor.max_stamina
-	
 	party_phase_started.emit()
 	announce("Party Phase", Palette.BLUE)
 	await get_tree().create_timer(0.8).timeout
 	
-	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(selector, "position", Iso.from_grid(Save.player.position), 0.1)
-	await tween.finished
+	await selector.move_to(Save.player.position)
 	selector.set_enabled(true)
-	
 	await phase_changed
-	
 	selector.set_enabled(false)
+	
+	for actor: Actor in Save.party:
+		actor.stamina = actor.max_stamina
+	
+	if not enemies:
+		end()
 
 
 func end_phase() -> void:
@@ -100,6 +100,10 @@ func end() -> void:
 	Game.battle = null
 	Game.party_node.set_enabled(true)
 	$UI.hide()
+	
+	for actor: Actor in Save.party + enemies:
+		actor.defeated.disconnect(free_actor)
+	
 	ended.emit()
 
 
@@ -108,10 +112,14 @@ func end() -> void:
 
 func ready_actor(actor: Actor) -> void:
 	actor.set_position(Iso.to_grid(actor.node.position))
+	actor.defeated.connect(free_actor.bind(actor))
 
 
 func free_actor(actor: Actor) -> void:
-	pass
+	if actor is Enemy:
+		enemies.erase(actor)
+	else:
+		Save.party.erase(actor)
 
 
 

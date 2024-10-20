@@ -4,6 +4,7 @@ class_name Actor extends Character
 # key stats
 signal will_changed(by: int)
 signal stamina_changed
+signal defeated
 # modifiers
 signal trait_removed(type: Trait.Type)
 signal condition_added(condition: Condition)

@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	resource.will_changed.connect(_on_will_changed)
 	resource.stamina_changed.connect(_on_stamina_changed)
+	resource.defeated.connect(_on_defeated)
 	# modifiers
 	resource.condition_added.connect(_on_condition_added)
 	resource.condition_removed.connect(_on_condition_removed)
@@ -50,6 +51,10 @@ func _on_will_changed(by: int) -> void:
 
 func _update_will_slots() -> void:
 	$WillSlots.set_values(resource.will, resource.max_will)
+
+
+func _on_defeated() -> void:
+	$Sprite.self_modulate.a = 0.5
 
 
 func _on_stamina_changed() -> void:

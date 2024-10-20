@@ -52,11 +52,6 @@ func deselect() -> void:
 	_area.monitoring = true
 
 
-func deselect_delayed() -> void:
-	await get_tree().create_timer(1).timeout
-	deselect()
-
-
 func auto_select() -> void:
 	var body: Node2D = get_body_below()
 	if can_select(body): select(body)
