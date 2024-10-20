@@ -39,6 +39,13 @@ func undo_and_close() -> void:
 	close()
 
 
+func _try_close() -> void:
+	if history.has_undo():
+		_open_stop()
+	else:
+		close()
+
+
 
 # openers
 

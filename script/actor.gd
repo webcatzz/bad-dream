@@ -133,10 +133,13 @@ func recieve_action(action: Action, cause: Actor) -> void:
 			heal(action.strength)
 		else:
 			damage(action.strength + cause.traits.count(Trait.Type.STRENGTH), action.type)
+	
 	if action.knockback:
 		var vector: Vector2i = Iso.rotate_grid_vector(action.knockback, cause.facing)
 		facing = -calc_facing(vector)
 		position += calc_knockback(vector)
+		reoriented.emit()
+	
 	if action.condition:
 		add_condition(action.condition.duplicate())
 

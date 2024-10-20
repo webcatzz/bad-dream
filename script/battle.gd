@@ -36,6 +36,10 @@ func start() -> void:
 	for actor: Actor in Save.party + enemies:
 		ready_actor(actor)
 	
+	var animation: Node = load("res://node/battle_intro.tscn").instantiate()
+	add_child(animation)
+	await animation.get_node("Root/Animator").animation_finished
+	
 	#for actor: Actor in Save.party:
 		#var figure: Control = load("res://node/ui/party_member.tscn").instantiate()
 		#figure.actor = actor
@@ -87,6 +91,7 @@ func do_party_phase() -> void:
 	
 	for actor: Actor in Save.party:
 		actor.stamina = actor.max_stamina
+		actor.acted_this_phase = false
 	
 	if not enemies:
 		end()
@@ -105,6 +110,7 @@ func end() -> void:
 		actor.defeated.disconnect(free_actor)
 	
 	ended.emit()
+	queue_free()
 
 
 
@@ -152,6 +158,13 @@ func preview_action(action: Action, cause: Actor) -> void:
 	var shape: BitShape = action.shape.rotated(cause.facing)
 	shape.offset += cause.position
 	set_highlight(shape)
+	
+	if action.knockback:
+		for actor: Actor in field.collide_action(action, cause):
+			var line: Line2D = preload("res://node/knockback_arrow.tscn").instantiate()
+			line.position = Iso.from_grid(actor.position) - tile_highlight.position
+			line.set_end(action.knockback)
+			tile_highlight.add_child(line)
 
 
 

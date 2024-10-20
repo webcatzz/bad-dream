@@ -9,7 +9,7 @@ color = Color(1, 1, 1, 0.0627451)
 polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 
 [node name="Border" type="Line2D" parent="."]
-z_index = 1
+z_index = 2
 points = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 closed = true
 width = 1.0

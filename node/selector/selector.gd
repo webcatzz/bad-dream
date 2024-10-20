@@ -128,7 +128,7 @@ func update_sprite() -> void:
 			_sprite.modulate.a = 1
 		else:
 			_sprite.expand(0)
-			_sprite.modulate.a = 0.25
+			_sprite.modulate.a = 0.125
 	else:
 		_sprite.expand(-6)
 

@@ -56,7 +56,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 # end phase
 
 func confirm_end_phase() -> void:
-	$EndPhaseConfirm.position = -$EndPhaseConfirm.size/2
 	$EndPhaseConfirm.show()
 	$EndPhaseConfirm/VBox/Buttons/Yes.grab_focus()
 	mode = Mode.MENU
@@ -83,6 +82,15 @@ func _on_body_exited(body: Node2D) -> void:
 	super(body)
 	if not get_body_below():
 		_info.hide()
+
+
+func update_sprite() -> void:
+	if get_body_below() and get_body_below().resource is Enemy:
+		super()
+		_sprite.modulate = Palette.RED
+	else:
+		_sprite.modulate = Color.WHITE
+		super()
 
 
 

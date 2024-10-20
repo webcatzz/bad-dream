@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/actor/default.png" id="3_crv1g"]
 [ext_resource type="Material" uid="uid://bk1bhmmg24pol" path="res://asset/vfx/wave.tres" id="4_qj0rb"]
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="4_vujg7"]
-[ext_resource type="Texture2D" uid="uid://d2ymh7ry20owj" path="res://asset/vfx/x.png" id="5_dnvvo"]
+[ext_resource type="Texture2D" uid="uid://d2ymh7ry20owj" path="res://asset/vfx/blossom.png" id="5_dnvvo"]
 [ext_resource type="Texture2D" uid="uid://btmd3vjuhnsuy" path="res://asset/vfx/circle-outline.png" id="7_kh208"]
 [ext_resource type="Texture2D" uid="uid://creycj7363aur" path="res://asset/vfx/circle.png" id="9_vxyjf"]
 

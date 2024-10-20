@@ -24,7 +24,7 @@ shape = SubResource("CircleShape2D_hqi8d")
 enabled = false
 
 [node name="Sprite" type="Node2D" parent="."]
-z_index = -2
+z_index = -1
 scale = Vector2(1, 0.5)
 script = ExtResource("3_buhq0")
 

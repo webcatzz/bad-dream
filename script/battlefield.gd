@@ -68,8 +68,6 @@ func collide_action(action: Action, cause: Actor) -> Array[Actor]:
 	for polygon: PackedVector2Array in action.shape.rotated(cause.facing).to_polygons():
 		params.shape.points = polygon
 		
-		print(space.intersect_shape(params)) # []
-		
 		for collision: Dictionary in space.intersect_shape(params):
 			if collision.collider is ActorNode:
 				actors.append(collision.collider.resource)
