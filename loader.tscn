@@ -9,7 +9,8 @@ func _ready() -> void:
 
 
 func _deferred() -> void:
-	Game.set_place(\"default\")"
+	Game.set_place(\"default\")
+"
 
 [node name="Loader" type="Node"]
 script = SubResource("GDScript_krps3")

@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=6 format=3 uid="uid://bsmul7001bppa"]
+
+[ext_resource type="Script" path="res://script/action.gd" id="1_wy4vy"]
+[ext_resource type="Script" path="res://script/bitshape.gd" id="2_5arry"]
+[ext_resource type="Script" path="res://script/enemy.gd" id="2_a0ve7"]
+
+[sub_resource type="BitMap" id="BitMap_utgy0"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
+script = ExtResource("2_5arry")
+offset = Vector2i(0, 1)
+
+[sub_resource type="Resource" id="Resource_7ivqr"]
+script = ExtResource("1_wy4vy")
+name = ""
+description = ""
+cost = 1
+strength = 1
+type = 0
+shape = SubResource("BitMap_utgy0")
+knockback = Vector2i(0, 0)
+
+[resource]
+script = ExtResource("2_a0ve7")
+will = 2
+max_will = 2
+stamina = 6
+max_stamina = 6
+attack = 0
+defense = 0
+evasion = 0.0
+traits = Array[int]([])
+actions = Array[ExtResource("1_wy4vy")]([SubResource("Resource_7ivqr")])
+limit_break_max = 0
+limit_break_progress = 0
+type_weak = Array[int]([])
+type_strong = Array[int]([])
+name = "Actor"
