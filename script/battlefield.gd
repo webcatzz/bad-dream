@@ -18,14 +18,15 @@ func collide_tile(tile: Vector2i) -> Array[Node2D]:
 	return colliders
 
 
-func collide_ray(ray: Vector2i, from: Vector2i) -> Vector2i:
+func collide_ray(from: Vector2i, ray: Vector2i) -> Vector2i:
 	var last_ray: Vector2i = Vector2i.ZERO
-	var new_ray: Vector2i = Vector2i.ZERO
+	var new_ray: Vector2i
 	var unit: Vector2i = ray.sign()
 	
-	for i: int in range(1, absi(ray[ray.abs().max_axis_index()]) + 1):
+	for i: int in absi(ray[ray.abs().max_axis_index()]):
 		new_ray = last_ray + unit
 		
+		print(from + new_ray, "\t", is_tile_open(point_params(from + new_ray)))
 		if is_tile_open(point_params(from + new_ray)):
 			last_ray = new_ray
 		else:

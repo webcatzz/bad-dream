@@ -14,17 +14,6 @@ func set_place(key: String) -> void:
 
 
 
-# controls
-
-func clear_controls(control: Control) -> void:
-	pass
-
-
-func add_controls(control: Control) -> void:
-	pass
-
-
-
 # input
 
 func _unhandled_key_input(event: InputEvent) -> void:

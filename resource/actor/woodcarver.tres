@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://script/action.gd" id="1_y8c52"]
 [ext_resource type="Resource" uid="uid://dphudg4r3tb4r" path="res://resource/action/default.tres" id="1_yolib"]
 [ext_resource type="Resource" uid="uid://dt1a83n8oevx" path="res://resource/action/tet2.tres" id="2_bky7o"]
-[ext_resource type="Resource" uid="uid://bgqtc4e6c6rxk" path="res://resource/action/tfef4.tres" id="3_mt67c"]
+[ext_resource type="Resource" uid="uid://bgqtc4e6c6rxk" path="res://resource/action/knockback.tres" id="3_mt67c"]
 
 [resource]
 script = ExtResource("1_fi5jp")

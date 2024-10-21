@@ -110,11 +110,11 @@ func get_body_below() -> Node2D:
 	return _area.get_overlapping_bodies()[0] if _area.monitoring and _area.has_overlapping_bodies() else null
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	update_sprite()
 
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_exited(_body: Node2D) -> void:
 	update_sprite()
 
 

@@ -36,9 +36,9 @@ func start() -> void:
 	for actor: Actor in Save.party + enemies:
 		ready_actor(actor)
 	
-	var animation: Node = load("res://node/battle_intro.tscn").instantiate()
-	add_child(animation)
-	await animation.get_node("Root/Animator").animation_finished
+	#var animation: Node = load("res://node/battle_intro.tscn").instantiate()
+	#add_child(animation)
+	#await animation.get_node("Root/Animator").animation_finished
 	
 	#for actor: Actor in Save.party:
 		#var figure: Control = load("res://node/ui/party_member.tscn").instantiate()
@@ -163,7 +163,7 @@ func preview_action(action: Action, cause: Actor) -> void:
 		for actor: Actor in field.collide_action(action, cause):
 			var line: Line2D = preload("res://node/knockback_arrow.tscn").instantiate()
 			line.position = Iso.from_grid(actor.position) - tile_highlight.position
-			line.set_end(action.knockback)
+			line.set_end(Iso.rotate_grid_vector(action.knockback, cause.facing))
 			tile_highlight.add_child(line)
 
 

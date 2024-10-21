@@ -39,10 +39,7 @@ func recieve_action(action: Action, cause: Actor) -> void:
 	super(action, cause)
 	
 	if action.type != Action.Type.HEALING:
-		if is_defeated():
-			defeated.emit()
-		else:
-			damage_memory[cause] = damage_memory.get(cause, 0) + action.strength
+		damage_memory[cause] = damage_memory.get(cause, 0) + action.strength
 
 
 

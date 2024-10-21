@@ -103,14 +103,14 @@ func add_will(num: int) -> void:
 # sending actions
 
 func send_action(action: Action) -> void:
-	if randf() <= accuracy():
-		var affected: Array[Actor] = Game.battle.field.collide_action(action, self)
-		
-		for actor: Actor in affected:
-			actor.recieve_action(action, self)
+	#if randf() <= accuracy():
+	var affected: Array[Actor] = Game.battle.field.collide_action(action, self)
 	
-	else:
-		missed.emit()
+	for actor: Actor in affected:
+		actor.recieve_action(action, self)
+	
+	#else:
+		#missed.emit()
 	
 	action_sent.emit()
 	stamina = 0
@@ -149,6 +149,9 @@ func damage(num: int, type: Action.Type = Action.Type.NONE) -> void:
 	if type in type_weak: damage *= 2
 	elif type in type_strong: damage /= 2
 	add_will(damage)
+	
+	if is_defeated():
+		defeated.emit()
 
 
 func heal(num: int) -> void:
