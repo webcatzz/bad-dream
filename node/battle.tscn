@@ -1,7 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=34 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
-[ext_resource type="PackedScene" uid="uid://bdqhjnpkpshbe" path="res://node/ui/input_bar.tscn" id="2_gr01j"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="5_4tpi5"]
@@ -13,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bb4bu4qtlalyk" path="res://asset/ui/icon/pocket.png" id="8_wfk6e"]
 [ext_resource type="Script" path="res://node/actor_menu.gd" id="10_oftmg"]
 [ext_resource type="Texture2D" uid="uid://btb0jjvrvb712" path="res://asset/ui/icon/x.png" id="11_e3eu4"]
-[ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="11_imcxk"]
 [ext_resource type="Texture2D" uid="uid://v4pi2yw6vrdb" path="res://asset/ui/icon/commit.png" id="11_np7ul"]
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="12_ixvq1"]
 [ext_resource type="Texture2D" uid="uid://bvoyyy3al1cmk" path="res://asset/dotted.png" id="14_l1wvt"]
@@ -215,21 +213,18 @@ metadata/_tab_index = 0
 
 [node name="Attack" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
 text = "Attack"
 icon = ExtResource("6_voli6")
 alignment = 0
 
 [node name="Move" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
 text = "Move"
 icon = ExtResource("7_obso1")
 alignment = 0
 
 [node name="Pocket" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
 text = "Pocket"
 icon = ExtResource("8_wfk6e")
 alignment = 0
@@ -239,8 +234,7 @@ layout_mode = 2
 
 [node name="Stop" type="Button" parent="Selector/Menu/Main"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
-theme_override_fonts/font = ExtResource("11_imcxk")
+theme_type_variation = &"ButtonSmall"
 text = "Stop"
 icon = ExtResource("11_e3eu4")
 alignment = 0
@@ -253,8 +247,7 @@ metadata/_tab_index = 1
 
 [node name="Cancel" type="Button" parent="Selector/Menu/Action"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
-theme_override_fonts/font = ExtResource("11_imcxk")
+theme_type_variation = &"ButtonSmall"
 text = "Cancel"
 icon = ExtResource("11_e3eu4")
 alignment = 0
@@ -272,8 +265,7 @@ metadata/_tab_index = 2
 
 [node name="Stop" type="Button" parent="Selector/Menu/Movement"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
-theme_override_fonts/font = ExtResource("11_imcxk")
+theme_type_variation = &"ButtonSmall"
 text = "Stop"
 icon = ExtResource("11_e3eu4")
 alignment = 0
@@ -374,14 +366,12 @@ layout_mode = 2
 
 [node name="Use" type="Button" parent="Selector/Menu/Pocket"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
 text = "Use item"
 alignment = 0
 
 [node name="Cancel" type="Button" parent="Selector/Menu/Pocket"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
-theme_override_fonts/font = ExtResource("11_imcxk")
+theme_type_variation = &"ButtonSmall"
 text = "Cancel"
 icon = ExtResource("11_e3eu4")
 alignment = 0
@@ -399,14 +389,12 @@ text = "Record?"
 
 [node name="Commit" type="Button" parent="Selector/Menu/Stop"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
 text = "Commit"
 icon = ExtResource("11_np7ul")
 alignment = 0
 
 [node name="Undo" type="Button" parent="Selector/Menu/Stop"]
 layout_mode = 2
-theme_type_variation = &"ClearButton"
 text = "Undo"
 icon = ExtResource("15_7v7jd")
 alignment = 0
@@ -435,14 +423,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-theme_type_variation = &"ClearButton"
 text = "Yes"
 
 [node name="No" type="Button" parent="Selector/EndPhaseConfirm/VBox/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-theme_type_variation = &"ClearButton"
 text = "No"
 
 [node name="Path" type="Line2D" parent="Selector"]
@@ -524,16 +510,6 @@ metadata/_tab_index = 1
 layout_mode = 2
 theme_override_constants/separation = -8
 alignment = 2
-
-[node name="Margins" type="MarginContainer" parent="UI/Phase/Party/VBox"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 10
-
-[node name="InputBar" parent="UI/Phase/Party/VBox/Margins" instance=ExtResource("2_gr01j")]
-layout_mode = 2
-label = "Act"
 
 [node name="Banner" type="PanelContainer" parent="UI/Phase/Party/VBox"]
 clip_children = 1

@@ -36,9 +36,9 @@ func start() -> void:
 	for actor: Actor in Save.party + enemies:
 		ready_actor(actor)
 	
-	#var animation: Node = load("res://node/battle_intro.tscn").instantiate()
-	#add_child(animation)
-	#await animation.get_node("Root/Animator").animation_finished
+	var animation: Node = load("res://node/battle_intro.tscn").instantiate()
+	add_child(animation)
+	await animation.get_node("Root/Animator").animation_finished
 	
 	#for actor: Actor in Save.party:
 		#var figure: Control = load("res://node/ui/party_member.tscn").instantiate()

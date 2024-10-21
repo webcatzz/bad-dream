@@ -45,7 +45,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode in range(KEY_1, KEY_1 + Save.party.size()) and event.pressed:
 		match_position(Save.party[event.keycode - KEY_1].node)
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("interact") and not can_select(get_body_below()):
+	elif event.is_action_pressed("ui_accept") and not can_select(get_body_below()):
 		confirm_end_phase()
 		get_viewport().set_input_as_handled()
 	else:

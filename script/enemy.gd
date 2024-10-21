@@ -7,6 +7,8 @@ var paths: Dictionary
 
 
 func act() -> void:
+	await Game.get_tree().create_timer(0.5).timeout
+	
 	await follow_path(get_path_to_actor(pick_target()))
 	
 	if can_send_action(actions[0]):
@@ -49,6 +51,7 @@ func follow_path(path: PackedVector2Array) -> void:
 	for point: Vector2i in path:
 		add_to_path()
 		move_to(point)
+		Game.battle.selector.position = Iso.from_grid(position)
 		await Game.get_tree().create_timer(0.2).timeout
 		if not stamina: return
 

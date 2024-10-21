@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://mu8s6x2r0v7a"]
 
-[ext_resource type="Script" path="res://node/ui/inventory.gd" id="1_2micu"]
+[ext_resource type="Script" path="res://node/ui/menu/inventory.gd" id="1_2micu"]
 [ext_resource type="Texture2D" uid="uid://djcgvbsgqa1if" path="res://asset/ui/panel.png" id="1_jsmsl"]
 [ext_resource type="PackedScene" uid="uid://bb4tbahw8ijki" path="res://place/inventory/woodcarver.tscn" id="2_8bpus"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]
@@ -51,4 +51,3 @@ color = Color(0.0901961, 0.0745098, 0.105882, 1)
 
 [node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
 layout_mode = 2
-footer = "Item"

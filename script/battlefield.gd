@@ -26,7 +26,6 @@ func collide_ray(from: Vector2i, ray: Vector2i) -> Vector2i:
 	for i: int in absi(ray[ray.abs().max_axis_index()]):
 		new_ray = last_ray + unit
 		
-		print(from + new_ray, "\t", is_tile_open(point_params(from + new_ray)))
 		if is_tile_open(point_params(from + new_ray)):
 			last_ray = new_ray
 		else:
