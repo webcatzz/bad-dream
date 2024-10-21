@@ -27,21 +27,25 @@ func populate() -> void:
 		
 		var events: Array[InputEvent] = InputMap.action_get_events(ACTIONS[action])
 		for i: int in _grid.columns - 1:
+			var button := Button.new()
+			button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			button.custom_minimum_size.x = 64
+			button.set_meta("action", ACTIONS[action])
+			button.pressed.connect(unbind.bind(button))
+			
 			if i < events.size():
-				var button := Button.new()
 				button.text = events[i].as_text()
-				button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-				button.custom_minimum_size.x = 64
-				button.set_meta("action", ACTIONS[action])
 				button.set_meta("event", events[i])
-				button.pressed.connect(unbind.bind(button))
-				_grid.add_child(button)
+			
 			else:
-				_grid.add_child(Control.new())
+				button.text = "..."
+			
+			_grid.add_child(button)
 
 
 func unbind(button: Button) -> void:
-	InputMap.action_erase_event(button.get_meta("action"), button.get_meta("event"))
+	if button.has_meta("event"):
+		InputMap.action_erase_event(button.get_meta("action"), button.get_meta("event"))
 	button.gui_input.connect(rebind.bind(button), CONNECT_ONE_SHOT)
 
 
