@@ -10,8 +10,6 @@ enum Tab {
 }
 
 var actor: Actor
-var buttons: Array[Button]
-
 var history: UndoRedo = UndoRedo.new()
 
 @onready var _selector: Selector = get_parent()
