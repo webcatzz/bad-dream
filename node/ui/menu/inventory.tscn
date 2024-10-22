@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://mu8s6x2r0v7a"]
+[gd_scene load_steps=6 format=3 uid="uid://mu8s6x2r0v7a"]
 
 [ext_resource type="Script" path="res://node/ui/menu/inventory.gd" id="1_2micu"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="1_pmmwj"]
 [ext_resource type="PackedScene" uid="uid://bb4tbahw8ijki" path="res://place/inventory/woodcarver.tscn" id="2_8bpus"]
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsdgl"]
 
 [node name="Inventory" type="PanelContainer"]
 offset_right = 306.0
@@ -33,3 +35,4 @@ render_target_update_mode = 4
 
 [node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_dsdgl")

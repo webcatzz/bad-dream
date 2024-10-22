@@ -36,7 +36,6 @@ func populate() -> void:
 			if i < events.size():
 				button.text = events[i].as_text()
 				button.set_meta("event", events[i])
-			
 			else:
 				button.text = "..."
 			
@@ -46,14 +45,20 @@ func populate() -> void:
 func unbind(button: Button) -> void:
 	if button.has_meta("event"):
 		InputMap.action_erase_event(button.get_meta("action"), button.get_meta("event"))
+	button.text = "Press a key..."
 	button.gui_input.connect(rebind.bind(button), CONNECT_ONE_SHOT)
 
 
 func rebind(event: InputEvent, button: Button) -> void:
-	InputMap.action_add_event(button.get_meta("action"), event)
-	button.text = event.as_text()
-	button.set_meta("event", event)
 	accept_event()
+	
+	if event.keycode == KEY_BACKSPACE:
+		button.text = "..."
+		button.remove_meta("event")
+	else:
+		InputMap.action_add_event(button.get_meta("action"), event)
+		button.text = event.as_text()
+		button.set_meta("event", event)
 
 
 func reset() -> void:
@@ -65,6 +70,10 @@ func reset() -> void:
 	populate()
 	
 	$Reset.grab_focus()
+
+
+func _gui_input(event: InputEvent) -> void:
+	print(event)
 
 
 func _ready() -> void:
