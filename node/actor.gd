@@ -59,7 +59,7 @@ func _on_defeated() -> void:
 
 func _on_stamina_changed() -> void:
 	if not resource.stamina: $ExhaustParticles.restart()
-	$Sprite.self_modulate.a = 1 if resource.stamina else 0.75
+	$Sprite.self_modulate.a = 1.0 if resource.stamina else 0.75
 
 
 func _on_condition_added(condition: Condition) -> void:

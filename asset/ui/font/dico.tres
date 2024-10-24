@@ -1,6 +1,6 @@
 [gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://diavu0lgbg5lq"]
 
-[ext_resource type="FontFile" uid="uid://bor4s2w5l6lsq" path="res://asset/ui/dico.ttf" id="1_4fgmg"]
+[ext_resource type="FontFile" uid="uid://bor4s2w5l6lsq" path="res://asset/ui/font/dico.ttf" id="1_4fgmg"]
 
 [resource]
 base_font = ExtResource("1_4fgmg")

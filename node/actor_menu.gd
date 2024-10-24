@@ -47,7 +47,7 @@ func _try_close() -> void:
 
 # openers
 
-func _open_main(from: Tab = current_tab) -> void:
+func _open_main(from: Tab = current_tab as Tab) -> void:
 	current_tab = Tab.MAIN
 	$Main.get_child(from - 1).grab_focus()
 	$Main/Pocket.disabled = actor.pocket == null

@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://s4ee6dgxgaal"]
+[gd_scene load_steps=4 format=3 uid="uid://s4ee6dgxgaal"]
 
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="1_aax1u"]
+[ext_resource type="Script" path="res://node/item.gd" id="1_m2kna"]
 [ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="2_awype"]
 
 [node name="ItemNode" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 3
+script = ExtResource("1_m2kna")
 
 [node name="Collision" parent="." instance=ExtResource("1_aax1u")]
 

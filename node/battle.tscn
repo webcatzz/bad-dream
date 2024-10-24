@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://4qfgw3tbjge6"]
+[gd_scene load_steps=32 format=3 uid="uid://4qfgw3tbjge6"]
 
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
@@ -81,16 +81,6 @@ texture_margin_top = 8.0
 base_font = ExtResource("7_mg71a")
 spacing_top = -14
 spacing_bottom = -18
-
-[sub_resource type="Gradient" id="Gradient_qxie1"]
-offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qxpjf"]
-gradient = SubResource("Gradient_qxie1")
-width = 1
-height = 96
-fill_to = Vector2(0, 1)
 
 [sub_resource type="Animation" id="Animation_cvt8g"]
 resource_name = "RESET"
@@ -551,7 +541,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Announcement" type="TextureRect" parent="UI"]
+[node name="Announcement" type="ColorRect" parent="UI"]
 visible = false
 clip_children = 1
 custom_minimum_size = Vector2(0, 96)
@@ -563,7 +553,6 @@ offset_top = -48.0
 offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_qxpjf")
 
 [node name="Color" type="ColorRect" parent="UI/Announcement"]
 layout_mode = 1

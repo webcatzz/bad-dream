@@ -45,20 +45,22 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_1x5wl")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-current_tab = 2
+current_tab = 3
 tabs_visible = false
 
 [node name="Pause" type="VBoxContainer" parent="Overlay/Tabs"]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 metadata/_tab_index = 0
 
 [node name="Label" type="Label" parent="Overlay/Tabs/Pause"]
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Paused."
-horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Overlay/Tabs/Pause"]
+layout_mode = 2
 
 [node name="Continue" type="Button" parent="Overlay/Tabs/Pause"]
 layout_mode = 2
@@ -81,7 +83,7 @@ alignment = 0
 [node name="Settings" type="VBoxContainer" parent="Overlay/Tabs"]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 metadata/_tab_index = 1
 
 [node name="Label" type="Label" parent="Overlay/Tabs/Settings"]
@@ -89,9 +91,15 @@ layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Settings"
 
+[node name="Spacer" type="Control" parent="Overlay/Tabs/Settings"]
+layout_mode = 2
+
 [node name="Controls" type="Button" parent="Overlay/Tabs/Settings"]
 layout_mode = 2
 text = "Controls"
+
+[node name="Spacer2" type="Control" parent="Overlay/Tabs/Settings"]
+layout_mode = 2
 
 [node name="Back" type="Button" parent="Overlay/Tabs/Settings"]
 layout_mode = 2
@@ -101,6 +109,7 @@ icon = ExtResource("4_p3va0")
 alignment = 0
 
 [node name="Controls" type="VBoxContainer" parent="Overlay/Tabs"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("7_csrij")
@@ -139,7 +148,6 @@ icon = ExtResource("4_p3va0")
 alignment = 0
 
 [node name="Inventory" parent="Overlay/Tabs" instance=ExtResource("2_e7lfs")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

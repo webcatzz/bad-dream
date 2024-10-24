@@ -72,7 +72,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if mode == Mode.MENU: return
 	
 	if event.is_action_pressed("ui_accept"):
-		deselect() if selected else auto_select()
+		if selected: deselect()
+		else: auto_select()
 		get_viewport().set_input_as_handled()
 	
 	elif event.is_action_released("ui_accept"):
