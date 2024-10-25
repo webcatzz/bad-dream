@@ -45,7 +45,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_1x5wl")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-current_tab = 3
+current_tab = 2
 tabs_visible = false
 
 [node name="Pause" type="VBoxContainer" parent="Overlay/Tabs"]
@@ -109,7 +109,6 @@ icon = ExtResource("4_p3va0")
 alignment = 0
 
 [node name="Controls" type="VBoxContainer" parent="Overlay/Tabs"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("7_csrij")
@@ -119,7 +118,7 @@ metadata/_tab_index = 2
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Controls
-(Remove with backspace)"
+(Press to edit, backspace to remove)"
 
 [node name="Spacer" type="Control" parent="Overlay/Tabs/Controls"]
 layout_mode = 2
@@ -148,6 +147,7 @@ icon = ExtResource("4_p3va0")
 alignment = 0
 
 [node name="Inventory" parent="Overlay/Tabs" instance=ExtResource("2_e7lfs")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

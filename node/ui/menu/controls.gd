@@ -9,9 +9,10 @@ const ACTIONS: Dictionary = { # fix [String, String]
 	"Move down": "move_down",
 	"Move left": "move_left",
 	"Move right": "move_right",
-	
-	"Inventory": "inventory",
 	"Backtrack": "undo",
+	
+	"Pause": "pause",
+	"Inventory": "inventory",
 	"Screenshot": "screenshot",
 }
 
@@ -31,7 +32,7 @@ func populate() -> void:
 			button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 			button.custom_minimum_size.x = 64
 			button.set_meta("action", ACTIONS[action])
-			button.pressed.connect(unbind.bind(button))
+			button.pressed.connect(rebind.bind(button))
 			
 			if i < events.size():
 				button.text = events[i].as_text()
@@ -42,23 +43,33 @@ func populate() -> void:
 			_grid.add_child(button)
 
 
-func unbind(button: Button) -> void:
+func rebind(button: Button) -> void:
 	if button.has_meta("event"):
 		InputMap.action_erase_event(button.get_meta("action"), button.get_meta("event"))
 	button.text = "Press a key..."
-	button.gui_input.connect(rebind.bind(button), CONNECT_ONE_SHOT)
-
-
-func rebind(event: InputEvent, button: Button) -> void:
+	
+	var event: InputEvent = await button.gui_input
 	accept_event()
 	
 	if event.keycode == KEY_BACKSPACE:
-		button.text = "..."
-		button.remove_meta("event")
+		unbind(button)
 	else:
+		for child: Node in _grid.get_children():
+			if child.has_meta("event") and child.get_meta("event").keycode == event.keycode:
+				if button.has_meta("event"):
+					event = button.get_meta("event")
+				else:
+					unbind(button)
+					return
+		
 		InputMap.action_add_event(button.get_meta("action"), event)
 		button.text = event.as_text()
 		button.set_meta("event", event)
+
+
+func unbind(button: Button) -> void:
+	button.text = "..."
+	button.remove_meta("event")
 
 
 func reset() -> void:

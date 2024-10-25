@@ -52,11 +52,12 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if visible:
-			close()
-		else:
-			open(Menu.PAUSE)
+	if visible and event.is_action_pressed("ui_cancel"):
+		close()
+		get_viewport().set_input_as_handled()
+	
+	elif not visible and event.is_action_pressed("pause"):
+		open(Menu.PAUSE)
 		get_viewport().set_input_as_handled()
 	
 	elif event.is_action_pressed("inventory"):
