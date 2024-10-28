@@ -29,7 +29,7 @@ var tile_highlight: TileHighlight
 
 func start() -> void:
 	Game.battle = self
-	Game.party_node.set_enabled(false)
+	Game.party_node.toggle(false)
 	field = BattleField.new()
 	$UI.show()
 	
@@ -84,10 +84,10 @@ func do_party_phase() -> void:
 	announce("Party Phase", Palette.BLUE)
 	await get_tree().create_timer(0.8).timeout
 	
-	await selector.move_to(Save.player.position)
-	selector.set_enabled(true)
+	await selector.move_to(Save.leader.position)
+	selector.toggle(true)
 	await phase_changed
-	selector.set_enabled(false)
+	selector.toggle(false)
 	
 	for actor: Actor in Save.party:
 		actor.stamina = actor.max_stamina
@@ -103,7 +103,7 @@ func end_phase() -> void:
 
 func end() -> void:
 	Game.battle = null
-	Game.party_node.set_enabled(true)
+	Game.party_node.toggle(true)
 	$UI.hide()
 	
 	for actor: Actor in Save.party + enemies:

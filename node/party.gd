@@ -4,7 +4,7 @@ extends Node2D
 const PATH_SEPARATION: int = 4
 const FOLLOW_SPEED: float = 2.4
 
-var player_node: ActorNode
+var leader_node: ActorNode
 var party_nodes: Array[ActorNode]
 
 var input: Vector2
@@ -14,7 +14,7 @@ var path: PackedVector2Array
 @onready var _interaction_area: Area2D = $InteractionArea
 
 
-func set_enabled(value: bool) -> void:
+func toggle(value: bool) -> void:
 	set_process_unhandled_key_input(value)
 	set_physics_process(value)
 	input = Vector2.ZERO
@@ -37,16 +37,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	player_node.velocity = input * 8
-	player_node.move_and_slide()
+	leader_node.velocity = input * 8
+	leader_node.move_and_slide()
 	
-	if path[-1].distance_squared_to(player_node.position) > 256:
+	if path[-1].distance_squared_to(leader_node.position) > 256:
 		path.remove_at(0)
-		path.append(player_node.position)
+		path.append(leader_node.position)
 	
 	for party_node: ActorNode in party_nodes:
 		party_node.resource.facing = Iso.to_grid(Iso.get_direction(
-			Save.player.node.global_position - global_position
+			Save.leader.node.global_position - global_position
 		))
 		party_node.position = path[PATH_SEPARATION * Save.party.find(party_node.resource, 1)]
 
@@ -72,13 +72,13 @@ func _ready() -> void:
 		add_child.call_deferred(actor.node)
 	
 	# setting variables
-	player_node = Save.player.node
+	leader_node = Save.leader.node
 	for i: int in range(1, Save.party.size()):
 		party_nodes.append(Save.party[i].node)
 	
 	# reparenting non-actor children
 	for child: Node in children:
-		child.reparent(player_node)
+		child.reparent(leader_node)
 	
 	# camera
 	_camera.make_current.call_deferred()

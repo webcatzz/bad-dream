@@ -4,6 +4,8 @@ class_name TypedLabel extends Label
 func type(string: String = text) -> void:
 	visible_characters = 0
 	text = string
+	
+	focus_mode = FOCUS_ALL
 	grab_focus()
 	
 	while true:
@@ -15,6 +17,8 @@ func type(string: String = text) -> void:
 			await get_tree().create_timer(0.5).timeout
 		else:
 			await get_tree().create_timer(0.04).timeout
+	
+	focus_mode = FOCUS_NONE
 
 
 
@@ -22,7 +26,6 @@ func type(string: String = text) -> void:
 
 func _init() -> void:
 	autowrap_mode = TextServer.AUTOWRAP_WORD
-	focus_mode = FOCUS_ALL
 	visible_characters = 0
 
 

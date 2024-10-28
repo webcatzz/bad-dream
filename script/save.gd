@@ -3,9 +3,9 @@ extends Node
 
 var file: ConfigFile = ConfigFile.new()
 
-var player: Actor:
-	get: return party[0]
 var party: Array[Actor]
+var leader: Actor:
+	get: return party[0]
 
 
 func read() -> void:
@@ -21,8 +21,3 @@ func read() -> void:
 
 func _ready() -> void:
 	read()
-
-
-func _get_filename(resource: Resource) -> String:
-	var filename: String = resource.resource_path.get_file()
-	return filename.substr(0, filename.rfind("."))

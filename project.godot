@@ -46,6 +46,7 @@ enabled=PackedStringArray("res://addons/bitmap_editor/plugin.cfg")
 
 folder_colors={
 "res://asset/": "green",
+"res://dialogue/": "purple",
 "res://node/": "blue",
 "res://place/": "pink",
 "res://resource/": "teal",

@@ -21,7 +21,7 @@ var selected: Node2D
 @onready var _menu: TabContainer = $Menu
 
 
-func set_enabled(value: bool) -> void:
+func toggle(value: bool) -> void:
 	mode = Mode.MOVE if value else Mode.DISABLED
 	
 	visible = value
@@ -139,4 +139,4 @@ func update_sprite() -> void:
 
 func _ready() -> void:
 	_camera.enabled = true
-	set_enabled(enabled)
+	toggle(enabled)

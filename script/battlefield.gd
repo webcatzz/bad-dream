@@ -86,7 +86,7 @@ func get_tile_path(from: Vector2i, to: Vector2i) -> PackedVector2Array:
 # updating
 
 func update_region() -> void:
-	region = Rect2i(Save.player.position, Vector2i.ZERO)
+	region = Rect2i(Save.leader.position, Vector2i.ZERO)
 	for actor: Actor in Save.party + Game.battle.enemies:
 		region = region.expand(actor.position)
 	region = region.grow_individual(8, 8, 9, 9)

@@ -17,11 +17,11 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is ActorNode and body.resource == Save.player:
+	if body is ActorNode and body.resource == Save.leader:
 		player_entered.emit()
 		if free_on_enter: queue_free()
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is ActorNode and body.resource == Save.player:
+	if body is ActorNode and body.resource == Save.leader:
 		player_exited.emit()

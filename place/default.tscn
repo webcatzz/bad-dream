@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bysegvxpv7ca6"]
+[gd_scene load_steps=15 format=3 uid="uid://bysegvxpv7ca6"]
 
 [ext_resource type="Texture2D" uid="uid://pj3hhd5we7py" path="res://asset/tile/blank.png" id="2_b418h"]
 [ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="2_sogkj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="7_ct64e"]
 [ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="8_gbf4g"]
 [ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_interactable.tscn" id="9_pf5we"]
+[ext_resource type="Script" path="res://dialogue/test.gd" id="10_xk0rw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]
 texture = ExtResource("8_gbf4g")
@@ -60,9 +61,8 @@ free_on_enter = true
 
 [node name="DialogueInteractable" parent="." instance=ExtResource("9_pf5we")]
 position = Vector2(64, -16)
-text = "Text text?
-Text text text. Text text text text text.
-Text!"
+key = "test"
+dialogue_script = ExtResource("10_xk0rw")
 
 [node name="Sprite2D" type="Sprite2D" parent="DialogueInteractable"]
 position = Vector2(0, -24)
