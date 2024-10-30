@@ -22,6 +22,9 @@ func _ready() -> void:
 	if resource is Enemy:
 		resource = resource.duplicate()
 		resource.node = self
+		resource.initialize_traits()
+	
+	$Sprite.texture = resource.sprite
 	
 	resource.will_changed.connect(_on_will_changed)
 	resource.stamina_changed.connect(_on_stamina_changed)
@@ -64,12 +67,12 @@ func _on_stamina_changed() -> void:
 
 func _on_condition_added(condition: Condition) -> void:
 	emit_text("+" + condition.name())
-	_blend_condition_colors()
+	add_child(condition.vfx())
 
 
 func _on_condition_removed(condition: Condition) -> void:
 	emit_text("-" + condition.name())
-	_blend_condition_colors()
+	get_node(condition.name()).queue_free()
 
 
 func _blend_condition_colors() -> void:
@@ -83,7 +86,7 @@ func _blend_condition_colors() -> void:
 
 func _on_action_sent() -> void:
 	await get_tree().create_timer(1).timeout
-	$ExhaustParticles.emitting = true
+	$ExhaustParticles.restart()
 
 
 func _on_reoriented() -> void:

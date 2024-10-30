@@ -14,4 +14,3 @@ func test() -> void:
 			await say("foolish fool")
 	
 	await say("Text!")
- 

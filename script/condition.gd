@@ -7,6 +7,10 @@ enum Type {
 	GUARD,
 	SLEEP,
 	SPEED,
+	
+	RAGE,
+	ADRENALINE,
+	ALERT,
 }
 
 @export var type: Type
@@ -21,18 +25,26 @@ func apply() -> void:
 	duration_left = duration
 	
 	match type:
-		Type.SPEED:
-			actor.reoriented.connect(_speed_listener)
 		Type.BURN:
 			actor.action_sent.connect(actor.damage.bind(1))
+		Type.RAGE:
+			actor.attack += strength
+		Type.ADRENALINE:
+			actor.defense += strength
+		Type.ALERT:
+			actor.evasion += 0.25 * strength
 
 
 func unapply() -> void:
 	match type:
-		Type.SPEED:
-			actor.reoriented.disconnect(_speed_listener)
 		Type.BURN:
 			actor.action_sent.disconnect(actor.damage.bind(1))
+		Type.RAGE:
+			actor.attack -= strength
+		Type.ADRENALINE:
+			actor.defense -= strength
+		Type.ALERT:
+			actor.evasion -= 0.25 * strength
 
 
 static func from(type: Type, duration: int, strength: int = 1) -> Condition:
@@ -56,8 +68,7 @@ func color() -> Color:
 		_: return Palette.PANEL_0
 
 
-
-# internal
-
-func _speed_listener() -> void:
-	pass
+func vfx() -> Node:
+	match type:
+		Type.BURN: return load("res://node/vfx/burn.tscn").instantiate()
+		_: return null

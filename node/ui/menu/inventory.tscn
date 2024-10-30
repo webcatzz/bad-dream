@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://mu8s6x2r0v7a"]
+[gd_scene load_steps=7 format=3 uid="uid://mu8s6x2r0v7a"]
 
 [ext_resource type="Script" path="res://node/ui/menu/inventory.gd" id="1_2micu"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="1_pmmwj"]
@@ -6,6 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_bx3yy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsdgl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1yjj"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.341176, 0.454902, 0.831373, 1)
 
 [node name="Inventory" type="PanelContainer"]
 offset_right = 306.0
@@ -25,7 +37,8 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Viewport" type="SubViewport" parent="HBox/Panel/ViewportContainer"]
-process_mode = 2
+process_mode = 3
+disable_3d = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(275, 200)
@@ -33,6 +46,24 @@ render_target_update_mode = 4
 
 [node name="Woodcarver" parent="HBox/Panel/ViewportContainer/Viewport" instance=ExtResource("2_8bpus")]
 
-[node name="Info" parent="HBox" instance=ExtResource("2_bx3yy")]
+[node name="VBox" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Info" parent="HBox/VBox" instance=ExtResource("2_bx3yy")]
+layout_mode = 2
+size_flags_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_dsdgl")
+
+[node name="Label" type="Label" parent="HBox/VBox"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "Pocket"
+
+[node name="Pocket" type="PanelContainer" parent="HBox/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1yjj")
+
+[node name="Label" type="Label" parent="HBox/VBox/Pocket"]
+layout_mode = 2
+text = "[Empty...]"

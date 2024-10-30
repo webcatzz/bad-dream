@@ -398,7 +398,7 @@ collision_mask = 3
 script = ExtResource("1_8lbif")
 
 [node name="Collision" parent="." instance=ExtResource("2_26hms")]
-polygon = PackedVector2Array(-15, 2.08165e-12, 2.08165e-12, -7, 15, 2.08165e-12, 2.08165e-12, 7)
+polygon = PackedVector2Array(-14, 0, 2.08165e-12, -7, 14, 0, 2.08165e-12, 7)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = ExtResource("3_cgkie")

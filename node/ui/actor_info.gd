@@ -14,7 +14,7 @@ func write(actor: Actor) -> void:
 	
 	_will.set_values(actor.will, actor.max_will)
 	_stamina.set_values(actor.stamina, actor.max_stamina)
-	_other.text = "ATK %s\nDEF %s\nEVA %s" % [actor.attack, actor.defense, actor.evasion]
+	#_other.text = "ATK %s\nDEF %s\nEVA %s" % [actor.attack, actor.defense, actor.evasion]
 	
 	for child: Control in _traits.get_children() + _conditions.get_children():
 		child.queue_free()
@@ -37,11 +37,11 @@ func write(actor: Actor) -> void:
 		for condition: Condition in actor.conditions:
 			var name_label: Label = Label.new()
 			name_label.text = condition.name()
-			_traits.add_child(name_label)
+			_conditions.add_child(name_label)
 			var slots: Slots = Slots.new()
 			slots.set_values(condition.duration_left, condition.duration)
 			slots.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			_traits.add_child(slots)
+			_conditions.add_child(slots)
 		_conditions.get_parent().show()
 	else:
 		_conditions.get_parent().hide()

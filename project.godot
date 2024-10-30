@@ -20,6 +20,10 @@ Save="*res://script/save.gd"
 Game="*res://node/game.tscn"
 Menus="*res://node/ui/menu/menus.tscn"
 
+[collada]
+
+default_gravity=9.22337e+18
+
 [debug]
 
 gdscript/warnings/shadowed_variable=0

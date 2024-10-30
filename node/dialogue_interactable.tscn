@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://node/dialogue_interactable.gd" id="1_6bt10"]
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="3_4rj1k"]
-[ext_resource type="Texture2D" uid="uid://fkg8kws8qwow" path="res://asset/actor/portrait/default.png" id="3_kdu56"]
+[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/icon/default.png" id="3_lifpy"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="3_qlpes"]
 [ext_resource type="Script" path="res://node/trigger.gd" id="5_f1oym"]
 
@@ -133,7 +133,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-texture = ExtResource("3_kdu56")
+texture = ExtResource("3_lifpy")
 
 [node name="Wrapper" type="Control" parent="Panel/VBox/HBox"]
 clip_children = 1

@@ -24,9 +24,9 @@ signal reoriented
 	set(value): stamina = value; stamina_changed.emit()
 @export var max_stamina: int = 1
 # stats
-@export var attack: int
-@export var defense: int
-@export_range(0, 1, 0.05) var evasion: float
+var attack: int
+var defense: int
+var evasion: float
 # modifiers
 @export var traits: Array[Trait.Type]
 var conditions: Array[Condition]
@@ -159,7 +159,7 @@ func heal(num: int) -> void:
 
 
 func try_evade(direction: Vector2i) -> bool:
-	if randf() <= evasion:
+	if false: # randf() <= evasion
 		if Game.battle.field.is_tile_open(Game.battle.field.point_params(position + direction)) and not is_incapacitated():
 			facing = -direction
 			position += direction
@@ -183,6 +183,16 @@ func remove_trait(type: Trait.Type) -> void:
 	Trait.unapply(type, self)
 	traits.erase(type)
 	trait_removed.emit(type)
+
+
+func initialize_traits() -> void:
+	for type: Trait.Type in traits:
+		Trait.apply(type, self)
+
+
+func deinitialize_traits() -> void:
+	for type: Trait.Type in traits:
+		Trait.unapply(type, self)
 
 
 func add_condition(condition: Condition) -> void:

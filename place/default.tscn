@@ -1,47 +1,44 @@
-[gd_scene load_steps=15 format=3 uid="uid://bysegvxpv7ca6"]
+[gd_scene load_steps=11 format=4 uid="uid://bysegvxpv7ca6"]
 
-[ext_resource type="Texture2D" uid="uid://pj3hhd5we7py" path="res://asset/tile/blank.png" id="2_b418h"]
+[ext_resource type="TileSet" uid="uid://boq45yqr2jxoe" path="res://asset/tile/house/house.tres" id="1_3ufpo"]
 [ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="2_sogkj"]
 [ext_resource type="Script" path="res://node/trigger.gd" id="4_rw075"]
 [ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="4_wnixx"]
-[ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="5_xrbn1"]
 [ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="6_akm5s"]
 [ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/actor/default.png" id="6_u687y"]
 [ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="7_ct64e"]
-[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="8_gbf4g"]
 [ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_interactable.tscn" id="9_pf5we"]
 [ext_resource type="Script" path="res://dialogue/test.gd" id="10_xk0rw"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]
-texture = ExtResource("8_gbf4g")
-texture_region_size = Vector2i(32, 16)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vdxqi"]
-texture = ExtResource("2_b418h")
-texture_region_size = Vector2i(32, 24)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -4)
-1:1/0 = 0
-1:1/0/texture_origin = Vector2i(0, -12)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, -12)
-
-[sub_resource type="TileSet" id="TileSet_5pimg"]
-tile_shape = 1
-tile_size = Vector2i(32, 16)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_0npwg")
-sources/1 = SubResource("TileSetAtlasSource_vdxqi")
+[sub_resource type="CircleShape2D" id="CircleShape2D_3al74"]
+radius = 1.0
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 
-[node name="Tiles" type="TileMapLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.184314, 0.180392, 0.235294, 1)
+
+[node name="Floor" type="TileMapLayer" parent="."]
 z_index = -2
 y_sort_enabled = true
-tile_set = SubResource("TileSet_5pimg")
+tile_map_data = PackedByteArray("AAABAAoAAQAAAAAAAAAAAAkAAQABAAAAAAAAAAgAAQABAAAAAAD//wcAAQABAAAAAAD//wYAAQABAAAAAAD+/wUAAQAAAAAAAAD+/wQAAQABAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQAAAAAAAAD8/wEAAQABAAAAAAD8/wAAAQABAAAAAAD7////AQABAAAAAAD7//7/AQAAAAAAAAD6//3/AQAAAAAAAAD6//7/AQAAAAAAAAD5////AQABAAAAAAD5/wMAAQABAAAAAAD6/wQAAQAAAAAAAAD6/wUAAQAAAAAAAAD7/wYAAQAAAAAAAAD7/wcAAQABAAAAAAD8/wgAAQABAAAAAAD8/wkAAQAAAAAAAAD9/woAAQAAAAAAAAD9/wsAAQABAAAAAAD+/wwAAQAAAAAAAAD+/w0AAQAAAAAAAAD//w4AAQABAAAAAAAAAAoAAQAAAAAAAAD//wkAAQACAAAAAAD//wgAAQABAAAAAAD+/wcAAQACAAAAAAD+/wYAAQACAAAAAAD9/wUAAQACAAAAAAD9/wQAAQABAAAAAAD8/wMAAQACAAAAAAD8/wIAAQAAAAAAAAD7/wEAAQACAAAAAAD7/wAAAQACAAAAAAD6////AQAAAAAAAAD6/wAAAQABAAAAAAD6/wIAAQABAAAAAAD6/wEAAQAAAAAAAAD7/wIAAQACAAAAAAD6/wMAAQAAAAAAAAD7/wQAAQACAAAAAAD7/wMAAQACAAAAAAD8/wQAAQACAAAAAAD7/wUAAQACAAAAAAD8/wYAAQAAAAAAAAD8/wUAAQACAAAAAAD9/wYAAQACAAAAAAD8/wcAAQACAAAAAAD9/wgAAQACAAAAAAD9/wcAAQABAAAAAAD+/wgAAQACAAAAAAD9/wkAAQABAAAAAAD+/woAAQABAAAAAAD+/wkAAQACAAAAAAD//woAAQACAAAAAAD+/wsAAQABAAAAAAD//wwAAQABAAAAAAD//wsAAQAAAAAAAAAAAAwAAQACAAAAAAAAAAsAAQABAAAAAAABAAwAAQABAAAAAAAAAA0AAQABAAAAAAAAAA4AAQABAAAAAAD//w0AAQABAAAAAAD4/wEAAQAAAAAAAAD5/wAAAQABAAAAAAD5/wEAAQACAAAAAAD5/wIAAQABAAAAAAD0//z/AQABAAAAAAD0//v/AQABAAAAAAD1//z/AQACAAAAAAD0//3/AQABAAAAAAD2//z/AQAAAAAAAAD2//v/AQAAAAAAAAD3//z/AQAAAAAAAAD2//3/AQAAAAAAAAD1//n/AQABAAAAAAD2//j/AQABAAAAAAD2//n/AQAAAAAAAAD2//r/AQACAAAAAAD2//b/AQAAAAAAAAD2//X/AQABAAAAAAD3//b/AQAAAAAAAAD2//f/AQAAAAAAAAD4//b/AQAAAAAAAAD4//X/AQABAAAAAAD5//b/AQAAAAAAAAD4//f/AQABAAAAAAD3//n/AQABAAAAAAD4//j/AQAAAAAAAAD4//n/AQABAAAAAAD4//r/AQAAAAAAAAD1////AQAAAAAAAAD2//7/AQABAAAAAAD2////AQAAAAAAAAD2/wAAAQABAAAAAAD2/wIAAQAAAAAAAAD2/wEAAQABAAAAAAD3/wIAAQABAAAAAAD2/wMAAQAAAAAAAADz////AQAAAAAAAAD0//7/AQABAAAAAAD0////AQAAAAAAAAD0/wAAAQABAAAAAADz//n/AQAAAAAAAAD0//j/AQABAAAAAAD0//n/AQABAAAAAAD0//r/AQABAAAAAAD0//b/AQAAAAAAAAD0//X/AQABAAAAAAD1//b/AQABAAAAAAD0//f/AQAAAAAAAAD0/wIAAQABAAAAAAD0/wEAAQAAAAAAAAD1/wIAAQABAAAAAAD0/wMAAQAAAAAAAADz//P/AQAAAAAAAAD0//L/AQAAAAAAAAD0//P/AQAAAAAAAAD0//T/AQABAAAAAADx////AQABAAAAAADy//7/AQAAAAAAAADy////AQABAAAAAADy/wAAAQABAAAAAADy//z/AQABAAAAAADy//v/AQABAAAAAADz//z/AQAAAAAAAADy//3/AQAAAAAAAADy/wIAAQABAAAAAADy/wEAAQABAAAAAADz/wIAAQAAAAAAAADy/wMAAQABAAAAAADx//n/AQABAAAAAADy//j/AQABAAAAAADy//n/AQABAAAAAADy//r/AQABAAAAAADy//b/AQABAAAAAADy//X/AQAAAAAAAADz//b/AQABAAAAAADy//f/AQAAAAAAAAD1//P/AQABAAAAAAD2//L/AQAAAAAAAAD2//P/AQAAAAAAAAD2//T/AQABAAAAAAD2//D/AQAAAAAAAAD2/+//AQABAAAAAAD3//D/AQABAAAAAAD2//H/AQAAAAAAAAD3//P/AQABAAAAAAD4//L/AQABAAAAAAD4//P/AQAAAAAAAAD4//T/AQAAAAAAAADx//P/AQAAAAAAAADy//L/AQAAAAAAAADy//P/AQABAAAAAADy//T/AQAAAAAAAAD0//D/AQAAAAAAAAD0/+//AQABAAAAAAD1//D/AQABAAAAAAD0//H/AQAAAAAAAADy//D/AQABAAAAAADy/+//AQAAAAAAAADz//D/AQABAAAAAADy//H/AQAAAAAAAAD0/woAAQACAAAAAADz/wkAAQACAAAAAAD0/wgAAQAAAAAAAAD0/wcAAQAAAAAAAAD0/wYAAQAAAAAAAAD0/wUAAQABAAAAAAD1/wYAAQABAAAAAAD1/wcAAQABAAAAAAD1/wgAAQAAAAAAAAD1/wkAAQABAAAAAAD1/woAAQACAAAAAAD1/wsAAQABAAAAAAD2/woAAQACAAAAAAD2/wgAAQABAAAAAAD1/wUAAQAAAAAAAAD0/wsAAQACAAAAAAD0/wwAAQACAAAAAADz/wsAAQAAAAAAAAD0/wkAAQAAAAAAAAD1/wwAAQACAAAAAAD0/w0AAQABAAAAAAD1/w4AAQACAAAAAAD0/w4AAQAAAAAAAADz/w0AAQABAAAAAADz/wwAAQAAAAAAAADz/woAAQAAAAAAAADy/wkAAQAAAAAAAADz/wgAAQABAAAAAADz/wcAAQABAAAAAAD2/wcAAQAAAAAAAAD2/wkAAQAAAAAAAAD3/woAAQAAAAAAAAD2/wsAAQABAAAAAAD2/wwAAQAAAAAAAAD1/w0AAQACAAAAAAD0/w8AAQABAAAAAAD2/w0AAQAAAAAAAAD2/w8AAQABAAAAAAD2/xAAAQABAAAAAAD1/xEAAQAAAAAAAAD1/xAAAQABAAAAAAD2/w4AAQAAAAAAAAD3/w4AAQAAAAAAAAD1/w8AAQAAAAAAAAD3/w0AAQABAAAAAAD//w8AAQABAAAAAAAAABAAAQABAAAAAAAAAA8AAQAAAAAAAAABAA4AAQAAAAAAAAABAA0AAQAAAAAAAAACAAwAAQABAAAAAAABAAsAAQAAAAAAAAABAAMAAQACAAAAAAABAAQAAQABAAAAAAAAAAMAAQABAAAAAAABAAIAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAABAAEAAQABAAAAAAABAAUAAQABAAAAAAD5//3/AQAAAAEAAAD5//r/AQAAAAAAAAD4//v/AQAAAAAAAAA=")
+tile_set = ExtResource("1_3ufpo")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+visible = false
+z_index = -2
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD7/wEAAgAAAAAAAAD7/wIAAgAAAAAAAAD6/wMAAgAAAAAAAAD7/wQAAgAAAAAAAAD7/wMAAgAAAAAAAAD8/wQAAgAAAAAAAAD8/wMAAgAAAAAAAAD8/wIAAgAAAAAAAAD7/wUAAgAAAAAAAAD8/wYAAgAAAAAAAAD8/wUAAgAAAAAAAAD9/wQAAgAAAAAAAAD9/wUAAgAAAAAAAAD9/wYAAgAAAAAAAAD8/wcAAgAAAAAAAAD9/wgAAgAAAAAAAAD9/wcAAgAAAAAAAAD+/wgAAgAAAAAAAAD+/wcAAgAAAAAAAAD+/wYAAgAAAAAAAAD9/wkAAgAAAAAAAAD+/woAAgAAAAAAAAD+/wkAAgAAAAAAAAD//wgAAgAAAAAAAAD//wkAAgAAAAAAAAD//woAAgAAAAAAAAD+/wsAAgAAAAAAAAD//wwAAgAAAAAAAAD//wsAAgAAAAAAAAAAAAoAAgAAAAAAAAA=")
+tile_set = ExtResource("1_3ufpo")
 
 [node name="Party" parent="." instance=ExtResource("2_sogkj")]
 
@@ -57,15 +54,16 @@ position = Vector2(64, 32)
 script = ExtResource("4_rw075")
 free_on_enter = true
 
-[node name="Collision" parent="Battle/PlayerDetector" instance=ExtResource("5_xrbn1")]
+[node name="Shape" type="CollisionShape2D" parent="Battle/PlayerDetector"]
+shape = SubResource("CircleShape2D_3al74")
 
 [node name="DialogueInteractable" parent="." instance=ExtResource("9_pf5we")]
-position = Vector2(64, -16)
+position = Vector2(112, -64)
 key = "test"
 dialogue_script = ExtResource("10_xk0rw")
 
 [node name="Sprite2D" type="Sprite2D" parent="DialogueInteractable"]
-position = Vector2(0, -24)
+scale = Vector2(1, 0.25)
 texture = ExtResource("6_u687y")
 
 [connection signal="player_entered" from="Battle/PlayerDetector" to="Battle" method="start"]

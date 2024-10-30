@@ -1,0 +1,37 @@
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://boq45yqr2jxoe"]
+
+[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="1_q5lde"]
+[ext_resource type="Texture2D" uid="uid://7y0tx124r45t" path="res://asset/tile/house/floor.png" id="2_geiiv"]
+[ext_resource type="Texture2D" uid="uid://ck0bpacl52u1" path="res://asset/tile/house/carpet.png" id="3_v0ncv"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_ajoxa"]
+tile_data = PackedInt32Array(65536, 131073, 0, 1, 65537, 0, 65537, 131073, 0, 131073, 65537, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]
+texture = ExtResource("1_q5lde")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_opd7x"]
+texture = ExtResource("2_geiiv")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k1slt"]
+texture = ExtResource("3_v0ncv")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0npwg")
+sources/1 = SubResource("TileSetAtlasSource_opd7x")
+sources/2 = SubResource("TileSetAtlasSource_k1slt")
+pattern_0 = SubResource("TileMapPattern_ajoxa")

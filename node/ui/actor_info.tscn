@@ -31,23 +31,21 @@ layout_mode = 2
 text = "Will"
 
 [node name="WillSlots" type="Control" parent="Items/Controls/Stats/Key" index="1"]
-custom_minimum_size = Vector2(20, 6)
+custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 size_flags_vertical = 8
 script = ExtResource("4_b0aou")
-max = 3
-value = 2
+value = 1
 
 [node name="StaminaLabel" type="Label" parent="Items/Controls/Stats/Key" index="2"]
 layout_mode = 2
 text = "Stamina"
 
 [node name="StaminaSlots" type="Control" parent="Items/Controls/Stats/Key" index="3"]
-custom_minimum_size = Vector2(27, 6)
+custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 size_flags_vertical = 8
 script = ExtResource("4_b0aou")
-max = 4
 value = 1
 
 [node name="Other" type="Label" parent="Items/Controls/Stats" index="1"]
