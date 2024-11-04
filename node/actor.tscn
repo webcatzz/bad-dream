@@ -1,7 +1,6 @@
-[gd_scene load_steps=35 format=3 uid="uid://bfh386uub7bov"]
+[gd_scene load_steps=34 format=3 uid="uid://bfh386uub7bov"]
 
 [ext_resource type="Script" path="res://node/actor.gd" id="1_8lbif"]
-[ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="2_26hms"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="3_cgkie"]
 [ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/actor/default.png" id="3_crv1g"]
 [ext_resource type="Material" uid="uid://bk1bhmmg24pol" path="res://asset/vfx/wave.tres" id="4_qj0rb"]
@@ -397,8 +396,8 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_8lbif")
 
-[node name="Collision" parent="." instance=ExtResource("2_26hms")]
-polygon = PackedVector2Array(-14, 0, 2.08165e-12, -7, 14, 0, 2.08165e-12, 7)
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = ExtResource("3_cgkie")

@@ -9,8 +9,8 @@
 
 [resource]
 script = ExtResource("1_fi5jp")
-will = 3
-max_will = 3
+will = 10
+max_will = 10
 stamina = 8
 max_stamina = 8
 traits = Array[int]([0])

@@ -45,11 +45,10 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_1x5wl")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-current_tab = 3
+current_tab = 0
 tabs_visible = false
 
 [node name="Pause" type="VBoxContainer" parent="Overlay/Tabs"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 0
@@ -148,6 +147,7 @@ icon = ExtResource("4_p3va0")
 alignment = 0
 
 [node name="Inventory" parent="Overlay/Tabs" instance=ExtResource("2_e7lfs")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 

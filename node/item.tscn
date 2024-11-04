@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="1_aax1u"]
 [ext_resource type="Script" path="res://node/item.gd" id="1_m2kna"]
-[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/tile_collision.png" id="2_awype"]
+[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/collision.png" id="2_awype"]
 
 [node name="ItemNode" type="StaticBody2D"]
 collision_layer = 2

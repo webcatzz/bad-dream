@@ -1,0 +1,76 @@
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://boq45yqr2jxoe"]
+
+[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/collision.png" id="1_iv88j"]
+[ext_resource type="Texture2D" uid="uid://7y0tx124r45t" path="res://asset/world/house/tiles.png" id="2_geiiv"]
+[ext_resource type="Texture2D" uid="uid://cvrm4cevbiclt" path="res://asset/world/house/wall.png" id="3_riny3"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_ajoxa"]
+tile_data = PackedInt32Array(65536, 131073, 0, 1, 65537, 0, 65537, 131073, 0, 131073, 65537, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]
+texture = ExtResource("1_iv88j")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_opd7x"]
+texture = ExtResource("2_geiiv")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/z_index = -2
+1:0/0 = 0
+1:0/0/z_index = -2
+2:0/0 = 0
+2:0/0/z_index = -2
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 8)
+0:1/0/y_sort_origin = -32
+0:1/0/custom_data_0 = true
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, 8)
+1:1/0/y_sort_origin = -32
+1:1/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4o4ft"]
+texture = ExtResource("3_riny3")
+texture_region_size = Vector2i(32, 80)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 32)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 32)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 32)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, 32)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, 32)
+6:1/0 = 0
+6:1/0/texture_origin = Vector2i(0, 32)
+7:1/0 = 0
+7:1/0/texture_origin = Vector2i(0, 32)
+8:1/0 = 0
+8:1/0/texture_origin = Vector2i(0, 32)
+8:0/0 = 0
+8:0/0/texture_origin = Vector2i(0, 32)
+7:0/0 = 0
+7:0/0/texture_origin = Vector2i(0, 32)
+9:0/0 = 0
+9:0/0/texture_origin = Vector2i(0, 32)
+11:0/size_in_atlas = Vector2i(1, 2)
+11:0/0 = 0
+11:0/0/texture_origin = Vector2i(0, 8)
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "stairs"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_0npwg")
+sources/1 = SubResource("TileSetAtlasSource_opd7x")
+sources/3 = SubResource("TileSetAtlasSource_4o4ft")
+pattern_0 = SubResource("TileMapPattern_ajoxa")
