@@ -4,8 +4,6 @@ extends Node2D
 const PATH_SEPARATION: int = 4
 const FOLLOW_SPEED: float = 2.4
 
-@export var tilemap: TileMapLayer
-
 var leader_node: ActorNode
 var party_nodes: Array[ActorNode]
 
@@ -24,10 +22,6 @@ func toggle(value: bool) -> void:
 	
 	for party_node: ActorNode in party_nodes:
 		party_node.set_collision(not value)
-
-
-func get_tile_below_leader() -> TileData:
-	return tilemap.get_cell_tile_data(tilemap.local_to_map(leader_node.position))
 
 
 

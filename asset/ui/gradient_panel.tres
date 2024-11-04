@@ -1,7 +1,8 @@
 [gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://djnid6o3ju2gg"]
 
 [sub_resource type="Gradient" id="Gradient_8geuf"]
-colors = PackedColorArray(0.0935, 0.077, 0.11, 0.501961, 0.0935, 0.077, 0.11, 0)
+offsets = PackedFloat32Array(0, 0.993548, 1)
+colors = PackedColorArray(0, 0, 1, 0.0627451, 0, 0, 1, 0, 0.0935, 0.077, 0.11, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hh64r"]
 gradient = SubResource("Gradient_8geuf")
