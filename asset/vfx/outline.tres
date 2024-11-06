@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://biyese1ujt1ru"]
+
+[ext_resource type="Shader" path="res://asset/vfx/outline.gdshader" id="1_23fwo"]
+
+[resource]
+shader = ExtResource("1_23fwo")
+shader_parameter/color = Color(1, 1, 1, 1)

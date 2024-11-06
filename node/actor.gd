@@ -3,6 +3,22 @@ class_name ActorNode extends CharacterBody2D
 
 @export var resource: Actor = Actor.new()
 
+var path_tween: Tween
+var walking: bool = false
+
+
+func walk_to(tile: Vector2i) -> void:
+	var path: PackedVector2Array = Game.grid.get_point_path(Iso.to_grid(position), tile)
+	if path: follow_path(path)
+
+
+func follow_path(path: PackedVector2Array) -> void:
+	if path_tween: path_tween.kill()
+	path_tween = create_tween()
+	
+	for point: Vector2 in path:
+		path_tween.tween_property(self, "position", point, 0.05)
+
 
 func emit_text(string: String, color: Color = Palette.WHITE) -> void:
 	var text_particle: Label = preload("res://node/text_particle.tscn").instantiate()
@@ -92,8 +108,7 @@ func _on_action_sent() -> void:
 func _on_reoriented() -> void:
 	var new_pos: Vector2 = Iso.from_grid(resource.position)
 	var displacement: Vector2 = position - new_pos
-	$MoveParticles.process_material.direction = Vector3(displacement.x, displacement.y, 0)
-	
 	position = new_pos
-	$MoveParticles.process_material.angle_max = $MoveParticles.process_material.angle_min
+	
+	$MoveParticles.process_material.direction = Vector3(displacement.x, displacement.y, 0)
 	$MoveParticles.restart()

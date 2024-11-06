@@ -1,32 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://lrbs2cikh6r2"]
+[gd_scene load_steps=4 format=3 uid="uid://bg5yg1uxya321"]
 
-[ext_resource type="Script" path="res://script/game.gd" id="1_3vabh"]
+[ext_resource type="Script" path="res://script/game.gd" id="1_6qofi"]
+[ext_resource type="Script" path="res://node/cursor.gd" id="2_7bm3h"]
+[ext_resource type="Texture2D" uid="uid://drxovm0eod1lw" path="res://asset/cursor.png" id="2_t7kuo"]
 
 [node name="Game" type="Node"]
-script = ExtResource("1_3vabh")
+script = ExtResource("1_6qofi")
 
-[node name="Layer" type="CanvasLayer" parent="."]
-
-[node name="Margins" type="MarginContainer" parent="Layer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Controls" type="VBoxContainer" parent="Layer/Margins"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="Mousetrap" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
 
-[node name="Control" type="Control" parent="Mousetrap"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_force_pass_scroll_events = false
+[node name="Cursor" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("2_7bm3h")
+
+[node name="Sprite" type="Sprite2D" parent="CanvasLayer/Cursor"]
+texture = ExtResource("2_t7kuo")
+
+[node name="Animator" type="AnimationPlayer" parent="CanvasLayer/Cursor"]

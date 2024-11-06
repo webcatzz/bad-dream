@@ -104,7 +104,7 @@ func add_will(num: int) -> void:
 
 func send_action(action: Action) -> void:
 	if randf() <= accuracy():
-		var affected: Array[Actor] = Game.battle.field.collide_action(action, self)
+		var affected: Array[Actor] = Game.grid.collide_action(action, self)
 		
 		for actor: Actor in affected:
 			actor.recieve_action(action, self)
@@ -160,7 +160,7 @@ func heal(num: int) -> void:
 
 func try_evade(direction: Vector2i) -> bool:
 	if false: # randf() <= evasion
-		if Game.battle.field.is_tile_open(Game.battle.field.point_params(position + direction)) and not is_incapacitated():
+		if Game.grid.is_tile_open(position + direction) and not is_incapacitated():
 			facing = -direction
 			position += direction
 			evaded.emit()
@@ -246,7 +246,7 @@ func calc_facing(motion: Vector2i) -> Vector2i:
 func calc_knockback(vector: Vector2i) -> Vector2i:
 	vector.x = max(abs(vector.x) - defense, 0) * sign(vector.x)
 	vector.y = max(abs(vector.y) - defense, 0) * sign(vector.y)
-	return Game.battle.field.collide_ray(position, vector)
+	return Game.grid.collide_ray(position, vector)
 
 
 func accuracy() -> float:

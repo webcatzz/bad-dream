@@ -12,7 +12,7 @@ const RIGHT: Vector2 = Vector2i(16, -8)
 
 # grid coordinates
 
-static func from_grid(coord: Vector2) -> Vector2:
+static func from_grid(coord: Vector2i) -> Vector2:
 	return Vector2(
 		(coord.x + coord.y) * 16,
 		(coord.y - coord.x) * 8
@@ -20,7 +20,8 @@ static func from_grid(coord: Vector2) -> Vector2:
 
 
 static func to_grid(vector: Vector2) -> Vector2i:
-	vector /= Vector2(32, 16)
+	vector.x /= 32
+	vector.y /= 16
 	return Vector2i(
 		vector.x - vector.y,
 		vector.x + vector.y

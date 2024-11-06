@@ -15,9 +15,9 @@ var active: bool
 
 
 func interact() -> void:
-	if active:
-		dialogue.next()
-		return
+	super()
+	
+	if active: return dialogue.next()
 	
 	active = true
 	_animator.play("open")
@@ -52,7 +52,7 @@ func _prompt(choices: PackedStringArray) -> void:
 	Game.party_node.toggle(false)
 	
 	for choice: String in choices:
-		_choicer.add_item(choice)
+		_choicer.set_item_tooltip_enabled(_choicer.add_item(choice), false)
 	_choicer.show()
 	_choicer.grab_focus()
 	_choicer.select(0)
