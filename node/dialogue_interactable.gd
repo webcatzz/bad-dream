@@ -16,7 +16,7 @@ var active: bool
 
 func interact() -> void:
 	super()
-	
+	if Game.battle: return
 	if active: return dialogue.next()
 	
 	active = true

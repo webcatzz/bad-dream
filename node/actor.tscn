@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bfh386uub7bov"]
+[gd_scene load_steps=35 format=3 uid="uid://bfh386uub7bov"]
 
 [ext_resource type="Script" path="res://node/actor.gd" id="1_8lbif"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="3_cgkie"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="4_vujg7"]
 [ext_resource type="Texture2D" uid="uid://d2ymh7ry20owj" path="res://asset/vfx/blossom.png" id="5_dnvvo"]
 [ext_resource type="Texture2D" uid="uid://btmd3vjuhnsuy" path="res://asset/vfx/circle-outline.png" id="7_kh208"]
+[ext_resource type="PackedScene" uid="uid://dlj2yo8yqrut2" path="res://asset/actor/actor.gltf" id="9_3rlyr"]
 [ext_resource type="Texture2D" uid="uid://creycj7363aur" path="res://asset/vfx/circle.png" id="9_vxyjf"]
 
 [sub_resource type="Animation" id="Animation_4s3r3"]
@@ -400,6 +401,7 @@ script = ExtResource("1_8lbif")
 polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)
 
 [node name="Sprite" type="Sprite2D" parent="."]
+visible = false
 material = ExtResource("3_cgkie")
 texture = ExtResource("3_crv1g")
 offset = Vector2(2.08165e-12, -24)
@@ -429,6 +431,37 @@ offset_right = -16.0
 offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2(32, 64)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -56.0
+offset_right = 16.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(32, 64)
+render_target_update_mode = 4
+
+[node name="blockbench_export" parent="SubViewportContainer/SubViewport" instance=ExtResource("9_3rlyr")]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 12, 11, 12)
+projection = 1
+size = 2.75
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
 
 [node name="WillSlots" type="Control" parent="."]
 visible = false
