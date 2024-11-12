@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://script/game.gd" id="1_6qofi"]
 [ext_resource type="Script" path="res://node/cursor.gd" id="2_7bm3h"]
-[ext_resource type="Texture2D" uid="uid://drxovm0eod1lw" path="res://asset/cursor.png" id="2_t7kuo"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="4_3kkwo"]
 [ext_resource type="Script" path="res://node/context_menu.gd" id="5_3gokq"]
+[ext_resource type="Texture2D" uid="uid://cnp45nhuc83xq" path="res://asset/ui/cursor.png" id="5_8x7b3"]
 
 [sub_resource type="Animation" id="Animation_b23w2"]
 length = 0.001
@@ -79,7 +79,9 @@ libraries = {
 script = ExtResource("2_7bm3h")
 
 [node name="Sprite" type="Sprite2D" parent="CanvasLayer/Cursor"]
-texture = ExtResource("2_t7kuo")
+texture = ExtResource("5_8x7b3")
+centered = false
+offset = Vector2(-4, -2)
 
 [node name="Animator" type="AnimationPlayer" parent="CanvasLayer/Cursor"]
 

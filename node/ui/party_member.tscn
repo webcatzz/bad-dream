@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c4rj8gc5e1hpf"]
 
 [ext_resource type="Texture2D" uid="uid://tmebnnw8xj3c" path="res://asset/ui/party_member.png" id="1_eu3sh"]
-[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/icon/default.png" id="2_im5qw"]
+[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/icon/character/default.png" id="2_im5qw"]
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="3_e188c"]
 
 [sub_resource type="GDScript" id="GDScript_nlyj4"]

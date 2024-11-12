@@ -1,15 +1,15 @@
 [gd_scene load_steps=20 format=4 uid="uid://bysegvxpv7ca6"]
 
-[ext_resource type="TileSet" uid="uid://boq45yqr2jxoe" path="res://asset/world/house/tileset.tres" id="1_3ufpo"]
-[ext_resource type="Script" path="res://node/world.gd" id="1_pcgkr"]
-[ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="2_sogkj"]
-[ext_resource type="Script" path="res://node/trigger.gd" id="4_rw075"]
-[ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="4_wnixx"]
-[ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="6_akm5s"]
-[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="7_ct64e"]
-[ext_resource type="Texture2D" uid="uid://6ujjgbvj2x20" path="res://asset/world/basalt.png" id="9_5lpc0"]
-[ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_interactable.tscn" id="9_pf5we"]
-[ext_resource type="Script" path="res://dialogue/test.gd" id="10_xk0rw"]
+[ext_resource type="Script" path="res://node/world.gd" id="1_2dqqe"]
+[ext_resource type="TileSet" uid="uid://boq45yqr2jxoe" path="res://asset/world/house/tileset.tres" id="2_lj2k6"]
+[ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="3_45e6f"]
+[ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="4_kmw8h"]
+[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="5_w8baw"]
+[ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="6_um4uc"]
+[ext_resource type="Script" path="res://node/trigger.gd" id="7_rac1v"]
+[ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_interactable.tscn" id="8_ffd86"]
+[ext_resource type="Script" path="res://dialogue/test.gd" id="9_i5x8v"]
+[ext_resource type="Texture2D" uid="uid://6ujjgbvj2x20" path="res://asset/world/basalt.png" id="10_egu6f"]
 
 [sub_resource type="Gradient" id="Gradient_niv11"]
 interpolation_mode = 2
@@ -68,7 +68,7 @@ radius = 1.0
 
 [node name="Default" type="Node2D" node_paths=PackedStringArray("tilemap")]
 y_sort_enabled = true
-script = ExtResource("1_pcgkr")
+script = ExtResource("1_2dqqe")
 palette = PackedColorArray(0.0980392, 0.0784314, 0.0705882, 1, 0.109804, 0.0901961, 0.0784314, 1, 0.117647, 0.0980392, 0.0823529, 1, 0.12549, 0.105882, 0.0901961, 1, 0.145098, 0.121569, 0.105882, 1)
 tilemap = NodePath("Tiles")
 
@@ -85,6 +85,7 @@ mouse_filter = 2
 color = Color(0.109804, 0.0901961, 0.0784314, 1)
 
 [node name="Foreground" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Darkness" type="TextureRect" parent="Foreground"]
 anchors_preset = 15
@@ -97,35 +98,37 @@ texture = SubResource("GradientTexture2D_us5sy")
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD/////AQACAAAAAAD//wAAAQACAAAAAAD+////AQACAAAAAAD///7/AQACAAAAAAD///3/AQACAAAAAAAAAP7/AQACAAAAAAAAAP//AQACAAAAAAAAAAAAAQACAAAAAAD//wEAAQACAAAAAAD+//3/AQACAAAAAAD+//7/AQACAAAAAAD///z/AQACAAAAAAAAAAIAAQACAAAAAAAAAAEAAQACAAAAAAABAAAAAQACAAAAAAABAP7/AQACAAAAAAAAAP3/AQACAAAAAAAAAPz/AQACAAAAAAD//wIAAQACAAAAAAD+/wEAAQACAAAAAAD+/wAAAQACAAAAAAD//wMAAQACAAAAAAD9////AQACAAAAAAD///v/AQACAAAAAAABAP//AQACAAAAAAD9//b/AQACAAAAAAD9//X/AQADAAAAAAD+//T/AQACAAAAAAD9//f/AQAEAAAAAAD+//j/AQACAAAAAAD+//f/AQAAAAAAAAD///b/AQACAAAAAAD+//X/AQAAAAAAAAD+//b/AQACAAAAAAD9//j/AQAEAAAAAAD9//n/AQAAAAEAAAD8//f/AQAAAAEAAAD7////AQAAAAEAAAD7//7/AQAAAAEAAAD6//3/AQAAAAAAAAD6//z/AQABAAAAAAD5//v/AQAAAAEAAAD5//r/AQABAAEAAAD4//n/AQAAAAEAAAD4//j/AQACAAAAAAD3//f/AQABAAEAAAD3//b/AQACAAAAAAD2//X/AQABAAEAAAD2//T/AQABAAEAAAD8/wAAAQABAAEAAAD8////AQADAAAAAAD8//7/AQACAAAAAAD7//3/AQACAAAAAAD7//z/AQACAAAAAAD6//v/AQAEAAAAAAD6//r/AQABAAAAAAD5//n/AQAEAAAAAAD5//j/AQAAAAAAAAD4//f/AQAEAAAAAAD4//b/AQACAAEAAAD3//X/AQABAAEAAAD3//T/AQAEAAAAAAD2//P/AQAAAAAAAAD9//7/AQAEAAAAAAD8//3/AQAAAAAAAAD8//z/AQAAAAAAAAD7//v/AQAAAAAAAAD7//r/AQAEAAAAAAD6//n/AQADAAAAAAD6//j/AQACAAAAAAD5//f/AQAAAAAAAAD5//b/AQAAAAAAAAD3//P/AQABAAAAAAD3//L/AQACAAAAAAD9//3/AQACAAAAAAD9//z/AQABAAAAAAD8//v/AQAAAAAAAAD8//r/AQACAAAAAAD7//n/AQAAAAAAAAD7//j/AQABAAAAAAD6//f/AQAAAAAAAAD6//b/AQADAAAAAAD5//X/AQAAAAAAAAD5//T/AQAAAAEAAAD4//L/AQABAAAAAAD3//H/AQADAAAAAAD+//z/AQADAAAAAAD7//b/AQACAAAAAAD6//X/AQACAAAAAAD6//T/AQADAAAAAAD5//P/AQAAAAAAAAD5//L/AQABAAEAAAD4//H/AQACAAAAAAD4//D/AQACAAAAAAD7//X/AQADAAEAAAD7//T/AQACAAEAAAD6//P/AQADAAEAAAD6//L/AQADAAAAAAD5//H/AQADAAAAAAD5//D/AQAEAAAAAAD4/+//AQAEAAAAAAD4//T/AQADAAEAAAD8//n/AQABAAAAAAD6//H/AwAAAAEAAAD6//D/AwAAAAAAABD5/+7/AwAAAAAAABD5/+//AwAAAAAAABD4/+7/AwAAAAAAAAD3/+//AwAAAAAAAAD3//D/AwAAAAAAAAD2//H/AwAAAAAAAAD2//L/AwABAAEAAAD7//D/AwAAAAAAAAD7/+//AwAAAAAAAAD8/+7/AwAAAAAAAAA=")
-tile_set = ExtResource("1_3ufpo")
+tile_map_data = PackedByteArray("AAD/////AQACAAAAAAD//wAAAQACAAAAAAD+////AQACAAAAAAD///7/AQACAAAAAAD///3/AQACAAAAAAAAAP7/AQACAAAAAAAAAP//AQACAAAAAAAAAAAAAQACAAAAAAD//wEAAQACAAAAAAD+//3/AQACAAAAAAD+//7/AQACAAAAAAD///z/AQACAAAAAAAAAAIAAQACAAAAAAAAAAEAAQACAAAAAAABAAAAAQACAAAAAAABAP7/AQACAAAAAAAAAP3/AQACAAAAAAAAAPz/AQACAAAAAAD//wIAAQACAAAAAAD+/wEAAQACAAAAAAD+/wAAAQACAAAAAAD//wMAAQACAAAAAAD9////AQACAAAAAAD///v/AQACAAAAAAABAP//AQACAAAAAAD9//b/AQACAAAAAAD9//X/AQADAAAAAAD+//T/AQACAAAAAAD9//f/AQAEAAAAAAD+//j/AQACAAAAAAD+//f/AQAAAAAAAAD///b/AQACAAAAAAD+//X/AQAAAAAAAAD+//b/AQACAAAAAAD9//j/AQAEAAAAAAD9//n/AQAAAAEAAAD8//f/AQAAAAEAAAD7////AQAAAAEAAAD7//7/AQAAAAEAAAD6//3/AQAAAAAAAAD6//z/AQABAAAAAAD5//v/AQAAAAEAAAD5//r/AQABAAEAAAD4//n/AQAAAAEAAAD4//j/AQACAAAAAAD3//f/AQABAAEAAAD3//b/AQACAAAAAAD2//X/AQABAAEAAAD2//T/AQABAAEAAAD8/wAAAQABAAEAAAD8////AQADAAAAAAD8//7/AQACAAAAAAD7//3/AQACAAAAAAD7//z/AQACAAAAAAD6//v/AQAEAAAAAAD6//r/AQABAAAAAAD5//n/AQAEAAAAAAD5//j/AQAAAAAAAAD4//f/AQAEAAAAAAD4//b/AQACAAEAAAD3//X/AQABAAEAAAD3//T/AQAEAAAAAAD2//P/AQAAAAAAAAD9//7/AQAEAAAAAAD8//3/AQAAAAAAAAD8//z/AQAAAAAAAAD7//v/AQAAAAAAAAD7//r/AQAEAAAAAAD6//n/AQADAAAAAAD6//j/AQACAAAAAAD5//f/AQAAAAAAAAD5//b/AQAAAAAAAAD3//P/AQABAAAAAAD3//L/AQACAAAAAAD9//3/AQACAAAAAAD9//z/AQABAAAAAAD8//v/AQAAAAAAAAD8//r/AQACAAAAAAD7//n/AQAAAAAAAAD7//j/AQABAAAAAAD6//f/AQAAAAAAAAD6//b/AQADAAAAAAD5//X/AQAAAAAAAAD5//T/AQAAAAEAAAD4//L/AQABAAAAAAD3//H/AQADAAAAAAD+//z/AQADAAAAAAD7//b/AQACAAAAAAD6//X/AQACAAAAAAD6//T/AQADAAAAAAD5//P/AQAAAAAAAAD5//L/AQABAAEAAAD4//H/AQACAAAAAAD4//D/AQACAAAAAAD7//X/AQADAAEAAAD7//T/AQACAAEAAAD6//P/AQADAAEAAAD6//L/AQADAAAAAAD5//H/AQADAAAAAAD5//D/AQAEAAAAAAD4/+//AQAEAAAAAAD4//T/AQADAAEAAAD8//n/AQABAAAAAAD6//H/AwAAAAEAAAD6//D/AwAAAAAAABD5/+7/AwAAAAAAABD5/+//AwAAAAAAABD4/+7/AwAAAAAAAAD3/+//AwAAAAAAAAD3//D/AwAAAAAAAAD2//H/AwAAAAAAAAD2//L/AwABAAEAAAD7//D/AwAAAAAAAAD7/+//AwAAAAAAAAD8/+7/AwAAAAAAAAD7//P/AQAAAAIAAAD8//L/AQABAAIAAAD8//H/AQAAAAIAAAD9//D/AQAAAAIAAAD9//T/AQAAAAIAABD8//P/AQAAAAIAABD7//H/AQAAAAIAABD///j/AQAAAAIAABD///n/AQAAAAIAABACAP7/AQACAAAAAAABAP3/AQACAAAAAAABAPz/AQACAAAAAAAAAPv/AQACAAAAAAAAAPr/AQACAAAAAAA=")
+tile_set = ExtResource("2_lj2k6")
 
-[node name="Party" parent="." instance=ExtResource("2_sogkj")]
+[node name="Party" parent="." instance=ExtResource("3_45e6f")]
 
 [node name="Clouds" type="GPUParticles2D" parent="Party"]
 z_index = 1
 position = Vector2(325, 200)
+emitting = false
 process_material = SubResource("ParticleProcessMaterial_6ncvj")
 texture = SubResource("GradientTexture2D_k7uvi")
 lifetime = 5.0
 
 [node name="Motes" type="GPUParticles2D" parent="Party"]
 position = Vector2(325, 200)
+emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_2ota2")
 lifetime = 5.0
 
-[node name="Actor" parent="." instance=ExtResource("6_akm5s")]
+[node name="Actor" parent="." instance=ExtResource("4_kmw8h")]
 position = Vector2(-224, -112)
-resource = ExtResource("7_ct64e")
+resource = ExtResource("5_w8baw")
 metadata/_edit_group_ = true
 
-[node name="Battle" parent="." node_paths=PackedStringArray("enemy_nodes") instance=ExtResource("4_wnixx")]
+[node name="Battle" parent="." node_paths=PackedStringArray("enemy_nodes") instance=ExtResource("6_um4uc")]
 enemy_nodes = [NodePath("../Actor")]
 
 [node name="PlayerDetector" type="Area2D" parent="Battle"]
 position = Vector2(-208, -72)
-script = ExtResource("4_rw075")
+script = ExtResource("7_rac1v")
 free_on_enter = true
 
 [node name="Shape" type="CollisionShape2D" parent="Battle/PlayerDetector"]
@@ -134,7 +137,7 @@ shape = SubResource("CircleShape2D_3al74")
 [node name="Rock" type="Node2D" parent="."]
 position = Vector2(-48, -72)
 
-[node name="DialogueInteractable" parent="Rock" instance=ExtResource("9_pf5we")]
+[node name="DialogueInteractable" parent="Rock" instance=ExtResource("8_ffd86")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -144,10 +147,10 @@ offset_top = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 key = "test"
-dialogue_script = ExtResource("10_xk0rw")
+dialogue_script = ExtResource("9_i5x8v")
 
 [node name="Sprite2D" type="Sprite2D" parent="Rock"]
-texture = ExtResource("9_5lpc0")
+texture = ExtResource("10_egu6f")
 offset = Vector2(0, -4)
 region_enabled = true
 region_rect = Rect2(32, 0, 32, 24)

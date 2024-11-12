@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
-[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/icon/default.png" id="3_b02xg"]
+[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/icon/character/default.png" id="3_b02xg"]
 [ext_resource type="PackedScene" uid="uid://c7omxrg7nc1dx" path="res://node/ui/condition_label.tscn" id="4_8qw6b"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="5_4tpi5"]
 [ext_resource type="PackedScene" uid="uid://bpisvawsnlfmb" path="res://node/ui/actor_info.tscn" id="5_gtbxe"]
@@ -532,6 +532,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="ActorInfo" type="PanelContainer" parent="." node_paths=PackedStringArray("icon", "will", "traits", "conditions")]
+visible = false
 z_index = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -622,9 +623,9 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -12.0
+offset_top = 172.0
 offset_right = 60.0
-offset_bottom = 12.0
+offset_bottom = 196.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

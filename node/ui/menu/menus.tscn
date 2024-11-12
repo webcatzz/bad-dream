@@ -39,17 +39,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_1x5wl")
 
 [node name="Tabs" type="TabContainer" parent="Overlay"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 current_tab = 0
 tabs_visible = false
 
 [node name="Pause" type="VBoxContainer" parent="Overlay/Tabs"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 0
 

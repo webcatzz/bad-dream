@@ -6,11 +6,16 @@ enum Gesture {
 	GRAB,
 	FIST,
 	KNOCK,
+	LIMP,
 }
+
+@onready var _sprite: Sprite2D = $Sprite
 
 
 func gesture(gesture: Gesture) -> void:
-	pass
+	match gesture:
+		Gesture.NONE:
+			_sprite.offset = Vector2(-4, -2)
 
 
 

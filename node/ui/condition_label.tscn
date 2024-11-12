@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7omxrg7nc1dx"]
 
 [ext_resource type="Script" path="res://node/ui/condition_label.gd" id="1_0fyau"]
-[ext_resource type="Texture2D" uid="uid://ciccts108kvwd" path="res://asset/modifier/default.png" id="2_rx3oc"]
+[ext_resource type="Texture2D" uid="uid://f2vbdbheuvri" path="res://asset/icon/modifier/default.png" id="2_jklwf"]
 
 [node name="ConditionLabel" type="HBoxContainer"]
 offset_right = 60.0
@@ -11,7 +11,7 @@ script = ExtResource("1_0fyau")
 
 [node name="Icon" type="TextureRect" parent="."]
 layout_mode = 2
-texture = ExtResource("2_rx3oc")
+texture = ExtResource("2_jklwf")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 2

@@ -15,7 +15,6 @@ func interact() -> void:
 
 
 func toggle(value: bool) -> void:
-	print(value)
 	visible = value
 
 

@@ -1,17 +1,10 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://boq45yqr2jxoe"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://boq45yqr2jxoe"]
 
-[ext_resource type="Texture2D" uid="uid://bnfh3gwx2m2df" path="res://asset/world/collision.png" id="1_iv88j"]
 [ext_resource type="Texture2D" uid="uid://7y0tx124r45t" path="res://asset/world/house/tiles.png" id="2_geiiv"]
 [ext_resource type="Texture2D" uid="uid://cvrm4cevbiclt" path="res://asset/world/house/wall.png" id="3_riny3"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ajoxa"]
 tile_data = PackedInt32Array(65536, 131073, 0, 1, 65537, 0, 65537, 131073, 0, 131073, 65537, 0)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0npwg"]
-texture = ExtResource("1_iv88j")
-texture_region_size = Vector2i(32, 16)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_opd7x"]
 texture = ExtResource("2_geiiv")
@@ -32,7 +25,6 @@ texture_region_size = Vector2i(32, 32)
 1:2/0 = 0
 1:2/0/z_index = -1
 0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, -8)
 0:2/0/z_index = -1
 0:1/0 = 0
 0:1/0/z_index = -1
@@ -116,7 +108,6 @@ tile_size = Vector2i(32, 16)
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "stairs"
 custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_0npwg")
 sources/1 = SubResource("TileSetAtlasSource_opd7x")
 sources/3 = SubResource("TileSetAtlasSource_4o4ft")
 pattern_0 = SubResource("TileMapPattern_ajoxa")
