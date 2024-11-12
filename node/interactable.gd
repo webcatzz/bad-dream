@@ -1,34 +1,46 @@
-class_name Interactable extends Area2D
+class_name Interactable extends Control
 
 
-signal interacted_with
+signal click_started
+signal clicked
+signal right_click_started
+signal right_clicked
 
-@export var leader_position: Vector2i
-@export var sprite: Sprite2D
+@export var cursor_gesture: Cursor.Gesture
+@export var move_leader: Vector2i
 
 
 func interact() -> void:
-	Save.leader.node.walk_to(Iso.to_grid(position) + leader_position)
-	interacted_with.emit()
+	pass
+
+
+func toggle(value: bool) -> void:
+	print(value)
+	visible = value
 
 
 
 # internal
 
 func _ready() -> void:
-	collision_layer = 0b100
-	collision_mask = 0
-	monitoring = false
+	clicked.connect(interact)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 
-func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event.is_action_pressed("move"):
-		interact()
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed: click_started.emit()
+			else: clicked.emit()
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			if event.pressed: right_click_started.emit()
+			else: right_clicked.emit()
 
 
-func _mouse_enter() -> void:
-	sprite.material = preload("res://asset/vfx/outline.tres")
+func _on_mouse_entered() -> void:
+	Game.cursor.gesture(cursor_gesture)
 
 
-func _mouse_exit() -> void:
-	sprite.material = null
+func _on_mouse_exited() -> void:
+	Game.cursor.gesture(Cursor.Gesture.NONE)

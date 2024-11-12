@@ -1,29 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7omxrg7nc1dx"]
 
 [ext_resource type="Script" path="res://node/ui/condition_label.gd" id="1_0fyau"]
-[ext_resource type="Script" path="res://node/ui/slots.gd" id="4_1aqjd"]
+[ext_resource type="Texture2D" uid="uid://ciccts108kvwd" path="res://asset/modifier/default.png" id="2_rx3oc"]
 
-[node name="ConditionLabel" type="PanelContainer"]
+[node name="ConditionLabel" type="HBoxContainer"]
 offset_right = 60.0
 offset_bottom = 7.0
+theme_override_constants/separation = 4
 script = ExtResource("1_0fyau")
 
-[node name="HBox" type="HBoxContainer" parent="."]
+[node name="Icon" type="TextureRect" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 4
+texture = ExtResource("2_rx3oc")
 
-[node name="Name" type="Label" parent="HBox"]
-custom_minimum_size = Vector2(28, 0)
+[node name="Name" type="Label" parent="."]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.0745098, 0.105882, 1)
+size_flags_horizontal = 3
+size_flags_vertical = 8
 text = "Condition"
-clip_text = true
 
-[node name="Duration" type="Control" parent="HBox"]
-custom_minimum_size = Vector2(27, 6)
+[node name="Duration" type="Label" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
-script = ExtResource("4_1aqjd")
-max = 4
-value = 2
-color = Color(0.0901961, 0.0745098, 0.105882, 0.501961)
+theme_type_variation = &"LabelSmall"
+text = "...1"

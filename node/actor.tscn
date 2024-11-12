@@ -1,9 +1,9 @@
 [gd_scene load_steps=35 format=3 uid="uid://bfh386uub7bov"]
 
 [ext_resource type="Script" path="res://node/actor.gd" id="1_8lbif"]
+[ext_resource type="Script" path="res://node/interactable.gd" id="2_vh885"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="3_cgkie"]
 [ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/actor/default.png" id="3_crv1g"]
-[ext_resource type="Material" uid="uid://bk1bhmmg24pol" path="res://asset/vfx/wave.tres" id="4_qj0rb"]
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="4_vujg7"]
 [ext_resource type="Texture2D" uid="uid://d2ymh7ry20owj" path="res://asset/vfx/blossom.png" id="5_dnvvo"]
 [ext_resource type="Texture2D" uid="uid://btmd3vjuhnsuy" path="res://asset/vfx/circle-outline.png" id="7_kh208"]
@@ -400,9 +400,17 @@ script = ExtResource("1_8lbif")
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Input" type="Control" parent="."]
 visible = false
-material = ExtResource("3_cgkie")
+layout_mode = 3
+anchors_preset = 0
+offset_left = -9.0
+offset_top = -47.0
+offset_right = 9.0
+offset_bottom = 5.0
+script = ExtResource("2_vh885")
+
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_crv1g")
 offset = Vector2(2.08165e-12, -24)
 
@@ -419,20 +427,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.898039, 0.266667, 0.380392, 1)
 
-[node name="Wave" type="ColorRect" parent="Sprite"]
-visible = false
-material = ExtResource("4_qj0rb")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -56.0
-offset_right = -16.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(32, 64)
 anchors_preset = 7
 anchor_left = 0.5
@@ -451,7 +447,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(32, 64)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="blockbench_export" parent="SubViewportContainer/SubViewport" instance=ExtResource("9_3rlyr")]
 
@@ -462,6 +458,7 @@ size = 2.75
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
+visible = false
 
 [node name="WillSlots" type="Control" parent="."]
 visible = false

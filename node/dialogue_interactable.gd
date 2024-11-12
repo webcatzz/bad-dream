@@ -15,9 +15,11 @@ var active: bool
 
 
 func interact() -> void:
-	super()
 	if Game.battle: return
 	if active: return dialogue.next()
+	
+	Game.party_node.toggle(false)
+	await Save.leader.node.walk_to(Iso.to_grid(position) + move_leader)
 	
 	active = true
 	_animator.play("open")
@@ -29,6 +31,8 @@ func interact() -> void:
 	
 	_animator.play_backwards("open")
 	active = false
+	
+	Game.party_node.toggle(true)
 
 
 func _add_text(text: String) -> void:

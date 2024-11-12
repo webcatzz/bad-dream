@@ -62,6 +62,10 @@ func name() -> String:
 	return Type.keys()[type].capitalize()
 
 
+func icon() -> Texture2D:
+	return load("res://asset/modifier/%s.png" % name())
+
+
 func color() -> Color:
 	match type:
 		Type.BURN: return Palette.RED

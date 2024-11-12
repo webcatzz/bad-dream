@@ -4,4 +4,4 @@
 
 [resource]
 shader = ExtResource("1_23fwo")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/color = Color(0, 0, 1, 1)

@@ -4,8 +4,6 @@ extends Node2D
 const PATH_SEPARATION: int = 4
 const FOLLOW_SPEED: float = 2.4
 
-@export var tilemap: TileMapLayer
-
 var leader_node: ActorNode
 var party_nodes: Array[ActorNode]
 
@@ -17,9 +15,12 @@ var party_path: PackedVector2Array
 
 
 func toggle(value: bool) -> void:
-	set_process_unhandled_key_input(value)
+	set_process_unhandled_input(value)
 	set_physics_process(value)
-	if value: _camera.make_current()
+	if value:
+		_camera.make_current()
+	else:
+		Save.leader.node.stop_following_path()
 	
 	for party_node: ActorNode in party_nodes:
 		party_node.set_collision(not value)
@@ -29,12 +30,8 @@ func toggle(value: bool) -> void:
 # internal
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move"):
+	if event.is_action_pressed("click"):
 		leader_node.walk_to(Game.grid.get_hovered_tile())
-	#elif event.is_action_pressed("ui_accept"):
-		#if _interaction_area.has_overlapping_areas():
-			#_interaction_area.get_overlapping_areas()[0].interact()
-			#get_viewport().set_input_as_handled()
 
 
 func _physics_process(_delta: float) -> void:

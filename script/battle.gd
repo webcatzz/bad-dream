@@ -7,28 +7,32 @@ signal cycled
 signal ended
 # phase
 signal phase_changed
-signal enemy_phase_started
-signal party_phase_started
 
-enum Phase {ENEMY, PARTY}
+enum Phase {
+	ENEMY,
+	PARTY,
+}
 
 @export var enemy_nodes: Array[ActorNode]
 
 var cycle_idx: int = -1
 var enemies: Array[Enemy]
 var phase: Phase
-# helpers
+
 var tile_highlight: TileHighlight
 
-@onready var selector: CharacterBody2D = $Selector
+@onready var camera: Camera2D = $Camera
+@onready var actor_info: PanelContainer = $ActorInfo
+@onready var animator: AnimationPlayer = $UI/Animator
 
 
 
 # cycling
 
 func start() -> void:
-	Game.battle = self
 	Game.party_node.toggle(false)
+	Game.battle = self
+	
 	$UI.show()
 	
 	for actor: Actor in Save.party + enemies:
@@ -38,12 +42,6 @@ func start() -> void:
 	#add_child(animation)
 	#await animation.get_node("Root/Animator").animation_finished
 	
-	#for actor: Actor in Save.party:
-		#var figure: Control = load("res://node/ui/party_member.tscn").instantiate()
-		#figure.actor = actor
-		#_party.add_child(figure)
-	
-	#announce("Battle start!", Palette.RED)
 	started.emit()
 	
 	cycle()
@@ -51,22 +49,18 @@ func start() -> void:
 
 func cycle() -> void:
 	cycle_idx += 1
-	await do_enemy_phase()
 	await do_party_phase()
+	await do_enemy_phase()
 	cycled.emit()
 	cycle()
 
 
 func do_enemy_phase() -> void:
 	phase = Phase.ENEMY
-	$UI/Phase.current_tab = phase
 	
-	enemy_phase_started.emit()
-	announce("Enemy Phase", Palette.RED)
-	await get_tree().create_timer(1).timeout
+	animator.play("start_enemy_phase")
 	
 	for enemy: Enemy in enemies:
-		await selector.move_to(enemy.position)
 		await enemy.act()
 		enemy.stamina = enemy.max_stamina
 	
@@ -75,20 +69,18 @@ func do_enemy_phase() -> void:
 
 func do_party_phase() -> void:
 	phase = Phase.PARTY
-	$UI/Phase.current_tab = phase
 	
-	party_phase_started.emit()
-	announce("Party Phase", Palette.BLUE)
-	await get_tree().create_timer(0.8).timeout
-	
-	await selector.move_to(Save.leader.position)
-	selector.toggle(true)
-	await phase_changed
-	selector.toggle(false)
+	animator.play("start_party_phase")
 	
 	for actor: Actor in Save.party:
 		actor.stamina = actor.max_stamina
 		actor.acted_this_phase = false
+		actor.node.input.toggle(true)
+	
+	await phase_changed
+	
+	for actor: Actor in Save.party:
+		actor.node.input.toggle(false)
 	
 	if not enemies:
 		end()
@@ -103,9 +95,6 @@ func end() -> void:
 	Game.party_node.toggle(true)
 	$UI.hide()
 	
-	for actor: Actor in Save.party + enemies:
-		actor.defeated.disconnect(free_actor)
-	
 	ended.emit()
 	queue_free()
 
@@ -116,6 +105,15 @@ func end() -> void:
 func ready_actor(actor: Actor) -> void:
 	actor.set_position(Iso.to_grid(Iso.snap(actor.node.position)))
 	actor.defeated.connect(free_actor.bind(actor))
+	
+	actor.node.input.mouse_entered.connect(actor_info.open.bind(actor))
+	actor.node.input.mouse_exited.connect(actor_info.close)
+	
+	if actor in Save.party: ready_ally(actor)
+
+
+func ready_ally(ally: Actor) -> void:
+	ally.node.input.right_clicked.connect(open_actor_menu.bind(ally))
 
 
 func free_actor(actor: Actor) -> void:
@@ -126,22 +124,30 @@ func free_actor(actor: Actor) -> void:
 
 
 
-# announcements
+# actor ui
 
-func announce(text: String, color: Color) -> void:
-	$UI/Announcement/Label.text = text
-	$UI/Announcement/Color.color = color
-	$UI/Announcement/Squiggles.modulate = Palette.light(color)
-	$UI/Announcement/Animator.play("announce")
+func open_actor_menu(actor: Actor) -> void:
+	Game.context_menu.add_option("Act", load("res://asset/ui/icon/attack.png"))
+	Game.context_menu.add_option("Move", load("res://asset/ui/icon/move.png"))
+	Game.context_menu.add_option("Pocket", load("res://asset/ui/icon/pocket.png"))
+	Game.context_menu.open("Actor")
+	
+	match await Game.context_menu.chosen:
+		0:
+			pass
+
+
+func open_actor_info(actor: Actor) -> void:
+	pass
 
 
 
 # highlights
 
-func set_highlight(bitshape: BitShape) -> void:
+func highlight(shape: BitShape) -> void:
 	clear_highlight()
 	tile_highlight = TileHighlight.new()
-	tile_highlight.from_bitshape(bitshape)
+	tile_highlight.from_bitshape(shape)
 	add_child(tile_highlight)
 
 
@@ -154,7 +160,7 @@ func clear_highlight() -> void:
 func preview_action(action: Action, cause: Actor) -> void:
 	var shape: BitShape = action.shape.rotated(cause.facing)
 	shape.offset += cause.position
-	set_highlight(shape)
+	highlight(shape)
 	
 	if action.knockback:
 		for actor: Actor in Game.grid.collide_action(action, cause):
@@ -162,6 +168,14 @@ func preview_action(action: Action, cause: Actor) -> void:
 			line.position = Iso.from_grid(actor.position) - tile_highlight.position
 			line.set_end(Iso.rotate_grid_vector(action.knockback, cause.facing))
 			tile_highlight.add_child(line)
+
+
+
+# camera
+
+func watch(node: Node2D) -> void:
+	camera.get_parent().remove_child(camera)
+	node.add_child(camera)
 
 
 

@@ -11,5 +11,5 @@ void fragment() {
 		texture(TEXTURE, TEXTURE_PIXEL_SIZE * (pixel - vec2(0.0, 1.0))).a > 0.5 ||
 		texture(TEXTURE, TEXTURE_PIXEL_SIZE * (pixel + vec2(1.0, 0.0))).a > 0.5 ||
 		texture(TEXTURE, TEXTURE_PIXEL_SIZE * (pixel + vec2(0.0, 1.0))).a > 0.5
-	)) COLOR = color;
+	)) COLOR = vec4(0.0, 0.0, 1.0, 1.0 - UV.y);
 }

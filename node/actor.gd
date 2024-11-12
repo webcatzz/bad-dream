@@ -1,23 +1,35 @@
 class_name ActorNode extends CharacterBody2D
 
 
+signal clicked(event: InputEventMouseButton)
+signal right_clicked(event: InputEventMouseButton)
+
 @export var resource: Actor = Actor.new()
 
 var path_tween: Tween
 var walking: bool = false
 
+@onready var sprite: Sprite2D = $Sprite
+@onready var input: Interactable = $Input
+
 
 func walk_to(tile: Vector2i) -> void:
 	var path: PackedVector2Array = Game.grid.get_point_path(Iso.to_grid(position), tile)
-	if path: follow_path(path)
+	if path: await follow_path(path)
 
 
 func follow_path(path: PackedVector2Array) -> void:
-	if path_tween: path_tween.kill()
+	stop_following_path()
 	path_tween = create_tween()
 	
 	for point: Vector2 in path:
 		path_tween.tween_property(self, "position", point, 0.05)
+	
+	await path_tween.finished
+
+
+func stop_following_path() -> void:
+	if path_tween: path_tween.kill()
 
 
 func emit_text(string: String, color: Color = Palette.WHITE) -> void:
@@ -32,7 +44,7 @@ func set_collision(value: bool) -> void:
 
 
 
-# internal
+# signals
 
 func _ready() -> void:
 	if resource is Enemy:
@@ -40,7 +52,7 @@ func _ready() -> void:
 		resource.node = self
 		resource.initialize_traits()
 	
-	$Sprite.texture = resource.sprite
+	sprite.texture = resource.sprite
 	
 	resource.will_changed.connect(_on_will_changed)
 	resource.stamina_changed.connect(_on_stamina_changed)
@@ -73,12 +85,12 @@ func _update_will_slots() -> void:
 
 
 func _on_defeated() -> void:
-	$Sprite.self_modulate.a = 0.5
+	sprite.self_modulate.a = 0.5
 
 
 func _on_stamina_changed() -> void:
 	if not resource.stamina: $ExhaustParticles.restart()
-	$Sprite.self_modulate.a = 1.0 if resource.stamina else 0.75
+	sprite.self_modulate.a = 1.0 if resource.stamina else 0.75
 
 
 func _on_condition_added(condition: Condition) -> void:
@@ -97,7 +109,7 @@ func _blend_condition_colors() -> void:
 	for condition: Condition in resource.conditions:
 		color = Color(condition.color(), 0.5).blend(color)
 	
-	$Sprite.self_modulate = color
+	sprite.self_modulate = color
 
 
 func _on_action_sent() -> void:

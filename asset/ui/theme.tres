@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://b6cn1uktrvyhy"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://b6cn1uktrvyhy"]
 
 [ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
+[ext_resource type="Texture2D" uid="uid://daipiedw2ufel" path="res://asset/ui/health.png" id="3_va2me"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="4_r5xpk"]
 [ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/font/regular.tres" id="5_3gh3t"]
 [ext_resource type="FontFile" uid="uid://bdumnxolhwtqd" path="res://asset/ui/font/dos.ttf" id="6_u232t"]
@@ -9,7 +10,12 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wnhai"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_br1fb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q55b0"]
+bg_color = Color(0, 0, 1, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kp7ht"]
 
@@ -22,6 +28,9 @@ grow_end = 0.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4354b"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6gms"]
+bg_color = Color(0, 0, 1, 0.752941)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_su2df"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rafet"]
@@ -30,6 +39,15 @@ grow_end = 0.0
 bg_color = Color(0, 0, 1, 0.752941)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4grn"]
+content_margin_top = 6.0
+bg_color = Color(0.0901961, 0.0745098, 0.105882, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4av4u"]
+texture = ExtResource("3_va2me")
+texture_margin_right = 4.0
+region_rect = Rect2(0, 0, 6, 6)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8h85v"]
 
@@ -46,7 +64,7 @@ Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_pressed_color = Color(0, 0, 1, 1)
 Button/styles/disabled = SubResource("StyleBoxEmpty_xliu3")
 Button/styles/focus = SubResource("StyleBoxEmpty_wnhai")
-Button/styles/hover = SubResource("StyleBoxEmpty_br1fb")
+Button/styles/hover = SubResource("StyleBoxFlat_q55b0")
 Button/styles/normal = SubResource("StyleBoxEmpty_kp7ht")
 Button/styles/pressed = SubResource("StyleBoxEmpty_u2mjp")
 ButtonSmall/base_type = &"Button"
@@ -63,6 +81,7 @@ ItemList/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/font_selected_color = Color(0.6, 0.576471, 0.639216, 1)
 ItemList/colors/guide_color = Color(0, 0, 0, 0)
 ItemList/styles/focus = SubResource("StyleBoxEmpty_4354b")
+ItemList/styles/hovered = SubResource("StyleBoxFlat_w6gms")
 ItemList/styles/panel = SubResource("StyleBoxEmpty_su2df")
 ItemList/styles/selected = SubResource("StyleBoxEmpty_rafet")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_hoyh8")
@@ -74,6 +93,8 @@ MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
 MarginContainer/constants/margin_top = 16
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_l3qmw")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_w4grn")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_4av4u")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_8h85v")
 UIPanel/base_type = &"PanelContainer"
 UIPanel/styles/panel = ExtResource("3_a4tjd")

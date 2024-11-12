@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlmuspc8b72fx"]
+[gd_scene load_steps=9 format=3 uid="uid://dlmuspc8b72fx"]
 
 [ext_resource type="Script" path="res://node/dialogue_interactable.gd" id="1_6bt10"]
-[ext_resource type="PackedScene" uid="uid://bp3m5quw8qkhc" path="res://node/collision.tscn" id="3_4rj1k"]
 [ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/icon/default.png" id="3_lifpy"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="3_qlpes"]
-[ext_resource type="Script" path="res://node/trigger.gd" id="5_f1oym"]
 
 [sub_resource type="Animation" id="Animation_dkkd4"]
 length = 0.001
@@ -103,12 +101,19 @@ _data = {
 "show_cont": SubResource("Animation_t8ag1")
 }
 
-[node name="DialogueInteractable" type="Area2D"]
+[node name="DialogueInteractable" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 8.0
 script = ExtResource("1_6bt10")
 
 [node name="Panel" type="PanelContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(112, 48)
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -184,18 +189,7 @@ grow_horizontal = 0
 theme_type_variation = &"LabelSmall"
 auto_height = true
 
-[node name="Collision" parent="." instance=ExtResource("3_4rj1k")]
-
-[node name="PlayerDetector" type="Area2D" parent="."]
-script = ExtResource("5_f1oym")
-
-[node name="Shape" type="CollisionPolygon2D" parent="PlayerDetector"]
-polygon = PackedVector2Array(-64, 0, 0, -32, 64, 0, 0, 32)
-
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_5wgsp")
 }
-
-[connection signal="player_entered" from="PlayerDetector" to="." method="_on_player_entered_area"]
-[connection signal="player_exited" from="PlayerDetector" to="." method="_on_player_exited_area"]

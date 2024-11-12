@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://script/battle.gd" id="1_1d4h5"]
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="2_nhv1i"]
 [ext_resource type="Script" path="res://node/selector/actor_selector.gd" id="3_1tu8e"]
+[ext_resource type="Texture2D" uid="uid://cqbnrw2a3qdsn" path="res://asset/actor/icon/default.png" id="3_b02xg"]
+[ext_resource type="PackedScene" uid="uid://c7omxrg7nc1dx" path="res://node/ui/condition_label.tscn" id="4_8qw6b"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="5_4tpi5"]
 [ext_resource type="PackedScene" uid="uid://bpisvawsnlfmb" path="res://node/ui/actor_info.tscn" id="5_gtbxe"]
 [ext_resource type="Texture2D" uid="uid://ck0rrpppgu5x7" path="res://asset/ui/icon/attack.png" id="6_voli6"]
-[ext_resource type="Texture2D" uid="uid://b21gkqtv4oqrb" path="res://asset/squiggle.png" id="6_vrnyd"]
-[ext_resource type="FontFile" uid="uid://cg2bgrjyucilx" path="res://asset/ui/font/poool.ttf" id="7_mg71a"]
 [ext_resource type="Texture2D" uid="uid://dnuht3bacaxel" path="res://asset/ui/icon/move.png" id="7_obso1"]
 [ext_resource type="Texture2D" uid="uid://bb4bu4qtlalyk" path="res://asset/ui/icon/pocket.png" id="8_wfk6e"]
 [ext_resource type="Script" path="res://node/actor_menu.gd" id="10_oftmg"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="12_ixvq1"]
 [ext_resource type="Texture2D" uid="uid://bvoyyy3al1cmk" path="res://asset/dotted.png" id="14_l1wvt"]
 [ext_resource type="Texture2D" uid="uid://dge82wnelqifs" path="res://asset/ui/icon/undo.png" id="15_7v7jd"]
+[ext_resource type="Script" path="res://node/actor_info.gd" id="15_fcan2"]
+[ext_resource type="PackedScene" uid="uid://dnpfg3qq2mr68" path="res://node/ui/trait_label.tscn" id="17_hswcg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmvql"]
 content_margin_left = 5.0
@@ -32,6 +34,213 @@ border_color = Color(0.341176, 0.454902, 0.831373, 1)
 [sub_resource type="Gradient" id="Gradient_ex55b"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
 
+[sub_resource type="Animation" id="Animation_2xjwp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jbo1q"]
+resource_name = "open"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jebou"]
+_data = {
+"RESET": SubResource("Animation_2xjwp"),
+"open": SubResource("Animation_jbo1q")
+}
+
+[sub_resource type="Animation" id="Animation_mnaob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient/Phase/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Phase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gradient/Phase/Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 172)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gradient/Phase/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qjm7j"]
+resource_name = "start_battle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient/Phase/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Phase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gradient/Phase/Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 172)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gradient/Phase/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_r536v"]
+resource_name = "start_enemy_phase"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient/Phase/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Enemy Phase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gradient/Phase/Label:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 344)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gradient/Phase/Label:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2an1x"]
+resource_name = "start_party_phase"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient/Phase/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Party Phase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gradient/Phase/Label:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 344), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gradient/Phase/Label:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qkwrw"]
+_data = {
+"RESET": SubResource("Animation_mnaob"),
+"start_battle": SubResource("Animation_qjm7j"),
+"start_enemy_phase": SubResource("Animation_r536v"),
+"start_party_phase": SubResource("Animation_2an1x")
+}
+
 [sub_resource type="Gradient" id="Gradient_ujx1i"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -44,133 +253,20 @@ height = 160
 fill_to = Vector2(0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7ogj"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
 texture = SubResource("GradientTexture2D_oie36")
 texture_margin_top = 80.0
 texture_margin_bottom = 80.0
 draw_center = false
 
-[sub_resource type="Gradient" id="Gradient_fupyp"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kyn3n"]
-gradient = SubResource("Gradient_fupyp")
-width = 1
-height = 8
-fill_to = Vector2(0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0eu36"]
-content_margin_bottom = 0.0
-texture = SubResource("GradientTexture2D_kyn3n")
-texture_margin_bottom = 8.0
-
-[sub_resource type="Gradient" id="Gradient_hto8t"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_voaok"]
-gradient = SubResource("Gradient_hto8t")
-width = 1
-height = 8
-fill_to = Vector2(0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0jutx"]
-content_margin_top = 0.0
-texture = SubResource("GradientTexture2D_voaok")
-texture_margin_top = 8.0
-
-[sub_resource type="FontVariation" id="FontVariation_p0bwp"]
-base_font = ExtResource("7_mg71a")
-spacing_top = -14
-spacing_bottom = -18
-
-[sub_resource type="Animation" id="Animation_cvt8g"]
-resource_name = "RESET"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(650, 96)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 152)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_ipfdj"]
-resource_name = "announce"
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.25, 0.65, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(2.08165e-12, 96), Vector2(650, 96), Vector2(650, 96), Vector2(650, 96), Vector2(650, 96), Vector2(2.08165e-12, 96)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.65, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-2.08165e-12, 152), Vector2(-1.25197e-11, 152), Vector2(-2.08165e-12, 152), Vector2(650, 152)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibfeb"]
-_data = {
-"RESET": SubResource("Animation_cvt8g"),
-"announce": SubResource("Animation_ipfdj")
-}
-
 [node name="Battle" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_1d4h5")
+
+[node name="Camera" type="Camera2D" parent="."]
 
 [node name="Selector" parent="." instance=ExtResource("2_nhv1i")]
 visible = false
@@ -185,14 +281,13 @@ offset_right = 136.0
 offset_bottom = 55.0
 
 [node name="Menu" type="TabContainer" parent="Selector"]
-visible = false
 z_index = 1
 offset_left = 40.0
 offset_top = -48.0
 offset_right = 79.0
 offset_bottom = -33.0
 theme_override_styles/panel = ExtResource("5_4tpi5")
-current_tab = 4
+current_tab = 1
 tabs_visible = false
 script = ExtResource("10_oftmg")
 
@@ -231,7 +326,6 @@ icon = ExtResource("11_e3eu4")
 alignment = 0
 
 [node name="Action" type="VBoxContainer" parent="Selector/Menu"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 1
@@ -368,6 +462,7 @@ icon = ExtResource("11_e3eu4")
 alignment = 0
 
 [node name="Stop" type="VBoxContainer" parent="Selector/Menu"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 metadata/_tab_index = 4
@@ -436,8 +531,77 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
+[node name="ActorInfo" type="PanelContainer" parent="." node_paths=PackedStringArray("icon", "will", "traits", "conditions")]
+z_index = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -48.0
+offset_right = 112.0
+offset_bottom = 2.0
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("5_4tpi5")
+script = ExtResource("15_fcan2")
+icon = NodePath("HBox/Left/Icon")
+will = NodePath("HBox/Right/Will")
+traits = NodePath("HBox/Right/Traits")
+conditions = NodePath("HBox/Right/Conditions")
+
+[node name="HBox" type="HBoxContainer" parent="ActorInfo"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Left" type="VBoxContainer" parent="ActorInfo/HBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Icon" type="TextureRect" parent="ActorInfo/HBox/Left"]
+layout_mode = 2
+texture = ExtResource("3_b02xg")
+
+[node name="Right" type="VBoxContainer" parent="ActorInfo/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Will" type="ProgressBar" parent="ActorInfo/HBox/Right"]
+layout_mode = 2
+value = 50.0
+show_percentage = false
+
+[node name="Traits" type="VBoxContainer" parent="ActorInfo/HBox/Right"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TraitLabel" parent="ActorInfo/HBox/Right/Traits" instance=ExtResource("17_hswcg")]
+layout_mode = 2
+
+[node name="TraitLabel2" parent="ActorInfo/HBox/Right/Traits" instance=ExtResource("17_hswcg")]
+layout_mode = 2
+
+[node name="Conditions" type="VBoxContainer" parent="ActorInfo/HBox/Right"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ConditionLabel" parent="ActorInfo/HBox/Right/Conditions" instance=ExtResource("4_8qw6b")]
+layout_mode = 2
+
+[node name="ConditionLabel2" parent="ActorInfo/HBox/Right/Conditions" instance=ExtResource("4_8qw6b")]
+layout_mode = 2
+
+[node name="Animator" type="AnimationPlayer" parent="ActorInfo"]
+libraries = {
+"": SubResource("AnimationLibrary_jebou")
+}
+
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
+
+[node name="Animator" type="AnimationPlayer" parent="UI"]
+libraries = {
+"": SubResource("AnimationLibrary_qkwrw")
+}
 
 [node name="Gradient" type="PanelContainer" parent="UI"]
 anchors_preset = 15
@@ -448,154 +612,26 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_f7ogj")
 
-[node name="Phase" type="TabContainer" parent="UI"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-current_tab = 0
-tabs_visible = false
-
-[node name="Enemy" type="PanelContainer" parent="UI/Phase"]
+[node name="Phase" type="Control" parent="UI/Gradient"]
 layout_mode = 2
-metadata/_tab_index = 0
+mouse_filter = 2
 
-[node name="Banner" type="PanelContainer" parent="UI/Phase/Enemy"]
-clip_children = 1
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_0eu36")
-
-[node name="Color" type="ColorRect" parent="UI/Phase/Enemy/Banner"]
-layout_mode = 2
-color = Color(0.898039, 0.266667, 0.380392, 1)
-
-[node name="Squiggles" type="TextureRect" parent="UI/Phase/Enemy/Banner"]
-modulate = Color(0.929412, 0.337255, 0.27451, 1)
-layout_mode = 2
-texture = ExtResource("6_vrnyd")
-stretch_mode = 1
-
-[node name="Padding" type="MarginContainer" parent="UI/Phase/Enemy/Banner"]
-layout_mode = 2
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="Title" type="Label" parent="UI/Phase/Enemy/Banner/Padding"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
-theme_type_variation = &"Heading1"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.899486, 0.703395, 0.576563, 1)
-text = "Enemy Phase"
-
-[node name="Party" type="PanelContainer" parent="UI/Phase"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="VBox" type="VBoxContainer" parent="UI/Phase/Party"]
-layout_mode = 2
-theme_override_constants/separation = -8
-alignment = 2
-
-[node name="Banner" type="PanelContainer" parent="UI/Phase/Party/VBox"]
-clip_children = 1
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_0jutx")
-
-[node name="Color" type="ColorRect" parent="UI/Phase/Party/VBox/Banner"]
-layout_mode = 2
-color = Color(0.341176, 0.454902, 0.831373, 1)
-
-[node name="Squiggles" type="TextureRect" parent="UI/Phase/Party/VBox/Banner"]
-modulate = Color(0.301961, 0.537255, 0.65098, 1)
-layout_mode = 2
-texture = ExtResource("6_vrnyd")
-stretch_mode = 1
-
-[node name="Padding" type="MarginContainer" parent="UI/Phase/Party/VBox/Banner"]
-layout_mode = 2
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="HBox" type="HBoxContainer" parent="UI/Phase/Party/VBox/Banner/Padding"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Title" type="Label" parent="UI/Phase/Party/VBox/Banner/Padding/HBox"]
-layout_mode = 2
-size_flags_horizontal = 2
-theme_type_variation = &"Heading1"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.899486, 0.703395, 0.576563, 1)
-theme_override_fonts/font = SubResource("FontVariation_p0bwp")
-theme_override_font_sizes/font_size = 64
-text = "Party Phase"
-
-[node name="Party" type="HBoxContainer" parent="UI/Phase/Party"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="Announcement" type="ColorRect" parent="UI"]
-visible = false
-clip_children = 1
-custom_minimum_size = Vector2(0, 96)
+[node name="Label" type="Label" parent="UI/Gradient/Phase"]
+layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -48.0
-offset_bottom = 48.0
+offset_top = -12.0
+offset_right = 60.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Color" type="ColorRect" parent="UI/Announcement"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.999173, 1)
-color = Color(0.514275, 0.75936, 0.315182, 1)
-
-[node name="Squiggles" type="TextureRect" parent="UI/Announcement"]
-modulate = Color(0.372456, 0.803063, 0.451853, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_vrnyd")
-stretch_mode = 1
-
-[node name="Label" type="Label" parent="UI/Announcement"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"BigLabel"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.899486, 0.703395, 0.576563, 1)
-theme_override_fonts/font = ExtResource("7_mg71a")
-theme_override_font_sizes/font_size = 128
-text = "Party Phase"
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_type_variation = &"Heading3"
+text = "Phase"
 horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Animator" type="AnimationPlayer" parent="UI/Announcement"]
-libraries = {
-"": SubResource("AnimationLibrary_ibfeb")
-}
 
 [connection signal="pressed" from="Selector/Menu/Main/Attack" to="Selector/Menu" method="_open_action"]
 [connection signal="pressed" from="Selector/Menu/Main/Move" to="Selector/Menu" method="_open_movement"]

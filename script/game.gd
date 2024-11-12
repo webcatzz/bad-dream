@@ -4,9 +4,11 @@ extends Node
 # state
 var current_place: String
 var battle: Battle
+var hovered: Node2D
 # nodes
 var party_node: Node2D
-@onready var cursor: Node2D = $CanvasLayer/Cursor
+@onready var cursor: Cursor = $CanvasLayer/Cursor
+@onready var context_menu: PanelContainer = $CanvasLayer/ContextMenu
 # grid
 var grid: AStarGrid2D = load("res://script/grid.gd").new()
 
@@ -18,7 +20,7 @@ func set_place(key: String) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	grid.regenerate(party_node.tilemap)
+	grid.regenerate(get_tree().current_scene.tilemap)
 
 
 

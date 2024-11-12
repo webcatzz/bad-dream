@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://dijwu8oqrl7i2"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://dijwu8oqrl7i2"]
 
 [ext_resource type="Script" path="res://script/actor.gd" id="1_fi5jp"]
 [ext_resource type="Script" path="res://script/action.gd" id="1_y8c52"]
@@ -6,6 +6,8 @@
 [ext_resource type="Resource" uid="uid://dt1a83n8oevx" path="res://resource/action/tet2.tres" id="2_bky7o"]
 [ext_resource type="Resource" uid="uid://bgqtc4e6c6rxk" path="res://resource/action/knockback.tres" id="3_mt67c"]
 [ext_resource type="Resource" uid="uid://shpy3lghpg3y" path="res://resource/action/fireball.tres" id="5_8ymkd"]
+[ext_resource type="Texture2D" uid="uid://b36fbbq6ro64v" path="res://asset/actor/icon/woodcarver.png" id="6_u8r1r"]
+[ext_resource type="Texture2D" uid="uid://xfdqr70bmvpl" path="res://asset/actor/woodcarver.png" id="8_j8vp6"]
 
 [resource]
 script = ExtResource("1_fi5jp")
@@ -20,3 +22,5 @@ limit_break_progress = 0
 type_weak = Array[int]([])
 type_strong = Array[int]([])
 name = "Woodcarver"
+icon = ExtResource("6_u8r1r")
+sprite = ExtResource("8_j8vp6")

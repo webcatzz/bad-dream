@@ -40,6 +40,10 @@ static func name(type: Type) -> String:
 	return Type.keys()[type].capitalize()
 
 
+static func icon(type: Type) -> Texture2D:
+	return load("res://asset/modifier/%s.png" % name(type).to_lower())
+
+
 static func describe(type: Type) -> String:
 	match type:
 		Type.ANIMA: return "Keep going."
