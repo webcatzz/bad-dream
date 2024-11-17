@@ -4,32 +4,15 @@ class_name ActorNode extends CharacterBody2D
 signal clicked(event: InputEventMouseButton)
 signal right_clicked(event: InputEventMouseButton)
 
+const SPEED: int = 128
+
 @export var resource: Actor = Actor.new()
 
-var path_tween: Tween
 var walking: bool = false
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var input: Interactable = $Input
-
-
-func walk_to(tile: Vector2i) -> void:
-	var path: PackedVector2Array = Game.grid.get_point_path(Iso.to_grid(position), tile)
-	if path: await follow_path(path)
-
-
-func follow_path(path: PackedVector2Array) -> void:
-	stop_following_path()
-	path_tween = create_tween()
-	
-	for point: Vector2 in path:
-		path_tween.tween_property(self, "position", point, 0.05)
-	
-	await path_tween.finished
-
-
-func stop_following_path() -> void:
-	if path_tween: path_tween.kill()
+@onready var nav_agent: NavigationAgent2D = $NavAgent
 
 
 func emit_text(string: String, color: Color = Palette.WHITE) -> void:
@@ -44,7 +27,22 @@ func set_collision(value: bool) -> void:
 
 
 
-# signals
+# navigation
+
+func walk_to(point: Vector2) -> void:
+	nav_agent.target_position = point
+
+
+func _physics_process(delta):
+	if nav_agent.is_navigation_finished():
+		return
+	
+	velocity = global_position.direction_to(nav_agent.get_next_path_position()) * SPEED
+	move_and_slide()
+
+
+
+# resource mirroring
 
 func _ready() -> void:
 	if resource is Enemy:
@@ -89,7 +87,8 @@ func _on_defeated() -> void:
 
 
 func _on_stamina_changed() -> void:
-	if not resource.stamina: $ExhaustParticles.restart()
+	if not resource.stamina:
+		$ExhaustParticles.restart()
 	sprite.self_modulate.a = 1.0 if resource.stamina else 0.75
 
 

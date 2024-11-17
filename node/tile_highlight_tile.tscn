@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://scstaq2668nh"]
 
-[node name="TileHighlightPolygon" type="Node2D"]
+[node name="TileHighlightTile" type="Node2D"]
 
 [node name="Fill" type="Polygon2D" parent="."]
 z_index = -1

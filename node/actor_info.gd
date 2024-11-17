@@ -22,7 +22,10 @@ func open(actor: Actor) -> void:
 		label.write(condition)
 		conditions.add_child(label)
 	
-	position = actor.node.position + Vector2(16, -48)
+	position = actor.node.position + Vector2(12, -48)
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "position", position + Vector2(4, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	
 	show()
 	$Animator.play("open")
 

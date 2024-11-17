@@ -1,23 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuatekqo2i77t"]
+[gd_scene load_steps=3 format=3 uid="uid://cuatekqo2i77t"]
 
 [ext_resource type="Script" path="res://node/knockback_arrow.gd" id="1_gem43"]
-[ext_resource type="Texture2D" uid="uid://d2eky7h62v7d5" path="res://asset/knockback_arrow.png" id="2_bsx5v"]
 
-[sub_resource type="Curve" id="Curve_ibrw4"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_m8dtc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
-metadata/_snap_enabled = true
 
 [node name="KnockbackArrow" type="Line2D"]
 z_index = -1
-points = PackedVector2Array(0, 0, 26, 13)
-width = 8.0
-width_curve = SubResource("Curve_ibrw4")
+points = PackedVector2Array(0, 0, 16, 8)
+width_curve = SubResource("Curve_m8dtc")
 default_color = Color(0, 0, 0, 1)
 begin_cap_mode = 2
-end_cap_mode = 2
 script = ExtResource("1_gem43")
-
-[node name="Head" type="Sprite2D" parent="."]
-position = Vector2(32, 16)
-texture = ExtResource("2_bsx5v")

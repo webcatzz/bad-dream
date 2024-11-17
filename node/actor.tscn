@@ -1,13 +1,13 @@
-[gd_scene load_steps=35 format=3 uid="uid://bfh386uub7bov"]
+[gd_scene load_steps=36 format=3 uid="uid://bfh386uub7bov"]
 
 [ext_resource type="Script" path="res://node/actor.gd" id="1_8lbif"]
 [ext_resource type="Script" path="res://node/interactable.gd" id="2_vh885"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="3_cgkie"]
-[ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/actor/default.png" id="3_crv1g"]
+[ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/sprite/default.png" id="3_crv1g"]
 [ext_resource type="Script" path="res://node/ui/slots.gd" id="4_vujg7"]
 [ext_resource type="Texture2D" uid="uid://d2ymh7ry20owj" path="res://asset/vfx/blossom.png" id="5_dnvvo"]
 [ext_resource type="Texture2D" uid="uid://btmd3vjuhnsuy" path="res://asset/vfx/circle-outline.png" id="7_kh208"]
-[ext_resource type="PackedScene" uid="uid://dlj2yo8yqrut2" path="res://asset/actor/actor.gltf" id="9_3rlyr"]
+[ext_resource type="PackedScene" uid="uid://dlj2yo8yqrut2" path="res://asset/sprite/actor.gltf" id="9_3rlyr"]
 [ext_resource type="Texture2D" uid="uid://creycj7363aur" path="res://asset/vfx/circle.png" id="9_vxyjf"]
 
 [sub_resource type="Animation" id="Animation_4s3r3"]
@@ -392,9 +392,12 @@ scale_curve = SubResource("CurveTexture_bcx5r")
 color = Color(0.6, 0.576471, 0.639216, 1)
 alpha_curve = SubResource("CurveTexture_oad2g")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_m6m57"]
+
 [node name="Actor" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_8lbif")
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
@@ -409,6 +412,10 @@ offset_top = -47.0
 offset_right = 9.0
 offset_bottom = 5.0
 script = ExtResource("2_vh885")
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+target_desired_distance = 4.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_crv1g")
@@ -517,3 +524,6 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.9
 local_coords = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_m6m57")

@@ -11,7 +11,6 @@ var leader_path: PackedVector2Array
 var party_path: PackedVector2Array
 
 @onready var _camera: Camera2D = $Camera
-@onready var _interaction_area: Area2D = $InteractionArea
 
 
 func toggle(value: bool) -> void:
@@ -19,8 +18,6 @@ func toggle(value: bool) -> void:
 	set_physics_process(value)
 	if value:
 		_camera.make_current()
-	else:
-		Save.leader.node.stop_following_path()
 	
 	for party_node: ActorNode in party_nodes:
 		party_node.set_collision(not value)
@@ -31,7 +28,7 @@ func toggle(value: bool) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
-		leader_node.walk_to(Game.grid.get_hovered_tile())
+		leader_node.walk_to(Game.grid.get_hovered_point())
 
 
 func _physics_process(_delta: float) -> void:
@@ -63,7 +60,9 @@ func _ready() -> void:
 		if not actor.node:
 			actor.node = load("res://node/actor.tscn").instantiate()
 			actor.node.resource = actor
-			if i: actor.node.set_collision(false)
+			
+			if i:
+				actor.node.set_collision(false)
 		
 		actor.node.position = position
 		add_child.call_deferred(actor.node)

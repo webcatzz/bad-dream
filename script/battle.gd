@@ -113,6 +113,7 @@ func ready_actor(actor: Actor) -> void:
 
 
 func ready_ally(ally: Actor) -> void:
+	ally.node.input.clicked.connect(move_actor.bind(ally))
 	ally.node.input.right_clicked.connect(open_actor_menu.bind(ally))
 
 
@@ -125,6 +126,10 @@ func free_actor(actor: Actor) -> void:
 
 
 # actor ui
+
+func move_actor(actor: Actor) -> void:
+	actor.node.sprite.position.y = -4
+
 
 func open_actor_menu(actor: Actor) -> void:
 	Game.context_menu.add_option("Act", load("res://asset/ui/icon/attack.png"))

@@ -1,8 +1,0 @@
-[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://ca33gbbls8g15"]
-
-[ext_resource type="FontFile" uid="uid://cb2h4e8jdii7x" path="res://asset/ui/font/made_mountain.otf" id="1_mgqdx"]
-
-[resource]
-base_font = ExtResource("1_mgqdx")
-spacing_top = -4
-spacing_bottom = -6

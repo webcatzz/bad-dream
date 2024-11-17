@@ -8,7 +8,7 @@ var tilemap: TileMapLayer
 var tile_shape: ConvexPolygonShape2D = ConvexPolygonShape2D.new()
 
 
-func regenerate(tilemap: TileMapLayer) -> void:
+func generate(tilemap: TileMapLayer) -> void:
 	self.tilemap = tilemap
 	space = tilemap.get_world_2d().direct_space_state
 	
@@ -70,17 +70,16 @@ func collide_ray(from: Vector2i, ray: Vector2i) -> Vector2i:
 
 func collide_action(action: Action, cause: Actor) -> Array[Actor]:
 	var actors: Array[Actor] = []
+	var shape: BitShape = action.shape.rotated(cause.facing)
 	
-	var params: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
-	params.shape = ConvexPolygonShape2D.new()
-	params.transform.origin = Iso.from_grid(cause.position)
+	var params := PhysicsPointQueryParameters2D.new()
 	params.collision_mask = 0b10
 	
-	for polygon: PackedVector2Array in action.shape.rotated(cause.facing).to_polygons():
-		params.shape.points = polygon
-		
-		for collision: Dictionary in space.intersect_shape(params):
-			if collision.collider is ActorNode:
+	for x: int in shape.get_size().x: for y: int in shape.get_size().y:
+		if shape.get_bit(x, y):
+			params.position = Iso.from_grid(cause.position)
+			
+			for collision: Dictionary in space.intersect_point(params):
 				actors.append(collision.collider.resource)
 	
 	return actors

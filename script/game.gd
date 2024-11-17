@@ -5,12 +5,16 @@ extends Node
 var current_place: String
 var battle: Battle
 var hovered: Node2D
-# nodes
+# control
 var party_node: Node2D
 @onready var cursor: Cursor = $CanvasLayer/Cursor
 @onready var context_menu: PanelContainer = $CanvasLayer/ContextMenu
-# grid
+# music
+@onready var _music: AudioStreamPlayer = $Music
+@onready var _music_animator: AnimationPlayer = $Music/Animator
+# pathing
 var grid: AStarGrid2D = load("res://script/grid.gd").new()
+@onready var navigation: NavigationRegion2D = $NavRegion
 
 
 func set_place(key: String) -> void:
@@ -20,7 +24,21 @@ func set_place(key: String) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	grid.regenerate(get_tree().current_scene.tilemap)
+	grid.generate(get_tree().current_scene.tilemap)
+	#navigation.generate()
+
+
+
+# music
+
+func play_music(filename: String) -> void:
+	var file: AudioStreamMP3 = load("res://asset/music/%s.mp3" % filename)
+	_music.stream = file
+	_music.play()
+
+
+func stop_music() -> void:
+	_music.paused = true
 
 
 

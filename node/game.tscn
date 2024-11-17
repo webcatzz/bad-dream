@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bg5yg1uxya321"]
+[gd_scene load_steps=11 format=3 uid="uid://bg5yg1uxya321"]
 
 [ext_resource type="Script" path="res://script/game.gd" id="1_6qofi"]
 [ext_resource type="Script" path="res://node/cursor.gd" id="2_7bm3h"]
@@ -44,6 +44,14 @@ _data = {
 "open": SubResource("Animation_c107w")
 }
 
+[sub_resource type="Animation" id="Animation_juodc"]
+resource_name = "fade"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ajwnl"]
+_data = {
+"fade": SubResource("Animation_juodc")
+}
+
 [node name="Game" type="Node"]
 script = ExtResource("1_6qofi")
 
@@ -51,6 +59,7 @@ script = ExtResource("1_6qofi")
 layer = 128
 
 [node name="ContextMenu" type="PanelContainer" parent="CanvasLayer"]
+visible = false
 offset_right = 40.0
 offset_bottom = 10.0
 theme_override_styles/panel = ExtResource("4_3kkwo")
@@ -84,5 +93,12 @@ centered = false
 offset = Vector2(-4, -2)
 
 [node name="Animator" type="AnimationPlayer" parent="CanvasLayer/Cursor"]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="Animator" type="AnimationPlayer" parent="Music"]
+libraries = {
+"": SubResource("AnimationLibrary_ajwnl")
+}
 
 [connection signal="item_clicked" from="CanvasLayer/ContextMenu/VBox/Options" to="CanvasLayer/ContextMenu" method="_on_option_clicked" unbinds=2]
