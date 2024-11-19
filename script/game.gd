@@ -14,7 +14,6 @@ var party_node: Node2D
 @onready var _music_animator: AnimationPlayer = $Music/Animator
 # pathing
 var grid: AStarGrid2D = load("res://script/grid.gd").new()
-@onready var navigation: NavigationRegion2D = $NavRegion
 
 
 func set_place(key: String) -> void:
@@ -25,7 +24,6 @@ func set_place(key: String) -> void:
 	await get_tree().process_frame
 	
 	grid.generate(get_tree().current_scene.tilemap)
-	#navigation.generate()
 
 
 
@@ -58,8 +56,11 @@ func _ready() -> void:
 	get_window().mouse_entered.connect(Input.set_mouse_mode.call_deferred.bind(Input.MOUSE_MODE_HIDDEN))
 	get_window().mouse_exited.connect(Input.set_mouse_mode.call_deferred.bind(Input.MOUSE_MODE_VISIBLE))
 	
+	# debug
 	if Save.file.get_value("debug", "draw_grid", false):
-		add_child(load("res://node/grid_drawer.tscn").instantiate())
+		add_child(load("res://node/debug/grid_drawer.tscn").instantiate())
+	if Save.file.get_value("debug", "draw_party_path", false):
+		add_child(load("res://node/debug/party_path_drawer.gd").new())
 
 
 func _mouse_moved() -> void:

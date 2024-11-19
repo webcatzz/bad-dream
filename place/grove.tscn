@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://qw20k340hhhd"]
 
-[ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party.tscn" id="1_64xr2"]
+[ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party_node.tscn" id="1_64xr2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mh22f"]
 blend_mode = 1

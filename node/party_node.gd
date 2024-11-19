@@ -1,14 +1,12 @@
-extends Node2D
+class_name PartyNode extends Node2D
 
 
 const PATH_SEPARATION: int = 4
-const FOLLOW_SPEED: float = 2.4
 
 var leader_node: ActorNode
 var party_nodes: Array[ActorNode]
 
-var leader_path: PackedVector2Array
-var party_path: PackedVector2Array
+var path: PackedVector2Array
 
 @onready var _camera: Camera2D = $Camera
 
@@ -16,8 +14,11 @@ var party_path: PackedVector2Array
 func toggle(value: bool) -> void:
 	set_process_unhandled_input(value)
 	set_physics_process(value)
+	
 	if value:
 		_camera.make_current()
+	else:
+		leader_node.stop_walking()
 	
 	for party_node: ActorNode in party_nodes:
 		party_node.set_collision(not value)
@@ -32,19 +33,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	pass
-	#if leader_path:
-		#pass
-	#
-	#if path[-1].distance_squared_to(leader_node.position) > 256:
-		#path.remove_at(0)
-		#path.append(leader_node.position)
-	#
-	#for party_node: ActorNode in party_nodes:
-		#party_node.resource.facing = Iso.to_grid(Iso.get_direction(
-			#Save.leader.node.global_position - global_position
-		#))
-		#party_node.position = path[PATH_SEPARATION * Save.party.find(party_node.resource, 1)]
+	if path[0].distance_squared_to(leader_node.position) > 256:
+		path.remove_at(path.size() - 1)
+		path.insert(0, leader_node.position)
+	
+	for i: int in party_nodes.size():
+		party_nodes[i].walk_to(path[PATH_SEPARATION * (i + 1)])
 
 
 func _ready() -> void:
@@ -58,7 +52,7 @@ func _ready() -> void:
 		var actor: Actor = Save.party[i]
 		
 		if not actor.node:
-			actor.node = load("res://node/actor.tscn").instantiate()
+			actor.node = load("res://node/actor_node.tscn").instantiate()
 			actor.node.resource = actor
 			
 			if i:
@@ -80,5 +74,5 @@ func _ready() -> void:
 	_camera.make_current.call_deferred()
 	
 	# path
-	party_path.resize(PATH_SEPARATION * Save.party.size())
-	party_path.fill(position)
+	path.resize(PATH_SEPARATION * Save.party.size())
+	path.fill(position)

@@ -152,7 +152,7 @@ func open_actor_info(actor: Actor) -> void:
 func highlight(shape: BitShape) -> void:
 	clear_highlight()
 	tile_highlight = TileHighlight.new()
-	tile_highlight.from_bitshape(shape)
+	tile_highlight.shape = shape
 	add_child(tile_highlight)
 
 

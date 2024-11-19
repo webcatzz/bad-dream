@@ -13,12 +13,12 @@ func open(actor: Actor) -> void:
 	will.value = actor.will
 	
 	for trait_type: Trait.Type in actor.traits:
-		var label: HBoxContainer = preload("res://node/ui/trait_label.tscn").instantiate()
+		var label: HBoxContainer = preload("res://node/ui/modifier_label/trait_label.tscn").instantiate()
 		label.write(trait_type)
 		conditions.add_child(label)
 	
 	for condition: Condition in actor.conditions:
-		var label: HBoxContainer = preload("res://node/ui/condition_label.tscn").instantiate()
+		var label: HBoxContainer = preload("res://node/ui/modifier_label/condition_label.tscn").instantiate()
 		label.write(condition)
 		conditions.add_child(label)
 	

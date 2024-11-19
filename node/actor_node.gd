@@ -33,12 +33,16 @@ func walk_to(point: Vector2) -> void:
 	nav_agent.target_position = point
 
 
-func _physics_process(delta):
+func stop_walking() -> void:
+	position = Iso.snap(position)
+	nav_agent.target_position = global_position
+
+
+func _physics_process(delta: float):
 	if nav_agent.is_navigation_finished():
 		return
 	
-	velocity = global_position.direction_to(nav_agent.get_next_path_position()) * SPEED
-	move_and_slide()
+	global_position = global_position.move_toward(nav_agent.get_next_path_position(), SPEED * delta)
 
 
 

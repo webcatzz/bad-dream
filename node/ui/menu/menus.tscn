@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bl12kuaacdli8"]
+[gd_scene load_steps=11 format=3 uid="uid://bl12kuaacdli8"]
 
 [ext_resource type="Script" path="res://node/ui/menu/menus.gd" id="1_iytjr"]
-[ext_resource type="PackedScene" uid="uid://mu8s6x2r0v7a" path="res://node/ui/menu/inventory.tscn" id="2_e7lfs"]
 [ext_resource type="Texture2D" uid="uid://v4pi2yw6vrdb" path="res://asset/ui/icon/commit.png" id="2_kw3t6"]
 [ext_resource type="Texture2D" uid="uid://bu54miyljsk00" path="res://asset/ui/icon/settings.png" id="3_bacms"]
 [ext_resource type="Script" path="res://node/ui/menu/console.gd" id="3_pmsvj"]
@@ -149,18 +148,13 @@ text = "Back"
 icon = ExtResource("4_p3va0")
 alignment = 0
 
-[node name="Inventory" parent="Overlay/Tabs" instance=ExtResource("2_e7lfs")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 3
-
 [node name="Console" type="LineEdit" parent="Overlay/Tabs"]
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 placeholder_text = "Enter a command..."
 script = ExtResource("3_pmsvj")
-metadata/_tab_index = 4
+metadata/_tab_index = 3
 
 [connection signal="pressed" from="Overlay/Tabs/Pause/Continue" to="." method="close"]
 [connection signal="pressed" from="Overlay/Tabs/Pause/Settings" to="." method="open" binds= [1]]

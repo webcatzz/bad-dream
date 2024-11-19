@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://buirygp3bnak6"]
 
-[ext_resource type="Script" path="res://node/grid_drawer.gd" id="1_luqpg"]
+[ext_resource type="Script" path="res://node/debug/grid_drawer.gd" id="1_luqpg"]
 
 [node name="GridDrawer" type="Node2D"]
 

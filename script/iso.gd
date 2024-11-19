@@ -59,3 +59,13 @@ static func snap(vector: Vector2) -> Vector2:
 		vector.y = snappedf(vector.y, 16)
 	
 	return vector
+
+
+static func get_tile_points(tile: Vector2i) -> PackedVector2Array:
+	var point: Vector2 = from_grid(tile)
+	return [
+		point - Vector2(16, 0),
+		point - Vector2(0, 8),
+		point + Vector2(16, 0),
+		point + Vector2(0, 8),
+	]

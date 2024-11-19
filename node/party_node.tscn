@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcc7mtt5f6blg"]
 
-[ext_resource type="Script" path="res://node/party.gd" id="1_k7fyg"]
+[ext_resource type="Script" path="res://node/party_node.gd" id="1_k7fyg"]
 
 [node name="Party" type="Node2D"]
 y_sort_enabled = true

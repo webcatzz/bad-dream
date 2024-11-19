@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://bfh386uub7bov"]
 
-[ext_resource type="Script" path="res://node/actor.gd" id="1_8lbif"]
+[ext_resource type="Script" path="res://node/actor_node.gd" id="1_8lbif"]
 [ext_resource type="Script" path="res://node/interactable.gd" id="2_vh885"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="3_cgkie"]
 [ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/sprite/default.png" id="3_crv1g"]

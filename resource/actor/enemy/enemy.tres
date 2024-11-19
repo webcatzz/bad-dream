@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Enemy" load_steps=6 format=3 uid="uid://bsmul7001bppa"]
 
-[ext_resource type="Script" path="res://script/action.gd" id="1_wy4vy"]
-[ext_resource type="Script" path="res://script/bitshape.gd" id="2_5arry"]
-[ext_resource type="Script" path="res://script/enemy.gd" id="2_a0ve7"]
+[ext_resource type="Script" path="res://resource/action/action.gd" id="1_wy4vy"]
+[ext_resource type="Script" path="res://resource/bitshape.gd" id="2_5arry"]
+[ext_resource type="Script" path="res://resource/actor/enemy/enemy.gd" id="2_a0ve7"]
 
 [sub_resource type="BitMap" id="BitMap_utgy0"]
 data = {

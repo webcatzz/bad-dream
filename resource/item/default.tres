@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bm4ia1bt535ni"]
 
-[ext_resource type="Script" path="res://script/item.gd" id="1_opx2r"]
+[ext_resource type="Script" path="res://resource/item/item.gd" id="1_opx2r"]
 
 [sub_resource type="BitMap" id="BitMap_fc5kb"]
 data = {

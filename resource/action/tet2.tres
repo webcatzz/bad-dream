@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Action" load_steps=4 format=3 uid="uid://dt1a83n8oevx"]
 
-[ext_resource type="Script" path="res://script/action.gd" id="1_w6baa"]
-[ext_resource type="Script" path="res://script/bitshape.gd" id="2_2ha5f"]
+[ext_resource type="Script" path="res://resource/action/action.gd" id="1_w6baa"]
+[ext_resource type="Script" path="res://resource/bitshape.gd" id="2_2ha5f"]
 
 [sub_resource type="BitMap" id="BitMap_xnnn7"]
 data = {

@@ -5,7 +5,6 @@ enum Menu {
 	PAUSE,
 	SETTINGS,
 	CONTROLS,
-	INVENTORY,
 	CONSOLE,
 }
 
@@ -58,10 +57,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	
 	elif not visible and event.is_action_pressed("pause"):
 		open(Menu.PAUSE)
-		get_viewport().set_input_as_handled()
-	
-	elif event.is_action_pressed("inventory"):
-		if not visible or _menus.current_tab == Menu.INVENTORY: toggle(Menu.INVENTORY)
 		get_viewport().set_input_as_handled()
 
 

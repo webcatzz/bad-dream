@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://bb4tbahw8ijki"]
+[gd_scene load_steps=12 format=3 uid="uid://bb4tbahw8ijki"]
 
 [ext_resource type="PackedScene" uid="uid://v4jedypaiwv2" path="res://node/selector/selector.tscn" id="1_l04c8"]
-[ext_resource type="PackedScene" uid="uid://rjvdm85r7cfw" path="res://node/ui/info.tscn" id="2_l5jhr"]
 [ext_resource type="Script" path="res://node/selector/item_selector.gd" id="2_vvgv5"]
 [ext_resource type="StyleBox" uid="uid://djnid6o3ju2gg" path="res://asset/ui/gradient_panel.tres" id="3_6ywqj"]
 [ext_resource type="Texture2D" uid="uid://btb0jjvrvb712" path="res://asset/ui/icon/x.png" id="4_1aehw"]
@@ -11,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bb4bu4qtlalyk" path="res://asset/ui/icon/pocket.png" id="5_3oy6p"]
 [ext_resource type="Texture2D" uid="uid://d4mk6n0ery2y0" path="res://asset/ui/icon/discard.png" id="6_x3krt"]
 [ext_resource type="PackedScene" uid="uid://s4ee6dgxgaal" path="res://node/item.tscn" id="11_hbix4"]
-[ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor.tscn" id="12_w4f1e"]
+[ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor_node.tscn" id="12_w4f1e"]
 
 [node name="Woodcarver" type="Node2D"]
 y_sort_enabled = true
@@ -19,13 +18,6 @@ y_sort_enabled = true
 [node name="Selector" parent="." instance=ExtResource("1_l04c8")]
 script = ExtResource("2_vvgv5")
 enabled = true
-
-[node name="Info" parent="Selector" instance=ExtResource("2_l5jhr")]
-visible = false
-offset_left = 40.0
-offset_top = -48.0
-offset_right = 136.0
-offset_bottom = -11.0
 
 [node name="Menu" type="TabContainer" parent="Selector"]
 visible = false
