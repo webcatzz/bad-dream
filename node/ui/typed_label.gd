@@ -5,9 +5,6 @@ func type(string: String = text) -> void:
 	visible_characters = 0
 	text = string
 	
-	focus_mode = FOCUS_ALL
-	grab_focus()
-	
 	while true:
 		visible_characters += 1
 		
@@ -21,15 +18,13 @@ func type(string: String = text) -> void:
 	focus_mode = FOCUS_NONE
 
 
+func skip() -> void:
+	visible_characters = text.length()
 
-# internal 
 
-func _init() -> void:
+
+# internal
+
+func _ready() -> void:
 	autowrap_mode = TextServer.AUTOWRAP_WORD
 	visible_characters = 0
-
-
-func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and visible_characters < text.length():
-		visible_characters = text.length()
-		accept_event()

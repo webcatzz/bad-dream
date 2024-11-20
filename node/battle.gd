@@ -24,19 +24,25 @@ var tile_highlight: TileHighlight
 @onready var camera: Camera2D = $Camera
 @onready var actor_info: PanelContainer = $ActorInfo
 @onready var animator: AnimationPlayer = $UI/Animator
+@onready var party_controller: Node2D = $PartyController
 
 
 
 # cycling
 
 func start() -> void:
-	Game.party_node.toggle(false)
 	Game.battle = self
 	
-	$UI.show()
-	
-	for actor: Actor in Save.party + enemies:
+	Game.party_node.toggle(false)
+	for actor: Actor in Save.party:
+		actor.node.stop_walking()
 		ready_actor(actor)
+		party_controller.ready_actor(actor)
+	
+	for actor: Actor in enemies:
+		ready_actor(actor)
+	
+	$UI.show()
 	
 	#var animation: Node = load("res://node/battle_intro.tscn").instantiate()
 	#add_child(animation)
@@ -75,12 +81,12 @@ func do_party_phase() -> void:
 	for actor: Actor in Save.party:
 		actor.stamina = actor.max_stamina
 		actor.acted_this_phase = false
-		actor.node.input.toggle(true)
+	
+	party_controller.toggle(true)
 	
 	await phase_changed
 	
-	for actor: Actor in Save.party:
-		actor.node.input.toggle(false)
+	party_controller.toggle(false)
 	
 	if not enemies:
 		end()
@@ -108,13 +114,6 @@ func ready_actor(actor: Actor) -> void:
 	
 	actor.node.input.mouse_entered.connect(actor_info.open.bind(actor))
 	actor.node.input.mouse_exited.connect(actor_info.close)
-	
-	if actor in Save.party: ready_ally(actor)
-
-
-func ready_ally(ally: Actor) -> void:
-	ally.node.input.clicked.connect(move_actor.bind(ally))
-	ally.node.input.right_clicked.connect(open_actor_menu.bind(ally))
 
 
 func free_actor(actor: Actor) -> void:
@@ -122,28 +121,6 @@ func free_actor(actor: Actor) -> void:
 		enemies.erase(actor)
 	else:
 		Save.party.erase(actor)
-
-
-
-# actor ui
-
-func move_actor(actor: Actor) -> void:
-	actor.node.sprite.position.y = -4
-
-
-func open_actor_menu(actor: Actor) -> void:
-	Game.context_menu.add_option("Act", load("res://asset/ui/icon/attack.png"))
-	Game.context_menu.add_option("Move", load("res://asset/ui/icon/move.png"))
-	Game.context_menu.add_option("Pocket", load("res://asset/ui/icon/pocket.png"))
-	Game.context_menu.open("Actor")
-	
-	match await Game.context_menu.chosen:
-		0:
-			pass
-
-
-func open_actor_info(actor: Actor) -> void:
-	pass
 
 
 

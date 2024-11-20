@@ -71,6 +71,16 @@ func move_by(motion: Vector2i) -> void:
 	reoriented.emit()
 
 
+func path_to(tile: Vector2i) -> void:
+	await follow_path(Game.grid.get_id_path(position, tile))
+
+
+func follow_path(path: Array[Vector2i]) -> void:
+	for tile: Vector2i in path:
+		move_to(tile)
+		await Game.get_tree().create_timer(0.1).timeout
+
+
 
 # path
 

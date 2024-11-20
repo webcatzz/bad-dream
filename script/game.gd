@@ -1,4 +1,7 @@
-extends Node
+extends Node2D
+
+
+signal clicked(point: Vector2)
 
 
 # state
@@ -41,6 +44,11 @@ func stop_music() -> void:
 
 
 # input
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("click"):
+		clicked.emit(get_global_mouse_position())
+
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("screenshot"):

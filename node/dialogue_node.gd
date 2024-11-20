@@ -1,4 +1,4 @@
-extends Interactable
+extends Node2D
 
 
 @export var key: String
@@ -7,19 +7,18 @@ extends Interactable
 var dialogue: Dialogue
 var active: bool
 
-@onready var _log: VBoxContainer = $Panel/VBox/HBox/Wrapper/Log
-@onready var _icon: TextureRect = $Panel/VBox/HBox/Icon
-@onready var _cont: Label = $Panel/VBox/Wrapper/Cont
-@onready var _choicer: ItemList = $Panel/VBox/Wrapper/Choicer
+@onready var _icon: TextureRect = $Panel/Main/Icon
+@onready var _log: VBoxContainer = $Panel/Main/LogWrapper/Log
+@onready var _choicer: ItemList = $Panel/Bottom/Choicer
 @onready var _animator: AnimationPlayer = $Animator
 
 
-func interact() -> void:
+func prod() -> void:
 	if Game.battle: return
 	if active: return dialogue.next()
 	
 	Game.party_node.toggle(false)
-	await Save.leader.node.walk_to(Iso.to_grid(position) + move_leader)
+	await Save.leader.node.nav_agent.navigation_finished
 	
 	active = true
 	_animator.play("open")
@@ -35,6 +34,9 @@ func interact() -> void:
 	Game.party_node.toggle(true)
 
 
+
+# signals
+
 func _add_text(text: String) -> void:
 	var label := TypedLabel.new()
 	_log.add_child(label)
@@ -43,7 +45,9 @@ func _add_text(text: String) -> void:
 	get_tree().create_tween().tween_property(label, "modulate:a", 1, 0.2)
 	
 	if label.get_index():
-		_log.get_child(label.get_index() - 1).theme_type_variation = &"LabelSmall"
+		var prev_label: TypedLabel = _log.get_child(label.get_index() - 1) as TypedLabel
+		prev_label.skip()
+		prev_label.theme_type_variation = &"LabelSmall"
 	
 	label.type(text)
 
@@ -53,39 +57,23 @@ func _set_speaker(speaker: Character) -> void:
 
 
 func _prompt(choices: PackedStringArray) -> void:
-	Game.party_node.toggle(false)
-	
 	for choice: String in choices:
 		_choicer.set_item_tooltip_enabled(_choicer.add_item(choice), false)
 	_choicer.show()
-	_choicer.grab_focus()
 	_choicer.select(0)
 	
-	dialogue.choose(await _choicer.item_activated)
+	dialogue.choose(await _choicer.item_selected)
 	get_viewport().set_input_as_handled()
 	
 	_choicer.hide()
 	_choicer.clear()
-	
-	Game.party_node.toggle(true)
 
 
 
 # internal
 
 func _ready() -> void:
-	super()
 	dialogue = dialogue_script.new()
 	dialogue.text_changed.connect(_add_text)
 	dialogue.speaker_changed.connect(_set_speaker)
 	dialogue.prompted.connect(_prompt)
-
-
-func _on_player_exited_area() -> void:
-	if active:
-		$Animator.play_backwards("open")
-
-
-func _on_player_entered_area() -> void:
-	if active:
-		$Animator.play("open")

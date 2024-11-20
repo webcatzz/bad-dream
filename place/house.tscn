@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://bysegvxpv7ca6"]
+[gd_scene load_steps=21 format=4 uid="uid://bysegvxpv7ca6"]
 
 [ext_resource type="Script" path="res://node/world.gd" id="1_2dqqe"]
 [ext_resource type="TileSet" uid="uid://boq45yqr2jxoe" path="res://asset/world/house/tileset.tres" id="2_lj2k6"]
@@ -7,9 +7,10 @@
 [ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="5_w8baw"]
 [ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="6_um4uc"]
 [ext_resource type="Script" path="res://node/trigger.gd" id="7_rac1v"]
-[ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_interactable.tscn" id="8_ffd86"]
+[ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_node.tscn" id="8_ffd86"]
 [ext_resource type="Script" path="res://dialogue/test.gd" id="9_i5x8v"]
 [ext_resource type="Texture2D" uid="uid://6ujjgbvj2x20" path="res://asset/world/basalt.png" id="10_egu6f"]
+[ext_resource type="Script" path="res://node/interactable.gd" id="11_nifkj"]
 
 [sub_resource type="Gradient" id="Gradient_niv11"]
 interpolation_mode = 2
@@ -63,8 +64,9 @@ emission_shape = 3
 emission_box_extents = Vector3(325, 200, 1)
 color = Color(0.145098, 0.121569, 0.105882, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3al74"]
-radius = 1.0
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ms8pc"]
+a = Vector2(-48, 16)
+b = Vector2(16, -16)
 
 [node name="Default" type="Node2D" node_paths=PackedStringArray("tilemap")]
 y_sort_enabled = true
@@ -74,6 +76,7 @@ tilemap = NodePath("Tiles")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
+visible = false
 
 [node name="Color" type="ColorRect" parent="Background"]
 anchors_preset = 15
@@ -85,6 +88,7 @@ mouse_filter = 2
 color = Color(0.109804, 0.0901961, 0.0784314, 1)
 
 [node name="Foreground" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Darkness" type="TextureRect" parent="Foreground"]
 anchors_preset = 15
@@ -126,32 +130,42 @@ metadata/_edit_group_ = true
 enemy_nodes = [NodePath("../Actor")]
 
 [node name="PlayerDetector" type="Area2D" parent="Battle"]
-position = Vector2(-208, -72)
+position = Vector2(-160, -48)
 script = ExtResource("7_rac1v")
 free_on_enter = true
 
 [node name="Shape" type="CollisionShape2D" parent="Battle/PlayerDetector"]
-shape = SubResource("CircleShape2D_3al74")
+shape = SubResource("SegmentShape2D_ms8pc")
 
 [node name="Rock" type="Node2D" parent="."]
 position = Vector2(-48, -72)
 
-[node name="DialogueInteractable" parent="Rock" instance=ExtResource("8_ffd86")]
+[node name="Interactable" type="Control" parent="Rock"]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -16.0
 offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("11_nifkj")
+interaction_point = Vector2(-32, 16)
+
+[node name="DialogueNode" parent="Rock" instance=ExtResource("8_ffd86")]
+position = Vector2(0, -32)
 key = "test"
 dialogue_script = ExtResource("9_i5x8v")
 
-[node name="Sprite2D" type="Sprite2D" parent="Rock"]
+[node name="Sprite" type="Sprite2D" parent="Rock"]
 texture = ExtResource("10_egu6f")
 offset = Vector2(0, -4)
 region_enabled = true
 region_rect = Rect2(32, 0, 32, 24)
 
 [connection signal="player_entered" from="Battle/PlayerDetector" to="Battle" method="start"]
+[connection signal="clicked" from="Rock/Interactable" to="Rock/DialogueNode" method="prod"]

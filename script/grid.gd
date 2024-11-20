@@ -38,11 +38,15 @@ func read_collisions() -> void:
 # cursor
 
 func get_hovered_point() -> Vector2:
-	return Iso.snap(Game.get_tree().current_scene.get_global_mouse_position())
+	return Iso.snap(Game.get_global_mouse_position())
 
 
 func get_hovered_tile() -> Vector2i:
-	return Iso.to_grid(get_hovered_point())
+	var point: Vector2 = get_hovered_point()
+	if is_in_boundsv(point):
+		return get_point_position(point)
+	else:
+		return Iso.to_grid(point)
 
 
 

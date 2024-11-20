@@ -39,10 +39,8 @@ func stop_walking() -> void:
 
 
 func _physics_process(delta: float):
-	if nav_agent.is_navigation_finished():
-		return
-	
-	global_position = global_position.move_toward(nav_agent.get_next_path_position(), SPEED * delta)
+	if not nav_agent.is_navigation_finished():
+		global_position = global_position.move_toward(nav_agent.get_next_path_position(), SPEED * delta)
 
 
 

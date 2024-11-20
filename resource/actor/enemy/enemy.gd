@@ -50,13 +50,13 @@ func recieve_action(action: Action, cause: Actor) -> void:
 
 # pathing
 
-func follow_path(path: PackedVector2Array) -> void:
-	for point: Vector2i in path:
-		add_to_path()
-		move_to(point)
-		Game.battle.selector.position = Iso.from_grid(position)
-		await Game.get_tree().create_timer(0.2).timeout
-		if not stamina: return
+#func follow_path(path: PackedVector2Array) -> void:
+	#for point: Vector2i in path:
+		#add_to_path()
+		#move_to(point)
+		#Game.battle.selector.position = Iso.from_grid(position)
+		#await Game.get_tree().create_timer(0.2).timeout
+		#if not stamina: return
 
 
 func get_path_to_actor(actor: Actor) -> PackedVector2Array:

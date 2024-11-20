@@ -17,8 +17,6 @@ func toggle(value: bool) -> void:
 	
 	if value:
 		_camera.make_current()
-	else:
-		leader_node.stop_walking()
 	
 	for party_node: ActorNode in party_nodes:
 		party_node.set_collision(not value)
@@ -29,7 +27,8 @@ func toggle(value: bool) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
-		leader_node.walk_to(Game.grid.get_hovered_point())
+		leader_node.walk_to(get_global_mouse_position())
+		get_viewport().set_input_as_handled()
 
 
 func _physics_process(_delta: float) -> void:

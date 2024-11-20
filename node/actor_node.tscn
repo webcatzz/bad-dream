@@ -404,13 +404,13 @@ script = ExtResource("1_8lbif")
 polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)
 
 [node name="Input" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -9.0
 offset_top = -47.0
 offset_right = 9.0
 offset_bottom = 5.0
+mouse_filter = 2
 script = ExtResource("2_vh885")
 
 [node name="NavAgent" type="NavigationAgent2D" parent="."]
@@ -504,7 +504,7 @@ process_material = SubResource("ParticleProcessMaterial_jg1q6")
 texture = ExtResource("7_kh208")
 
 [node name="MoveParticles" type="GPUParticles2D" parent="."]
-z_index = -1
+show_behind_parent = true
 material = ExtResource("3_cgkie")
 emitting = false
 amount = 1
