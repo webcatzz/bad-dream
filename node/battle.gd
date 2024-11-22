@@ -3,21 +3,15 @@ class_name Battle extends Node2D
 
 # state
 signal started
-signal cycled
 signal ended
-# phase
+# cycling
 signal phase_changed
-
-enum Phase {
-	ENEMY,
-	PARTY,
-}
+signal cycled
 
 @export var enemy_nodes: Array[ActorNode]
 
 var cycle_idx: int = -1
 var enemies: Array[Enemy]
-var phase: Phase
 
 var tile_highlight: TileHighlight
 
@@ -62,8 +56,6 @@ func cycle() -> void:
 
 
 func do_enemy_phase() -> void:
-	phase = Phase.ENEMY
-	
 	animator.play("start_enemy_phase")
 	
 	for enemy: Enemy in enemies:
@@ -74,8 +66,6 @@ func do_enemy_phase() -> void:
 
 
 func do_party_phase() -> void:
-	phase = Phase.PARTY
-	
 	animator.play("start_party_phase")
 	
 	for actor: Actor in Save.party:

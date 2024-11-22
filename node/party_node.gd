@@ -25,13 +25,11 @@ func toggle(value: bool) -> void:
 
 # internal
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("click"):
-		leader_node.walk_to(get_global_mouse_position())
-		get_viewport().set_input_as_handled()
-
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_pressed("click"):
+		leader_node.walk_to(get_global_mouse_position())
+	
 	if path[0].distance_squared_to(leader_node.position) > 256:
 		path.remove_at(path.size() - 1)
 		path.insert(0, leader_node.position)

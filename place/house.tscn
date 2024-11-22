@@ -76,7 +76,6 @@ tilemap = NodePath("Tiles")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
-visible = false
 
 [node name="Color" type="ColorRect" parent="Background"]
 anchors_preset = 15
