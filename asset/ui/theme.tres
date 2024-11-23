@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://b6cn1uktrvyhy"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://b6cn1uktrvyhy"]
 
+[ext_resource type="Texture2D" uid="uid://cgdn0b0t0nrdt" path="res://asset/ui/dialogue/bubble_small.png" id="2_exmsg"]
 [ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
 [ext_resource type="Texture2D" uid="uid://daipiedw2ufel" path="res://asset/ui/health.png" id="3_va2me"]
 [ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="4_r5xpk"]
@@ -20,6 +21,30 @@ expand_margin_bottom = 1.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kp7ht"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2mjp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iduc3"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+texture = ExtResource("2_exmsg")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c7ny"]
+resource_local_to_scene = true
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
 color = Color(0.133333, 0.0862745, 0.117647, 1)
@@ -69,6 +94,14 @@ Button/styles/normal = SubResource("StyleBoxEmpty_kp7ht")
 Button/styles/pressed = SubResource("StyleBoxEmpty_u2mjp")
 ButtonSmall/base_type = &"Button"
 ButtonSmall/fonts/font = ExtResource("4_r5xpk")
+DialogueBubbleSmall/base_type = &"Label"
+DialogueBubbleSmall/colors/font_color = Color(0, 0, 0, 1)
+DialogueBubbleSmall/fonts/font = ExtResource("4_r5xpk")
+DialogueBubbleSmall/styles/normal = SubResource("StyleBoxTexture_iduc3")
+DialogueSmall/base_type = &"Label"
+DialogueSmall/colors/font_color = Color(0, 0, 0, 1)
+DialogueSmall/fonts/font = ExtResource("4_r5xpk")
+DialogueSmall/styles/normal = SubResource("StyleBoxFlat_7c7ny")
 GridContainer/constants/h_separation = 0
 GridContainer/constants/v_separation = 0
 HSeparator/constants/separation = 12

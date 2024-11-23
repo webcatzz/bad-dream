@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://resource/action/action.gd" id="1_wy4vy"]
 [ext_resource type="Script" path="res://resource/bitshape.gd" id="2_5arry"]
-[ext_resource type="Script" path="res://resource/actor/enemy/enemy.gd" id="2_a0ve7"]
+[ext_resource type="Script" path="res://resource/character/actor/enemy/enemy.gd" id="2_a0ve7"]
 
 [sub_resource type="BitMap" id="BitMap_utgy0"]
 data = {
@@ -35,3 +35,5 @@ limit_break_progress = 0
 type_weak = Array[int]([])
 type_strong = Array[int]([])
 name = "Actor"
+sprite_offset = Vector2(0, -24)
+color = Color(0, 0, 0, 1)

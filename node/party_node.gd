@@ -1,12 +1,12 @@
 class_name PartyNode extends Node2D
 
 
-const PATH_SEPARATION: int = 4
+const TRAIL_SEPARATION: int = 4
 
 var leader_node: ActorNode
 var party_nodes: Array[ActorNode]
 
-var path: PackedVector2Array
+var trail: PackedVector2Array
 
 @onready var _camera: Camera2D = $Camera
 
@@ -30,12 +30,12 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("click"):
 		leader_node.walk_to(get_global_mouse_position())
 	
-	if path[0].distance_squared_to(leader_node.position) > 256:
-		path.remove_at(path.size() - 1)
-		path.insert(0, leader_node.position)
+	if trail[0].distance_squared_to(leader_node.position) > 256:
+		trail.remove_at(trail.size() - 1)
+		trail.insert(0, leader_node.position)
 	
 	for i: int in party_nodes.size():
-		party_nodes[i].walk_to(path[PATH_SEPARATION * (i + 1)])
+		party_nodes[i].walk_to(trail[TRAIL_SEPARATION * (i + 1)])
 
 
 func _ready() -> void:
@@ -71,5 +71,5 @@ func _ready() -> void:
 	_camera.make_current.call_deferred()
 	
 	# path
-	path.resize(PATH_SEPARATION * Save.party.size())
-	path.fill(position)
+	trail.resize(TRAIL_SEPARATION * Save.party.size())
+	trail.fill(position)

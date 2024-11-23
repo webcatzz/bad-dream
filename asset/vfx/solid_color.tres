@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://lbx1ms22gl4m"]
+
+[ext_resource type="Shader" path="res://asset/vfx/solid_color.gdshader" id="1_ujx72"]
+
+[resource]
+shader = ExtResource("1_ujx72")
+shader_parameter/color = Color(0.952941, 0.360784, 0.286275, 1)

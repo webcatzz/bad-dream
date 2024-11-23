@@ -13,7 +13,7 @@ func type(string: String = text) -> void:
 		elif text[visible_characters - 1] in ".,?!":
 			await get_tree().create_timer(0.5).timeout
 		else:
-			await get_tree().create_timer(0.04).timeout
+			await get_tree().create_timer(0.05).timeout
 	
 	focus_mode = FOCUS_NONE
 
@@ -26,5 +26,4 @@ func skip() -> void:
 # internal
 
 func _ready() -> void:
-	autowrap_mode = TextServer.AUTOWRAP_WORD
 	visible_characters = 0

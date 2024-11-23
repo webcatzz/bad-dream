@@ -1,18 +1,7 @@
-class_name ActorNode extends CharacterBody2D
+class_name ActorNode extends CharacterNode
 
 
-signal clicked(event: InputEventMouseButton)
-signal right_clicked(event: InputEventMouseButton)
-
-const SPEED: int = 128
-
-@export var resource: Actor = Actor.new()
-
-var walking: bool = false
-
-@onready var sprite: Sprite2D = $Sprite
 @onready var input: Interactable = $Input
-@onready var nav_agent: NavigationAgent2D = $NavAgent
 
 
 func emit_text(string: String, color: Color = Palette.WHITE) -> void:
@@ -27,32 +16,14 @@ func set_collision(value: bool) -> void:
 
 
 
-# navigation
-
-func walk_to(point: Vector2) -> void:
-	nav_agent.target_position = point
-
-
-func stop_walking() -> void:
-	position = Iso.snap(position)
-	nav_agent.target_position = global_position
-
-
-func _physics_process(delta: float):
-	if not nav_agent.is_navigation_finished():
-		global_position = global_position.move_toward(nav_agent.get_next_path_position(), SPEED * delta)
-
-
-
 # resource mirroring
 
 func _ready() -> void:
+	super()
+	
 	if resource is Enemy:
 		resource = resource.duplicate()
-		resource.node = self
 		resource.initialize_traits()
-	
-	sprite.texture = resource.sprite
 	
 	resource.will_changed.connect(_on_will_changed)
 	resource.stamina_changed.connect(_on_stamina_changed)

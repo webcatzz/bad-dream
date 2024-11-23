@@ -26,7 +26,8 @@ func set_place(key: String) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	grid.generate(get_tree().current_scene.tilemap)
+	if get_tree().current_scene.tilemap:
+		grid.generate(get_tree().current_scene.tilemap)
 
 
 

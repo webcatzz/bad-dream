@@ -2,8 +2,9 @@ class_name Palette
 
 
 # colors
-const RED: Color = Color("#e54461")
+const RED: Color = Color("#f35c49")
 const LIGHT_RED: Color = Color("#ed5646")
+const DARK_RED: Color = Color("#841e29")
 
 const ORANGE: Color = Color("#ff8919")
 const LIGHT_ORANGE: Color = Color("#f4a233")

@@ -1,6 +1,5 @@
 shader_type canvas_item;
 
-
 uniform sampler2D SCREEN : hint_screen_texture;
 
 uniform float FREQUENCY = 0.5;

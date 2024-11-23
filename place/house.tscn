@@ -1,16 +1,17 @@
-[gd_scene load_steps=21 format=4 uid="uid://bysegvxpv7ca6"]
+[gd_scene load_steps=22 format=4 uid="uid://bysegvxpv7ca6"]
 
 [ext_resource type="Script" path="res://node/world.gd" id="1_2dqqe"]
 [ext_resource type="TileSet" uid="uid://boq45yqr2jxoe" path="res://asset/world/house/tileset.tres" id="2_lj2k6"]
 [ext_resource type="PackedScene" uid="uid://dcc7mtt5f6blg" path="res://node/party_node.tscn" id="3_45e6f"]
 [ext_resource type="PackedScene" uid="uid://bfh386uub7bov" path="res://node/actor_node.tscn" id="4_kmw8h"]
-[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/actor/enemy/enemy.tres" id="5_w8baw"]
+[ext_resource type="Resource" uid="uid://bsmul7001bppa" path="res://resource/character/actor/enemy/enemy.tres" id="5_w8baw"]
 [ext_resource type="PackedScene" uid="uid://4qfgw3tbjge6" path="res://node/battle.tscn" id="6_um4uc"]
 [ext_resource type="Script" path="res://node/trigger.gd" id="7_rac1v"]
-[ext_resource type="PackedScene" uid="uid://dlmuspc8b72fx" path="res://node/dialogue_node.tscn" id="8_ffd86"]
-[ext_resource type="Script" path="res://dialogue/test.gd" id="9_i5x8v"]
-[ext_resource type="Texture2D" uid="uid://6ujjgbvj2x20" path="res://asset/world/basalt.png" id="10_egu6f"]
+[ext_resource type="Resource" uid="uid://cnppa6fmw35j0" path="res://resource/character/rock.tres" id="9_i871l"]
+[ext_resource type="PackedScene" uid="uid://cicwwq5suugqf" path="res://node/character_node.tscn" id="10_x0ksh"]
 [ext_resource type="Script" path="res://node/interactable.gd" id="11_nifkj"]
+[ext_resource type="Script" path="res://node/dialogue/dialogue_trigger.gd" id="11_scmje"]
+[ext_resource type="Script" path="res://dialogue/test.gd" id="12_swxx0"]
 
 [sub_resource type="Gradient" id="Gradient_niv11"]
 interpolation_mode = 2
@@ -136,35 +137,31 @@ free_on_enter = true
 [node name="Shape" type="CollisionShape2D" parent="Battle/PlayerDetector"]
 shape = SubResource("SegmentShape2D_ms8pc")
 
-[node name="Rock" type="Node2D" parent="."]
+[node name="Character" parent="." instance=ExtResource("10_x0ksh")]
 position = Vector2(-48, -72)
+resource = ExtResource("9_i871l")
 
-[node name="Interactable" type="Control" parent="Rock"]
+[node name="Interactable" type="Control" parent="Character"]
 layout_mode = 3
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 8.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 script = ExtResource("11_nifkj")
 interaction_point = Vector2(-32, 16)
 
-[node name="DialogueNode" parent="Rock" instance=ExtResource("8_ffd86")]
-position = Vector2(0, -32)
+[node name="DialogueTrigger" type="Node2D" parent="Character"]
+position = Vector2(48, 72)
+script = ExtResource("11_scmje")
+dialogue_script = ExtResource("12_swxx0")
 key = "test"
-dialogue_script = ExtResource("9_i5x8v")
-
-[node name="Sprite" type="Sprite2D" parent="Rock"]
-texture = ExtResource("10_egu6f")
-offset = Vector2(0, -4)
-region_enabled = true
-region_rect = Rect2(32, 0, 32, 24)
 
 [connection signal="player_entered" from="Battle/PlayerDetector" to="Battle" method="start"]
-[connection signal="clicked" from="Rock/Interactable" to="Rock/DialogueNode" method="prod"]
+[connection signal="clicked" from="Character/Interactable" to="Character/DialogueTrigger" method="trigger"]

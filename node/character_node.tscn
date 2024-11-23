@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cicwwq5suugqf"]
+
+[ext_resource type="Script" path="res://node/character_node.gd" id="1_c3ti6"]
+[ext_resource type="Texture2D" uid="uid://d1ld06mrkulvk" path="res://asset/sprite/default.png" id="1_rpk3k"]
+
+[node name="Character" type="Area2D"]
+script = ExtResource("1_c3ti6")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_rpk3k")
+offset = Vector2(0, -24)
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+target_desired_distance = 4.0
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)

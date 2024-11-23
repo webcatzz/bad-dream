@@ -47,8 +47,6 @@ var facing: Vector2i = Vector2i(0, 1)
 var path: Array[Dictionary]
 # pocket
 var pocket: Item
-# node
-var node: ActorNode
 
 
 
