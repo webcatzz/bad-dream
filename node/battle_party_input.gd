@@ -14,6 +14,9 @@ var current_actor: Actor
 var path_stops: Array[Vector2i]
 var path: Array[Vector2i]
 
+@onready var path_line: Line2D = $Path
+@onready var mouse_path_line: Line2D = $MousePath
+
 
 func toggle(value: bool):
 	state = State.IDLE if value else State.DISABLED
@@ -28,6 +31,7 @@ func start_moving_actor(actor: Actor) -> void:
 	state = State.MOVING
 	current_actor = actor
 	current_actor.node.sprite.position.y = -4
+	
 	path_stops.append(current_actor.position)
 
 
@@ -42,17 +46,24 @@ func stop_moving_actor() -> void:
 
 
 func add_path_stop(tile: Vector2i) -> void:
-	path_stops.append(tile)
-	path.clear()
-	for i: int in range(1, path_stops.size()):
-		path.append_array(Game.grid.get_id_path(path_stops[i - 1], path_stops[i]))
-	queue_redraw()
+	var extra_path: Array[Vector2i] = Game.grid.get_id_path(path_stops[-1], tile).slice(1)
+	if can_add_to_path(extra_path.size()):
+		path_stops.append(tile)
+		path.append_array(extra_path)
+		for point: Vector2i in Game.grid.get_point_path(path_stops[-2], path_stops[-1]).slice(1):
+			path_line.add_point(point)
+	else:
+		pass
 
 
 func clear_path() -> void:
 	path_stops.clear()
 	path.clear()
-	queue_redraw()
+	path_line.clear_points()
+
+
+func can_add_to_path(points: int) -> bool:
+	return path.size() + points < current_actor.stamina
 
 
 
@@ -88,20 +99,9 @@ func _unhandled_input(event: InputEvent) -> void:
 					stop_moving_actor()
 				elif not Game.grid.is_point_solid(tile):
 					add_path_stop(tile)
-	
-	if state != State.DISABLED and event is InputEventMouseMotion:
-		queue_redraw()
-
-
-func _draw() -> void:
-	draw_colored_polygon(Iso.get_tile_points(Game.grid.get_hovered_tile()), Color(1, 1, 1, 0.1))
-	
-	if path:
-		var points: PackedVector2Array
-		for tile: Vector2i in path:
-			points.append(Game.grid.get_point_position(tile))
-		draw_polyline(points, Color.BLACK, 8)
-		
-		var mouse_path: PackedVector2Array = Game.grid.get_point_path(path[-1], Game.grid.get_hovered_tile())
-		if mouse_path:
-			draw_polyline(mouse_path, Color(0, 0, 0, 0.25), 8)
+			
+			elif event is InputEventMouseMotion:
+				mouse_path_line.clear_points()
+				for point: Vector2i in Game.grid.get_point_path(path_stops[-1], Game.grid.get_hovered_tile()):
+					mouse_path_line.add_point(point)
+				mouse_path_line.default_color = Palette.WHITE if can_add_to_path(mouse_path_line.get_point_count() - 1) else Palette.RED

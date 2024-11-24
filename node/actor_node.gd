@@ -23,6 +23,7 @@ func _ready() -> void:
 	
 	if resource is Enemy:
 		resource = resource.duplicate()
+		resource.node = self
 		resource.initialize_traits()
 	
 	resource.will_changed.connect(_on_will_changed)

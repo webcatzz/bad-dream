@@ -10,6 +10,8 @@ const SPEED: int = 128
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var nav: NavigationAgent2D = $NavAgent
+@onready var animator: AnimationPlayer = $Animator
+
 
 
 # navigation
@@ -26,6 +28,7 @@ func stop_walking() -> void:
 func _physics_process(delta: float):
 	if not nav.is_navigation_finished():
 		global_position = global_position.move_toward(nav.get_next_path_position(), SPEED * delta)
+
 
 
 # resource mirroring

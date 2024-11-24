@@ -123,6 +123,8 @@ lifetime = 5.0
 
 [node name="Actor" parent="." instance=ExtResource("4_kmw8h")]
 position = Vector2(-224, -112)
+collision_layer = 1
+collision_mask = 1
 resource = ExtResource("5_w8baw")
 metadata/_edit_group_ = true
 

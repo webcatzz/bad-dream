@@ -8,7 +8,7 @@ extends PanelContainer
 
 
 func open(actor: Actor) -> void:
-	icon.texture = actor.icon
+	#icon.texture = actor.icon
 	will.max_value = actor.max_will
 	will.value = actor.will
 	

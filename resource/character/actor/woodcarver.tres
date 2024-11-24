@@ -12,8 +12,8 @@
 script = ExtResource("1_fi5jp")
 will = 10
 max_will = 10
-stamina = 8
-max_stamina = 8
+stamina = 16
+max_stamina = 16
 traits = Array[int]([0])
 actions = Array[ExtResource("1_y8c52")]([ExtResource("1_yolib"), ExtResource("2_bky7o"), ExtResource("3_mt67c"), ExtResource("5_8ymkd")])
 limit_break_max = 0
