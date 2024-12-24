@@ -9,9 +9,8 @@ func send() -> void:
 	Game.change_scene(scene, gate)
 
 
-func receive(target_gate: String) -> void:
-	if name == target_gate:
-		Game.player.global_position = global_position
+func receive() -> void:
+	Game.player.global_position = global_position
 
 
 # init
