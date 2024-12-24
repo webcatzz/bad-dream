@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=4 uid="uid://ddr0lnbw185w0"]
+
+[ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_7uy1d"]
+[ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="2_fepgk"]
+[ext_resource type="PackedScene" uid="uid://bnnr024p0e05x" path="res://scene/trigger/trigger.tscn" id="3_jli6y"]
+[ext_resource type="Script" path="res://scene/gate.gd" id="4_1d17k"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dublu"]
+texture = ExtResource("2_fepgk")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/z_index = -1
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_lq6qo")
+
+[sub_resource type="TileSet" id="TileSet_i2elu"]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_dublu")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ulj5"]
+radius = 4.0
+
+[node name="Test" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_7uy1d")]
+
+[node name="Tiles" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAD///7/AAAAAAAAAAD+////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAP7/AAAAAAAAAAD///3/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP3/AAAAAAAAAAABAPz/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAACAPz/AAAAAAAAAAACAPv/AAAAAAAAAAACAPr/AAAAAAAAAAABAPn/AAAAAAAAAAACAPj/AAAAAAAAAAACAPn/AAAAAAAAAAADAPr/AAAAAAAAAAADAPn/AAAAAAAAAAADAPj/AAAAAAAAAAACAPf/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_i2elu")
+
+[node name="Trigger" parent="." instance=ExtResource("3_jli6y")]
+position = Vector2(96, -48)
+
+[node name="Shape" type="CollisionShape2D" parent="Trigger"]
+shape = SubResource("CircleShape2D_1ulj5")
+
+[node name="Gate" type="Node2D" parent="Trigger"]
+script = ExtResource("4_1d17k")
+scene = "main"
+gate = "FromTest"
+
+[connection signal="triggered" from="Trigger" to="Trigger/Gate" method="send"]

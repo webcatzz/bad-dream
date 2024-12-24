@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnnr024p0e05x"]
+
+[ext_resource type="Script" path="res://scene/trigger/trigger.gd" id="1_0dxko"]
+
+[node name="Trigger" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_0dxko")
+
+[connection signal="area_entered" from="." to="." method="trigger" unbinds=1]
