@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://l70p81deio4l"]
+
+[ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_xnbii"]
+
+[node name="Battle" type="Node2D"]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Color" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.105882, 0.105882, 0.105882, 1)
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_xnbii")]

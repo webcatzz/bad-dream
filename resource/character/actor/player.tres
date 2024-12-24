@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorData" load_steps=2 format=3 uid="uid://c7xqd3d3ayyka"]
+
+[ext_resource type="Script" path="res://resource/character/actor/actor_data.gd" id="1_qsxvk"]
+
+[resource]
+script = ExtResource("1_qsxvk")
+traits = Array[int]([0])
+name = "Player"
+color = Color(0, 0, 1, 1)
+sprite_offset = Vector2(0, -24)

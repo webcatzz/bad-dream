@@ -1,135 +1,64 @@
-[gd_resource type="Theme" load_steps=26 format=3 uid="uid://b6cn1uktrvyhy"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://b03ytkyqhknt7"]
 
-[ext_resource type="Texture2D" uid="uid://cgdn0b0t0nrdt" path="res://asset/ui/dialogue/bubble_small.png" id="2_exmsg"]
-[ext_resource type="StyleBox" uid="uid://cpygvjhhslspe" path="res://asset/ui/panel.tres" id="3_a4tjd"]
-[ext_resource type="Texture2D" uid="uid://daipiedw2ufel" path="res://asset/ui/health.png" id="3_va2me"]
-[ext_resource type="FontVariation" uid="uid://bvvbk00ygmbqu" path="res://asset/ui/font/small.tres" id="4_r5xpk"]
-[ext_resource type="FontVariation" uid="uid://cawdmi2vustej" path="res://asset/ui/font/regular.tres" id="5_3gh3t"]
-[ext_resource type="FontFile" uid="uid://bdumnxolhwtqd" path="res://asset/ui/font/dos.ttf" id="6_u232t"]
+[ext_resource type="FontFile" uid="uid://bgwbw8soq0mxl" path="res://asset/ui/dos.ttf" id="1_mmsv7"]
+[ext_resource type="FontVariation" uid="uid://dokagdw5mgm2l" path="res://asset/ui/regular.tres" id="2_bdfgk"]
+[ext_resource type="FontVariation" uid="uid://d0twb70raork8" path="res://asset/ui/small.tres" id="2_fth1i"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xliu3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q28bi"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wnhai"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m03hf"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q55b0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_khbcs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxb3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adntb"]
 bg_color = Color(0, 0, 1, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
+expand_margin_right = 2.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kp7ht"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8phvc"]
+content_margin_left = 2.0
+content_margin_right = 2.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2mjp"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vw7wr"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iduc3"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-content_margin_bottom = 2.0
-texture = ExtResource("2_exmsg")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uvir"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.780392, 0.780392, 0.780392, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c7ny"]
-resource_local_to_scene = true
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-content_margin_bottom = 2.0
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-anti_aliasing = false
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qokj6"]
+bg_color = Color(0.780392, 0.780392, 0.780392, 1)
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_7e6k1"]
-color = Color(0.133333, 0.0862745, 0.117647, 1)
-grow_begin = 0.0
-grow_end = 0.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4354b"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6gms"]
-bg_color = Color(0, 0, 1, 0.752941)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_su2df"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rafet"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hoyh8"]
-bg_color = Color(0, 0, 1, 0.752941)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qmw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4grn"]
-content_margin_top = 6.0
-bg_color = Color(0.0901961, 0.0745098, 0.105882, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4av4u"]
-texture = ExtResource("3_va2me")
-texture_margin_right = 4.0
-region_rect = Rect2(0, 0, 6, 6)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8h85v"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pluvp"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oba07"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwtbc"]
 
 [resource]
-default_font = ExtResource("5_3gh3t")
-BoxContainer/constants/separation = 0
-Button/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
-Button/colors/font_disabled_color = Color(1, 1, 1, 0.25098)
-Button/colors/font_focus_color = Color(1, 1, 1, 1)
-Button/colors/font_pressed_color = Color(0, 0, 1, 1)
-Button/styles/disabled = SubResource("StyleBoxEmpty_xliu3")
-Button/styles/focus = SubResource("StyleBoxEmpty_wnhai")
-Button/styles/hover = SubResource("StyleBoxFlat_q55b0")
-Button/styles/normal = SubResource("StyleBoxEmpty_kp7ht")
-Button/styles/pressed = SubResource("StyleBoxEmpty_u2mjp")
+default_font = ExtResource("2_bdfgk")
+Button/colors/font_color = Color(0.780392, 0.780392, 0.780392, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_q28bi")
+Button/styles/hover = SubResource("StyleBoxEmpty_m03hf")
+Button/styles/normal = SubResource("StyleBoxEmpty_khbcs")
+Button/styles/pressed = SubResource("StyleBoxEmpty_nxb3k")
 ButtonSmall/base_type = &"Button"
-ButtonSmall/fonts/font = ExtResource("4_r5xpk")
-DialogueBubbleSmall/base_type = &"Label"
-DialogueBubbleSmall/colors/font_color = Color(0, 0, 0, 1)
-DialogueBubbleSmall/fonts/font = ExtResource("4_r5xpk")
-DialogueBubbleSmall/styles/normal = SubResource("StyleBoxTexture_iduc3")
-DialogueSmall/base_type = &"Label"
-DialogueSmall/colors/font_color = Color(0, 0, 0, 1)
-DialogueSmall/fonts/font = ExtResource("4_r5xpk")
-DialogueSmall/styles/normal = SubResource("StyleBoxFlat_7c7ny")
-GridContainer/constants/h_separation = 0
-GridContainer/constants/v_separation = 0
-HSeparator/constants/separation = 12
-HSeparator/styles/separator = SubResource("StyleBoxLine_7e6k1")
-Heading3/base_type = &"Label"
-Heading3/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
-Heading3/font_sizes/font_size = 24
-Heading3/fonts/font = ExtResource("6_u232t")
-ItemList/colors/font_color = Color(0.6, 0.576471, 0.639216, 1)
-ItemList/colors/font_selected_color = Color(0.6, 0.576471, 0.639216, 1)
-ItemList/colors/guide_color = Color(0, 0, 0, 0)
-ItemList/styles/focus = SubResource("StyleBoxEmpty_4354b")
-ItemList/styles/hovered = SubResource("StyleBoxFlat_w6gms")
-ItemList/styles/panel = SubResource("StyleBoxEmpty_su2df")
-ItemList/styles/selected = SubResource("StyleBoxEmpty_rafet")
-ItemList/styles/selected_focus = SubResource("StyleBoxFlat_hoyh8")
-Label/colors/font_color = Color(0.603922, 0.576471, 0.643137, 1)
+ButtonSmall/fonts/font = ExtResource("2_fth1i")
+ItemList/styles/hovered = SubResource("StyleBoxFlat_adntb")
+ItemList/styles/panel = SubResource("StyleBoxEmpty_8phvc")
+Label/colors/font_color = Color(0.780392, 0.780392, 0.780392, 1)
+LabelHeading/base_type = &"Label"
+LabelHeading/font_sizes/font_size = 24
+LabelHeading/fonts/font = ExtResource("1_mmsv7")
 LabelSmall/base_type = &"Label"
-LabelSmall/fonts/font = ExtResource("4_r5xpk")
-MarginContainer/constants/margin_bottom = 16
-MarginContainer/constants/margin_left = 16
-MarginContainer/constants/margin_right = 16
-MarginContainer/constants/margin_top = 16
-PanelContainer/styles/panel = SubResource("StyleBoxEmpty_l3qmw")
-ProgressBar/styles/background = SubResource("StyleBoxFlat_w4grn")
-ProgressBar/styles/fill = SubResource("StyleBoxTexture_4av4u")
-TabContainer/styles/panel = SubResource("StyleBoxEmpty_8h85v")
-UIPanel/base_type = &"PanelContainer"
-UIPanel/styles/panel = ExtResource("3_a4tjd")
-VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_pluvp")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_oba07")
+LabelSmall/fonts/font = ExtResource("2_fth1i")
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_vw7wr")
+ProgressBar/fonts/font = ExtResource("2_fth1i")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_8uvir")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_qokj6")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_qwtbc")

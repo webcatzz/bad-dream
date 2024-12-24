@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://chcyh1mjdmeyb"]
+
+[ext_resource type="Script" path="res://autoload/game/game.gd" id="1_q1koo"]
+[ext_resource type="Script" path="res://autoload/game/context_menu.gd" id="2_asf8b"]
+
+[sub_resource type="Gradient" id="Gradient_i3g1d"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.75, 1)
+colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 0.0627451)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jf633"]
+gradient = SubResource("Gradient_i3g1d")
+width = 600
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[node name="Game" type="Node"]
+script = ExtResource("1_q1koo")
+
+[node name="ContextMenu" type="ItemList" parent="."]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(64, 0)
+offset_right = 64.0
+offset_bottom = 14.0
+auto_height = true
+script = ExtResource("2_asf8b")
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Overlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_jf633")
+
+[connection signal="item_selected" from="ContextMenu" to="ContextMenu" method="_on_item_selected"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgaca185fhwjl"]
+
+[ext_resource type="Script" path="res://scene/modifier_label/trait_label.gd" id="1_37cbx"]
+[ext_resource type="Texture2D" uid="uid://b2tvv2ssmfswk" path="res://asset/icon/trait.png" id="2_6p1kg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psiad"]
+resource_local_to_scene = true
+atlas = ExtResource("2_6p1kg")
+region = Rect2(0, 0, 8, 0)
+
+[node name="TraitLabel" type="HBoxContainer"]
+script = ExtResource("1_37cbx")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_psiad")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Trait"

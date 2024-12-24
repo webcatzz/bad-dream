@@ -1,8 +1,0 @@
-[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bvvbk00ygmbqu"]
-
-[ext_resource type="FontFile" uid="uid://vgsyh8j0ptwx" path="res://asset/ui/font/small.ttf" id="1_8jngu"]
-
-[resource]
-base_font = ExtResource("1_8jngu")
-spacing_top = -7
-spacing_bottom = -2

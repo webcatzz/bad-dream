@@ -1,0 +1,392 @@
+[gd_scene load_steps=38 format=3 uid="uid://df0j5wnvq4v4f"]
+
+[ext_resource type="Script" path="res://scene/character/actor.gd" id="1_4like"]
+[ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scene/character/character.tscn" id="1_ebx46"]
+[ext_resource type="Shader" path="res://asset/vfx/color.gdshader" id="2_getjq"]
+[ext_resource type="Texture2D" uid="uid://c0qcsp46444ec" path="res://asset/vfx/blossom.png" id="3_itp2t"]
+[ext_resource type="Texture2D" uid="uid://bc64g7tjnblf4" path="res://asset/vfx/circle-outline.png" id="4_8otk2"]
+[ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="5_ggljo"]
+[ext_resource type="Texture2D" uid="uid://nvqyfrrgab6t" path="res://asset/vfx/circle.png" id="6_ga40n"]
+
+[sub_resource type="Animation" id="Animation_0f4vx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:material")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.513726, 0.760784, 0.313726, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HealParticles:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ExhaustParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_clntd"]
+resource_name = "err"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ddxcm"]
+resource_name = "exhausted"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExhaustParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fswpc"]
+shader = ExtResource("2_getjq")
+shader_parameter/color = Color(0.513726, 0.760784, 0.313726, 0.00746804)
+
+[sub_resource type="Animation" id="Animation_qr5h1"]
+resource_name = "healed"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_fswpc"), null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.513726, 0.760784, 0.313726, 1), Color(0.513726, 0.760784, 0.313726, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HealParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6aj1p"]
+shader = ExtResource("2_getjq")
+shader_parameter/color = Color(0.890196, 0.152941, 0.0627451, 1)
+
+[sub_resource type="Animation" id="Animation_glws8"]
+resource_name = "hurt"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(2, 0), Vector2(-2, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:material")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_6aj1p"), null]
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_skjht"]
+shader = ExtResource("2_getjq")
+shader_parameter/color = Color(0.6, 0.576471, 0.639216, 1)
+
+[sub_resource type="Animation" id="Animation_hd5je"]
+resource_name = "unfazed"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_skjht"), null, SubResource("ShaderMaterial_skjht"), null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_48ed0"]
+_data = {
+"RESET": SubResource("Animation_0f4vx"),
+"err": SubResource("Animation_clntd"),
+"exhausted": SubResource("Animation_ddxcm"),
+"healed": SubResource("Animation_qr5h1"),
+"hurt": SubResource("Animation_glws8"),
+"unfazed": SubResource("Animation_hd5je")
+}
+
+[sub_resource type="Curve" id="Curve_8fa4x"]
+max_value = 90.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 90), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nuhl2"]
+curve = SubResource("Curve_8fa4x")
+
+[sub_resource type="Curve" id="Curve_2oko2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_jwxih"]
+curve = SubResource("Curve_2oko2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4repd"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 1.00001
+angle_curve = SubResource("CurveTexture_nuhl2")
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 64.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_jwxih")
+color = Color(0.890196, 0.152941, 0.0627451, 1)
+
+[sub_resource type="Curve" id="Curve_atk7b"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_368o1"]
+curve = SubResource("Curve_atk7b")
+
+[sub_resource type="Curve" id="Curve_ac4ab"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tf65g"]
+curve = SubResource("Curve_ac4ab")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mequu"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_tf65g")
+color = Color(0.513726, 0.760784, 0.313726, 1)
+alpha_curve = SubResource("CurveTexture_368o1")
+
+[sub_resource type="Curve" id="Curve_a7wtp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_g3u5u"]
+curve = SubResource("Curve_a7wtp")
+
+[sub_resource type="Curve" id="Curve_cf3tc"]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_6ye68"]
+curve = SubResource("Curve_cf3tc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ghyns"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 2, 1)
+spread = 30.0
+initial_velocity_min = 64.0
+initial_velocity_max = 128.0
+scale_min = 0.5
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_6ye68")
+color = Color(0.6, 0.576471, 0.639216, 1)
+alpha_curve = SubResource("CurveTexture_g3u5u")
+
+[sub_resource type="Curve" id="Curve_2t05k"]
+_data = [Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_oad2g"]
+curve = SubResource("Curve_2t05k")
+
+[sub_resource type="Curve" id="Curve_bqv8f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_bcx5r"]
+curve = SubResource("Curve_bqv8f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rr0bj"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 32.0
+initial_velocity_max = 64.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_bcx5r")
+color = Color(0.6, 0.576471, 0.639216, 1)
+alpha_curve = SubResource("CurveTexture_oad2g")
+
+[node name="Actor" instance=ExtResource("1_ebx46")]
+script = ExtResource("1_4like")
+
+[node name="Animator" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_48ed0")
+}
+
+[node name="DamageParticles" type="GPUParticles2D" parent="." index="4"]
+show_behind_parent = true
+position = Vector2(0, -16)
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_4repd")
+texture = ExtResource("3_itp2t")
+one_shot = true
+explosiveness = 0.75
+
+[node name="HealParticles" type="GPUParticles2D" parent="." index="5"]
+position = Vector2(0, -16)
+emitting = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_mequu")
+texture = ExtResource("4_8otk2")
+
+[node name="MoveParticles" type="GPUParticles2D" parent="." index="6"]
+z_index = -1
+material = ExtResource("5_ggljo")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_ghyns")
+texture = ExtResource("6_ga40n")
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+
+[node name="ExhaustParticles" type="GPUParticles2D" parent="." index="7"]
+material = ExtResource("5_ggljo")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_rr0bj")
+texture = ExtResource("6_ga40n")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+
+[connection signal="exhausted" from="." to="Animator" method="play" binds= [&"exhausted"]]
+[connection signal="healed" from="." to="Animator" method="play" binds= [&"healed"]]
+[connection signal="hurt" from="." to="Animator" method="play" binds= [&"hurt"]]

@@ -1,0 +1,3 @@
+player
+enemy
+enemy2

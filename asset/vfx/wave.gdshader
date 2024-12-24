@@ -9,9 +9,7 @@ uniform float SPEED = 2.0;
 
 void fragment() {
 	float offset = sin(VERTEX.y * FREQUENCY + TIME * SPEED) * AMPLITUDE;
-
 	vec2 uv = SCREEN_UV;
 	uv.x += offset * SCREEN_PIXEL_SIZE.x;
-
 	COLOR = texture(SCREEN, uv);
 }
