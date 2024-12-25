@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dkr0hckfg0gr2"]
+[gd_scene load_steps=12 format=4 uid="uid://dkr0hckfg0gr2"]
 
 [ext_resource type="Script" path="res://scene/world.gd" id="1_gnqy5"]
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_kcmfw"]
@@ -6,8 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scene/character/actor.tscn" id="2_m2nem"]
 [ext_resource type="PackedScene" uid="uid://c0uw3x77ekrta" path="res://scene/battle/battle.tscn" id="5_pnqya"]
 [ext_resource type="Resource" uid="uid://7uoeaxnis4w0" path="res://resource/character/actor/enemy.tres" id="5_s8fkc"]
-[ext_resource type="PackedScene" uid="uid://bnnr024p0e05x" path="res://scene/trigger/trigger.tscn" id="7_jw61j"]
-[ext_resource type="Script" path="res://scene/gate.gd" id="8_pumlm"]
+[ext_resource type="Script" path="res://scene/trigger/gate.gd" id="7_t5tdt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
@@ -28,7 +27,7 @@ tile_size = Vector2i(32, 16)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_lxvra")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cu0ht"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_t3b55"]
 radius = 4.0
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("tilemap")]
@@ -74,17 +73,15 @@ actors = [NodePath("../Actor")]
 position = Vector2(0, -80)
 data = ExtResource("5_s8fkc")
 
-[node name="Trigger" parent="." instance=ExtResource("7_jw61j")]
-position = Vector2(48, 24)
-
-[node name="Shape" type="CollisionShape2D" parent="Trigger"]
-shape = SubResource("CircleShape2D_cu0ht")
-
-[node name="FromTest" type="Node2D" parent="Trigger"]
-position = Vector2(-16, -8)
-script = ExtResource("8_pumlm")
+[node name="FromTest" type="Area2D" parent="."]
+position = Vector2(32, 16)
+script = ExtResource("7_t5tdt")
 scene = "test"
+mode = 1
+
+[node name="Shape" type="CollisionShape2D" parent="FromTest"]
+position = Vector2(16, 8)
+shape = SubResource("CircleShape2D_t3b55")
 
 [connection signal="pressed" from="Background/Button" to="Background/Button" method="queue_free"]
 [connection signal="pressed" from="Background/Button" to="Battle" method="start"]
-[connection signal="triggered" from="Trigger" to="Trigger/FromTest" method="send"]

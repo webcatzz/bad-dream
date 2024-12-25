@@ -1,5 +1,5 @@
 class_name Gate
-extends Node2D
+extends Trigger
 
 @export var scene: String
 @export var gate: String
@@ -13,7 +13,10 @@ func receive() -> void:
 	Game.player.global_position = global_position
 
 
+
 # init
 
-func _init() -> void:
+func _ready() -> void:
+	super()
+	triggered.connect(send)
 	add_to_group("gate")

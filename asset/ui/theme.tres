@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=14 format=3 uid="uid://b03ytkyqhknt7"]
 
-[ext_resource type="FontFile" uid="uid://bgwbw8soq0mxl" path="res://asset/ui/dos.ttf" id="1_mmsv7"]
-[ext_resource type="FontVariation" uid="uid://dokagdw5mgm2l" path="res://asset/ui/regular.tres" id="2_bdfgk"]
-[ext_resource type="FontVariation" uid="uid://d0twb70raork8" path="res://asset/ui/small.tres" id="2_fth1i"]
+[ext_resource type="FontFile" uid="uid://bgwbw8soq0mxl" path="res://asset/ui/font/dos.ttf" id="1_mmsv7"]
+[ext_resource type="FontVariation" uid="uid://dokagdw5mgm2l" path="res://asset/ui/font/regular.tres" id="2_bdfgk"]
+[ext_resource type="FontVariation" uid="uid://d0twb70raork8" path="res://asset/ui/font/small.tres" id="2_fth1i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q28bi"]
 

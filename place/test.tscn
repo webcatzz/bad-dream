@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://ddr0lnbw185w0"]
+[gd_scene load_steps=8 format=4 uid="uid://ddr0lnbw185w0"]
 
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_7uy1d"]
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="2_fepgk"]
-[ext_resource type="PackedScene" uid="uid://bnnr024p0e05x" path="res://scene/trigger/trigger.tscn" id="3_jli6y"]
-[ext_resource type="Script" path="res://scene/gate.gd" id="4_1d17k"]
+[ext_resource type="Script" path="res://scene/trigger/gate.gd" id="3_iboy7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
@@ -36,15 +35,12 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAD///7/AAAAAAAAAAD+////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAP7/AAAAAAAAAAD///3/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP3/AAAAAAAAAAABAPz/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAACAPz/AAAAAAAAAAACAPv/AAAAAAAAAAACAPr/AAAAAAAAAAABAPn/AAAAAAAAAAACAPj/AAAAAAAAAAACAPn/AAAAAAAAAAADAPr/AAAAAAAAAAADAPn/AAAAAAAAAAADAPj/AAAAAAAAAAACAPf/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_i2elu")
 
-[node name="Trigger" parent="." instance=ExtResource("3_jli6y")]
+[node name="Gate" type="Area2D" parent="."]
 position = Vector2(96, -48)
-
-[node name="Shape" type="CollisionShape2D" parent="Trigger"]
-shape = SubResource("CircleShape2D_1ulj5")
-
-[node name="Gate" type="Node2D" parent="Trigger"]
-script = ExtResource("4_1d17k")
+script = ExtResource("3_iboy7")
 scene = "main"
 gate = "FromTest"
+mode = 1
 
-[connection signal="triggered" from="Trigger" to="Trigger/Gate" method="send"]
+[node name="Shape" type="CollisionShape2D" parent="Gate"]
+shape = SubResource("CircleShape2D_1ulj5")

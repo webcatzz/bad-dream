@@ -12,7 +12,7 @@ func change_scene(filename: String, target_gate: String = "") -> void:
 	get_tree().change_scene_to_file("res://place/%s.tscn" % filename)
 	await get_tree().tree_changed
 	
-	for gate: Gate in get_tree().get_nodes_in_group("gate"):
+	for gate: Node2D in get_tree().get_nodes_in_group("gate"):
 		if gate.name == target_gate:
 			gate.receive()
 			break
