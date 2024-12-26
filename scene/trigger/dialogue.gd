@@ -71,7 +71,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
-# internal
+# init
 
 func _ready() -> void:
 	super()

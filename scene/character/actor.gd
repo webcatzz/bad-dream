@@ -93,7 +93,3 @@ func load_data(data: CharacterData) -> void:
 
 func _to_string() -> String:
 	return "Actor(%s)" % type
-
-
-func play(extra_arg_0: StringName) -> void:
-	pass # Replace with function body.

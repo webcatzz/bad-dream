@@ -10,14 +10,16 @@ enum Mode {
 }
 
 @export var mode: Mode
-@export var move_to: Vector2i
-@export var free_after: bool
+@export var once: bool
 
 
 func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
 		get_viewport().set_input_as_handled()
-		Game.player.walk_to(global_position + Game.grid.tile_to_point(move_to))
+		Game.player.walk_to(global_position)
+		Game.player.set_movable(false)
+		await Game.player.nav.navigation_finished
+		Game.player.set_movable(true)
 		triggered.emit()
 
 
@@ -41,5 +43,5 @@ func _ready() -> void:
 			input_pickable = false
 			area_entered.connect(_on_area_entered)
 	
-	if free_after:
+	if once:
 		triggered.connect(queue_free)

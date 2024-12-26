@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dkr0hckfg0gr2"]
+[gd_scene load_steps=16 format=4 uid="uid://dkr0hckfg0gr2"]
 
 [ext_resource type="Script" path="res://scene/world.gd" id="1_gnqy5"]
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_kcmfw"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c0uw3x77ekrta" path="res://scene/battle/battle.tscn" id="5_pnqya"]
 [ext_resource type="Resource" uid="uid://7uoeaxnis4w0" path="res://resource/character/actor/enemy.tres" id="5_s8fkc"]
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="7_t5tdt"]
+[ext_resource type="Script" path="res://scene/trigger/pickup.gd" id="8_ltew1"]
+[ext_resource type="Script" path="res://resource/item/item.gd" id="9_3r5mu"]
+[ext_resource type="Texture2D" uid="uid://d1u7bkevfqofl" path="res://asset/item/item.png" id="10_eg5hd"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
@@ -29,6 +32,11 @@ sources/0 = SubResource("TileSetAtlasSource_lxvra")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3b55"]
 radius = 4.0
+
+[sub_resource type="Resource" id="Resource_h7yiv"]
+script = ExtResource("9_3r5mu")
+name = "Reg"
+sprite = ExtResource("10_eg5hd")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("tilemap")]
 y_sort_enabled = true
@@ -67,6 +75,12 @@ tile_set = SubResource("TileSet_33rkm")
 [node name="Battle" parent="." node_paths=PackedStringArray("actors") instance=ExtResource("5_pnqya")]
 actors = [NodePath("../Actor")]
 
+[node name="Player" parent="." instance=ExtResource("1_kcmfw")]
+
+[node name="Actor" parent="." instance=ExtResource("2_m2nem")]
+position = Vector2(0, -80)
+data = ExtResource("5_s8fkc")
+
 [node name="FromTest" type="Area2D" parent="."]
 position = Vector2(32, 16)
 script = ExtResource("7_t5tdt")
@@ -77,11 +91,15 @@ mode = 1
 position = Vector2(16, 8)
 shape = SubResource("CircleShape2D_t3b55")
 
-[node name="Player" parent="." instance=ExtResource("1_kcmfw")]
+[node name="Pickup" type="Area2D" parent="."]
+position = Vector2(-80, -40)
+script = ExtResource("8_ltew1")
+item = SubResource("Resource_h7yiv")
+count = 3
+once = true
 
-[node name="Actor" parent="." instance=ExtResource("2_m2nem")]
-position = Vector2(0, -80)
-data = ExtResource("5_s8fkc")
+[node name="Polygon2D" type="CollisionPolygon2D" parent="Pickup"]
+polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 
 [connection signal="pressed" from="Background/Button" to="Background/Button" method="queue_free"]
 [connection signal="pressed" from="Background/Button" to="Battle" method="start"]

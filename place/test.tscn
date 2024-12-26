@@ -63,9 +63,10 @@ position = Vector2(16, -40)
 data = SubResource("Resource_djepr")
 
 [node name="Dialogue" type="Area2D" parent="Character"]
+position = Vector2(32, 16)
 script = ExtResource("6_ucnwy")
 key = "test"
-move_to = Vector2i(0, 2)
 
 [node name="Shape" type="CollisionPolygon2D" parent="Character/Dialogue"]
+position = Vector2(-32, -16)
 polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)

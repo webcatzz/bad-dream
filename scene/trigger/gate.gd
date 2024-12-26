@@ -1,3 +1,4 @@
+@icon("res://asset/editor/gate.svg")
 class_name Gate
 extends Trigger
 

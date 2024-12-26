@@ -1,6 +1,8 @@
 extends Node
 
 var player: Player
+var inventory := Inventory.new()
+
 var battle: Battle
 var grid := IsoGrid.new()
 
