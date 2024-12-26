@@ -2,10 +2,7 @@ extends Node
 
 var player: Player
 var battle: Battle
-
 var grid := IsoGrid.new()
-
-@onready var menu: ItemList = $ContextMenu
 
 
 func change_scene(filename: String, target_gate: String = "") -> void:
