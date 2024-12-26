@@ -67,12 +67,6 @@ tile_set = SubResource("TileSet_33rkm")
 [node name="Battle" parent="." node_paths=PackedStringArray("actors") instance=ExtResource("5_pnqya")]
 actors = [NodePath("../Actor")]
 
-[node name="Player" parent="." instance=ExtResource("1_kcmfw")]
-
-[node name="Actor" parent="." instance=ExtResource("2_m2nem")]
-position = Vector2(0, -80)
-data = ExtResource("5_s8fkc")
-
 [node name="FromTest" type="Area2D" parent="."]
 position = Vector2(32, 16)
 script = ExtResource("7_t5tdt")
@@ -82,6 +76,12 @@ mode = 1
 [node name="Shape" type="CollisionShape2D" parent="FromTest"]
 position = Vector2(16, 8)
 shape = SubResource("CircleShape2D_t3b55")
+
+[node name="Player" parent="." instance=ExtResource("1_kcmfw")]
+
+[node name="Actor" parent="." instance=ExtResource("2_m2nem")]
+position = Vector2(0, -80)
+data = ExtResource("5_s8fkc")
 
 [connection signal="pressed" from="Background/Button" to="Background/Button" method="queue_free"]
 [connection signal="pressed" from="Background/Button" to="Battle" method="start"]

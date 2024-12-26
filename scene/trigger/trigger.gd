@@ -1,3 +1,4 @@
+@icon("res://asset/editor/trigger.svg")
 class_name Trigger
 extends Area2D
 
@@ -9,11 +10,14 @@ enum Mode {
 }
 
 @export var mode: Mode
+@export var move_to: Vector2i
+@export var free_after: bool
 
 
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
 		get_viewport().set_input_as_handled()
+		Game.player.walk_to(global_position + Game.grid.tile_to_point(move_to))
 		triggered.emit()
 
 
@@ -31,9 +35,11 @@ func _ready() -> void:
 	match mode:
 		Mode.CLICK:
 			collision_mask = 0
-			input_event.connect(_on_input_event)
 		
 		Mode.ENTER:
 			collision_layer = 0
 			input_pickable = false
 			area_entered.connect(_on_area_entered)
+	
+	if free_after:
+		triggered.connect(queue_free)

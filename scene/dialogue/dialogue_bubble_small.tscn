@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3hl0kl0qddhb"]
+
+[ext_resource type="Texture2D" uid="uid://bik0q0juj7qve" path="res://asset/ui/dialogue/bubble_small.png" id="1_326jl"]
+[ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="1_sq8jk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdyrv"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+texture = ExtResource("1_326jl")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[node name="DialogueBubbleSmall" type="Label"]
+material = ExtResource("1_sq8jk")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -8.0
+offset_right = 7.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"LabelSmall"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_qdyrv")
+text = "..."

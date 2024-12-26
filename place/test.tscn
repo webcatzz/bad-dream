@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=4 uid="uid://ddr0lnbw185w0"]
+[gd_scene load_steps=13 format=4 uid="uid://ddr0lnbw185w0"]
 
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_7uy1d"]
+[ext_resource type="Script" path="res://scene/world.gd" id="1_66cg4"]
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="2_fepgk"]
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="3_iboy7"]
+[ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scene/character/character.tscn" id="4_4pk3i"]
+[ext_resource type="Script" path="res://resource/character/character_data.gd" id="5_5jlp0"]
+[ext_resource type="Script" path="res://dialogue/test.gd" id="6_ucnwy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
@@ -26,13 +30,22 @@ sources/0 = SubResource("TileSetAtlasSource_dublu")
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ulj5"]
 radius = 4.0
 
-[node name="Test" type="Node2D"]
+[sub_resource type="Resource" id="Resource_djepr"]
+script = ExtResource("5_5jlp0")
+name = "Character"
+color = Color(0.780392, 0.780392, 0.780392, 1)
+sprite_offset = Vector2(0, -24)
+
+[node name="Test" type="Node2D" node_paths=PackedStringArray("tilemap")]
+y_sort_enabled = true
+script = ExtResource("1_66cg4")
+tilemap = NodePath("Tiles")
 
 [node name="Player" parent="." instance=ExtResource("1_7uy1d")]
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAD///7/AAAAAAAAAAD+////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAP7/AAAAAAAAAAD///3/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP3/AAAAAAAAAAABAPz/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAACAPz/AAAAAAAAAAACAPv/AAAAAAAAAAACAPr/AAAAAAAAAAABAPn/AAAAAAAAAAACAPj/AAAAAAAAAAACAPn/AAAAAAAAAAADAPr/AAAAAAAAAAADAPn/AAAAAAAAAAADAPj/AAAAAAAAAAACAPf/AAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAD///7/AAAAAAAAAAD+////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAP7/AAAAAAAAAAD///3/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP3/AAAAAAAAAAABAPz/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAACAPz/AAAAAAAAAAACAPv/AAAAAAAAAAACAPr/AAAAAAAAAAABAPn/AAAAAAAAAAACAPj/AAAAAAAAAAACAPn/AAAAAAAAAAADAPr/AAAAAAAAAAADAPn/AAAAAAAAAAADAPj/AAAAAAAAAAACAPf/AAAAAAAAAAAAAPr/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_i2elu")
 
 [node name="Gate" type="Area2D" parent="."]
@@ -44,3 +57,15 @@ mode = 1
 
 [node name="Shape" type="CollisionShape2D" parent="Gate"]
 shape = SubResource("CircleShape2D_1ulj5")
+
+[node name="Character" parent="." instance=ExtResource("4_4pk3i")]
+position = Vector2(16, -40)
+data = SubResource("Resource_djepr")
+
+[node name="Dialogue" type="Area2D" parent="Character"]
+script = ExtResource("6_ucnwy")
+key = "test"
+move_to = Vector2i(0, 2)
+
+[node name="Shape" type="CollisionPolygon2D" parent="Character/Dialogue"]
+polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
