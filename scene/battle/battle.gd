@@ -79,6 +79,7 @@ func remove_actor(actor: Actor) -> void:
 func input_turn(actor: Actor) -> void:
 	state = State.INPUT_TURN
 	selector.mode = selector.Mode.SKIMMING
+	selector.position = Game.player.position
 	
 	await actor.exhausted
 	

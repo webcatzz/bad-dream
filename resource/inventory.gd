@@ -4,16 +4,12 @@ extends Resource
 var items: Array[Item]
 
 
-func add(item: Item, count: int = 1) -> void:
-	for i: int in count:
-		items.append(item)
-	
-	print("inventory: ", items)
+func add(item: Item) -> void:
+	items.append(item)
 
 
-func remove(item: Item, count: int = 1) -> void:
-	for i: int in count:
-		items.erase(item)
+func remove(item: Item) -> void:
+	items.erase(item)
 
 
 func has(item: Item) -> bool:
@@ -22,3 +18,10 @@ func has(item: Item) -> bool:
 
 func count(item: Item) -> void:
 	return items.count(item)
+
+
+func find(name: String) -> Item:
+	for item: Item in items:
+		if item.name == name:
+			return item
+	return null

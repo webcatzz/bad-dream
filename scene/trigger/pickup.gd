@@ -1,12 +1,12 @@
 class_name Pickup
 extends Trigger
 
-@export var item: Item
-@export var count: int = 12
+@export var items: Array[Item]
 
 
 func pick_up() -> void:
-	Game.inventory.add(item, count)
+	for item: Item in items:
+		Game.inventory.add(item)
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dkr0hckfg0gr2"]
+[gd_scene load_steps=15 format=4 uid="uid://dkr0hckfg0gr2"]
 
 [ext_resource type="Script" path="res://scene/world.gd" id="1_gnqy5"]
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_kcmfw"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="7_t5tdt"]
 [ext_resource type="Script" path="res://scene/trigger/pickup.gd" id="8_ltew1"]
 [ext_resource type="Script" path="res://resource/item/item.gd" id="9_3r5mu"]
-[ext_resource type="Texture2D" uid="uid://d1u7bkevfqofl" path="res://asset/item/item.png" id="10_eg5hd"]
+[ext_resource type="Resource" uid="uid://cdpj5hurujnim" path="res://resource/item/item.tres" id="10_5hhta"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
@@ -32,11 +32,6 @@ sources/0 = SubResource("TileSetAtlasSource_lxvra")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3b55"]
 radius = 4.0
-
-[sub_resource type="Resource" id="Resource_h7yiv"]
-script = ExtResource("9_3r5mu")
-name = "Reg"
-sprite = ExtResource("10_eg5hd")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("tilemap")]
 y_sort_enabled = true
@@ -76,9 +71,15 @@ tile_set = SubResource("TileSet_33rkm")
 actors = [NodePath("../Actor")]
 
 [node name="Player" parent="." instance=ExtResource("1_kcmfw")]
+collision_mask = 1
+input_pickable = true
+monitoring = true
 
 [node name="Actor" parent="." instance=ExtResource("2_m2nem")]
 position = Vector2(0, -80)
+collision_mask = 1
+input_pickable = true
+monitoring = true
 data = ExtResource("5_s8fkc")
 
 [node name="FromTest" type="Area2D" parent="."]
@@ -94,8 +95,7 @@ shape = SubResource("CircleShape2D_t3b55")
 [node name="Pickup" type="Area2D" parent="."]
 position = Vector2(-80, -40)
 script = ExtResource("8_ltew1")
-item = SubResource("Resource_h7yiv")
-count = 3
+items = Array[ExtResource("9_3r5mu")]([ExtResource("10_5hhta"), ExtResource("10_5hhta"), ExtResource("10_5hhta")])
 once = true
 
 [node name="Polygon2D" type="CollisionPolygon2D" parent="Pickup"]

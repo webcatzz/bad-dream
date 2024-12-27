@@ -42,6 +42,9 @@ script = ExtResource("1_66cg4")
 tilemap = NodePath("Tiles")
 
 [node name="Player" parent="." instance=ExtResource("1_7uy1d")]
+collision_mask = 1
+input_pickable = true
+monitoring = true
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true

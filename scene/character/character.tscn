@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cdbwqltwiggwh" path="res://asset/character/default.png" id="2_tyg1n"]
 
 [node name="Character" type="Area2D"]
+collision_mask = 0
+input_pickable = false
+monitoring = false
 script = ExtResource("1_8gmlv")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -11,6 +14,6 @@ texture = ExtResource("2_tyg1n")
 offset = Vector2(0, -24)
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-14, 0, 0, -7, 15, 0, 0, 7)
+polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
