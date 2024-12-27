@@ -1,17 +1,18 @@
 class_name Player
 extends Actor
 
+var listening: bool = true
+
 
 
 # movement
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
-		walk_to(get_global_mouse_position())
-
-
-func set_movable(value: bool) -> void:
-	set_process_unhandled_input(value)
+		if listening:
+			walk_to(get_global_mouse_position())
+		else:
+			get_viewport().set_input_as_handled()
 
 
 

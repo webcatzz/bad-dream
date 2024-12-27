@@ -20,7 +20,7 @@ var state: State
 
 func start() -> void:
 	Game.battle = self
-	Game.player.set_movable(false)
+	Game.player.listening = false
 	
 	actors.append(Game.player)
 	for actor in actors:
@@ -45,7 +45,7 @@ func cycle(idx: int = 0) -> void:
 
 
 func stop() -> void:
-	Game.player.set_movable(true)
+	Game.player.listening = true
 	queue_free()
 
 

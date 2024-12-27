@@ -17,9 +17,9 @@ var current_strand: Node2D
 
 func run() -> void:
 	active = true
-	Game.player.set_movable(false)
+	Game.player.listening = false
 	await call(key)
-	Game.player.set_movable(true)
+	Game.player.listening = true
 	active = false
 	
 	for strand in strands.values():
