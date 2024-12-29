@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f1s8"]
 bg_color = Color(0.105882, 0.105882, 0.105882, 1)
 
-[node name="TraitGraph" type="PanelContainer" node_paths=PackedStringArray("selector", "view_name", "view_sprite", "view_traits", "view_parents")]
+[node name="TraitGraph" type="PanelContainer" node_paths=PackedStringArray("selector", "view_name", "view_sprite", "view_traits", "view_parents", "view_children")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,6 +19,7 @@ view_name = NodePath("VBox/Type/Info/Name")
 view_sprite = NodePath("VBox/Type/Sprite")
 view_traits = NodePath("VBox/Type/Info/Traits")
 view_parents = NodePath("VBox/Type/Info/Parents")
+view_children = NodePath("VBox/Type/Info/Children")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(160, 200)
@@ -78,6 +79,18 @@ theme_type_variation = &"LabelSmall"
 text = "Parents"
 
 [node name="Parents" type="VBoxContainer" parent="VBox/Type/Info"]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="VBox/Type/Info"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="ChildrenLabel" type="Label" parent="VBox/Type/Info"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "Children"
+
+[node name="Children" type="Label" parent="VBox/Type/Info"]
 layout_mode = 2
 
 [connection signal="item_selected" from="VBox/Header/Selector" to="." method="view"]

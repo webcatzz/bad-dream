@@ -5,6 +5,7 @@ extends PanelContainer
 @export var view_sprite: TextureRect
 @export var view_traits: VBoxContainer
 @export var view_parents: VBoxContainer
+@export var view_children: Label
 
 var list: Array[ActorData]
 var data: ActorData
@@ -48,6 +49,9 @@ func view(idx: int) -> void:
 		label.modulate.a = 0.5
 		label.theme_type_variation = &"LabelSmall"
 		view_parents.add_child(label)
+	
+	# children
+	view_children.text = ", ".join(get_type_children_names())
 
 
 func get_trait_control(tr8: Actor.Trait, text: String, view_data: ActorData = null) -> HBoxContainer:
@@ -81,6 +85,19 @@ func get_type_parents() -> Array[Dictionary]:
 		var data: ActorData = get_data_with(tr8)
 		if data: parents.append({"data": data, "trait": tr8})
 	return parents
+
+
+func get_type_children_names() -> Array[String]:
+	var children: Array[String]
+	for trait_set: Array[Actor.Trait] in Actor.types:
+		var child: bool = true
+		for tr8: Actor.Trait in trait_set:
+			if tr8 not in data.traits:
+				child = false
+				break
+		if child:
+			children.append(Actor.get_data(trait_set).name)
+	return children
 
 
 func get_data_with(tr8: Actor.Trait) -> ActorData:
