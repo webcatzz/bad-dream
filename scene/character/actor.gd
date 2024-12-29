@@ -118,6 +118,26 @@ static func _static_init() -> void:
 		types[load("res://resource/character/actor/%s.tres" % actor_name).traits] = actor_name
 
 
+static func get_data(trait_set: Array[Trait]) -> ActorData:
+	return load("res://resource/character/actor/%s.tres" % types[trait_set]) if trait_set in types else null
+
+
+
+# traits
+
+static func get_trait_name(tr8: Trait) -> String:
+	return Trait.keys()[tr8]
+
+
+static func get_trait_icon(tr8: Trait) -> AtlasTexture:
+	var texture := AtlasTexture.new()
+	texture.atlas = load("res://asset/ui/icon/trait.png")
+	texture.region.size.x = 8
+	texture.region.size.y = 8
+	texture.region.position.x = tr8 * 8
+	return texture
+
+
 
 # print
 
