@@ -101,9 +101,9 @@ func menu_info() -> void:
 	
 	for child: Node in $Menu/Info/Traits.get_children():
 		child.queue_free()
-	for type: Trait.Type in actor.traits:
+	for tr8: Actor.Trait in actor.traits:
 		var label: HBoxContainer = preload("res://scene/modifier_label/trait_label.tscn").instantiate()
-		label.write(type)
+		label.write(tr8)
 		$Menu/Info/Traits.add_child(label)
 
 

@@ -18,7 +18,6 @@ config/icon="res://asset/vfx/blossom.png"
 [autoload]
 
 Game="*res://autoload/game/game.tscn"
-Trait="*res://autoload/trait.gd"
 
 [debug]
 

@@ -1,6 +1,6 @@
 extends HBoxContainer
 
 
-func write(type: Trait.Type) -> void:
-	$Icon.texture.region.position.x = type * 8
-	$Name.text = Trait.type_name(type)
+func write(tr8: Actor.Trait) -> void:
+	$Icon.texture.region.position.x = tr8 * 8
+	$Name.text = Actor.Trait.keys()[tr8]

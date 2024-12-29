@@ -6,8 +6,17 @@ signal healed
 signal exhausted
 signal defeated
 
+enum Trait {
+	ANIMA,
+	ONE,
+	TWO,
+	THREE,
+}
+
+static var types: Dictionary = {}
+
 var type: String
-var traits: Array[Trait.Type]
+var traits: Array[Trait]
 
 var friendly: bool
 
@@ -29,11 +38,14 @@ func attack() -> void:
 
 
 func recieve_attack() -> void:
-	remove_trait(traits[-1])
+	remove_trait(traits[-1]) # fix customize idx
 	hurt.emit()
+	
 	if is_defeated():
 		defeated.emit()
 		get_parent().remove_child(self)
+	else:
+		change()
 
 
 
@@ -58,14 +70,16 @@ func follow_path(path: PackedVector2Array) -> void:
 
 # modifiers
 
-func add_trait(type: Trait.Type) -> void:
-	traits.append(type)
-	Trait.add(type, self)
+func add_trait(tr8: Trait) -> void:
+	traits.append(tr8)
+	match tr8:
+		Trait.ANIMA: friendly = true
 
 
-func remove_trait(type: Trait.Type) -> void:
-	traits.erase(type)
-	Trait.remove(type, self)
+func remove_trait(tr8: Trait) -> void:
+	traits.erase(tr8)
+	match tr8:
+		Trait.ANIMA: friendly = false
 
 
 
@@ -73,6 +87,7 @@ func remove_trait(type: Trait.Type) -> void:
 
 func is_defeated() -> bool:
 	return traits.is_empty()
+
 
 func calc_facing(motion: Vector2i) -> Vector2i:
 	var axis: int = motion.abs().max_axis_index()
@@ -84,8 +99,23 @@ func calc_facing(motion: Vector2i) -> Vector2i:
 
 func load_data(data: CharacterData) -> void:
 	super(data)
+	for tr8: Trait in data.traits:
+		add_trait(tr8)
+	
+	if not friendly:
+		type = data.name
+		hurt.connect(change)
+
+
+func change() -> void:
+	data = types[traits]
 	type = data.name
-	for type: Trait.Type in data.traits: add_trait(type)
+	super.load_data(data)
+
+
+static func _static_init() -> void:
+	for actor_name: String in FileAccess.get_file_as_string("res://resource/character/actor/list.txt").split("\n", false):
+		types[load("res://resource/character/actor/%s.tres" % actor_name).traits] = actor_name
 
 
 
