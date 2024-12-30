@@ -1,4 +1,4 @@
 player
-enemy
-enemy2
-enemy3
+larvae
+termite_worker
+termite_soldier

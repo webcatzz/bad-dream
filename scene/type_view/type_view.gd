@@ -4,110 +4,97 @@ extends PanelContainer
 @export var view_name: Label
 @export var view_sprite: TextureRect
 @export var view_traits: VBoxContainer
-@export var view_parents: VBoxContainer
 @export var view_children: Label
 
 var list: Array[ActorType]
-var data: ActorType
+var current_type: ActorType
 
 
 func _ready() -> void:
-	for trait_set: Array[Actor.Trait] in Actor.types:
-		var data: ActorType = Actor.get_data(trait_set)
-		selector.add_item(data.name)
-		list.append(data)
-	view(0)
-
-
-func view(idx: int) -> void:
-	data = list[idx]
-	selector.select(idx)
+	for tset: Array[Actor.Trait] in Actor.types:
+		var type: ActorType = Actor.get_data(tset)
+		list.append(type)
+		selector.add_item(type.name)
 	
-	view_name.text = data.name
-	view_sprite.texture = data.sprite
+	view_idx(0)
+
+
+func view_idx(idx: int) -> void:
+	view(list[idx])
+
+
+func view(type: ActorType) -> void:
+	current_type = type
+	selector.select(list.find(type))
+	
+	view_name.text = type.name
+	view_sprite.texture = type.sprite
 	
 	# clearing
-	for child: Node in view_traits.get_children(): child.queue_free()
-	for child: Node in view_parents.get_children(): child.queue_free()
+	for i: int in range(1, view_traits.get_child_count()): view_traits.get_child(i).queue_free()
 	
 	# traits
-	for tr8: Actor.Trait in data.traits:
-		var data_without: ActorType = get_data_without(tr8)
-		if data_without:
-			view_traits.add_child(get_trait_control(tr8, "↓ " + data_without.name, data_without))
-		else:
-			view_traits.add_child(get_trait_control(tr8, "↓ x"))
+	for tr8: Actor.Trait in type.traits:
+		var hbox := HBoxContainer.new()
+		hbox.add_child(get_trait_control(tr8))
+		
+		var child: ActorType = get_type_without(tr8)
+		if child:
+			hbox.add_child(get_trait_button(child, false))
+		
+		view_traits.add_child(hbox)
 	
 	# parents
-	var parents: Array[Dictionary] = get_type_parents()
-	if parents:
-		for parent: Dictionary in get_type_parents():
-			view_parents.add_child(get_trait_control(parent.trait, "↑ " + parent.data.name, parent.data))
-	else:
-		var label := Label.new()
-		label.text = "-"
-		label.modulate.a = 0.5
-		label.theme_type_variation = &"LabelSmall"
-		view_parents.add_child(label)
+	for tr8: Actor.Trait in Actor.Trait.size():
+		var parent: ActorType = get_type_with(tr8)
+		if parent:
+			var hbox := HBoxContainer.new()
+			hbox.add_child(get_trait_control(tr8))
+			hbox.add_child(get_trait_button(parent, true))
+			hbox.modulate.a = 0.5
+			view_traits.add_child(hbox)
 	
 	# children
-	view_children.text = ", ".join(get_type_children_names())
+	view_children.text = "Children\n" + ", ".join(get_type_children_names())
 
 
-func get_trait_control(tr8: Actor.Trait, text: String, view_data: ActorType = null) -> HBoxContainer:
-	var hbox := HBoxContainer.new()
-	
+
+# controls
+
+func get_trait_control(tr8: Actor.Trait) -> HBoxContainer:
 	var trait_label: Control = load("res://scene/modifier_label/trait_label.tscn").instantiate()
 	trait_label.write(tr8)
 	trait_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hbox.add_child(trait_label)
-	
-	if view_data:
-		var button := Button.new()
-		button.text = text
-		button.pressed.connect(view.bind(list.find(view_data)))
-		hbox.add_child(button)
-	else:
-		var label := Label.new()
-		label.text = text
-		label.modulate.a = 0.5
-		hbox.add_child(label)
-	
-	return hbox
+	return trait_label
+
+
+func get_trait_button(type: ActorType, parent: bool) -> Button:
+	var button := Button.new()
+	button.text = ("↑ " if parent else "↓ ") + type.name
+	button.theme_type_variation = &"ButtonSmall"
+	button.pressed.connect(view.bind(type))
+	return button
 
 
 
 # getters
 
-func get_type_parents() -> Array[Dictionary]:
-	var parents: Array[Dictionary]
-	for tr8: Actor.Trait in Actor.Trait.values():
-		var data: ActorType = get_data_with(tr8)
-		if data: parents.append({"data": data, "trait": tr8})
-	return parents
-
-
 func get_type_children_names() -> Array[String]:
 	var children: Array[String]
-	for trait_set: Array[Actor.Trait] in Actor.types:
-		var child: bool = true
-		for tr8: Actor.Trait in trait_set:
-			if tr8 not in data.traits:
-				child = false
-				break
+	for tr8: Actor.Trait in current_type.traits:
+		var child: ActorType = get_type_without(tr8)
 		if child:
-			children.append(Actor.get_data(trait_set).name)
+			children.append(child.name)
 	return children
 
 
-func get_data_with(tr8: Actor.Trait) -> ActorType:
-	var traits: Array[Actor.Trait] = data.traits.duplicate()
-	traits.append(tr8)
-	traits.sort()
+func get_type_with(tr8: Actor.Trait) -> ActorType:
+	var traits: Array[Actor.Trait] = current_type.traits.duplicate()
+	traits.insert(traits.bsearch(tr8), tr8)
 	return Actor.get_data(traits)
 
 
-func get_data_without(tr8: Actor.Trait) -> ActorType:
-	var traits: Array[Actor.Trait] = data.traits.duplicate()
+func get_type_without(tr8: Actor.Trait) -> ActorType:
+	var traits: Array[Actor.Trait] = current_type.traits.duplicate()
 	traits.erase(tr8)
 	return Actor.get_data(traits)

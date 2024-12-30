@@ -12,6 +12,7 @@ region = Rect2(0, 0, 8, 0)
 script = ExtResource("1_37cbx")
 
 [node name="Icon" type="TextureRect" parent="."]
+visible = false
 layout_mode = 2
 texture = SubResource("AtlasTexture_psiad")
 

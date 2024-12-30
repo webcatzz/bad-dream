@@ -8,9 +8,9 @@ signal defeated
 
 enum Trait {
 	ANIMA,
-	ONE,
-	TWO,
-	THREE,
+	BURROWING,
+	HEALER,
+	BUCKSHOT,
 }
 
 static var types: Dictionary = {}
@@ -114,12 +114,12 @@ func change() -> void:
 
 
 static func _static_init() -> void:
-	for actor_name: String in FileAccess.get_file_as_string("res://resource/character/actor/list.txt").split("\n", false):
-		types[load("res://resource/character/actor/%s.tres" % actor_name).traits] = actor_name
+	for actor_name: String in FileAccess.get_file_as_string("res://resource/actor_type/list.txt").split("\n", false):
+		types[load("res://resource/actor_type/%s.tres" % actor_name).traits] = actor_name
 
 
 static func get_data(trait_set: Array[Trait]) -> ActorType:
-	return load("res://resource/character/actor/%s.tres" % types[trait_set]) if trait_set in types else null
+	return load("res://resource/actor_type/%s.tres" % types[trait_set]) if trait_set in types else null
 
 
 
