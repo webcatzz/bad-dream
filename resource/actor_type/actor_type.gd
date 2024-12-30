@@ -1,4 +1,4 @@
-class_name ActorData
+class_name ActorType
 extends CharacterData
 
 @export var traits: Array[Actor.Trait]

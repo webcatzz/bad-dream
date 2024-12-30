@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="2_fepgk"]
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="3_iboy7"]
 [ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scene/character/character.tscn" id="4_4pk3i"]
-[ext_resource type="Script" path="res://resource/character/character_data.gd" id="5_5jlp0"]
+[ext_resource type="Script" path="res://resource/character_data/character_data.gd" id="5_5jlp0"]
 [ext_resource type="Script" path="res://dialogue/test.gd" id="6_ucnwy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lq6qo"]

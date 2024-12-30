@@ -118,7 +118,7 @@ static func _static_init() -> void:
 		types[load("res://resource/character/actor/%s.tres" % actor_name).traits] = actor_name
 
 
-static func get_data(trait_set: Array[Trait]) -> ActorData:
+static func get_data(trait_set: Array[Trait]) -> ActorType:
 	return load("res://resource/character/actor/%s.tres" % types[trait_set]) if trait_set in types else null
 
 

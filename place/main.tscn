@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="1_o2ws4"]
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scene/character/actor.tscn" id="2_m2nem"]
 [ext_resource type="PackedScene" uid="uid://c0uw3x77ekrta" path="res://scene/battle/battle.tscn" id="5_pnqya"]
-[ext_resource type="Resource" uid="uid://7uoeaxnis4w0" path="res://resource/character/actor/enemy.tres" id="5_s8fkc"]
+[ext_resource type="Resource" uid="uid://7uoeaxnis4w0" path="res://resource/actor_type/enemy.tres" id="5_s8fkc"]
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="7_t5tdt"]
 [ext_resource type="Script" path="res://scene/trigger/pickup.gd" id="8_ltew1"]
 [ext_resource type="Script" path="res://resource/item/item.gd" id="9_3r5mu"]

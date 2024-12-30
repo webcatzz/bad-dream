@@ -7,13 +7,13 @@ extends PanelContainer
 @export var view_parents: VBoxContainer
 @export var view_children: Label
 
-var list: Array[ActorData]
-var data: ActorData
+var list: Array[ActorType]
+var data: ActorType
 
 
 func _ready() -> void:
 	for trait_set: Array[Actor.Trait] in Actor.types:
-		var data: ActorData = Actor.get_data(trait_set)
+		var data: ActorType = Actor.get_data(trait_set)
 		selector.add_item(data.name)
 		list.append(data)
 	view(0)
@@ -32,7 +32,7 @@ func view(idx: int) -> void:
 	
 	# traits
 	for tr8: Actor.Trait in data.traits:
-		var data_without: ActorData = get_data_without(tr8)
+		var data_without: ActorType = get_data_without(tr8)
 		if data_without:
 			view_traits.add_child(get_trait_control(tr8, "↓ " + data_without.name, data_without))
 		else:
@@ -54,7 +54,7 @@ func view(idx: int) -> void:
 	view_children.text = ", ".join(get_type_children_names())
 
 
-func get_trait_control(tr8: Actor.Trait, text: String, view_data: ActorData = null) -> HBoxContainer:
+func get_trait_control(tr8: Actor.Trait, text: String, view_data: ActorType = null) -> HBoxContainer:
 	var hbox := HBoxContainer.new()
 	
 	var trait_label: Control = load("res://scene/modifier_label/trait_label.tscn").instantiate()
@@ -82,7 +82,7 @@ func get_trait_control(tr8: Actor.Trait, text: String, view_data: ActorData = nu
 func get_type_parents() -> Array[Dictionary]:
 	var parents: Array[Dictionary]
 	for tr8: Actor.Trait in Actor.Trait.values():
-		var data: ActorData = get_data_with(tr8)
+		var data: ActorType = get_data_with(tr8)
 		if data: parents.append({"data": data, "trait": tr8})
 	return parents
 
@@ -100,14 +100,14 @@ func get_type_children_names() -> Array[String]:
 	return children
 
 
-func get_data_with(tr8: Actor.Trait) -> ActorData:
+func get_data_with(tr8: Actor.Trait) -> ActorType:
 	var traits: Array[Actor.Trait] = data.traits.duplicate()
 	traits.append(tr8)
 	traits.sort()
 	return Actor.get_data(traits)
 
 
-func get_data_without(tr8: Actor.Trait) -> ActorData:
+func get_data_without(tr8: Actor.Trait) -> ActorType:
 	var traits: Array[Actor.Trait] = data.traits.duplicate()
 	traits.erase(tr8)
 	return Actor.get_data(traits)
