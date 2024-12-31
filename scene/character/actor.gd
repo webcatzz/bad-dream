@@ -25,6 +25,14 @@ var stamina: int = 32
 var max_stamina: int = 32
 
 @onready var animator: AnimationPlayer = $Animator
+@onready var slots: Slots = $Info/Traits
+
+
+
+# turn
+
+func take_turn() -> void:
+	pass
 
 
 
@@ -80,18 +88,8 @@ func remove_trait(tr8: Trait) -> void:
 	traits.erase(tr8)
 	match tr8:
 		Trait.ANIMA: friendly = false
-
-
-
-# checks/calcs
-
-func is_defeated() -> bool:
-	return traits.is_empty()
-
-
-func calc_facing(motion: Vector2i) -> Vector2i:
-	var axis: int = motion.abs().max_axis_index()
-	return (Vector2i.DOWN if axis else Vector2i.RIGHT) * signi(motion[axis])
+	
+	slots.value -= 1
 
 
 
@@ -102,6 +100,9 @@ func load_data(data: CharacterData) -> void:
 	type = data.name
 	for tr8: Trait in data.traits:
 		add_trait(tr8)
+	
+	slots.max_value = traits.size()
+	slots.value = slots.max_value
 	
 	if not friendly:
 		hurt.connect(change)
@@ -136,6 +137,37 @@ static func get_trait_icon(tr8: Trait) -> AtlasTexture:
 	texture.region.size.y = 8
 	texture.region.position.x = tr8 * 8
 	return texture
+
+
+
+# ui
+
+func toggle_name(value: bool) -> void:
+	$Info/Label.visible = value
+
+
+func toggle_traits(value: bool) -> void:
+	$Info/Traits.visible = value
+
+
+
+# checks & calcs
+
+func is_defeated() -> bool:
+	return traits.is_empty()
+
+
+func can_attack(target: Node) -> bool:
+	return target is Actor and target != self
+
+
+func can_stand(point: Vector2) -> bool:
+	return Game.grid.is_point_open(Game.grid.point_to_tile(point)) or Game.grid.at(point) == self
+
+
+func calc_facing(motion: Vector2i) -> Vector2i:
+	var axis: int = motion.abs().max_axis_index()
+	return (Vector2i.DOWN if axis else Vector2i.RIGHT) * signi(motion[axis])
 
 
 

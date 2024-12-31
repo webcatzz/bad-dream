@@ -66,18 +66,12 @@ tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAD///7/AAAAAAAAAAAAAP7/AAAAAAA
 tile_set = SubResource("TileSet_33rkm")
 
 [node name="Player" parent="." instance=ExtResource("1_kcmfw")]
-collision_mask = 1
-input_pickable = true
-monitoring = true
 
 [node name="Battle" parent="." node_paths=PackedStringArray("actors") instance=ExtResource("5_pnqya")]
 actors = [NodePath("../Actor")]
 
 [node name="Actor" parent="." instance=ExtResource("2_m2nem")]
 position = Vector2(0, -80)
-collision_mask = 1
-input_pickable = true
-monitoring = true
 data = ExtResource("5_s8fkc")
 
 [node name="FromTest" type="Area2D" parent="."]

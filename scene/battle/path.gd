@@ -1,79 +1,124 @@
+class_name Path
 extends Node2D
 
 const DOT_SEPARATION: int = 12
 
-@export var points: PackedVector2Array : set = _set_points
-
-var dots: PackedVector2Array
-
-
-func add_point(point: Vector2) -> void:
-	points.append(point)
-	_update_dots()
+var lines: Array[Line]
+var start: Vector2
 
 
-func remove_point() -> void:
-	points.remove_at(points.size() - 1)
-	_update_dots()
-
-
-func get_simple() -> PackedVector2Array:
-	var simple: PackedVector2Array
-	
-	simple.append(points[0])
-	for i: int in range(1, points.size() - 1):
-		if points[i] - points[i - 1] != points[i + 1] - points[i]:
-			simple.append(points[i])
-	simple.append(points[-1])
-	
-	return simple
-
-
-func _set_points(value: PackedVector2Array) -> void:
-	points = value
-	_update_dots()
-
-
-func _update_dots() -> void:
-	dots.clear()
-	var simple: PackedVector2Array = get_simple()
-	
-	for i: int in simple.size() - 1:
-		dots.append(simple[i])
-		
-		var length: int = (simple[i + 1] - simple[i]).length()
-		var count: int = length / DOT_SEPARATION
-		var separation: float
-		
-		if count == 1:
-			separation = length / 2.0
-		else:
-			separation = DOT_SEPARATION - float(DOT_SEPARATION - (length % DOT_SEPARATION)) / count
-		
-		for d: int in count:
-			dots.append(simple[i].move_toward(simple[i + 1], separation * (d + 1)))
-	
+func add(line: Line = null) -> void:
+	if not line:
+		line = Line.new()
+		line.end = start
+	lines.append(line)
 	queue_redraw()
 
 
+func remove(idx: int) -> void:
+	lines.remove_at(idx)
+	queue_redraw()
+
+
+func has(point: Vector2) -> bool:
+	for line: Line in lines:
+		if line.end == point:
+			return true
+	return false
+
+
+func clear() -> void:
+	lines.clear()
+	queue_redraw()
+
+
+
+# setters
+
+func set_end(idx: int, point: Vector2) -> void:
+	lines[idx].end = point
+	queue_redraw()
+
+
+func set_type(idx: int, type: Line.Type) -> void:
+	lines[idx].type = type
+	queue_redraw()
+
+
+
+# drawing
+
 func _draw() -> void:
-	if points:
-		for dot: Vector2 in dots:
-			_draw_dot(dot)
-		_draw_target(points[-1])
+	var from: Vector2 = start
+	for line: Line in lines:
+		_draw_line(line, from)
+		from = line.end
 
 
-func _draw_dot(point: Vector2) -> void:
+func _draw_line(line: Line, from: Vector2) -> void:
+	var length: int = (line.end - from).length()
+	var count: int = length / DOT_SEPARATION
+	var separation: float
+	
+	if count == 1:
+		separation = length / 2.0
+	else:
+		separation = DOT_SEPARATION - float(DOT_SEPARATION - (length % DOT_SEPARATION)) / count
+	
+	var color: Color = Palette.WHITE
+	
+	for d: int in count:
+		_draw_dot(from.move_toward(line.end, separation * (d + 1)), line.color())
+	
+	match line.type:
+		Line.Type.MOVE:
+			_draw_o(line.end, line.color())
+		Line.Type.ATTACK:
+			_draw_x(line.end, line.color())
+
+
+func _draw_dot(point: Vector2, color: Color) -> void:
 	draw_texture_rect_region(
 		preload("res://asset/ui/path.png"),
 		Rect2(point - Vector2(2, 2), Vector2(4, 4)),
-		Rect2(Vector2.ZERO, Vector2(4, 4))
+		Rect2(Vector2.ZERO, Vector2(4, 4)),
+		color
 	)
 
 
-func _draw_target(point: Vector2) -> void:
+func _draw_o(point: Vector2, color: Color) -> void:
 	draw_texture_rect_region(
 		preload("res://asset/ui/path.png"),
 		Rect2(point - Vector2(4, 4), Vector2(8, 8)),
-		Rect2(Vector2(4, 0), Vector2(8, 8))
+		Rect2(Vector2(4, 0), Vector2(8, 8)),
+		color
 	)
+
+
+func _draw_x(point: Vector2, color: Color) -> void:
+	draw_texture_rect_region(
+		preload("res://asset/ui/path.png"),
+		Rect2(point - Vector2(4, 4), Vector2(8, 8)),
+		Rect2(Vector2(12, 0), Vector2(8, 8)),
+		color
+	)
+
+
+
+# line class
+
+class Line:
+	enum Type {
+		MOVE,
+		ATTACK,
+		NONE,
+	}
+	
+	var end: Vector2
+	var type: Type
+	var cursor: bool
+	
+	func color() -> Color:
+		var color: Color = Palette.RED if type == Type.ATTACK else Palette.WHITE
+		if cursor: color.a = 0.5
+		return color

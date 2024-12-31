@@ -16,10 +16,12 @@ enum Mode {
 func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
 		get_viewport().set_input_as_handled()
+		
 		Game.player.walk_to(global_position)
 		Game.player.listening = false
 		await Game.player.nav.navigation_finished
 		Game.player.listening = true
+		
 		triggered.emit()
 
 
@@ -37,6 +39,8 @@ func _ready() -> void:
 	match mode:
 		Mode.CLICK:
 			collision_mask = 0
+			collision_layer = 0b10
+			monitoring = false
 		
 		Mode.ENTER:
 			collision_layer = 0

@@ -1,31 +1,22 @@
 class_name Battle
 extends Node2D
 
-enum State {
-	IDLE,
-	INPUT_TURN,
-	AUTO_TURN,
-}
-
 @export var actors: Array[Actor]
-
-var state: State
-
-@onready var selector: CharacterBody2D = $Selector
 
 
 func start() -> void:
 	Game.battle = self
+	
 	Game.player.listening = false
+	Game.player.stop_walking()
+	
+	get_tree().set_group("gate", "monitoring", false)
 	
 	actors.append(Game.player)
-	for actor in actors:
-		actor.stop_walking()
+	for actor: Actor in actors:
 		actor.position = Game.grid.snap(actor.position)
+		actor.toggle_clickable(true)
 		Game.grid.set_point_solid(actor.tile, true)
-	
-	selector.camera.enabled = true
-	selector.camera.make_current()
 	
 	cycle()
 
@@ -41,7 +32,15 @@ func cycle(idx: int = 0) -> void:
 
 
 func stop() -> void:
+	Game.battle = null
+	
 	Game.player.listening = true
+	
+	get_tree().set_group("gate", "monitoring", true)
+	
+	for actor: Actor in actors:
+		actor.toggle_clickable(false)
+	
 	queue_free()
 
 
@@ -54,37 +53,12 @@ func run_turn(actor: Actor) -> void:
 	if actor.is_defeated():
 		actors.erase(actor)
 		return
-	else:
-		actor.replenish()
 	
-	if actor.friendly:
-		await input_turn(actor)
-	else:
-		await auto_turn(actor)
+	actor.replenish()
+	await actor.take_turn()
 	
 	Game.grid.set_point_solid(actor.tile, true)
 
 
 func remove_actor(actor: Actor) -> void:
 	Game.grid.set_point_solid(actor.tile, false)
-
-
-
-# input turn
-
-func input_turn(actor: Actor) -> void:
-	state = State.INPUT_TURN
-	selector.mode = selector.Mode.SKIMMING
-	selector.position = Game.player.position
-	
-	await actor.exhausted
-	
-	selector.mode = selector.Mode.DISABLED
-
-
-
-# auto turn
-
-func auto_turn(actor: Actor) -> void:
-	state = State.AUTO_TURN
-	await get_tree().create_timer(1).timeout

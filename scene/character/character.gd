@@ -31,6 +31,10 @@ func _process(delta: float):
 		global_position = global_position.move_toward(nav.get_next_path_position(), walk_speed * delta)
 
 
+func toggle_clickable(value: bool) -> void:
+	$Trigger.input_pickable = value
+
+
 
 # data
 
@@ -42,3 +46,5 @@ func load_data(data: CharacterData) -> void:
 	color = data.color
 	sprite.texture = data.sprite
 	sprite.offset = data.sprite_offset
+	$Trigger/Shape.shape.size = data.sprite.get_size()
+	$Trigger/Shape.position = data.sprite_offset
