@@ -65,6 +65,7 @@ func take_turn() -> void:
 
 func _on_turn_hover() -> void:
 	var point: Vector2 = get_global_mouse_position()
+	point = cursor_path.start + (point - cursor_path.start).limit_length(80)
 	cursor_path.set_end(0, point)
 	point = Game.grid.snap(point)
 	
