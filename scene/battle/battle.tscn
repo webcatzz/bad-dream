@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://c0uw3x77ekrta"]
 
 [ext_resource type="Script" path="res://scene/battle/battle.gd" id="1_jis5r"]
-[ext_resource type="Script" path="res://scene/battle/path_drawer.gd" id="2_r01rk"]
 [ext_resource type="Script" path="res://scene/battle/selector.gd" id="3_oefpl"]
+[ext_resource type="Script" path="res://scene/battle/path.gd" id="3_wyi3d"]
 [ext_resource type="Texture2D" uid="uid://n12814sg3wqv" path="res://asset/ui/icon/attack.png" id="4_0t5wa"]
 [ext_resource type="StyleBox" uid="uid://dqoo7bh0xy5de" path="res://asset/ui/gradient_panel.tres" id="4_pxyy7"]
 [ext_resource type="Texture2D" uid="uid://brqjyn8edn8po" path="res://asset/ui/icon/cross.png" id="6_sdxtg"]
@@ -16,11 +16,6 @@ radius = 4.0
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_jis5r")
-
-[node name="Path" type="Node2D" parent="."]
-visible = false
-z_index = 1
-script = ExtResource("2_r01rk")
 
 [node name="Selector" type="CharacterBody2D" parent="."]
 visible = false
@@ -42,6 +37,9 @@ points = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
 closed = true
 width = 1.0
 default_color = Color(1, 1, 1, 0.25)
+
+[node name="Path" type="Node2D" parent="Selector"]
+script = ExtResource("3_wyi3d")
 
 [node name="Camera" type="Camera2D" parent="Selector"]
 enabled = false

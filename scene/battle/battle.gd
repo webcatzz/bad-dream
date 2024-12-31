@@ -1,8 +1,6 @@
 class_name Battle
 extends Node2D
 
-signal clicked(tile: Vector2i)
-
 enum State {
 	IDLE,
 	INPUT_TURN,
@@ -14,8 +12,6 @@ enum State {
 var state: State
 
 @onready var selector: CharacterBody2D = $Selector
-@onready var menu: TabContainer = $Selector/Menu
-@onready var path: Node2D = $Path
 
 
 func start() -> void:

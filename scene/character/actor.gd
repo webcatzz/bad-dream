@@ -99,11 +99,11 @@ func calc_facing(motion: Vector2i) -> Vector2i:
 
 func load_data(data: CharacterData) -> void:
 	super(data)
+	type = data.name
 	for tr8: Trait in data.traits:
 		add_trait(tr8)
 	
 	if not friendly:
-		type = data.name
 		hurt.connect(change)
 
 

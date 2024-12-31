@@ -18,10 +18,10 @@ enum Tab {
 var mode: Mode : set = set_mode
 var input: Vector2
 var actor: Actor
-var history := UndoRedo.new()
 
-@onready var camera: Camera2D = $Camera
 @onready var area: Area2D = $Area
+@onready var path: Node2D = $Path
+@onready var camera: Camera2D = $Camera
 @onready var menu: TabContainer = $Menu
 
 
@@ -42,6 +42,8 @@ func set_mode(value: Mode) -> void:
 		Mode.LOCKED:
 			set_process_unhandled_key_input(false)
 			area.monitoring = false
+			path.points.clear()
+			path.points.append(actor.position)
 			menu_main()
 
 
@@ -163,24 +165,18 @@ func _on_move_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_down"): step(Vector2i(0, 1))
 	elif event.is_action_pressed("ui_left"): step(Vector2i(-1, 0))
 	elif event.is_action_pressed("ui_right"): step(Vector2i(1, 0))
-	elif event.is_action_pressed("backtrack") and history.has_undo(): history.undo()
 	else: return
 	menu.accept_event()
 
 
 func step(motion: Vector2i) -> void:
-	var tile: Vector2i = actor.tile + motion
-	var point: Vector2 = Game.grid.tile_to_point(tile)
+	var point: Vector2 = path.points[-1] + Game.grid.tile_to_point(motion)
+	if not Game.grid.is_point_open(Game.grid.point_to_tile(point)): return
 	
-	if not Game.grid.is_point_open(tile): return
-	
-	history.create_action("move")
-	history.add_undo_property(actor, "position", actor.position)
-	history.add_undo_property(actor, "facing", actor.facing)
-	history.add_undo_property(self, "position", position)
-	history.add_do_method(actor.step.bind(point))
-	history.add_do_property(self, "position", point)
-	history.commit_action()
+	if path.points.size() > 1 and point == path.points[-2]:
+		path.remove_point()
+	else:
+		path.add_point(point)
 
 
 
