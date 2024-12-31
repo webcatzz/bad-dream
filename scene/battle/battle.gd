@@ -22,11 +22,13 @@ func start() -> void:
 
 
 func cycle(idx: int = 0) -> void:
-	for actor: Actor in actors:
-		if idx % actor.turn_frequency == 0:
-			await run_turn(actor)
+	var i: int = 0
+	while i < actors.size():
+		if idx % actors[i].turn_frequency == 0:
+			await run_turn(actors[i])
 		if actors.size() == 1:
 			stop()
+		i += 1
 	
 	cycle(idx + 1)
 

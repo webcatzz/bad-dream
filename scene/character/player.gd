@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("right_click"):
 			_on_turn_right_click()
 		elif event.is_action_pressed("ui_accept"):
-			_on_turn_accept()
+			turn_ended.emit()
 	
 	else:
 		if event.is_action_pressed("click"):
@@ -39,26 +39,40 @@ func take_turn() -> void:
 	path.start = position
 	cursor_path.start = position
 	cursor_path.add()
-	_on_turn_click()
+	_on_turn_hover()
 	
 	listening = true
-	await exhausted
+	await turn_ended
 	listening = false
 	
-	position = path.lines.back().end
-	path.clear()
 	cursor_path.clear()
+	
+	while path.lines:
+		var line: Path.Line = path.lines.pop_front()
+		path.start = line.end
+		path.queue_redraw()
+		
+		position = line.end
+		if line.type == Path.Line.Type.ATTACK:
+			attack(Game.grid.at(line.end))
+		
+		await get_tree().create_timer(0.05).timeout
+	
+	exhausted.emit()
+	
+	path.clear()
 
 
 func _on_turn_hover() -> void:
 	var point: Vector2 = get_global_mouse_position()
-	var target: CollisionObject2D = Game.grid.at(point)
 	cursor_path.set_end(0, point)
 	point = Game.grid.snap(point)
 	
+	#if Game.grid.ray(cursor_path.start, point):
+		#cursor_path.set_type(0, Path.Line.Type.NONE)
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
-	elif can_attack(target):
+	elif can_attack(Game.grid.at(point)):
 		cursor_path.set_type(0, Path.Line.Type.ATTACK)
 	else:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
@@ -82,13 +96,9 @@ func _on_turn_right_click() -> void:
 	for i: int in path.lines.size():
 		if path.lines[i].end == point:
 			path.remove(i)
-			cursor_path.start = path.lines.back().end
+			cursor_path.start = path.lines.back().end if path.lines else path.start
 			_on_turn_hover()
 			break
-
-
-func _on_turn_accept() -> void:
-	exhausted.emit()
 
 
 

@@ -6,6 +6,8 @@ signal healed
 signal exhausted
 signal defeated
 
+signal turn_ended
+
 enum Trait {
 	ANIMA,
 	BURROWING,
@@ -25,7 +27,8 @@ var stamina: int = 32
 var max_stamina: int = 32
 
 @onready var animator: AnimationPlayer = $Animator
-@onready var slots: Slots = $Info/Traits
+@onready var info_name: Label = $Info/Label
+@onready var info_slots: Slots = $Info/Traits
 
 
 
@@ -38,22 +41,16 @@ func take_turn() -> void:
 
 # attacking
 
-func attack() -> void:
-	var target: Actor = Game.grid.get_actor_at(tile + facing)
-	if target:
-		target.recieve_attack()
-	exhausted.emit()
+func attack(target: Actor) -> void:
+	target.recieve_attack()
 
 
-func recieve_attack() -> void:
-	remove_trait(traits[-1]) # fix customize idx
+func recieve_attack(idx: int = -1) -> void:
+	remove_trait(traits[idx])
 	hurt.emit()
 	
 	if is_defeated():
 		defeated.emit()
-		get_parent().remove_child(self)
-	else:
-		change()
 
 
 
@@ -89,7 +86,7 @@ func remove_trait(tr8: Trait) -> void:
 	match tr8:
 		Trait.ANIMA: friendly = false
 	
-	slots.value -= 1
+	info_slots.value -= 1
 
 
 
@@ -101,16 +98,21 @@ func load_data(data: CharacterData) -> void:
 	for tr8: Trait in data.traits:
 		add_trait(tr8)
 	
-	slots.max_value = traits.size()
-	slots.value = slots.max_value
+	info_name.text = type
+	info_slots.max_value = traits.size()
+	info_slots.value = info_slots.max_value
 	
-	if not friendly:
-		hurt.connect(change)
+	#if not friendly:
+		#hurt.connect(change)
 
 
 func change() -> void:
-	data = types[traits]
+	data = get_data(traits)
 	type = data.name
+	
+	info_name.text = type
+	info_slots.value = traits.size()
+	
 	super.load_data(data)
 
 
@@ -140,29 +142,18 @@ static func get_trait_icon(tr8: Trait) -> AtlasTexture:
 
 
 
-# ui
-
-func toggle_name(value: bool) -> void:
-	$Info/Label.visible = value
-
-
-func toggle_traits(value: bool) -> void:
-	$Info/Traits.visible = value
-
-
-
 # checks & calcs
 
 func is_defeated() -> bool:
 	return traits.is_empty()
 
 
-func can_attack(target: Node) -> bool:
-	return target is Actor and target != self
-
-
 func can_stand(point: Vector2) -> bool:
 	return Game.grid.is_point_open(Game.grid.point_to_tile(point)) or Game.grid.at(point) == self
+
+
+func can_attack(target: Node) -> bool:
+	return target is Actor and target != self
 
 
 func calc_facing(motion: Vector2i) -> Vector2i:

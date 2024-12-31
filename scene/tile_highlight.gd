@@ -37,13 +37,13 @@ func collapse() -> void:
 		var b: int = a + 1
 		while b < outlines.size():
 			var merged: Array[PackedVector2Array] = Geometry2D.merge_polygons(outlines[a], outlines[b])
-			if merged.size() != 2: # fix
+			if outlines[a] == merged.front():
+				b += 1
+			else:
 				outlines[a] = merged.pop_front()
 				outlines.remove_at(b)
 				outlines.append_array(merged)
 				merge = true
-			else:
-				b += 1
 		
 		if not merge:
 			a += 1

@@ -108,17 +108,13 @@ func _draw_x(point: Vector2, color: Color) -> void:
 # line class
 
 class Line:
-	enum Type {
-		MOVE,
-		ATTACK,
-		NONE,
-	}
+	enum Type {MOVE, ATTACK, NONE}
 	
 	var end: Vector2
 	var type: Type
-	var cursor: bool
 	
 	func color() -> Color:
-		var color: Color = Palette.RED if type == Type.ATTACK else Palette.WHITE
-		if cursor: color.a = 0.5
-		return color
+		match type:
+			Type.MOVE: return Palette.WHITE
+			Type.ATTACK: return Palette.RED
+			_: return Color(Palette.WHITE, 0.5)

@@ -29,7 +29,11 @@ func snap(point: Vector2) -> Vector2:
 
 
 
-# helper
+# query
+
+func is_point_open(id: Vector2i) -> bool:
+	return is_in_boundsv(id) && not is_point_solid(id)
+
 
 func at(point: Vector2) -> Node2D:
 	var params := PhysicsPointQueryParameters2D.new()
@@ -41,19 +45,9 @@ func at(point: Vector2) -> Node2D:
 	return collisions.front().collider if collisions else null
 
 
-func is_point_open(id: Vector2i) -> bool:
-	return is_in_boundsv(id) && not is_point_solid(id)
-
-
-
-# cursor
-
-func get_cursor_point() -> Vector2:
-	return snap(tilemap.get_global_mouse_position())
-
-
-func get_cursor_tile() -> Vector2i:
-	return point_to_tile(get_cursor_point())
+func ray(from: Vector2, to: Vector2) -> bool:
+	var params := PhysicsRayQueryParameters2D.create(from, to)
+	return true if space.intersect_ray(params) else false
 
 
 

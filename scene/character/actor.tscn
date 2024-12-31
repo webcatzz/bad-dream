@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://df0j5wnvq4v4f"]
+[gd_scene load_steps=37 format=3 uid="uid://df0j5wnvq4v4f"]
 
 [ext_resource type="Script" path="res://scene/character/actor.gd" id="1_4like"]
 [ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scene/character/character.tscn" id="1_ebx46"]
@@ -26,58 +26,34 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DamageParticles:emitting")
+tracks/1/path = NodePath("Sprite:material")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [null]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:material")
+tracks/2/path = NodePath("Sprite:material:shader_parameter/color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
+"update": 0,
+"values": [Color(0.513726, 0.760784, 0.313726, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/3/path = NodePath("HealParticles:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.513726, 0.760784, 0.313726, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("HealParticles:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ExhaustParticles:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -104,22 +80,24 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_ddxcm"]
 resource_name = "exhausted"
 length = 0.001
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ExhaustParticles:emitting")
+tracks/0/path = NodePath("ExhaustParticles")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [{
+"args": [],
+"method": &"restart"
+}]
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fswpc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o8hw"]
 shader = ExtResource("2_getjq")
-shader_parameter/color = Color(0.513726, 0.760784, 0.313726, 0.00746804)
+shader_parameter/color = Color(0.952941, 0.360784, 0.286275, 1)
 
 [sub_resource type="Animation" id="Animation_qr5h1"]
 resource_name = "healed"
@@ -134,7 +112,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [SubResource("ShaderMaterial_fswpc"), null]
+"values": [SubResource("ShaderMaterial_8o8hw"), null]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -161,12 +139,9 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6aj1p"]
-shader = ExtResource("2_getjq")
-shader_parameter/color = Color(0.890196, 0.152941, 0.0627451, 1)
-
 [sub_resource type="Animation" id="Animation_glws8"]
 resource_name = "hurt"
+length = 0.4
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -183,31 +158,41 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DamageParticles:emitting")
+tracks/1/path = NodePath("Sprite:material")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:material")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [SubResource("ShaderMaterial_6aj1p"), null]
+"values": [SubResource("ShaderMaterial_8o8hw"), null]
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_skjht"]
-shader = ExtResource("2_getjq")
-shader_parameter/color = Color(0.6, 0.576471, 0.639216, 1)
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageParticles")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"restart"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.952941, 0.360784, 0.286275, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_hd5je"]
 resource_name = "unfazed"
@@ -220,10 +205,22 @@ tracks/0/path = NodePath("Sprite:material")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_8o8hw"), null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [SubResource("ShaderMaterial_skjht"), null, SubResource("ShaderMaterial_skjht"), null]
+"values": [Color(0.6, 0.576471, 0.639216, 1), Color(0, 0, 0, 0), Color(0.6, 0.576471, 0.639216, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_48ed0"]
@@ -263,7 +260,7 @@ initial_velocity_max = 64.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_jwxih")
-color = Color(0.890196, 0.152941, 0.0627451, 1)
+color = Color(0.952941, 0.360784, 0.286275, 1)
 
 [sub_resource type="Curve" id="Curve_atk7b"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
