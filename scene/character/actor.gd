@@ -35,7 +35,8 @@ var max_stamina: int = 32
 # turn
 
 func take_turn() -> void:
-	pass
+	if Game.battle.grid.at(position + Grid.UP):
+		pass
 
 
 
@@ -61,7 +62,7 @@ func replenish() -> void:
 
 
 func step(point: Vector2) -> void:
-	facing = calc_facing(Game.grid.point_to_tile(point - position))
+	facing = calc_facing(Grid.point_to_tile(point - position))
 	position = point
 
 
@@ -149,7 +150,7 @@ func is_defeated() -> bool:
 
 
 func can_stand(point: Vector2) -> bool:
-	return Game.grid.is_point_open(Game.grid.point_to_tile(point)) or Game.grid.at(point) == self
+	return Game.battle.grid.is_point_open(Grid.point_to_tile(point)) or Game.battle.grid.at(point) == self
 
 
 func can_attack(target: Node) -> bool:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bgaca185fhwjl"]
 
-[ext_resource type="Script" path="res://scene/modifier_label/trait_label.gd" id="1_37cbx"]
+[ext_resource type="Script" path="res://scene/ui/modifier_label/trait_label.gd" id="1_37cbx"]
 [ext_resource type="Texture2D" uid="uid://b2tvv2ssmfswk" path="res://asset/ui/icon/trait.png" id="2_6p1kg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_psiad"]

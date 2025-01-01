@@ -11,7 +11,7 @@ func add_bitshape(bitshape: BitShape) -> void:
 func add_tiles(tiles: Array[Vector2i]) -> void:
 	var points: PackedVector2Array
 	for tile: Vector2i in tiles:
-		points.append(Game.grid.tile_to_point(tile))
+		points.append(Grid.tile_to_point(tile))
 	add_points(points)
 
 

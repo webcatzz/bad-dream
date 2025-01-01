@@ -4,9 +4,10 @@ var player: Player
 var inventory := Inventory.new()
 
 var battle: Battle
-var grid := IsoGrid.new()
 
 var file := ConfigFile.new()
+
+@onready var cursor: Sprite2D = $Overlay/Cursor
 
 
 func change_scene(filename: String, target_gate: String = "") -> void:

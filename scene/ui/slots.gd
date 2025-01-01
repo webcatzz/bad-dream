@@ -13,13 +13,13 @@ func set_values(value: int, max_value: int) -> void:
 	self.value = value
 
 
-func _set_max_value(value: int) -> void:
-	max_value = max(value, 1)
+func _set_value(val: int) -> void:
+	value = clampi(val, 0, max_value)
 	_update()
 
 
-func _set_value(val: int) -> void:
-	value = max(val, 1)
+func _set_max_value(value: int) -> void:
+	max_value = maxi(value, 1)
 	_update()
 
 

@@ -1,12 +1,13 @@
 class_name Player
 extends Actor
 
-signal point_clicked(tile: Vector2i)
-
 var listening: bool = true
+
+var max_stops: int = 3
 
 @onready var path: Path = $Path
 @onready var cursor_path: Node2D = $CursorPath
+
 
 
 # input
@@ -46,6 +47,7 @@ func take_turn() -> void:
 	listening = false
 	
 	cursor_path.clear()
+	cursor_path.show()
 	
 	while path.lines:
 		var line: Path.Line = path.lines.pop_front()
@@ -54,49 +56,54 @@ func take_turn() -> void:
 		
 		position = line.end
 		if line.type == Path.Line.Type.ATTACK:
-			attack(Game.grid.at(line.end))
+			attack(Game.battle.grid.at(line.end))
 		
 		await get_tree().create_timer(0.05).timeout
 	
-	exhausted.emit()
-	
 	path.clear()
+	
+	exhausted.emit()
 
 
 func _on_turn_hover() -> void:
 	var point: Vector2 = get_global_mouse_position()
-	point = cursor_path.start + (point - cursor_path.start).limit_length(80)
-	cursor_path.set_end(0, point)
-	point = Game.grid.snap(point)
+	point = cursor_path.start + (point - cursor_path.start).limit_length(80) * Vector2(1, 0.5)
 	
-	#if Game.grid.ray(cursor_path.start, point):
+	cursor_path.set_end(0, point)
+	point = Grid.snap(point)
+	
+	#if Game.battle.grid.ray(cursor_path.start, point):
 		#cursor_path.set_type(0, Path.Line.Type.NONE)
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
-	elif can_attack(Game.grid.at(point)):
+	elif can_attack(Game.battle.grid.at(point)):
 		cursor_path.set_type(0, Path.Line.Type.ATTACK)
 	else:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 
 
 func _on_turn_click() -> void:
+	if not cursor_path.visible:
+		return
 	if cursor_path.lines.front().type == Path.Line.Type.NONE:
 		return
 	
 	var line: Path.Line = cursor_path.lines.pop_back()
-	line.end = Game.grid.snap(line.end)
+	line.end = Grid.snap(line.end)
 	path.add(line)
 	
+	cursor_path.visible = path.lines.size() < max_stops
 	cursor_path.start = line.end
 	cursor_path.add()
 	_on_turn_hover()
 
 
 func _on_turn_right_click() -> void:
-	var point: Vector2 = Game.grid.snap(get_global_mouse_position())
+	var point: Vector2 = Grid.snap(get_global_mouse_position())
 	for i: int in path.lines.size():
 		if path.lines[i].end == point:
 			path.remove(i)
+			cursor_path.visible = path.lines.size() < max_stops
 			cursor_path.start = path.lines.back().end if path.lines else path.start
 			_on_turn_hover()
 			break

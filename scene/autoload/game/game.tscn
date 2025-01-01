@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://chcyh1mjdmeyb"]
+[gd_scene load_steps=6 format=3 uid="uid://chcyh1mjdmeyb"]
 
 [ext_resource type="Script" path="res://scene/autoload/game/game.gd" id="1_q1koo"]
+[ext_resource type="Texture2D" uid="uid://bgpsvamdfd1sl" path="res://asset/cursor.png" id="2_wrnwf"]
+[ext_resource type="Script" path="res://scene/autoload/game/cursor.gd" id="3_c6hcx"]
 
 [sub_resource type="Gradient" id="Gradient_i3g1d"]
 interpolation_mode = 2
@@ -21,7 +23,7 @@ script = ExtResource("1_q1koo")
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="Overlay"]
+[node name="Vignette" type="TextureRect" parent="Overlay"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,3 +31,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_jf633")
+
+[node name="Cursor" type="Sprite2D" parent="Overlay"]
+texture = ExtResource("2_wrnwf")
+centered = false
+script = ExtResource("3_c6hcx")

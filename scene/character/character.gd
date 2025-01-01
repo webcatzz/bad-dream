@@ -8,8 +8,8 @@ var walk_speed: float = 96
 
 @export var facing := Vector2i(0, 1)
 var tile: Vector2i:
-	set(value): position = Game.grid.tile_to_point(tile)
-	get: return Game.grid.point_to_tile(position)
+	set(value): position = Grid.tile_to_point(tile)
+	get: return Grid.point_to_tile(position)
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var nav: NavigationAgent2D = $Nav
@@ -31,7 +31,7 @@ func _process(delta: float):
 		global_position = global_position.move_toward(nav.get_next_path_position(), walk_speed * delta)
 
 
-func toggle_clickable(value: bool) -> void:
+func set_clickable(value: bool) -> void:
 	$Trigger.input_pickable = value
 
 

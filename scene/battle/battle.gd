@@ -2,6 +2,9 @@ class_name Battle
 extends Node2D
 
 @export var actors: Array[Actor]
+@export var tilemap: TileMapLayer
+
+var grid: Grid
 
 
 func start() -> void:
@@ -12,11 +15,11 @@ func start() -> void:
 	
 	get_tree().set_group("gate", "monitoring", false)
 	
+	grid = Grid.new(tilemap)
+	
 	actors.append(Game.player)
 	for actor: Actor in actors:
-		actor.position = Game.grid.snap(actor.position)
-		actor.toggle_clickable(true)
-		Game.grid.set_point_solid(actor.tile, true)
+		add_actor(actor, false)
 	
 	cycle()
 
@@ -28,6 +31,7 @@ func cycle(idx: int = 0) -> void:
 			await run_turn(actors[i])
 		if actors.size() == 1:
 			stop()
+			return
 		i += 1
 	
 	cycle(idx + 1)
@@ -41,7 +45,7 @@ func stop() -> void:
 	get_tree().set_group("gate", "monitoring", true)
 	
 	for actor: Actor in actors:
-		actor.toggle_clickable(false)
+		actor.set_clickable(false)
 	
 	queue_free()
 
@@ -50,17 +54,32 @@ func stop() -> void:
 # turns
 
 func run_turn(actor: Actor) -> void:
-	Game.grid.set_point_solid(actor.tile, false)
-	
 	if actor.is_defeated():
-		actors.erase(actor)
+		remove_actor(actor)
 		return
+	
+	grid.set_point_solid(actor.tile, false)
 	
 	actor.replenish()
 	await actor.take_turn()
 	
-	Game.grid.set_point_solid(actor.tile, true)
+	grid.set_point_solid(actor.tile, true)
+
+
+
+# adding / removing
+
+func add_actor(actor: Actor, list: bool = true) -> void:
+	if list:
+		actors.append(actor)
+	
+	actor.position = Grid.snap(actor.position)
+	actor.set_clickable(true)
+	grid.set_point_solid(actor.tile, true)
 
 
 func remove_actor(actor: Actor) -> void:
-	Game.grid.set_point_solid(actor.tile, false)
+	actors.erase(actor)
+	
+	actor.set_clickable(false)
+	grid.set_point_solid(actor.tile, false)

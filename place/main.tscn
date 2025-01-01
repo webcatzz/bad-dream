@@ -1,6 +1,5 @@
-[gd_scene load_steps=15 format=4 uid="uid://dkr0hckfg0gr2"]
+[gd_scene load_steps=14 format=4 uid="uid://dkr0hckfg0gr2"]
 
-[ext_resource type="Script" path="res://scene/world.gd" id="1_gnqy5"]
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_kcmfw"]
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="1_o2ws4"]
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scene/character/actor.tscn" id="2_m2nem"]
@@ -33,10 +32,8 @@ sources/0 = SubResource("TileSetAtlasSource_lxvra")
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3b55"]
 radius = 4.0
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("tilemap")]
+[node name="Main" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_gnqy5")
-tilemap = NodePath("Tiles")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -67,8 +64,9 @@ tile_set = SubResource("TileSet_33rkm")
 
 [node name="Player" parent="." instance=ExtResource("1_kcmfw")]
 
-[node name="Battle" parent="." node_paths=PackedStringArray("actors") instance=ExtResource("5_pnqya")]
+[node name="Battle" parent="." node_paths=PackedStringArray("actors", "tilemap") instance=ExtResource("5_pnqya")]
 actors = [NodePath("../Actor")]
+tilemap = NodePath("../Tiles")
 
 [node name="Actor" parent="." instance=ExtResource("2_m2nem")]
 position = Vector2(0, -80)

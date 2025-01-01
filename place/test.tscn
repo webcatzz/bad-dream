@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=4 uid="uid://ddr0lnbw185w0"]
+[gd_scene load_steps=12 format=4 uid="uid://ddr0lnbw185w0"]
 
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_7uy1d"]
-[ext_resource type="Script" path="res://scene/world.gd" id="1_66cg4"]
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="2_fepgk"]
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="3_iboy7"]
 [ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scene/character/character.tscn" id="4_4pk3i"]
@@ -36,10 +35,8 @@ name = "Character"
 color = Color(0.780392, 0.780392, 0.780392, 1)
 sprite_offset = Vector2(0, -16)
 
-[node name="Test" type="Node2D" node_paths=PackedStringArray("tilemap")]
+[node name="Test" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_66cg4")
-tilemap = NodePath("Tiles")
 
 [node name="Player" parent="." instance=ExtResource("1_7uy1d")]
 collision_mask = 1

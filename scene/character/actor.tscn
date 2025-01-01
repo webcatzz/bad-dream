@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scene/character/actor.gd" id="1_4like"]
 [ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scene/character/character.tscn" id="1_ebx46"]
 [ext_resource type="Shader" path="res://asset/vfx/color.gdshader" id="2_getjq"]
-[ext_resource type="Script" path="res://scene/slots.gd" id="3_crq80"]
+[ext_resource type="Script" path="res://scene/ui/slots.gd" id="3_crq80"]
 [ext_resource type="Texture2D" uid="uid://c0qcsp46444ec" path="res://asset/vfx/blossom.png" id="3_itp2t"]
 [ext_resource type="Texture2D" uid="uid://bc64g7tjnblf4" path="res://asset/vfx/circle-outline.png" id="4_8otk2"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="5_ggljo"]
