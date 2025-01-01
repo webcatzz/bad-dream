@@ -29,7 +29,7 @@ func run() -> void:
 
 func set_speaker(speaker: Character) -> void:
 	if speaker not in strands:
-		var strand: Node2D = load("res://scene/dialogue/dialogue_strand.tscn").instantiate()
+		var strand: Node2D = load("res://scene/ui/dialogue/dialogue_strand.tscn").instantiate()
 		strand.modulate = speaker.color
 		speaker.add_child(strand)
 		strands[speaker] = strand

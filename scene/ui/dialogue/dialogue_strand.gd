@@ -16,7 +16,7 @@ func add(text: String) -> void:
 
 
 func add_to_log(text: String) -> void:
-	var bubble: Label = load("res://scene/dialogue/dialogue_bubble_small.tscn").instantiate()
+	var bubble: Label = load("res://scene/ui/dialogue/dialogue_bubble_small.tscn").instantiate()
 	bubble.text = text
 	log.append(bubble)
 	add_child(bubble)

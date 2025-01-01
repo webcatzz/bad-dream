@@ -62,7 +62,7 @@ func view(type: ActorType) -> void:
 # controls
 
 func get_trait_control(tr8: Actor.Trait) -> HBoxContainer:
-	var trait_label: Control = load("res://scene/modifier_label/trait_label.tscn").instantiate()
+	var trait_label: Control = load("res://scene/ui/modifier_label/trait_label.tscn").instantiate()
 	trait_label.write(tr8)
 	trait_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return trait_label

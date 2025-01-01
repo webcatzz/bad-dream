@@ -29,6 +29,7 @@ func cycle(idx: int = 0) -> void:
 	while i < actors.size():
 		if idx % actors[i].turn_frequency == 0:
 			await run_turn(actors[i])
+			await get_tree().create_timer(0.5).timeout
 		if actors.size() == 1:
 			stop()
 			return
@@ -60,7 +61,6 @@ func run_turn(actor: Actor) -> void:
 	
 	grid.set_point_solid(actor.tile, false)
 	
-	actor.replenish()
 	await actor.take_turn()
 	
 	grid.set_point_solid(actor.tile, true)
