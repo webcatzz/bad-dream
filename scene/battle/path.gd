@@ -45,6 +45,11 @@ func set_type(idx: int, type: Line.Type) -> void:
 	queue_redraw()
 
 
+func set_target(idx: int, target: Actor) -> void:
+	lines[idx].target = target
+	queue_redraw()
+
+
 
 # drawing
 
@@ -74,7 +79,8 @@ func _draw_line(line: Line, from: Vector2) -> void:
 		Line.Type.MOVE:
 			_draw_o(line.end, line.color())
 		Line.Type.ATTACK:
-			_draw_x(line.end, line.color())
+			_draw_x(line.target.position, line.color())
+			_draw_o(line.end, line.color())
 
 
 func _draw_dot(point: Vector2, color: Color) -> void:
@@ -112,6 +118,8 @@ class Line:
 	
 	var end: Vector2
 	var type: Type
+	
+	var target: Actor
 	
 	func color() -> Color:
 		match type:

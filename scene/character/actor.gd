@@ -1,11 +1,6 @@
 class_name Actor
 extends Character
 
-signal hurt
-signal healed
-signal exhausted
-signal defeated
-
 signal turn_ended
 
 enum Trait {
@@ -48,10 +43,11 @@ func attack(target: Actor) -> void:
 
 func recieve_attack(idx: int = -1) -> void:
 	remove_trait(traits[idx])
-	hurt.emit()
+	
+	animator.play("hurt")
 	
 	if is_defeated():
-		defeated.emit()
+		pass
 	elif not friendly:
 		change()
 
@@ -61,18 +57,6 @@ func recieve_attack(idx: int = -1) -> void:
 
 func replenish() -> void:
 	stamina = max_stamina
-
-
-func step(point: Vector2) -> void:
-	facing = calc_facing(Grid.point_to_tile(point - position))
-	position = point
-
-
-func follow_path(path: PackedVector2Array) -> void:
-	for point: Vector2 in path:
-		step(point)
-		stamina -= 1
-		await get_tree().create_timer(0.1).timeout
 
 
 
@@ -156,9 +140,12 @@ func can_attack(target: Node) -> bool:
 	return target is Actor and target != self
 
 
-func calc_facing(motion: Vector2i) -> Vector2i:
-	var axis: int = motion.abs().max_axis_index()
-	return (Vector2i.DOWN if axis else Vector2i.RIGHT) * signi(motion[axis])
+func calc_facing(motion: Vector2) -> Vector2:
+	var angle: float = motion.angle()
+	if angle > 0:
+		return Grid.LEFT if angle > PI/2 else Grid.DOWN
+	else:
+		return Grid.UP if angle < -PI/2 else Grid.RIGHT
 
 
 

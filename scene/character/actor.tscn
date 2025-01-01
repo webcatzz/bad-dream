@@ -97,7 +97,7 @@ tracks/0/keys = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8o8hw"]
 shader = ExtResource("2_getjq")
-shader_parameter/color = Color(0.952941, 0.360784, 0.286275, 1)
+shader_parameter/color = Color(0.513726, 0.760784, 0.313726, 1)
 
 [sub_resource type="Animation" id="Animation_qr5h1"]
 resource_name = "healed"
@@ -416,9 +416,6 @@ one_shot = true
 explosiveness = 0.9
 local_coords = true
 
-[connection signal="exhausted" from="." to="Animator" method="play" binds= [&"exhausted"]]
-[connection signal="healed" from="." to="Animator" method="play" binds= [&"healed"]]
-[connection signal="hurt" from="." to="Animator" method="play" binds= [&"hurt"]]
 [connection signal="mouse_entered" from="Trigger" to="Info/Label" method="show"]
 [connection signal="mouse_entered" from="Trigger" to="Info/Traits" method="show"]
 [connection signal="mouse_exited" from="Trigger" to="Info/Label" method="hide"]

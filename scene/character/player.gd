@@ -56,36 +56,36 @@ func take_turn() -> void:
 		
 		position = line.end
 		if line.type == Path.Line.Type.ATTACK:
-			attack(Game.battle.grid.at(line.end))
+			attack(line.target)
 		
 		await get_tree().create_timer(0.05).timeout
 	
 	path.clear()
 	
-	exhausted.emit()
+	animator.play("exhausted")
 
 
 func _on_turn_hover() -> void:
 	var point: Vector2 = get_global_mouse_position()
-	point = cursor_path.start + (point - cursor_path.start).limit_length(80) * Vector2(1, 0.5)
+	#point = cursor_path.start + (point - cursor_path.start).limit_length(80) * Vector2(1, 0.5)
 	
 	cursor_path.set_end(0, point)
 	point = Grid.snap(point)
 	
-	#if Game.battle.grid.ray(cursor_path.start, point):
-		#cursor_path.set_type(0, Path.Line.Type.NONE)
+	if Game.battle.grid.ray(cursor_path.start, point):
+		cursor_path.set_type(0, Path.Line.Type.NONE)
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
 	elif can_attack(Game.battle.grid.at(point)):
 		cursor_path.set_type(0, Path.Line.Type.ATTACK)
+		cursor_path.set_end(0, point - calc_facing(point - cursor_path.start))
+		cursor_path.set_target(0, Game.battle.grid.at(point))
 	else:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 
 
 func _on_turn_click() -> void:
-	if not cursor_path.visible:
-		return
-	if cursor_path.lines.front().type == Path.Line.Type.NONE:
+	if not cursor_path.visible or cursor_path.lines.front().type == Path.Line.Type.NONE:
 		return
 	
 	var line: Path.Line = cursor_path.lines.pop_back()
@@ -101,7 +101,7 @@ func _on_turn_click() -> void:
 func _on_turn_right_click() -> void:
 	var point: Vector2 = Grid.snap(get_global_mouse_position())
 	for i: int in path.lines.size():
-		if path.lines[i].end == point:
+		if path.lines[i].end == point or path.lines[i].type == Path.Line.Type.ATTACK and path.lines[i].target.position == point:
 			path.remove(i)
 			cursor_path.visible = path.lines.size() < max_stops
 			cursor_path.start = path.lines.back().end if path.lines else path.start
