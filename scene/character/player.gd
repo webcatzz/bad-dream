@@ -4,6 +4,7 @@ extends Actor
 var listening: bool = true
 
 var max_stops: int = 3
+var max_stop_length: int = 80
 
 @onready var path: Path = $Path
 @onready var cursor_path: Node2D = $CursorPath
@@ -67,7 +68,7 @@ func take_turn() -> void:
 
 func _on_turn_hover() -> void:
 	var point: Vector2 = get_global_mouse_position()
-	#point = cursor_path.start + (point - cursor_path.start).limit_length(80) * Vector2(1, 0.5)
+	point = cursor_path.start + (point - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.5)
 	
 	cursor_path.set_end(0, point)
 	point = Grid.snap(point)
