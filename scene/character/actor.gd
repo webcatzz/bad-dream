@@ -52,6 +52,8 @@ func recieve_attack(idx: int = -1) -> void:
 	
 	if is_defeated():
 		defeated.emit()
+	elif not friendly:
+		change()
 
 
 
@@ -102,9 +104,6 @@ func load_data(data: CharacterData) -> void:
 	info_name.text = type
 	info_slots.max_value = traits.size()
 	info_slots.value = info_slots.max_value
-	
-	#if not friendly:
-		#hurt.connect(change)
 
 
 func change() -> void:
