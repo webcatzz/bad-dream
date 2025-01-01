@@ -100,13 +100,16 @@ func _on_turn_click() -> void:
 
 func _on_turn_right_click() -> void:
 	var point: Vector2 = Grid.snap(get_global_mouse_position())
-	for i: int in path.lines.size():
-		if path.lines[i].end == point or path.lines[i].type == Path.Line.Type.ATTACK and path.lines[i].target.position == point:
-			path.remove(i)
-			cursor_path.visible = path.lines.size() < max_stops
-			cursor_path.start = path.lines.back().end if path.lines else path.start
-			_on_turn_hover()
+	
+	while path.lines:
+		var line: Path.Line = path.lines.pop_back()
+		if line.end == point or line.type == line.Type.ATTACK and line.target.position == point:
 			break
+	
+	path.queue_redraw()
+	cursor_path.show()
+	cursor_path.start = path.lines.back().end if path.lines else path.start
+	_on_turn_hover()
 
 
 
