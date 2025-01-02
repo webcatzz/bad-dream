@@ -41,8 +41,9 @@ func attack(target: Actor) -> void:
 
 
 func recieve_attack(idx: int = -1) -> void:
-	remove_trait(traits[idx])
+	if is_defeated(): return
 	
+	remove_trait(traits[idx])
 	animator.play("hurt")
 	
 	if is_defeated():
