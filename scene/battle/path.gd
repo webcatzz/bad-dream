@@ -75,12 +75,10 @@ func _draw_line(line: Line, from: Vector2) -> void:
 	for d: int in count:
 		_draw_dot(from.move_toward(line.end, separation * (d + 1)), line.color())
 	
-	match line.type:
-		Line.Type.MOVE:
-			_draw_o(line.end, line.color())
-		Line.Type.ATTACK:
-			_draw_x(line.target.position, line.color())
-			_draw_o(line.end, line.color())
+	if line.type != Line.Type.NONE:
+		_draw_o(line.end, line.color())
+	if line.target:
+		_draw_x(line.target.position, line.color())
 
 
 func _draw_dot(point: Vector2, color: Color) -> void:

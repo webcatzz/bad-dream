@@ -71,6 +71,7 @@ func _on_turn_hover() -> void:
 	point = cursor_path.start + (point - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.5)
 	
 	cursor_path.set_end(0, point)
+	cursor_path.set_target(0, null)
 	point = Grid.snap(point)
 	
 	if Game.battle.grid.ray(cursor_path.start, point):
@@ -78,9 +79,10 @@ func _on_turn_hover() -> void:
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
 	elif can_attack(Game.battle.grid.at(point)):
-		cursor_path.set_type(0, Path.Line.Type.ATTACK)
-		cursor_path.set_end(0, point - calc_facing(point - cursor_path.start))
+		var stand_point: Vector2 = point - calc_facing(point - cursor_path.start)
+		cursor_path.set_end(0, stand_point)
 		cursor_path.set_target(0, Game.battle.grid.at(point))
+		cursor_path.set_type(0, Path.Line.Type.ATTACK if can_stand(stand_point) else Path.Line.Type.NONE)
 	else:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 
