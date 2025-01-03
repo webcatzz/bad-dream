@@ -1,14 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://fjmjaf0ynqn4"]
+[gd_scene load_steps=8 format=3 uid="uid://fjmjaf0ynqn4"]
 
 [ext_resource type="Script" path="res://scene/character/player.gd" id="1_gtdxj"]
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scene/character/actor.tscn" id="1_o3hdy"]
 [ext_resource type="Resource" uid="uid://c7xqd3d3ayyka" path="res://resource/actor_type/player.tres" id="3_dfecu"]
 [ext_resource type="Script" path="res://scene/battle/path.gd" id="4_3u8x8"]
 [ext_resource type="PackedScene" uid="uid://tpq1kjad2yna" path="res://scene/camera/camera.tscn" id="4_eojrk"]
+[ext_resource type="Shader" path="res://asset/vfx/color.gdshader" id="4_rseu3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wufy7"]
+resource_local_to_scene = true
+shader = ExtResource("4_rseu3")
+shader_parameter/color = Color(0, 0, 0, 0)
 
 [node name="Player" instance=ExtResource("1_o3hdy")]
 script = ExtResource("1_gtdxj")
 data = ExtResource("3_dfecu")
+
+[node name="Sprite" parent="." index="2"]
+material = SubResource("ShaderMaterial_wufy7")
 
 [node name="CursorPath" type="Node2D" parent="." index="4"]
 modulate = Color(1, 1, 1, 0.5)

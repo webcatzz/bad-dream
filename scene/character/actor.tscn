@@ -9,6 +9,11 @@
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://asset/vfx/dither.tres" id="5_ggljo"]
 [ext_resource type="Texture2D" uid="uid://nvqyfrrgab6t" path="res://asset/vfx/circle.png" id="6_ga40n"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o8hw"]
+resource_local_to_scene = true
+shader = ExtResource("2_getjq")
+shader_parameter/color = Color(0, 0, 0, 0)
+
 [sub_resource type="Animation" id="Animation_0f4vx"]
 length = 0.001
 tracks/0/type = "value"
@@ -26,34 +31,22 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:material")
+tracks/1/path = NodePath("Sprite:material:shader_parameter/color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/2/path = NodePath("HealParticles:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.513726, 0.760784, 0.313726, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("HealParticles:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -95,44 +88,28 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o8hw"]
-shader = ExtResource("2_getjq")
-shader_parameter/color = Color(0.952941, 0.360784, 0.286275, 1)
-
 [sub_resource type="Animation" id="Animation_qr5h1"]
 resource_name = "healed"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:material")
+tracks/0/path = NodePath("Sprite:material:shader_parameter/color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [SubResource("ShaderMaterial_8o8hw"), null]
+"update": 0,
+"values": [Color(0.513726, 0.760784, 0.313726, 1), Color(0.513726, 0.760784, 0.313726, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/1/path = NodePath("HealParticles:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.513726, 0.760784, 0.313726, 1), Color(0.513726, 0.760784, 0.313726, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HealParticles:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -155,25 +132,13 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2(2, 0), Vector2(-2, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(0, 0)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:material")
+tracks/1/path = NodePath("DamageParticles")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [SubResource("ShaderMaterial_8o8hw"), null]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DamageParticles")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -181,17 +146,17 @@ tracks/2/keys = {
 "method": &"restart"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite:material:shader_parameter/color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.952941, 0.360784, 0.286275, 1)]
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:material:shader_parameter/color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.952941, 0.360784, 0.286275, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_hd5je"]
@@ -201,22 +166,10 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:material")
+tracks/0/path = NodePath("Sprite:material:shader_parameter/color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [SubResource("ShaderMaterial_8o8hw"), null]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:material:shader_parameter/color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
@@ -338,11 +291,14 @@ scale_curve = SubResource("CurveTexture_bcx5r")
 color = Color(0.6, 0.576471, 0.639216, 1)
 alpha_curve = SubResource("CurveTexture_oad2g")
 
-[node name="Actor" instance=ExtResource("1_ebx46")]
+[node name="Actor" groups=["actor"] instance=ExtResource("1_ebx46")]
 script = ExtResource("1_4like")
 
 [node name="Trigger" parent="." index="1"]
 input_pickable = false
+
+[node name="Sprite" parent="." index="2"]
+material = SubResource("ShaderMaterial_8o8hw")
 
 [node name="Info" type="VBoxContainer" parent="." index="4"]
 z_index = 1

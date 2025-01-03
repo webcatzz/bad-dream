@@ -65,10 +65,10 @@ tile_set = SubResource("TileSet_33rkm")
 [node name="Player" parent="." instance=ExtResource("1_kcmfw")]
 
 [node name="Battle" parent="." node_paths=PackedStringArray("actors", "tilemap") instance=ExtResource("5_pnqya")]
-actors = [NodePath("../Actor")]
+actors = [NodePath("../Termite")]
 tilemap = NodePath("../Tiles")
 
-[node name="Actor" parent="." instance=ExtResource("2_m2nem")]
+[node name="Termite" parent="." instance=ExtResource("2_m2nem")]
 position = Vector2(0, -80)
 data = ExtResource("5_s8fkc")
 

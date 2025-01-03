@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cdpj5hurujnim"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cdpj5hurujnim"]
 
 [ext_resource type="Script" path="res://resource/item/item.gd" id="1_1t5bi"]
 [ext_resource type="Texture2D" uid="uid://d1u7bkevfqofl" path="res://asset/item/item.png" id="2_wik12"]
+
+[sub_resource type="BitMap" id="BitMap_4st55"]
+data = {
+"data": PackedByteArray(1),
+"size": Vector2i(1, 1)
+}
 
 [resource]
 script = ExtResource("1_1t5bi")
 name = "Reg"
 sprite = ExtResource("2_wik12")
+shape = SubResource("BitMap_4st55")

@@ -17,7 +17,7 @@ func start() -> void:
 	
 	grid = Grid.new(tilemap)
 	
-	actors.append(Game.player)
+	actors.push_front(Game.player)
 	for actor: Actor in actors:
 		add_actor(actor, false)
 	
@@ -62,6 +62,7 @@ func run_turn(actor: Actor) -> void:
 	grid.set_point_solid(actor.tile, false)
 	
 	await actor.take_turn()
+	actor.refresh()
 	
 	grid.set_point_solid(actor.tile, true)
 
@@ -75,6 +76,7 @@ func add_actor(actor: Actor, list: bool = true) -> void:
 	
 	actor.position = Grid.snap(actor.position)
 	actor.set_clickable(true)
+	actor.refresh()
 	grid.set_point_solid(actor.tile, true)
 
 

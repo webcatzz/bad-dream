@@ -19,7 +19,8 @@ var friendly: bool
 
 var turn_frequency: int = 4
 
-var ai: RefCounted
+var ai: EnemyAI
+var can_react: bool
 
 @onready var animator: AnimationPlayer = $Animator
 @onready var info_name: Label = $Info/Label
@@ -27,29 +28,45 @@ var ai: RefCounted
 
 
 
-# turn
+# battle
 
 func take_turn() -> void:
 	await ai.act()
 
 
+func move(point: Vector2) -> void:
+	call_adjacency(false)
+	position = point
+	call_adjacency(true)
 
-# attacking
+
+func call_adjacency(value: bool) -> void:
+	for offset: Vector2 in [Grid.UP, Grid.DOWN, Grid.LEFT, Grid.RIGHT]:
+		var obj: CollisionObject2D = Game.battle.grid.at(position + offset)
+		if obj is Actor and obj.ai:
+			obj.ai.on_actor_adjacency_changed(self, value)
+
 
 func attack(target: Actor) -> void:
 	target.recieve_attack()
 
 
-func recieve_attack(idx: int = -1) -> void:
+func recieve_attack(trait_idx: int = -1) -> void:
 	if is_defeated(): return
 	
-	remove_trait(traits[idx])
+	remove_trait(traits[trait_idx])
+	can_react = false
+	
 	animator.play("hurt")
 	
 	if is_defeated():
 		pass
 	elif not friendly:
 		change()
+
+
+func refresh() -> void:
+	can_react = true
 
 
 

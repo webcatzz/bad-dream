@@ -44,7 +44,7 @@ func is_point_open(id: Vector2i) -> bool:
 	return is_in_boundsv(id) && not is_point_solid(id)
 
 
-func at(point: Vector2) -> Node2D:
+func at(point: Vector2) -> CollisionObject2D:
 	var params := PhysicsPointQueryParameters2D.new()
 	params.position = point
 	params.collide_with_areas = true

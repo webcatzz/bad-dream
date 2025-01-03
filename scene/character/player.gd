@@ -3,7 +3,7 @@ extends Actor
 
 var listening: bool = true
 
-var max_stops: int = 3
+var max_stops: int = 5
 var max_stop_length: int = 80
 
 @onready var path: Path = $Path
@@ -55,15 +55,13 @@ func take_turn() -> void:
 		path.start = line.end
 		path.queue_redraw()
 		
-		position = line.end
+		move(line.end)
 		if line.type == Path.Line.Type.ATTACK:
 			attack(line.target)
 		
 		await get_tree().create_timer(0.05).timeout
 	
-	path.clear()
-	
-	animator.play("exhausted")
+	animator.queue("exhausted")
 
 
 func _on_turn_hover() -> void:
