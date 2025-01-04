@@ -29,10 +29,10 @@ sources/0 = SubResource("TileSetAtlasSource_dublu")
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ulj5"]
 radius = 4.0
 
-[sub_resource type="Resource" id="Resource_djepr"]
+[sub_resource type="Resource" id="Resource_8tibl"]
 script = ExtResource("5_5jlp0")
-name = "Character"
-color = Color(0.780392, 0.780392, 0.780392, 1)
+name = "Freak PNG"
+color = Color(0.926444, 0.713339, 0.777447, 1)
 sprite_offset = Vector2(0, -16)
 
 [node name="Test" type="Node2D"]
@@ -60,13 +60,10 @@ shape = SubResource("CircleShape2D_1ulj5")
 
 [node name="Character" parent="." instance=ExtResource("4_4pk3i")]
 position = Vector2(16, -40)
-data = SubResource("Resource_djepr")
+data = SubResource("Resource_8tibl")
 
-[node name="Dialogue" type="Area2D" parent="Character"]
-position = Vector2(32, 16)
+[node name="Dialogue" type="Node" parent="Character"]
 script = ExtResource("6_ucnwy")
 key = "test"
 
-[node name="Shape" type="CollisionPolygon2D" parent="Character/Dialogue"]
-position = Vector2(-32, -16)
-polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 0, 8)
+[connection signal="clicked" from="Character" to="Character/Dialogue" method="run"]

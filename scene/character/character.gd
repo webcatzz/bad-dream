@@ -40,7 +40,7 @@ func set_clickable(value: bool) -> void:
 	$Trigger.input_pickable = value
 
 
-func _on_trigger_triggered(value: bool) -> void:
+func _on_trigger_triggered() -> void:
 	clicked.emit()
 
 
@@ -49,6 +49,7 @@ func _on_trigger_triggered(value: bool) -> void:
 
 func _ready() -> void:
 	load_data(data)
+	$Trigger.walk_redirect = facing * 2
 
 
 func load_data(data: CharacterData) -> void:

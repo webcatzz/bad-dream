@@ -1,5 +1,6 @@
+@icon("res://asset/editor/dialogue.svg")
 class_name Dialogue
-extends Trigger
+extends Node
 
 signal prompted(choices: PackedStringArray)
 signal chose(idx: int)
@@ -18,7 +19,9 @@ var current_strand: Node2D
 func run() -> void:
 	active = true
 	Game.player.listening = false
+	
 	await call(key)
+	
 	Game.player.listening = true
 	active = false
 	
@@ -68,12 +71,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	if active and event.is_action_pressed("click"):
 		get_viewport().set_input_as_handled()
 		next()
-
-
-
-# init
-
-func _ready() -> void:
-	super()
-	triggered.connect(run)
-	triggered.connect(print.bind(2))
