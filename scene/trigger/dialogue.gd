@@ -76,3 +76,4 @@ func _unhandled_input(event: InputEvent) -> void:
 func _ready() -> void:
 	super()
 	triggered.connect(run)
+	triggered.connect(print.bind(2))

@@ -1,6 +1,8 @@
 class_name Character
 extends Area2D
 
+signal clicked
+
 @export var data: CharacterData
 
 var color: Color
@@ -31,8 +33,15 @@ func _process(delta: float):
 		global_position = global_position.move_toward(nav.get_next_path_position(), walk_speed * delta)
 
 
+
+# cursor
+
 func set_clickable(value: bool) -> void:
 	$Trigger.input_pickable = value
+
+
+func _on_trigger_triggered(value: bool) -> void:
+	clicked.emit()
 
 
 

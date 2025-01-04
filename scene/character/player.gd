@@ -30,7 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			turn_ended.emit()
 	
 	else:
-		if event.is_action_pressed("click"):
+		if event.is_action_pressed("click") or event is InputEventMouseMotion and Input.is_action_pressed("click"):
 			walk_to(get_global_mouse_position())
 
 

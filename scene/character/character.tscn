@@ -28,3 +28,5 @@ texture = ExtResource("2_tyg1n")
 offset = Vector2(0, -16)
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
+
+[connection signal="triggered" from="Trigger" to="." method="_on_trigger_triggered"]
