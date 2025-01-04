@@ -70,7 +70,7 @@ func run_turn(actor: Actor) -> void:
 
 
 
-# adding / removing
+# adding & removing
 
 func add_actor(actor: Actor, list: bool = true) -> void:
 	if list:

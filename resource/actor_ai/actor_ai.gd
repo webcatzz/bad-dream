@@ -1,4 +1,4 @@
-class_name EnemyAI
+class_name ActorAI
 
 var puppet: Actor
 

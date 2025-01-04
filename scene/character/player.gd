@@ -62,6 +62,9 @@ func take_turn() -> void:
 	animator.queue("exhausted")
 
 
+
+# battle → input
+
 func _on_turn_hover() -> void:
 	var point: Vector2 = get_global_mouse_position()
 	point = cursor_path.start + (point - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.5)
@@ -109,6 +112,13 @@ func _on_turn_right_click() -> void:
 	cursor_path.show()
 	cursor_path.start = path.lines.back().end if path.lines else path.start
 	_on_turn_hover()
+
+
+
+# battle → adjacency
+
+func on_actor_adjacency_changed(actor: Actor, adjacent: bool) -> void:
+	pass # todo add reaction prompt
 
 
 

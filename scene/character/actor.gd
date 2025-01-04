@@ -19,7 +19,7 @@ var friendly: bool
 
 var turn_frequency: int = 4
 
-var ai: EnemyAI
+var ai: ActorAI
 var can_react: bool
 
 @onready var animator: AnimationPlayer = $Animator
@@ -34,6 +34,13 @@ func take_turn() -> void:
 	await ai.act()
 
 
+func refresh() -> void:
+	can_react = true
+
+
+
+# battle → movement
+
 func move(point: Vector2) -> void:
 	call_adjacency(false)
 	
@@ -47,12 +54,8 @@ func move(point: Vector2) -> void:
 	call_adjacency(true)
 
 
-func call_adjacency(value: bool) -> void:
-	for offset: Vector2 in [Grid.UP, Grid.DOWN, Grid.LEFT, Grid.RIGHT]:
-		var obj: CollisionObject2D = Game.battle.grid.at(position + offset)
-		if obj is Actor and obj.ai:
-			obj.ai.on_actor_adjacency_changed(self, value)
 
+# battle → attacks
 
 func attack(target: Actor) -> void:
 	target.recieve_attack()
@@ -72,8 +75,18 @@ func recieve_attack(trait_idx: int = -1) -> void:
 		change()
 
 
-func refresh() -> void:
-	can_react = true
+
+# battle → adjacency
+
+func call_adjacency(value: bool) -> void:
+	for offset: Vector2 in [Grid.UP, Grid.DOWN, Grid.LEFT, Grid.RIGHT]:
+		var obj: CollisionObject2D = Game.battle.grid.at(position + offset)
+		if obj is Actor:
+			obj.on_actor_adjacency_changed(self, value)
+
+
+func on_actor_adjacency_changed(actor: Actor, adjacent: bool) -> void:
+	ai.on_actor_adjacency_changed(actor, adjacent)
 
 
 
@@ -83,6 +96,8 @@ func add_trait(tr8: Trait) -> void:
 	traits.append(tr8)
 	match tr8:
 		Trait.ANIMA: friendly = true
+	
+	info_slots.value += 1
 
 
 func remove_trait(tr8: Trait) -> void:
@@ -93,7 +108,7 @@ func remove_trait(tr8: Trait) -> void:
 	info_slots.value -= 1
 
 
-static func get_data(trait_set: Array[Trait]) -> ActorType:
+static func get_type(trait_set: Array[Trait]) -> ActorType:
 	return load("res://resource/actor_type/%s.tres" % types[trait_set]) if trait_set in types else null
 
 
@@ -156,7 +171,7 @@ func read_data() -> void:
 
 
 func change() -> void:
-	data = get_data(traits)
+	data = get_type(traits)
 	read_data()
 	super.load_data(data)
 

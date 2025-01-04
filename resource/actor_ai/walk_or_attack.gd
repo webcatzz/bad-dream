@@ -1,4 +1,4 @@
-extends EnemyAI
+extends ActorAI
 
 var direction: Vector2 = Grid.DOWN
 

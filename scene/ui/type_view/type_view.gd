@@ -12,7 +12,7 @@ var current_type: ActorType
 
 func _ready() -> void:
 	for tset: Array[Actor.Trait] in Actor.types:
-		var type: ActorType = Actor.get_data(tset)
+		var type: ActorType = Actor.get_type(tset)
 		list.append(type)
 		selector.add_item(type.name)
 	
@@ -91,10 +91,10 @@ func get_type_children_names() -> Array[String]:
 func get_type_with(tr8: Actor.Trait) -> ActorType:
 	var traits: Array[Actor.Trait] = current_type.traits.duplicate()
 	traits.insert(traits.bsearch(tr8), tr8)
-	return Actor.get_data(traits)
+	return Actor.get_type(traits)
 
 
 func get_type_without(tr8: Actor.Trait) -> ActorType:
 	var traits: Array[Actor.Trait] = current_type.traits.duplicate()
 	traits.erase(tr8)
-	return Actor.get_data(traits)
+	return Actor.get_type(traits)
