@@ -3,7 +3,7 @@ extends Actor
 
 var listening: bool = true
 
-var max_stops: int = 3
+var max_stops: int = 5
 var max_stop_length: int = 80
 
 @onready var path: Path = $Path
@@ -66,8 +66,7 @@ func take_turn() -> void:
 # battle → input
 
 func _on_turn_hover() -> void:
-	var point: Vector2 = get_global_mouse_position()
-	point = cursor_path.start + (point - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.5)
+	var point: Vector2 = cursor_path.start + (get_global_mouse_position() - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.5)
 	
 	cursor_path.set_end(0, point)
 	cursor_path.set_target(0, null)
