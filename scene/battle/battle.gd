@@ -27,14 +27,16 @@ func start() -> void:
 func cycle(idx: int = 0) -> void:
 	var i: int = 0
 	while i < actors.size():
+		
 		if idx % actors[i].turn_frequency == 0:
 			await run_turn(actors[i])
 			await get_tree().create_timer(0.5).timeout
-		if actors.size() == 1:
+		
+		if Game.player not in actors or actors.size() < 2:
 			stop()
 			return
+		
 		i += 1
-	
 	cycle(idx + 1)
 
 
@@ -45,8 +47,8 @@ func stop() -> void:
 	
 	get_tree().set_group("gate", "monitoring", true)
 	
-	for actor: Actor in actors:
-		actor.set_clickable(false)
+	while actors:
+		remove_actor(actors.back())
 	
 	queue_free()
 
