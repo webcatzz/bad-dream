@@ -3,7 +3,7 @@ extends Actor
 
 var listening: bool = true
 
-var max_stops: int = 5
+var max_stops: int = 3
 var max_stop_length: int = 80
 
 @onready var path: Path = $Path
@@ -86,8 +86,6 @@ func _on_turn_hover() -> void:
 func _on_turn_click() -> void:
 	if not cursor_path.visible or cursor_path.lines.front().type == Path.Line.Type.NONE:
 		return
-	if path.lines and path.lines.back().end == Grid.snap(cursor_path.lines.front().end):
-		path.lines.pop_back()
 	
 	var line: Path.Line = cursor_path.lines.pop_back()
 	line.end = Grid.snap(line.end)
