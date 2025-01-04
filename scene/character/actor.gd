@@ -36,7 +36,14 @@ func take_turn() -> void:
 
 func move(point: Vector2) -> void:
 	call_adjacency(false)
+	
+	if animator.is_playing():
+		await get_tree().create_timer(0.1).timeout
+	
 	position = point
+	
+	await get_tree().create_timer(0.1).timeout
+	
 	call_adjacency(true)
 
 

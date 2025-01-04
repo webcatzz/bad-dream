@@ -1,12 +1,12 @@
 extends EnemyAI
 
+var direction: Vector2 = Grid.DOWN
+
 
 func act() -> void:
-	if puppet.can_stand(puppet.position + Grid.DOWN):
-		puppet.move(puppet.position + Grid.DOWN)
-	else:
-		var target: CollisionObject2D = Game.battle.grid.at(puppet.position + Grid.DOWN)
-		if puppet.can_attack(target):
-			puppet.attack(target)
+	if not await try_move(puppet.position + direction):
+		if not await try_attack(Game.battle.grid.at(puppet.position + direction)):
+			direction = -direction
+			await try_move(puppet.position + direction)
 	
-	puppet.animator.play("exhausted")
+	puppet.animator.queue("exhausted")

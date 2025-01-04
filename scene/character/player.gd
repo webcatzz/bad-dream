@@ -55,11 +55,9 @@ func take_turn() -> void:
 		path.start = line.end
 		path.queue_redraw()
 		
-		move(line.end)
+		await move(line.end)
 		if line.type == Path.Line.Type.ATTACK:
-			attack(line.target)
-		
-		await get_tree().create_timer(0.05).timeout
+			await attack(line.target)
 	
 	animator.queue("exhausted")
 
@@ -88,6 +86,8 @@ func _on_turn_hover() -> void:
 func _on_turn_click() -> void:
 	if not cursor_path.visible or cursor_path.lines.front().type == Path.Line.Type.NONE:
 		return
+	if path.lines and path.lines.back().end == Grid.snap(cursor_path.lines.front().end):
+		path.lines.pop_back()
 	
 	var line: Path.Line = cursor_path.lines.pop_back()
 	line.end = Grid.snap(line.end)

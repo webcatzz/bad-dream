@@ -31,7 +31,7 @@ static func point_to_tile(point: Vector2) -> Vector2i:
 
 static func snap(point: Vector2) -> Vector2:
 	var coords: Vector2
-	coords.x = (Grid.DOWN.x * point.y - Grid.DOWN.y * point.x) / (Grid.LEFT.y * Grid.DOWN.x - Grid.LEFT.x * Grid.DOWN.y)
+	coords.x = (Grid.DOWN.x * point.y - Grid.DOWN.y * point.x) / (Grid.DOWN.x * Grid.LEFT.y - Grid.DOWN.y * Grid.LEFT.x)
 	coords.y = (point.x - coords.x * Grid.LEFT.x) / Grid.DOWN.x
 	coords = coords.round()
 	return coords.x * Grid.LEFT + coords.y * Grid.DOWN
