@@ -9,4 +9,4 @@ traits = Array[int]([1, 2])
 ai = ExtResource("1_8ndjf")
 name = "Termite"
 color = Color(0.780392, 0.780392, 0.780392, 1)
-sprite_offset = Vector2(0, -16)
+sprite_offset = Vector2(0, -12)

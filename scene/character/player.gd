@@ -66,7 +66,7 @@ func take_turn() -> void:
 # battle → input
 
 func _on_turn_hover() -> void:
-	var point: Vector2 = cursor_path.start + (get_global_mouse_position() - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.5)
+	var point: Vector2 = cursor_path.start + (get_global_mouse_position() - cursor_path.start).limit_length(max_stop_length)
 	
 	cursor_path.set_end(0, point)
 	cursor_path.set_target(0, null)

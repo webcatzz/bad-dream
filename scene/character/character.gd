@@ -6,7 +6,7 @@ signal clicked
 @export var data: CharacterData
 
 var color: Color
-var walk_speed: float = 96
+var walk_speed: float = 75
 
 @export var facing := Vector2i(0, 1)
 var tile: Vector2i:
@@ -28,7 +28,7 @@ func stop_walking() -> void:
 	nav.target_position = global_position
 
 
-func _process(delta: float):
+func _process(delta: float) -> void:
 	if not nav.is_navigation_finished():
 		global_position = global_position.move_toward(nav.get_next_path_position(), walk_speed * delta)
 

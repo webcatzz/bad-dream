@@ -16,17 +16,20 @@ shader_parameter/color = Color(0, 0, 0, 0)
 script = ExtResource("1_gtdxj")
 data = ExtResource("3_dfecu")
 
+[node name="Collision" parent="." index="0"]
+polygon = PackedVector2Array(-12, 2, -2, -8, 12, -1, 2, 9)
+
 [node name="Sprite" parent="." index="2"]
 material = SubResource("ShaderMaterial_wufy7")
 
-[node name="CursorPath" type="Node2D" parent="." index="4"]
+[node name="CursorPath" type="Node2D" parent="." index="3"]
 modulate = Color(1, 1, 1, 0.5)
 top_level = true
 script = ExtResource("4_3u8x8")
 
-[node name="Path" type="Node2D" parent="." index="5"]
+[node name="Path" type="Node2D" parent="." index="4"]
 top_level = true
 script = ExtResource("4_3u8x8")
 
-[node name="Camera" parent="." index="6" node_paths=PackedStringArray("tracking") instance=ExtResource("4_eojrk")]
+[node name="Camera" parent="." index="5" node_paths=PackedStringArray("tracking") instance=ExtResource("4_eojrk")]
 tracking = NodePath("..")

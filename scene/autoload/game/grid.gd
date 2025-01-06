@@ -1,40 +1,31 @@
 class_name Grid
 extends AStarGrid2D
 
-const UP := Vector2(-16, -8)
-const DOWN := Vector2(16, 8)
-const LEFT := Vector2(-16, 8)
-const RIGHT := Vector2(16, -8)
+const UP := Vector2(-14, -7)
+const DOWN := Vector2(14, 7)
+const LEFT := Vector2(-10, 10)
+const RIGHT := Vector2(10, -10)
 
 var space: PhysicsDirectSpaceState2D
-var tilemap: TileMapLayer
+var tilemap: VTileMap
 
 
 
 # coords
 
 static func tile_to_point(tile: Vector2i) -> Vector2:
-	return Vector2(
-		(tile.x + tile.y) * 16,
-		(tile.y - tile.x) * 8
-	)
+	return tile.x * RIGHT + tile.y * DOWN
 
 
 static func point_to_tile(point: Vector2) -> Vector2i:
-	point.x /= 32
-	point.y /= 16
-	return Vector2i(
-		point.x - point.y,
-		point.x + point.y
-	)
+	var coords: Vector2
+	coords.x = (Grid.DOWN.x * point.y - Grid.DOWN.y * point.x) / (Grid.DOWN.x * Grid.RIGHT.y - Grid.DOWN.y * Grid.RIGHT.x)
+	coords.y = (point.x - coords.x * Grid.RIGHT.x) / Grid.DOWN.x
+	return coords.round()
 
 
 static func snap(point: Vector2) -> Vector2:
-	var coords: Vector2
-	coords.x = (Grid.DOWN.x * point.y - Grid.DOWN.y * point.x) / (Grid.DOWN.x * Grid.LEFT.y - Grid.DOWN.y * Grid.LEFT.x)
-	coords.y = (point.x - coords.x * Grid.LEFT.x) / Grid.DOWN.x
-	coords = coords.round()
-	return coords.x * Grid.LEFT + coords.y * Grid.DOWN
+	return tile_to_point(point_to_tile(point))
 
 
 
@@ -62,14 +53,13 @@ func ray(from: Vector2, to: Vector2) -> bool:
 
 # generation
 
-func generate(from: TileMapLayer):
+func generate(from: VTileMap) -> void:
 	tilemap = from
 	space = tilemap.get_world_2d().direct_space_state
 	
 	region = Rect2i() # note: always includes (0, 0)
-	for cell: Vector2i in tilemap.get_used_cells():
-		var tile: Vector2i = point_to_tile(tilemap.map_to_local(cell))
-		region = region.expand(tile)
+	for cell: VTileMapCell in tilemap.cells:
+		region = region.expand(cell.coords)
 	region = region.expand(region.end + Vector2i.ONE)
 	
 	update()
@@ -83,14 +73,53 @@ func read_collisions() -> void:
 		params.position = Grid.tile_to_point(tile)
 		params.collision_mask = 0b1
 		
-		if space.intersect_point(params) || tilemap.get_cell_source_id(tilemap.local_to_map(tile_to_point(tile))) == -1:
+		if space.intersect_point(params) or not tilemap.get_cell(tile):
 			set_point_solid(tile, true)
+
+
+
+# outline
+
+static func get_point_vertices(point: Vector2) -> PackedVector2Array:
+	return [
+		point + Vector2(-12, 2),
+		point + Vector2(-2, -8),
+		point + Vector2(12, -1),
+		point + Vector2(2, 9),
+	]
+
+
+static func outline(points: PackedVector2Array) -> Array[PackedVector2Array]:
+	var outlines: Array[PackedVector2Array]
+	for point: Vector2 in points:
+		outlines.append(get_point_vertices(point))
+	
+	if outlines.size() > 1:
+		var a: int = 0
+		while a < outlines.size():
+			var merge: bool = false
+			
+			var b: int = a + 1
+			while b < outlines.size():
+				var merged: Array[PackedVector2Array] = Geometry2D.merge_polygons(outlines[a], outlines[b])
+				if merged.size() == 2:
+					b += 1
+				else:
+					outlines[a] = merged.pop_front()
+					outlines.remove_at(b)
+					outlines.append_array(merged)
+					merge = true
+			
+			if not merge:
+				a += 1
+	
+	return outlines
 
 
 
 # init
 
-func _init(tilemap: TileMapLayer) -> void:
+func _init(tilemap: VTileMap) -> void:
 	diagonal_mode = DIAGONAL_MODE_NEVER
 	cell_shape = CELL_SHAPE_ISOMETRIC_RIGHT
 	cell_size = Grid.DOWN * 2

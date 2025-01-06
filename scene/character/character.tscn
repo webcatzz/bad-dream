@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cderx2tagexsh"]
+[gd_scene load_steps=6 format=3 uid="uid://cderx2tagexsh"]
 
 [ext_resource type="Script" path="res://scene/character/character.gd" id="1_8gmlv"]
+[ext_resource type="PackedScene" uid="uid://c0ekv2edifp0i" path="res://scene/collision.tscn" id="2_bey5l"]
 [ext_resource type="Texture2D" uid="uid://cdbwqltwiggwh" path="res://asset/character/default.png" id="2_tyg1n"]
 [ext_resource type="Script" path="res://scene/trigger/trigger.gd" id="3_qcfb4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pkur0"]
-size = Vector2(16, 40)
+size = Vector2(14, 34)
 
 [node name="Character" type="Area2D"]
 collision_mask = 0
@@ -13,19 +14,18 @@ input_pickable = false
 monitoring = false
 script = ExtResource("1_8gmlv")
 
-[node name="Collision" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-14, 0, 0, -7, 14, 0, 0, 7)
+[node name="Collision" parent="." instance=ExtResource("2_bey5l")]
 
 [node name="Trigger" type="Area2D" parent="."]
 script = ExtResource("3_qcfb4")
 
 [node name="Shape" type="CollisionShape2D" parent="Trigger"]
-position = Vector2(0, -16)
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_pkur0")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_tyg1n")
-offset = Vector2(0, -16)
+offset = Vector2(0, -12)
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
 

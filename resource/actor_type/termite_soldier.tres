@@ -7,4 +7,4 @@ script = ExtResource("1_1yyw0")
 traits = Array[int]([1, 3])
 name = "Termite Soldier"
 color = Color(0.780392, 0.780392, 0.780392, 1)
-sprite_offset = Vector2(0, -16)
+sprite_offset = Vector2(0, -12)

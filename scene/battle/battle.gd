@@ -2,7 +2,7 @@ class_name Battle
 extends Node2D
 
 @export var actors: Array[Actor]
-@export var tilemap: TileMapLayer
+@export var tilemap: VTileMap
 
 var grid: Grid
 

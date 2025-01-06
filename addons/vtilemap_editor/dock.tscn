@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://fdinturxlxnj"]
+
+[ext_resource type="Script" path="res://addons/vtilemap_editor/dock.gd" id="1_j8m4h"]
+
+[node name="VTileMapDock" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j8m4h")
+
+[node name="Toolbar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Toolbar"]
+layout_mode = 2
+text = "Tool"
+
+[node name="Tool" type="ItemList" parent="Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+auto_height = true
+item_count = 3
+max_columns = 3
+item_0/text = "Selection"
+item_1/text = "Paint"
+item_2/text = "Bucket"
+
+[node name="Main" type="HSplitContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SourceList" type="ItemList" parent="Main"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="TileList" type="ItemList" parent="Main"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+select_mode = 1
+max_columns = 128
+fixed_icon_size = Vector2i(100, 100)
+
+[connection signal="item_selected" from="Toolbar/Tool" to="." method="_on_tool_selected"]
+[connection signal="item_selected" from="Main/SourceList" to="." method="_on_source_selected"]
+[connection signal="multi_selected" from="Main/TileList" to="." method="_on_tile_selection_changed"]

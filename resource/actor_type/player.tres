@@ -7,4 +7,4 @@ script = ExtResource("1_qsxvk")
 traits = Array[int]([0, 1, 1, 1, 1])
 name = "Player"
 color = Color(0, 0, 1, 1)
-sprite_offset = Vector2(0, -16)
+sprite_offset = Vector2(0, -12)
