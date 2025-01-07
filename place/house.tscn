@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=3 uid="uid://ccpd120o2qd0r"]
+[gd_scene load_steps=133 format=3 uid="uid://ccpd120o2qd0r"]
 
 [ext_resource type="Script" path="res://scene/vtilemap/vtilemap.gd" id="1_gtlcy"]
 [ext_resource type="Texture2D" uid="uid://0f63lu5pybaq" path="res://asset/world/house/plank.png" id="2_kpeg1"]
@@ -14,12 +14,6 @@ texture_region_size = Vector2i(24, 21)
 
 [sub_resource type="TileSet" id="TileSet_pbdy1"]
 sources/0 = SubResource("TileSetAtlasSource_t64bv")
-
-[sub_resource type="Resource" id="Resource_18wig"]
-script = ExtResource("3_5wu6h")
-coords = Vector2i(-2, -3)
-source_id = 0
-tile_id = Vector2i(0, 0)
 
 [sub_resource type="Resource" id="Resource_37kgw"]
 script = ExtResource("3_5wu6h")
@@ -165,7 +159,7 @@ coords = Vector2i(-2, 2)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_xqrio"]
+[sub_resource type="Resource" id="Resource_ojwdh"]
 script = ExtResource("3_5wu6h")
 coords = Vector2i(3, 6)
 source_id = 0
@@ -177,19 +171,19 @@ coords = Vector2i(2, 6)
 source_id = 0
 tile_id = Vector2i(1, 0)
 
-[sub_resource type="Resource" id="Resource_0k63h"]
+[sub_resource type="Resource" id="Resource_mgdcx"]
 script = ExtResource("3_5wu6h")
 coords = Vector2i(1, 6)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_c1e70"]
+[sub_resource type="Resource" id="Resource_hoi8g"]
 script = ExtResource("3_5wu6h")
 coords = Vector2i(3, 7)
 source_id = 0
 tile_id = Vector2i(1, 0)
 
-[sub_resource type="Resource" id="Resource_ftths"]
+[sub_resource type="Resource" id="Resource_gw7lr"]
 script = ExtResource("3_5wu6h")
 coords = Vector2i(2, 7)
 source_id = 0
@@ -207,13 +201,13 @@ coords = Vector2i(3, 8)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_qnjvy"]
+[sub_resource type="Resource" id="Resource_gyyt5"]
 script = ExtResource("3_5wu6h")
 coords = Vector2i(2, 8)
 source_id = 0
 tile_id = Vector2i(1, 0)
 
-[sub_resource type="Resource" id="Resource_anljm"]
+[sub_resource type="Resource" id="Resource_mhdpp"]
 script = ExtResource("3_5wu6h")
 coords = Vector2i(1, 8)
 source_id = 0
@@ -790,7 +784,7 @@ z_index = -1
 script = ExtResource("1_gtlcy")
 tile_set = SubResource("TileSet_pbdy1")
 generate_navigation = true
-cells = Array[ExtResource("3_5wu6h")]([SubResource("Resource_18wig"), SubResource("Resource_37kgw"), SubResource("Resource_8hjiu"), SubResource("Resource_bm3uu"), SubResource("Resource_0ka2f"), SubResource("Resource_0mldw"), SubResource("Resource_5qjh0"), SubResource("Resource_o18o6"), SubResource("Resource_mrdco"), SubResource("Resource_ouw3u"), SubResource("Resource_dgmic"), SubResource("Resource_fsvfs"), SubResource("Resource_cheau"), SubResource("Resource_2y6hg"), SubResource("Resource_3kj8q"), SubResource("Resource_odtt1"), SubResource("Resource_2kkfn"), SubResource("Resource_tynde"), SubResource("Resource_emlvo"), SubResource("Resource_f8i8j"), SubResource("Resource_xogpn"), SubResource("Resource_jditf"), SubResource("Resource_kqexs"), SubResource("Resource_4bghi"), SubResource("Resource_i4d4x"), SubResource("Resource_xqrio"), SubResource("Resource_6vw1e"), SubResource("Resource_0k63h"), SubResource("Resource_c1e70"), SubResource("Resource_ftths"), SubResource("Resource_fgtfh"), SubResource("Resource_86ijs"), SubResource("Resource_qnjvy"), SubResource("Resource_anljm")])
+cells = Array[ExtResource("3_5wu6h")]([SubResource("Resource_37kgw"), SubResource("Resource_8hjiu"), SubResource("Resource_bm3uu"), SubResource("Resource_0ka2f"), SubResource("Resource_0mldw"), SubResource("Resource_5qjh0"), SubResource("Resource_o18o6"), SubResource("Resource_mrdco"), SubResource("Resource_ouw3u"), SubResource("Resource_dgmic"), SubResource("Resource_fsvfs"), SubResource("Resource_cheau"), SubResource("Resource_2y6hg"), SubResource("Resource_3kj8q"), SubResource("Resource_odtt1"), SubResource("Resource_2kkfn"), SubResource("Resource_tynde"), SubResource("Resource_emlvo"), SubResource("Resource_f8i8j"), SubResource("Resource_xogpn"), SubResource("Resource_jditf"), SubResource("Resource_kqexs"), SubResource("Resource_4bghi"), SubResource("Resource_i4d4x"), SubResource("Resource_ojwdh"), SubResource("Resource_6vw1e"), SubResource("Resource_mgdcx"), SubResource("Resource_hoi8g"), SubResource("Resource_gw7lr"), SubResource("Resource_fgtfh"), SubResource("Resource_86ijs"), SubResource("Resource_gyyt5"), SubResource("Resource_mhdpp")])
 
 [node name="Planks" type="Node2D" parent="."]
 z_index = -1

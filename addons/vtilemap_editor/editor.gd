@@ -58,7 +58,30 @@ func _mouse_coords() -> Vector2i:
 # tools
 
 func _tool_select(event: InputEventMouse) -> void:
-	pass
+	if event is InputEventMouse:
+		if staged[staged.bsearch(mouse_rect.end)] == mouse_rect.end:
+			pass
+		
+		else:
+			if event.shift_pressed:
+				stage(mouse_rect.end)
+			
+			elif not mouse_held:
+				if mouse_rect.size:
+					var i: int
+					while i < staged.size():
+						if map.get_cell(staged[i]):
+							i += 1
+						else:
+							staged.remove_at(i)
+					canvas_redraw_requested.emit()
+				else:
+					staged.clear()
+					canvas_redraw_requested.emit()
+	
+	if mouse_held:
+		staged.clear()
+		stage_rect(mouse_rect.abs())
 
 
 func _tool_draw(event: InputEventMouse) -> void:
@@ -72,10 +95,9 @@ func _tool_draw(event: InputEventMouse) -> void:
 func _tool_line(event: InputEventMouse) -> void:
 	if mouse_held:
 		staged.clear()
-		var rect: Rect2i = mouse_rect.abs()
-		var min_axis: int = rect.size.min_axis_index()
-		rect.end[min_axis] = rect.position[min_axis]
-		stage_rect(rect)
+		var min_axis: int = mouse_rect.size.abs().min_axis_index()
+		mouse_rect.end[min_axis] = mouse_rect.position[min_axis]
+		stage_rect(mouse_rect.abs())
 	
 	elif event is InputEventMouseButton:
 		commit()
@@ -96,32 +118,6 @@ func _tool_fill(event: InputEventMouse) -> void:
 		if target:
 			target = target.duplicate()
 			pass
-	#fn fill(x, y):
-		#if not Inside(x, y) then return
-		#let s = new empty queue or stack
-		#Add (x, x, y, 1) to s
-		#Add (x, x, y - 1, -1) to s
-		#while s is not empty:
-			#Remove an (x1, x2, y, dy) from s
-			#let x = x1
-			#if Inside(x, y):
-				#while Inside(x - 1, y):
-					#Set(x - 1, y)
-					#x = x - 1
-				#if x < x1:
-					#Add (x, x1 - 1, y - dy, -dy) to s
-			#while x1 <= x2:
-				#while Inside(x1, y):
-					#Set(x1, y)
-					#x1 = x1 + 1
-				#if x1 > x:
-					#Add (x, x1 - 1, y + dy, dy) to s
-				#if x1 - 1 > x2:
-					#Add (x2 + 1, x1 - 1, y - dy, -dy) to s
-				#x1 = x1 + 1
-				#while x1 < x2 and not Inside(x1, y):
-					#x1 = x1 + 1
-				#x = x1
 
 
 func _tool_replace(event: InputEventMouse) -> void:
@@ -138,8 +134,9 @@ func _tool_replace(event: InputEventMouse) -> void:
 # history
 
 func stage(coords: Vector2i) -> void:
-	if coords not in staged:
-		staged.append(coords)
+	var idx: int = staged.bsearch(coords)
+	if idx < staged.size() and staged[idx] != coords or idx == staged.size():
+		staged.insert(idx, coords)
 		canvas_redraw_requested.emit()
 
 
@@ -177,7 +174,15 @@ func handle_draw(overlay: Control) -> void:
 	var canvas_offset: Vector2 = overlay.get_local_mouse_position() - map.get_local_mouse_position() * canvas_scale
 	
 	for coords: Vector2i in staged:
-		overlay.draw_circle(map.map_to_local(coords) * canvas_scale + canvas_offset, 4 * canvas_scale, Color(0.0, 0.0, 1.0, 0.5))
+		var point: Vector2 = map.map_to_local(coords) * canvas_scale + canvas_offset
+		var half_x: Vector2 = Vector2(map.x_axis) * 0.5 * canvas_scale
+		var half_y: Vector2 = Vector2(map.y_axis) * 0.5 * canvas_scale
+		overlay.draw_colored_polygon([
+			point - half_x - half_y,
+			point + half_x - half_y,
+			point + half_x + half_y,
+			point - half_x + half_y,
+		], Color(Color.WHITE, 0.125))
 
 
 

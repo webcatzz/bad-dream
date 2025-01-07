@@ -27,10 +27,12 @@ auto_height = true
 item_count = 6
 max_columns = 6
 item_0/text = "Select"
+item_0/disabled = true
 item_1/text = "Draw"
 item_2/text = "Line"
 item_3/text = "Rect"
 item_4/text = "Fill"
+item_4/disabled = true
 item_5/text = "Replace"
 
 [node name="Main" type="HSplitContainer" parent="."]
