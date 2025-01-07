@@ -1,14 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://fdinturxlxnj"]
 
-[ext_resource type="Script" path="res://addons/vtilemap_editor/dock.gd" id="1_j8m4h"]
+[ext_resource type="Script" path="res://addons/vtilemap_editor/editor.gd" id="1_qautm"]
 
-[node name="VTileMapDock" type="VBoxContainer"]
+[node name="VTileMapEditor" type="VBoxContainer"]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_j8m4h")
+script = ExtResource("1_qautm")
 
 [node name="Toolbar" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -21,12 +22,16 @@ text = "Tool"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_constants/h_separation = 32
 auto_height = true
-item_count = 3
-max_columns = 3
-item_0/text = "Selection"
-item_1/text = "Paint"
-item_2/text = "Bucket"
+item_count = 6
+max_columns = 6
+item_0/text = "Select"
+item_1/text = "Draw"
+item_2/text = "Line"
+item_3/text = "Rect"
+item_4/text = "Fill"
+item_5/text = "Replace"
 
 [node name="Main" type="HSplitContainer" parent="."]
 layout_mode = 2
@@ -43,6 +48,7 @@ select_mode = 1
 max_columns = 128
 fixed_icon_size = Vector2i(100, 100)
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="item_selected" from="Toolbar/Tool" to="." method="_on_tool_selected"]
 [connection signal="item_selected" from="Main/SourceList" to="." method="_on_source_selected"]
 [connection signal="multi_selected" from="Main/TileList" to="." method="_on_tile_selection_changed"]

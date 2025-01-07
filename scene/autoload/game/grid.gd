@@ -13,19 +13,19 @@ var tilemap: VTileMap
 
 # coords
 
-static func tile_to_point(tile: Vector2i) -> Vector2:
-	return tile.x * RIGHT + tile.y * DOWN
+static func tile_to_point(tile: Vector2i, x_axis: Vector2i = RIGHT, y_axis: Vector2i = DOWN) -> Vector2:
+	return tile.x * x_axis + tile.y * y_axis
 
 
-static func point_to_tile(point: Vector2) -> Vector2i:
+static func point_to_tile(point: Vector2, x_axis: Vector2i = RIGHT, y_axis: Vector2i = DOWN) -> Vector2i:
 	var coords: Vector2
-	coords.x = (Grid.DOWN.x * point.y - Grid.DOWN.y * point.x) / (Grid.DOWN.x * Grid.RIGHT.y - Grid.DOWN.y * Grid.RIGHT.x)
-	coords.y = (point.x - coords.x * Grid.RIGHT.x) / Grid.DOWN.x
+	coords.x = (y_axis.x * point.y - y_axis.y * point.x) / (y_axis.x * x_axis.y - y_axis.y * x_axis.x)
+	coords.y = (point.x - coords.x * x_axis.x) / y_axis.x
 	return coords.round()
 
 
-static func snap(point: Vector2) -> Vector2:
-	return tile_to_point(point_to_tile(point))
+static func snap(point: Vector2, x_axis: Vector2i = RIGHT, y_axis: Vector2i = DOWN) -> Vector2:
+	return tile_to_point(point_to_tile(point, x_axis, y_axis), x_axis, y_axis)
 
 
 

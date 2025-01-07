@@ -1,128 +1,231 @@
 @tool
-class_name VTileMapEditor
-extends EditorPlugin
+extends VBoxContainer
+
+signal canvas_redraw_requested
 
 enum Tool {
-	SELECTION,
-	PAINT,
-	BUCKET,
+	SELECT,
+	DRAW,
+	LINE,
+	RECT,
+	FILL,
+	REPLACE,
 }
 
 var map: VTileMap
-var dock: Control
 
-var tool: Tool = Tool.PAINT
+var tool: Tool = Tool.DRAW
+var tool_mode: bool
 var source_id: int
 var tile_ids: Array[Vector2i]
 
-var selected: Array[VTileMapCell]
+var history: EditorUndoRedoManager
+var staged: Array[Vector2i]
 
 var mouse_held: bool
 var mouse_rect: Rect2i
 
 
 
-# handling
-
-func _handles(object: Object) -> bool:
-	return object is VTileMap
-
-
-func _edit(object: Object) -> void:
-	map = object
-	_remove_dock()
-	if map: _add_dock()
-
-
-
 # input
 
-func _forward_canvas_gui_input(event: InputEvent) -> bool:
-	if dock and dock.visible and event is InputEventMouse:
-		
-		if event is InputEventMouseButton:
-			mouse_held = event.pressed
-			if mouse_held:
-				mouse_rect.position = _get_mouse_coords()
-				mouse_rect.size = Vector2i.ZERO
-		elif mouse_held:
-			mouse_rect.end = _get_mouse_coords()
-		
-		match tool:
-			Tool.SELECTION:
-				pass
-			
-			Tool.PAINT:
-				if mouse_held:
-					var coords: Vector2i = _get_mouse_coords()
-					
-					if event.shift_pressed:
-						if event.meta_pressed:
-							var abs_rect: Rect2i = mouse_rect.abs()
-							for x: int in abs_rect.size.x + 1:
-								for y: int in abs_rect.size.y + 1:
-									_input_cell(abs_rect.position + Vector2i(x, y), event)
-						else:
-							var min_axis: int = (coords - mouse_rect.position).abs().min_axis_index()
-							coords[min_axis] = mouse_rect.position[min_axis]
-					
-					_input_cell(coords, event)
-			
-			Tool.BUCKET:
-				if event is InputEventMouseButton and mouse_held:
-					var target: VTileMapCell = map.get_cell(_get_mouse_coords())
-					if target:
-						target = target.duplicate()
-						match event.button_mask:
-							MOUSE_BUTTON_MASK_LEFT:
-								for i: int in map.cells.size():
-									if map.cells[i].source_id == target.source_id and map.cells[i].tile_id == target.tile_id:
-										map.cells[i].source_id = source_id
-										map.cells[i].tile_id = tile_ids.pick_random()
-								map.queue_redraw()
-							MOUSE_BUTTON_MASK_RIGHT:
-								var i: int = 0
-								while i < map.cells.size():
-									if map.cells[i].source_id == target.source_id and map.cells[i].tile_id == target.tile_id:
-										map.clear_cell(map.cells[i].coords)
-									else:
-										i += 1
-		
-		return true
-	return false
+func handle_input(event: InputEventMouse) -> void:
+	if event is InputEventMouseButton:
+		mouse_held = event.pressed
+		if mouse_held:
+			tool_mode = event.button_mask != MOUSE_BUTTON_MASK_RIGHT
+			mouse_rect.position = _mouse_coords()
+			mouse_rect.size = Vector2i.ZERO
+		else:
+			mouse_rect.end = _mouse_coords()
+	elif mouse_held:
+		mouse_rect.end = _mouse_coords()
+	
+	match tool:
+		Tool.SELECT: _tool_select(event)
+		Tool.DRAW: _tool_draw(event)
+		Tool.LINE: _tool_line(event)
+		Tool.RECT: _tool_rect(event)
+		Tool.FILL: _tool_fill(event)
+		Tool.REPLACE: _tool_replace(event)
 
 
-func _get_mouse_coords() -> Vector2i:
+func _mouse_coords() -> Vector2i:
 	return map.local_to_map(map.get_local_mouse_position())
 
 
-func _input_cell(coords: Vector2i, event: InputEventMouse) -> void:
-	match event.button_mask:
-		MOUSE_BUTTON_MASK_LEFT:
-			map.set_cell(coords, source_id, tile_ids.pick_random())
-		MOUSE_BUTTON_MASK_RIGHT:
-			map.clear_cell(coords)
+
+# tools
+
+func _tool_select(event: InputEventMouse) -> void:
+	pass
+
+
+func _tool_draw(event: InputEventMouse) -> void:
+	if mouse_held:
+		stage(mouse_rect.end)
+	
+	elif event is InputEventMouseButton:
+		commit()
+
+
+func _tool_line(event: InputEventMouse) -> void:
+	if mouse_held:
+		staged.clear()
+		var rect: Rect2i = mouse_rect.abs()
+		var min_axis: int = rect.size.min_axis_index()
+		rect.end[min_axis] = rect.position[min_axis]
+		stage_rect(rect)
+	
+	elif event is InputEventMouseButton:
+		commit()
+
+
+func _tool_rect(event: InputEventMouse) -> void:
+	if mouse_held:
+		staged.clear()
+		stage_rect(mouse_rect.abs())
+	
+	elif event is InputEventMouseButton:
+		commit()
+
+
+func _tool_fill(event: InputEventMouse) -> void:
+	if event is InputEventMouseButton and mouse_held:
+		var target: VTileMapCell = map.get_cell(mouse_rect.position)
+		if target:
+			target = target.duplicate()
+			pass
+	#fn fill(x, y):
+		#if not Inside(x, y) then return
+		#let s = new empty queue or stack
+		#Add (x, x, y, 1) to s
+		#Add (x, x, y - 1, -1) to s
+		#while s is not empty:
+			#Remove an (x1, x2, y, dy) from s
+			#let x = x1
+			#if Inside(x, y):
+				#while Inside(x - 1, y):
+					#Set(x - 1, y)
+					#x = x - 1
+				#if x < x1:
+					#Add (x, x1 - 1, y - dy, -dy) to s
+			#while x1 <= x2:
+				#while Inside(x1, y):
+					#Set(x1, y)
+					#x1 = x1 + 1
+				#if x1 > x:
+					#Add (x, x1 - 1, y + dy, dy) to s
+				#if x1 - 1 > x2:
+					#Add (x2 + 1, x1 - 1, y - dy, -dy) to s
+				#x1 = x1 + 1
+				#while x1 < x2 and not Inside(x1, y):
+					#x1 = x1 + 1
+				#x = x1
+
+
+func _tool_replace(event: InputEventMouse) -> void:
+	if event is InputEventMouseButton and mouse_held:
+		var target: VTileMapCell = map.get_cell(mouse_rect.position)
+		if target:
+			for cell: VTileMapCell in map.cells:
+				if cell.source_id == target.source_id and cell.tile_id == target.tile_id:
+					stage(cell.coords)
+			commit()
+
+
+
+# history
+
+func stage(coords: Vector2i) -> void:
+	if coords not in staged:
+		staged.append(coords)
+		canvas_redraw_requested.emit()
+
+
+func stage_rect(rect: Rect2i) -> void:
+	for x: int in range(rect.position.x, rect.end.x + 1):
+		for y: int in range(rect.position.y, rect.end.y + 1):
+			stage(Vector2i(x, y))
+
+
+func commit() -> void:
+	history.create_action("Paint tiles")
+	
+	for coords: Vector2i in staged:
+		var cell: VTileMapCell = map.get_cell(coords)
+		if cell:
+			history.add_undo_method(map, "set_cell", coords, cell.source_id, cell.tile_id)
+		else:
+			history.add_undo_method(map, "clear_cell", coords)
+		if tool_mode:
+			history.add_do_method(map, "set_cell", coords, source_id, tile_ids.pick_random())
+		else:
+			history.add_do_method(map, "clear_cell", coords)
+	
+	history.commit_action()
+	
+	staged.clear()
+	canvas_redraw_requested.emit()
 
 
 
 # drawing
 
-func _forward_canvas_draw_over_viewport(overlay: Control) -> void:
-	if mouse_rect:
-		pass
+func handle_draw(overlay: Control) -> void:
+	var canvas_scale: float = map.get_viewport_transform().get_scale().x
+	var canvas_offset: Vector2 = overlay.get_local_mouse_position() - map.get_local_mouse_position() * canvas_scale
+	
+	for coords: Vector2i in staged:
+		overlay.draw_circle(map.map_to_local(coords) * canvas_scale + canvas_offset, 4 * canvas_scale, Color(0.0, 0.0, 1.0, 0.5))
 
 
 
-# dock
+# lists
 
-func _add_dock() -> void:
-	dock = preload("res://addons/vtilemap_editor/dock.tscn").instantiate()
-	dock.read(self)
-	add_control_to_bottom_panel(dock, "VTileMap")
+func _on_tool_selected(idx: int) -> void:
+	tool = idx
 
 
-func _remove_dock() -> void:
-	if dock:
-		remove_control_from_bottom_panel(dock)
-		dock.queue_free()
-		dock = null
+func _on_source_selected(idx: int) -> void:
+	source_id = map.tile_set.get_source_id(idx)
+	var source: TileSetAtlasSource = map.tile_set.get_source(source_id)
+	
+	$Main/TileList.clear()
+	for i: int in source.get_tiles_count():
+		$Main/TileList.add_icon_item(_get_tile_texture(source, source.get_tile_id(i)))
+	$Main/TileList.select(0)
+	_on_tile_selection_changed(0, true)
+
+
+func _on_tile_selection_changed(_idx: int, _selected: bool) -> void:
+	tile_ids.clear()
+	for idx: int in $Main/TileList.get_selected_items():
+		tile_ids.append(map.tile_set.get_source(map.tile_set.get_source_id(source_id)).get_tile_id(idx))
+
+
+func _get_tile_texture(source: TileSetAtlasSource, tile_id: Vector2i) -> AtlasTexture:
+	var texture := AtlasTexture.new()
+	texture.atlas = source.texture
+	texture.region = Rect2(tile_id * source.texture_region_size, source.texture_region_size)
+	return texture
+
+
+
+# opening & closing
+
+func _ready() -> void:
+	$Toolbar/Tool.select(tool)
+
+
+func _on_visibility_changed() -> void:
+	if visible:
+		if map.tile_set:
+			for i: int in map.tile_set.get_source_count():
+				var source: TileSetAtlasSource = map.tile_set.get_source(map.tile_set.get_source_id(i))
+				$Main/SourceList.add_item(source.texture.resource_path.get_file(), _get_tile_texture(source, source.get_tile_id(0)))
+			$Main/SourceList.select(0)
+			_on_source_selected(0)
+	else:
+		$Main/SourceList.clear()
+		$Main/TileList.clear()

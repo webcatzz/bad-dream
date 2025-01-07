@@ -5,7 +5,7 @@ extends Node2D
 @export var tile_set: TileSet
 @export var x_axis: Vector2i = Grid.RIGHT : set = _set_x_axis
 @export var y_axis: Vector2i = Grid.DOWN : set = _set_y_axis
-@export var generate_navigation: bool = true
+@export var generate_navigation: bool
 
 @export_group("Data")
 @export var cells: Array[VTileMapCell]
@@ -52,7 +52,7 @@ func local_to_map(point: Vector2) -> Vector2i:
 	return coords.round()
 
 
-func map_to_local(coords: Vector2) -> Vector2i:
+func map_to_local(coords: Vector2i) -> Vector2:
 	return coords.x * x_axis + coords.y * y_axis
 
 
