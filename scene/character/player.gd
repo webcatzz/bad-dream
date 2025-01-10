@@ -37,7 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # battle
 
-func take_turn() -> void:
+func _turn_logic() -> void:
 	path.start = position
 	cursor_path.start = position
 	cursor_path.add()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://dkr0hckfg0gr2"]
+[gd_scene load_steps=106 format=3 uid="uid://dkr0hckfg0gr2"]
 
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scene/character/player.tscn" id="1_kcmfw"]
 [ext_resource type="Texture2D" uid="uid://cror62i6o4ltc" path="res://asset/world/tile.png" id="1_o2ws4"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://c0uw3x77ekrta" path="res://scene/battle/battle.tscn" id="5_pnqya"]
 [ext_resource type="Resource" uid="uid://7uoeaxnis4w0" path="res://resource/actor_type/termite_worker.tres" id="5_s8fkc"]
 [ext_resource type="Script" path="res://scene/trigger/gate.gd" id="7_t5tdt"]
+[ext_resource type="Script" path="res://resource/condition/burn.gd" id="8_kc6j1"]
 [ext_resource type="Script" path="res://scene/trigger/pickup.gd" id="8_ltew1"]
 [ext_resource type="Script" path="res://resource/item/item.gd" id="9_3r5mu"]
+[ext_resource type="PackedScene" uid="uid://qw2dtdm42h28" path="res://scene/vfx/sparkles.tscn" id="9_tw2t4"]
 [ext_resource type="Resource" uid="uid://cdpj5hurujnim" path="res://resource/item/item.tres" id="10_5hhta"]
 [ext_resource type="PackedScene" uid="uid://c0ekv2edifp0i" path="res://scene/collision.tscn" id="12_dicla"]
 
@@ -537,6 +539,20 @@ coords = Vector2i(0, 3)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
+[sub_resource type="GDScript" id="GDScript_0ywdx"]
+script/source = "extends Node
+
+@export var c: Condition
+
+
+func _ready() -> void:
+	await get_tree().create_timer(1).timeout
+	get_parent().add_condition(c)
+"
+
+[sub_resource type="Resource" id="Resource_2bctw"]
+script = ExtResource("8_kc6j1")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3b55"]
 radius = 4.0
 
@@ -582,6 +598,12 @@ tilemap = NodePath("../Tiles")
 [node name="Termite" parent="." instance=ExtResource("2_m2nem")]
 position = Vector2(-20, -85)
 data = ExtResource("5_s8fkc")
+
+[node name="Node" type="Node" parent="Termite"]
+script = SubResource("GDScript_0ywdx")
+c = SubResource("Resource_2bctw")
+
+[node name="Sparkles" parent="Termite" instance=ExtResource("9_tw2t4")]
 
 [node name="FromTest" type="Area2D" parent="."]
 position = Vector2(32, 16)

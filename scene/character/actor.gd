@@ -1,6 +1,8 @@
 class_name Actor
 extends Character
 
+signal attacked
+signal turn_started
 signal turn_ended
 
 enum Trait {
@@ -14,13 +16,14 @@ static var types: Dictionary = {}
 
 var type: String
 var traits: Array[Trait]
-
-var friendly: bool
+var conditions: Array[Condition]
 
 var turn_frequency: int = 4
+var evasion: float
 
 var ai: ActorAI
-var can_react: bool
+var friendly: bool
+var can_react: bool = true
 
 @onready var animator: AnimationPlayer = $Animator
 @onready var info_name: Label = $Info/Label
@@ -31,11 +34,13 @@ var can_react: bool
 # battle
 
 func take_turn() -> void:
-	await ai.act()
-
-
-func refresh() -> void:
+	turn_started.emit()
+	await _turn_logic()
 	can_react = true
+
+
+func _turn_logic() -> void:
+	await ai.act()
 
 
 
@@ -58,11 +63,16 @@ func move(point: Vector2) -> void:
 # battle → attacks
 
 func attack(target: Actor) -> void:
-	target.recieve_attack()
+	target.recieve_attack(self)
+	attacked.emit()
 
 
-func recieve_attack(trait_idx: int = -1) -> void:
+func recieve_attack(attacker: Actor, trait_idx: int = -1) -> void:
 	if is_defeated(): return
+	
+	if can_evade(attacker):
+		evade(attacker)
+		return
 	
 	remove_trait(traits[trait_idx])
 	can_react = false
@@ -73,6 +83,16 @@ func recieve_attack(trait_idx: int = -1) -> void:
 		pass
 	elif not friendly:
 		change()
+
+
+
+# battle → evasion
+
+func evade(attacker: Actor) -> void:
+	Game.battle.grid.set_point_solid(tile, false)
+	position += position - attacker.position
+	Game.battle.grid.set_point_solid(tile, true)
+	can_react = false
 
 
 
@@ -90,7 +110,7 @@ func on_actor_adjacency_changed(actor: Actor, adjacent: bool) -> void:
 
 
 
-# modifiers
+# traits
 
 func add_trait(tr8: Trait) -> void:
 	traits.append(tr8)
@@ -126,6 +146,19 @@ static func get_trait_icon(tr8: Trait) -> AtlasTexture:
 
 
 
+# conditions
+
+func add_condition(condition: Condition) -> void:
+	conditions.append(condition)
+	condition.apply(self)
+
+
+func remove_condition(condition: Condition) -> void:
+	conditions.erase(condition)
+	condition.unapply(self)
+
+
+
 # checks & calcs
 
 func is_defeated() -> bool:
@@ -138,6 +171,10 @@ func can_stand(point: Vector2) -> bool:
 
 func can_attack(target: Node) -> bool:
 	return target is Actor and target.friendly != friendly
+
+
+func can_evade(attacker: Actor) -> bool:
+	return can_react and Game.battle.grid.is_point_open(tile + tile - attacker.tile)
 
 
 func calc_facing(motion: Vector2) -> Vector2:

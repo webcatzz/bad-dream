@@ -4,11 +4,11 @@ extends Area2D
 signal clicked
 
 @export var data: CharacterData
+@export var facing := Vector2i(0, 1)
 
 var color: Color
 var walk_speed: float = 75
 
-@export var facing := Vector2i(0, 1)
 var tile: Vector2i:
 	set(value): position = Grid.tile_to_point(tile)
 	get: return Grid.point_to_tile(position)

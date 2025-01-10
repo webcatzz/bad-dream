@@ -294,6 +294,9 @@ alpha_curve = SubResource("CurveTexture_oad2g")
 [node name="Actor" groups=["actor"] instance=ExtResource("1_ebx46")]
 script = ExtResource("1_4like")
 
+[node name="Collision" parent="." index="0"]
+visible = false
+
 [node name="Trigger" parent="." index="1"]
 input_pickable = false
 
