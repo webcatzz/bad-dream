@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm8xeyfobckxf"]
+
+[ext_resource type="Texture2D" uid="uid://o4iy4iel0f4l" path="res://assets/cursor.png" id="1_8st84"]
+[ext_resource type="Script" path="res://scenes/autoloads/game/game.gd" id="1_kmf4k"]
+[ext_resource type="Script" path="res://scenes/autoloads/game/cursor.gd" id="2_xcsj6"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_kmf4k")
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="Cursor" type="Sprite2D" parent="Overlay"]
+texture = ExtResource("1_8st84")
+script = ExtResource("2_xcsj6")

@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://d0twb70raork8"]
+
+[ext_resource type="FontFile" uid="uid://d2osiodwubpwy" path="res://assets/ui/font/small.ttf" id="1_pie8u"]
+
+[resource]
+base_font = ExtResource("1_pie8u")
+spacing_top = -7
+spacing_bottom = -2

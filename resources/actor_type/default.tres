@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorType" load_steps=2 format=3 uid="uid://bfybgxwubco0k"]
+
+[ext_resource type="Script" path="res://resources/actor_type/actor_type.gd" id="1_s54oy"]
+
+[resource]
+script = ExtResource("1_s54oy")
+traits = Array[int]([])
+name = "Character"
+sprite_offset = Vector2(0, -12)
+color = Color(0, 0, 0, 1)

@@ -1,0 +1,64 @@
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://b03ytkyqhknt7"]
+
+[ext_resource type="FontVariation" uid="uid://d0twb70raork8" path="res://assets/ui/font/small.tres" id="1_yuyu6"]
+[ext_resource type="FontFile" uid="uid://bgwbw8soq0mxl" path="res://assets/ui/font/dos.ttf" id="2_ibdt3"]
+[ext_resource type="FontVariation" uid="uid://dokagdw5mgm2l" path="res://assets/ui/font/regular.tres" id="3_vyo8x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q28bi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m03hf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_khbcs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxb3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adntb"]
+bg_color = Color(0, 0, 1, 1)
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8phvc"]
+content_margin_left = 2.0
+content_margin_right = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vw7wr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uvir"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.780392, 0.780392, 0.780392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qokj6"]
+bg_color = Color(0.780392, 0.780392, 0.780392, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwtbc"]
+
+[resource]
+default_font = ExtResource("3_vyo8x")
+Button/colors/font_color = Color(0.780392, 0.780392, 0.780392, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_q28bi")
+Button/styles/hover = SubResource("StyleBoxEmpty_m03hf")
+Button/styles/normal = SubResource("StyleBoxEmpty_khbcs")
+Button/styles/pressed = SubResource("StyleBoxEmpty_nxb3k")
+ButtonSmall/base_type = &"Button"
+ButtonSmall/fonts/font = ExtResource("1_yuyu6")
+ItemList/styles/hovered = SubResource("StyleBoxFlat_adntb")
+ItemList/styles/panel = SubResource("StyleBoxEmpty_8phvc")
+Label/colors/font_color = Color(0.780392, 0.780392, 0.780392, 1)
+LabelHeading/base_type = &"Label"
+LabelHeading/font_sizes/font_size = 24
+LabelHeading/fonts/font = ExtResource("2_ibdt3")
+LabelSmall/base_type = &"Label"
+LabelSmall/fonts/font = ExtResource("1_yuyu6")
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_vw7wr")
+ProgressBar/fonts/font = ExtResource("1_yuyu6")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_8uvir")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_qokj6")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_qwtbc")

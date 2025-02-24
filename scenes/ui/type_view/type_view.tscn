@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://gfhyj1bfg1w6"]
+
+[ext_resource type="Script" path="res://scenes/ui/type_view/type_view.gd" id="1_4ksji"]
+[ext_resource type="Texture2D" uid="uid://cdbwqltwiggwh" path="res://assets/character/default.png" id="2_gjxlx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f1s8"]
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+
+[node name="TraitGraph" type="PanelContainer" node_paths=PackedStringArray("selector", "view_name", "view_sprite", "view_traits", "view_children")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5f1s8")
+script = ExtResource("1_4ksji")
+selector = NodePath("VBox/Header/Selector")
+view_name = NodePath("VBox/Type/Info/Name")
+view_sprite = NodePath("VBox/Type/Sprite")
+view_traits = NodePath("VBox/Type/Info/Traits")
+view_children = NodePath("VBox/Type/Info/Children")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "View"
+
+[node name="Selector" type="OptionButton" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text_overrun_behavior = 3
+fit_to_longest_item = false
+
+[node name="Type" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="Sprite" type="TextureRect" parent="VBox/Type"]
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("2_gjxlx")
+
+[node name="Info" type="VBoxContainer" parent="VBox/Type"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="VBox/Type/Info"]
+layout_mode = 2
+theme_type_variation = &"LabelHeading"
+text = "Type"
+text_overrun_behavior = 3
+
+[node name="Traits" type="VBoxContainer" parent="VBox/Type/Info"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBox/Type/Info/Traits"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "Traits"
+
+[node name="Spacer" type="Control" parent="VBox/Type/Info"]
+layout_mode = 2
+
+[node name="Children" type="Label" parent="VBox/Type/Info"]
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+text = "Children"
+autowrap_mode = 2
+
+[connection signal="item_selected" from="VBox/Header/Selector" to="." method="view_idx"]

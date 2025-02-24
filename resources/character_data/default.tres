@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=2 format=3 uid="uid://boakq1i3tttkh"]
+
+[ext_resource type="Script" path="res://resources/character_data/character_data.gd" id="1_nflhd"]
+
+[resource]
+script = ExtResource("1_nflhd")
+name = ""
+sprite_offset = Vector2(0, 0)
+color = Color(0, 0, 0, 1)
