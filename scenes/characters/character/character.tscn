@@ -39,5 +39,6 @@ sprite_frames = SubResource("SpriteFrames_iabhj")
 offset = Vector2(0, -12)
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
 
 [connection signal="activated" from="Trigger" to="." method="emit_signal" binds= [&"clicked"]]

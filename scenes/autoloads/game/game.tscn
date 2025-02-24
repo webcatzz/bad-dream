@@ -11,4 +11,5 @@ script = ExtResource("1_kmf4k")
 
 [node name="Cursor" type="Sprite2D" parent="Overlay"]
 texture = ExtResource("1_8st84")
+centered = false
 script = ExtResource("2_xcsj6")
