@@ -1,7 +1,6 @@
 class_name Battle
 extends Node
 
-@export var grid: Grid
 @export var actors: Array[Actor]
 
 
@@ -53,21 +52,15 @@ func run_turn(actor: Actor) -> void:
 		remove_actor(actor)
 		return
 	
-	grid.set_coords_open(actor.coords, true)
 	await actor.take_turn()
-	grid.set_coords_open(actor.coords, false)
 
 
 
 # adding & removing
 
 func ready_actor(actor: Actor) -> void:
-	actor.position = Grid.snap(actor.position)
-	actor.set_clickable(true)
-	grid.set_coords_open(actor.coords, false)
+	actor.position = actor.position.snappedf(10)
 
 
 func remove_actor(actor: Actor) -> void:
 	actors.erase(actor)
-	actor.set_clickable(false)
-	grid.set_coords_open(actor.coords, true)

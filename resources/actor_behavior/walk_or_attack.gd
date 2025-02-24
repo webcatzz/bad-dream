@@ -1,6 +1,6 @@
 extends ActorBehavior
 
-var direction: Vector2 = Grid.DOWN
+var direction: Vector3 = Vector3.FORWARD
 
 
 func act() -> void:

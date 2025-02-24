@@ -1,44 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://cderx2tagexsh"]
+[gd_scene load_steps=4 format=3 uid="uid://cderx2tagexsh"]
 
 [ext_resource type="Script" path="res://scenes/characters/character/character.gd" id="1_8gmlv"]
-[ext_resource type="PackedScene" uid="uid://cqqsbun44o5af" path="res://scenes/tile_collision.tscn" id="2_bey5l"]
-[ext_resource type="Texture2D" uid="uid://cibi3valw22di" path="res://assets/character/default.png" id="2_tyg1n"]
-[ext_resource type="Script" path="res://scenes/triggers/trigger.gd" id="3_qcfb4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkur0"]
-size = Vector2(14, 34)
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lx82x"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_iabhj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_tyg1n")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="BoxShape3D" id="BoxShape3D_wc0xd"]
+size = Vector3(1, 2, 1)
 
-[node name="Character" type="Area2D"]
-collision_mask = 0
-input_pickable = false
-monitoring = false
+[node name="Character" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_8gmlv")
 
-[node name="Collision" parent="." instance=ExtResource("2_bey5l")]
+[node name="Model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lx82x")
 
-[node name="Trigger" type="Area2D" parent="."]
-script = ExtResource("3_qcfb4")
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_wc0xd")
 
-[node name="Shape" type="CollisionShape2D" parent="Trigger"]
-position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_pkur0")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_iabhj")
-offset = Vector2(0, -12)
-
-[node name="Nav" type="NavigationAgent2D" parent="."]
-path_desired_distance = 8.0
-
-[connection signal="activated" from="Trigger" to="." method="emit_signal" binds= [&"clicked"]]
+[node name="Nav" type="NavigationAgent3D" parent="."]

@@ -1,506 +1,54 @@
-[gd_scene load_steps=83 format=3 uid="uid://hw2n2w4o0sh7"]
+[gd_scene load_steps=8 format=3 uid="uid://hw2n2w4o0sh7"]
 
-[ext_resource type="Script" path="res://scenes/grid/grid.gd" id="1_efh2p"]
-[ext_resource type="Texture2D" uid="uid://btpupkfs6nv6y" path="res://assets/tile/tile.png" id="2_7mnbx"]
-[ext_resource type="Script" path="res://scenes/grid/tile.gd" id="3_7twtm"]
-[ext_resource type="PackedScene" uid="uid://bahgmyj4ou7t5" path="res://scenes/battle/battle.tscn" id="4_4v72q"]
-[ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scenes/characters/player/player.tscn" id="6_coark"]
-[ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scenes/characters/actor/actor.tscn" id="7_ofiao"]
-[ext_resource type="Resource" uid="uid://0vtdvk30luej" path="res://resources/actor_type/termite.tres" id="8_1fukf"]
+[ext_resource type="PackedScene" uid="uid://bahgmyj4ou7t5" path="res://scenes/battle/battle.tscn" id="2_ddvsb"]
+[ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scenes/characters/player/player.tscn" id="3_8nkf0"]
+[ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scenes/characters/actor/actor.tscn" id="3_torxi"]
+[ext_resource type="Script" path="res://resources/actor_type/actor_type.gd" id="4_5yq8e"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_wcn5f"]
-vertices = PackedVector2Array(12, -1.5, 2, 8.5, -12, 1.5, -2, -8.5)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-2, -8.5, 12, -1.5, 2, 8.5, -12, 1.5)])
-agent_radius = 0.0
+[sub_resource type="Environment" id="Environment_hb5ii"]
+background_mode = 1
+background_color = Color(0.109804, 0.0901961, 0.0784314, 1)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q1aee"]
-texture = ExtResource("2_7mnbx")
-texture_region_size = Vector2i(24, 21)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -2)
-0:0/0/z_index = -1
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wcn5f")
+[sub_resource type="NavigationMesh" id="NavigationMesh_7qjb6"]
+vertices = PackedVector3Array(-1.25, 0.5, -18.208, -1.25, 0.5, 4.29199, 1.5, 0.5, 4.29199, 1.5, 0.5, -18.208)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
-[sub_resource type="TileSet" id="TileSet_etukc"]
-tile_size = Vector2i(24, 17)
-navigation_layer_0/layers = 1
-sources/0 = SubResource("TileSetAtlasSource_q1aee")
+[sub_resource type="Resource" id="Resource_e8bel"]
+script = ExtResource("4_5yq8e")
+traits = Array[int]([])
+name = "Character"
+sprite_offset = Vector2(0, -12)
+color = Color(0, 0, 0, 1)
 
-[sub_resource type="Resource" id="Resource_l77vd"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(2, -2)
+[node name="Main" type="Node3D"]
 
-[sub_resource type="Resource" id="Resource_jojhj"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, -2)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hb5ii")
 
-[sub_resource type="Resource" id="Resource_e7btt"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, -2)
+[node name="NavRegion" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_7qjb6")
 
-[sub_resource type="Resource" id="Resource_hgj4a"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, -2)
+[node name="Combiner" type="CSGCombiner3D" parent="NavRegion"]
+use_collision = true
 
-[sub_resource type="Resource" id="Resource_gbftd"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-2, -2)
+[node name="Box" type="CSGBox3D" parent="NavRegion/Combiner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -6.95801)
+flip_faces = true
+size = Vector3(4, 6, 24)
 
-[sub_resource type="Resource" id="Resource_1x82o"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(2, -1)
+[node name="Battle" parent="." node_paths=PackedStringArray("actors") instance=ExtResource("2_ddvsb")]
+actors = [NodePath("../Player"), null]
 
-[sub_resource type="Resource" id="Resource_lunw6"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, -1)
+[node name="Spotlight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.1, 0)
+spot_range = 6.9
+spot_angle = 65.2651
 
-[sub_resource type="Resource" id="Resource_38rut"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, -1)
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.2, 0)
 
-[sub_resource type="Resource" id="Resource_dd8wg"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, -1)
+[node name="Player" parent="." instance=ExtResource("3_8nkf0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.15865)
 
-[sub_resource type="Resource" id="Resource_l3epo"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-2, -1)
-
-[sub_resource type="Resource" id="Resource_72ndd"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, -1)
-
-[sub_resource type="Resource" id="Resource_yntl6"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, -1)
-
-[sub_resource type="Resource" id="Resource_01ldf"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, -1)
-
-[sub_resource type="Resource" id="Resource_cmf88"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(2, 0)
-
-[sub_resource type="Resource" id="Resource_k7ef5"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, 0)
-
-[sub_resource type="Resource" id="Resource_7xe2u"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 0)
-
-[sub_resource type="Resource" id="Resource_elodw"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, 0)
-
-[sub_resource type="Resource" id="Resource_m4enj"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-2, 0)
-
-[sub_resource type="Resource" id="Resource_acnm5"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-3, 0)
-
-[sub_resource type="Resource" id="Resource_a3hpr"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 0)
-
-[sub_resource type="Resource" id="Resource_bv3gd"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 0)
-
-[sub_resource type="Resource" id="Resource_w4dpd"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 0)
-
-[sub_resource type="Resource" id="Resource_8mllg"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(2, 1)
-
-[sub_resource type="Resource" id="Resource_644a1"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, 1)
-
-[sub_resource type="Resource" id="Resource_ny57g"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 1)
-
-[sub_resource type="Resource" id="Resource_v4ea8"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, 1)
-
-[sub_resource type="Resource" id="Resource_ktn5h"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-2, 1)
-
-[sub_resource type="Resource" id="Resource_vubxu"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 1)
-
-[sub_resource type="Resource" id="Resource_3fn2a"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 1)
-
-[sub_resource type="Resource" id="Resource_j6df0"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 1)
-
-[sub_resource type="Resource" id="Resource_amxf4"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(2, 2)
-
-[sub_resource type="Resource" id="Resource_b2dtl"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, 2)
-
-[sub_resource type="Resource" id="Resource_58acc"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 2)
-
-[sub_resource type="Resource" id="Resource_tjydf"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, 2)
-
-[sub_resource type="Resource" id="Resource_fcfjc"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-2, 2)
-
-[sub_resource type="Resource" id="Resource_2omxa"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 2)
-
-[sub_resource type="Resource" id="Resource_4p0t2"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 3)
-
-[sub_resource type="Resource" id="Resource_3hubb"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-3, 3)
-
-[sub_resource type="Resource" id="Resource_ayvsm"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 3)
-
-[sub_resource type="Resource" id="Resource_h684y"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 3)
-
-[sub_resource type="Resource" id="Resource_yquxw"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 3)
-
-[sub_resource type="Resource" id="Resource_v1s08"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-7, 3)
-
-[sub_resource type="Resource" id="Resource_i26ol"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, 4)
-
-[sub_resource type="Resource" id="Resource_tw1gp"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 4)
-
-[sub_resource type="Resource" id="Resource_vowqf"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, 4)
-
-[sub_resource type="Resource" id="Resource_bq7bu"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-3, 4)
-
-[sub_resource type="Resource" id="Resource_srtca"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 4)
-
-[sub_resource type="Resource" id="Resource_pbahl"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 4)
-
-[sub_resource type="Resource" id="Resource_w04oy"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 4)
-
-[sub_resource type="Resource" id="Resource_iotbj"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-7, 4)
-
-[sub_resource type="Resource" id="Resource_05qel"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, 5)
-
-[sub_resource type="Resource" id="Resource_7ms7q"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 5)
-
-[sub_resource type="Resource" id="Resource_qqt1s"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, 5)
-
-[sub_resource type="Resource" id="Resource_s5u80"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-2, 5)
-
-[sub_resource type="Resource" id="Resource_2385b"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-3, 5)
-
-[sub_resource type="Resource" id="Resource_v4jmh"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 5)
-
-[sub_resource type="Resource" id="Resource_epeq4"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 5)
-
-[sub_resource type="Resource" id="Resource_nnxxn"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 5)
-
-[sub_resource type="Resource" id="Resource_yay38"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-7, 5)
-
-[sub_resource type="Resource" id="Resource_tjcg0"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(1, 6)
-
-[sub_resource type="Resource" id="Resource_iu77e"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(0, 6)
-
-[sub_resource type="Resource" id="Resource_wrpan"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-1, 6)
-
-[sub_resource type="Resource" id="Resource_a180u"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-3, 6)
-
-[sub_resource type="Resource" id="Resource_ak687"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 6)
-
-[sub_resource type="Resource" id="Resource_81w2d"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 6)
-
-[sub_resource type="Resource" id="Resource_50lax"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 6)
-
-[sub_resource type="Resource" id="Resource_m3i2w"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-7, 6)
-
-[sub_resource type="Resource" id="Resource_28r5j"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-3, 7)
-
-[sub_resource type="Resource" id="Resource_fgd17"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-4, 7)
-
-[sub_resource type="Resource" id="Resource_nrt74"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-5, 7)
-
-[sub_resource type="Resource" id="Resource_3mo4d"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-6, 7)
-
-[sub_resource type="Resource" id="Resource_f54sv"]
-script = ExtResource("3_7twtm")
-source_id = 0
-tile_id = Vector2i(0, 0)
-coords = Vector2i(-7, 7)
-
-[node name="Main" type="Node2D"]
-y_sort_enabled = true
-
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Color" type="ColorRect" parent="Background"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.105882, 0.105882, 0.105882, 1)
-metadata/_edit_lock_ = true
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Button" type="Button" parent="UI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -42.0
-offset_bottom = 7.0
-grow_horizontal = 0
-text = "start battle"
-
-[node name="Grid" type="Node2D" parent="."]
-y_sort_enabled = true
-script = ExtResource("1_efh2p")
-tile_set = SubResource("TileSet_etukc")
-_tiles = [SubResource("Resource_l77vd"), SubResource("Resource_jojhj"), SubResource("Resource_e7btt"), SubResource("Resource_hgj4a"), SubResource("Resource_gbftd"), SubResource("Resource_1x82o"), SubResource("Resource_lunw6"), SubResource("Resource_38rut"), SubResource("Resource_dd8wg"), SubResource("Resource_l3epo"), SubResource("Resource_72ndd"), SubResource("Resource_yntl6"), SubResource("Resource_01ldf"), SubResource("Resource_cmf88"), SubResource("Resource_k7ef5"), SubResource("Resource_7xe2u"), SubResource("Resource_elodw"), SubResource("Resource_m4enj"), SubResource("Resource_acnm5"), SubResource("Resource_a3hpr"), SubResource("Resource_bv3gd"), SubResource("Resource_w4dpd"), SubResource("Resource_8mllg"), SubResource("Resource_644a1"), SubResource("Resource_ny57g"), SubResource("Resource_v4ea8"), SubResource("Resource_ktn5h"), SubResource("Resource_vubxu"), SubResource("Resource_3fn2a"), SubResource("Resource_j6df0"), SubResource("Resource_amxf4"), SubResource("Resource_b2dtl"), SubResource("Resource_58acc"), SubResource("Resource_tjydf"), SubResource("Resource_fcfjc"), SubResource("Resource_2omxa"), SubResource("Resource_4p0t2"), SubResource("Resource_3hubb"), SubResource("Resource_ayvsm"), SubResource("Resource_h684y"), SubResource("Resource_yquxw"), SubResource("Resource_v1s08"), SubResource("Resource_i26ol"), SubResource("Resource_tw1gp"), SubResource("Resource_vowqf"), SubResource("Resource_bq7bu"), SubResource("Resource_srtca"), SubResource("Resource_pbahl"), SubResource("Resource_w04oy"), SubResource("Resource_iotbj"), SubResource("Resource_05qel"), SubResource("Resource_7ms7q"), SubResource("Resource_qqt1s"), SubResource("Resource_s5u80"), SubResource("Resource_2385b"), SubResource("Resource_v4jmh"), SubResource("Resource_epeq4"), SubResource("Resource_nnxxn"), SubResource("Resource_yay38"), SubResource("Resource_tjcg0"), SubResource("Resource_iu77e"), SubResource("Resource_wrpan"), SubResource("Resource_a180u"), SubResource("Resource_ak687"), SubResource("Resource_81w2d"), SubResource("Resource_50lax"), SubResource("Resource_m3i2w"), SubResource("Resource_28r5j"), SubResource("Resource_fgd17"), SubResource("Resource_nrt74"), SubResource("Resource_3mo4d"), SubResource("Resource_f54sv")]
-
-[node name="Battle" parent="." node_paths=PackedStringArray("grid", "actors") instance=ExtResource("4_4v72q")]
-grid = NodePath("../Grid")
-actors = [NodePath("../Actor")]
-
-[node name="Player" parent="." instance=ExtResource("6_coark")]
-
-[node name="Actor" parent="." instance=ExtResource("7_ofiao")]
-position = Vector2(70, 35)
-data = ExtResource("8_1fukf")
-
-[connection signal="pressed" from="UI/Button" to="UI/Button" method="queue_free"]
-[connection signal="pressed" from="UI/Button" to="Battle" method="start"]
+[node name="Actor" parent="." instance=ExtResource("3_torxi")]
+data = SubResource("Resource_e8bel")

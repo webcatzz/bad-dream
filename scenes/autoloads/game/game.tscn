@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/autoloads/game/game.gd" id="1_kmf4k"]
 [ext_resource type="Script" path="res://scenes/autoloads/game/cursor.gd" id="2_xcsj6"]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node3D"]
 script = ExtResource("1_kmf4k")
 
 [node name="Overlay" type="CanvasLayer" parent="."]
