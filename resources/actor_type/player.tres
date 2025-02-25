@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="ActorType" load_steps=3 format=3 uid="uid://bvfohu2hods0x"]
+[gd_resource type="Resource" script_class="ActorType" load_steps=2 format=3 uid="uid://bvfohu2hods0x"]
 
 [ext_resource type="Script" path="res://resources/actor_type/actor_type.gd" id="1_d2ngo"]
-[ext_resource type="SpriteFrames" uid="uid://81ga1268ydc5" path="res://assets/character/sprite_frames/player.tres" id="2_armh0"]
 
 [resource]
 script = ExtResource("1_d2ngo")
 traits = Array[int]([0])
 name = "Player"
-sprite_frames = ExtResource("2_armh0")
 sprite_offset = Vector2(0, -12)
 color = Color(0, 0, 0, 1)

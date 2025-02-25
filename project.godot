@@ -24,7 +24,7 @@ ResourceLibrary="*res://scenes/autoloads/resource_library.gd"
 
 window/size/viewport_width=2000
 window/size/viewport_height=1200
-window/stretch/scale=4.0
+window/stretch/scale=3.5
 
 [editor_plugins]
 
