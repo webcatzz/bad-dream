@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh2srlk88csng"]
+
+[ext_resource type="Script" path="res://scenes/camera/camera.gd" id="1_qi38q"]
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_qi38q")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+projection = 1
+current = true
+size = 16.0

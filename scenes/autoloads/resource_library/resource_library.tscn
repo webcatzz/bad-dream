@@ -1,0 +1,17 @@
+[gd_scene load_steps=8 format=3 uid="uid://duxaawojhf3jj"]
+
+[ext_resource type="Script" path="res://scenes/autoloads/resource_library/resource_library.gd" id="1_ss4ej"]
+[ext_resource type="Resource" uid="uid://bvfohu2hods0x" path="res://resources/actor_type/player.tres" id="2_ar856"]
+[ext_resource type="Resource" uid="uid://bfybgxwubco0k" path="res://resources/actor_type/default.tres" id="3_wgqwk"]
+[ext_resource type="Resource" uid="uid://mpfs4yurxwsh" path="res://resources/actor_type/larva.tres" id="4_k0pca"]
+[ext_resource type="Resource" uid="uid://0vtdvk30luej" path="res://resources/actor_type/termite.tres" id="6_uy1wp"]
+[ext_resource type="Script" path="res://scenes/autoloads/resource_library/resource_preloader_plus.gd" id="7_5f5yj"]
+[ext_resource type="Resource" uid="uid://k5nxnxlk3tsr" path="res://resources/actor_type/termite_soldier.tres" id="7_tuyog"]
+
+[node name="ResourceLibrary" type="Node"]
+script = ExtResource("1_ss4ej")
+
+[node name="ActorTypes" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("default", "larva", "player", "termite", "termite_soldier"), [ExtResource("3_wgqwk"), ExtResource("4_k0pca"), ExtResource("2_ar856"), ExtResource("6_uy1wp"), ExtResource("7_tuyog")]]
+script = ExtResource("7_5f5yj")
+path = "res://resources/actor_type"

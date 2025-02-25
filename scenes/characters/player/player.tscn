@@ -8,8 +8,12 @@
 script = ExtResource("2_goiwa")
 data = ExtResource("3_7yfxa")
 
+[node name="Nav" parent="." index="2"]
+target_desired_distance = 1.0
+
 [node name="CameraPivot" type="Node3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1, 0)
+visible = false
 
 [node name="Camera" type="Camera3D" parent="CameraPivot" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)

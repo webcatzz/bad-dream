@@ -1,22 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cderx2tagexsh"]
 
 [ext_resource type="Script" path="res://scenes/characters/character/character.gd" id="1_8gmlv"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_lx82x"]
+[ext_resource type="PackedScene" uid="uid://b8vfc8hurs7bv" path="res://assets/character/actor.gltf" id="2_y1qoj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wc0xd"]
-size = Vector3(1, 2, 1)
+size = Vector3(0.5, 2, 0.5)
 
 [node name="Character" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_8gmlv")
 
-[node name="Model" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_lx82x")
+[node name="Model" parent="." instance=ExtResource("2_y1qoj")]
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_wc0xd")
 
 [node name="Nav" type="NavigationAgent3D" parent="."]
+target_desired_distance = 0.1

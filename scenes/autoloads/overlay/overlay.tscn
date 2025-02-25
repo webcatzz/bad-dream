@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dikc3vxbpmw7l"]
+
+[ext_resource type="Script" path="res://scenes/autoloads/overlay/overlay.gd" id="1_w5vr3"]
+[ext_resource type="Texture2D" uid="uid://o4iy4iel0f4l" path="res://assets/cursor.png" id="2_sidg0"]
+[ext_resource type="Script" path="res://scenes/autoloads/overlay/cursor.gd" id="3_2way4"]
+
+[node name="Overlay" type="CanvasLayer"]
+script = ExtResource("1_w5vr3")
+
+[node name="Cursor" type="Sprite2D" parent="."]
+texture = ExtResource("2_sidg0")
+centered = false
+script = ExtResource("3_2way4")
