@@ -744,3 +744,4 @@ data = ExtResource("8_1fukf")
 
 [connection signal="pressed" from="UI/Button" to="UI/Button" method="queue_free"]
 [connection signal="pressed" from="UI/Button" to="Battle" method="start"]
+[connection signal="clicked" from="Player" to="Player/ActorView" method="show"]

@@ -298,9 +298,6 @@ script = ExtResource("2_met84")
 [node name="Collision" parent="." index="0"]
 visible = false
 
-[node name="Trigger" parent="." index="1"]
-input_pickable = false
-
 [node name="Sprite" parent="." index="2"]
 material = SubResource("ShaderMaterial_8o8hw")
 
@@ -383,6 +380,5 @@ preprocess = 0.1
 explosiveness = 0.9
 local_coords = true
 
-[connection signal="clicked" from="." to="ActorView" method="show"]
-[connection signal="mouse_entered" from="Trigger" to="Info" method="show"]
-[connection signal="mouse_exited" from="Trigger" to="Info" method="hide"]
+[connection signal="mouse_entered" from="Trigger" to="ActorView" method="show"]
+[connection signal="mouse_exited" from="Trigger" to="ActorView" method="hide"]

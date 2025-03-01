@@ -24,7 +24,7 @@ Game="*res://scenes/autoloads/game/game.tscn"
 
 window/size/viewport_width=2000
 window/size/viewport_height=1200
-window/stretch/scale=3.5
+window/stretch/scale=3.0
 
 [editor_plugins]
 

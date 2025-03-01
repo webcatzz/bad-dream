@@ -7,7 +7,6 @@ signal clicked
 const WALK_SPEED: float = 75 # Navigation speed.
 
 @export var data: CharacterData
-@export var facing := Vector2i(0, 1)
 
 var coords: Vector2i:
 	set(value): position = Grid.coords_to_point(coords)
@@ -52,7 +51,6 @@ func set_clickable(value: bool) -> void:
 
 func _ready() -> void:
 	load_data(data)
-	trigger.walk_redirect = facing * 2
 
 
 func load_data(data: CharacterData) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3034821mj1vt"]
+[gd_scene load_steps=14 format=3 uid="uid://c3034821mj1vt"]
 
 [ext_resource type="Script" path="res://scenes/autoloads/resource_library/resource_library.gd" id="1_6tfma"]
 [ext_resource type="Resource" uid="uid://bfybgxwubco0k" path="res://resources/actor_data/default.tres" id="2_fdvt6"]
@@ -8,7 +8,11 @@
 [ext_resource type="Resource" uid="uid://k5nxnxlk3tsr" path="res://resources/actor_data/termite_soldier.tres" id="6_2otie"]
 [ext_resource type="Script" path="res://scenes/autoloads/resource_library/actor_type.gd" id="7_vsfkx"]
 [ext_resource type="Resource" uid="uid://boakq1i3tttkh" path="res://resources/character_data/default.tres" id="8_fjmpa"]
+[ext_resource type="Resource" uid="uid://c865q5hf0074p" path="res://resources/modifier_data/traits/bruiser.tres" id="9_0r1nb"]
 [ext_resource type="PackedScene" uid="uid://bgaca185fhwjl" path="res://scenes/ui/modifier_label/trait_label/trait_label.tscn" id="9_ir2or"]
+[ext_resource type="Resource" uid="uid://dcor5w70x16cr" path="res://resources/modifier_data/traits/burrower.tres" id="10_s5iwv"]
+[ext_resource type="Resource" uid="uid://dt4u6h65c5joa" path="res://resources/modifier_data/traits/obstinate.tres" id="11_o5kcu"]
+[ext_resource type="Resource" uid="uid://qtn4gcarb52u" path="res://resources/modifier_data/traits/piteous.tres" id="12_fpjmm"]
 
 [node name="ResourceLibrary" type="Node"]
 script = ExtResource("1_6tfma")
@@ -21,6 +25,7 @@ script = ExtResource("7_vsfkx")
 resources = [PackedStringArray("default"), [ExtResource("8_fjmpa")]]
 
 [node name="ModifierData" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("bruiser", "burrower", "obstinate", "piteous"), [ExtResource("9_0r1nb"), ExtResource("10_s5iwv"), ExtResource("11_o5kcu"), ExtResource("12_fpjmm")]]
 
 [node name="UI" type="ResourcePreloader" parent="."]
 resources = [PackedStringArray("trait_label"), [ExtResource("9_ir2or")]]

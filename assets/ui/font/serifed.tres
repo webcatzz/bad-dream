@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://c6oh7kyt6hhch"]
+
+[ext_resource type="FontFile" uid="uid://747carj1liew" path="res://assets/ui/font/serifed.ttf" id="1_3tdop"]
+
+[resource]
+base_font = ExtResource("1_3tdop")
+spacing_top = -4

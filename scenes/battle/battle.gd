@@ -64,11 +64,9 @@ func run_turn(actor: Actor) -> void:
 
 func ready_actor(actor: Actor) -> void:
 	actor.position = Grid.snap(actor.position)
-	actor.set_clickable(true)
 	grid.set_coords_open(actor.coords, false)
 
 
 func remove_actor(actor: Actor) -> void:
 	actors.erase(actor)
-	actor.set_clickable(false)
 	grid.set_coords_open(actor.coords, true)
