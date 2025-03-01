@@ -1,13 +1,14 @@
-[gd_scene load_steps=37 format=3 uid="uid://df0j5wnvq4v4f"]
+[gd_scene load_steps=38 format=3 uid="uid://df0j5wnvq4v4f"]
 
-[ext_resource type="Script" path="res://scenes/characters/actor/actor.gd" id="1_4like"]
 [ext_resource type="PackedScene" uid="uid://cderx2tagexsh" path="res://scenes/characters/character/character.tscn" id="1_ebx46"]
 [ext_resource type="Shader" path="res://assets/vfx/shader/color.gdshader" id="2_getjq"]
+[ext_resource type="Script" path="res://scenes/characters/actor/actor.gd" id="2_met84"]
 [ext_resource type="Script" path="res://scenes/ui/slots.gd" id="3_crq80"]
 [ext_resource type="Texture2D" uid="uid://c0qcsp46444ec" path="res://assets/vfx/blossom.png" id="3_itp2t"]
 [ext_resource type="Texture2D" uid="uid://bc64g7tjnblf4" path="res://assets/vfx/circle-outline.png" id="4_8otk2"]
 [ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://assets/vfx/shader/dither.tres" id="5_ggljo"]
 [ext_resource type="Texture2D" uid="uid://nvqyfrrgab6t" path="res://assets/vfx/circle.png" id="6_ga40n"]
+[ext_resource type="PackedScene" uid="uid://bhsgjh0lvhhnr" path="res://scenes/ui/actor_view/actor_view.tscn" id="9_2d8rm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8o8hw"]
 resource_local_to_scene = true
@@ -292,7 +293,7 @@ color = Color(0.6, 0.576471, 0.639216, 1)
 alpha_curve = SubResource("CurveTexture_oad2g")
 
 [node name="Actor" groups=["actor"] instance=ExtResource("1_ebx46")]
-script = ExtResource("1_4like")
+script = ExtResource("2_met84")
 
 [node name="Collision" parent="." index="0"]
 visible = false
@@ -304,6 +305,7 @@ input_pickable = false
 material = SubResource("ShaderMaterial_8o8hw")
 
 [node name="Info" type="VBoxContainer" parent="." index="4"]
+visible = false
 z_index = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -317,26 +319,31 @@ mouse_filter = 2
 theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="Info" index="0"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelSmall"
 text = "Type"
 
 [node name="Traits" type="Control" parent="Info" index="1"]
-visible = false
 custom_minimum_size = Vector2(4, 4)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 2
 script = ExtResource("3_crq80")
 
-[node name="Animator" type="AnimationPlayer" parent="." index="5"]
+[node name="ActorView" parent="." index="5" instance=ExtResource("9_2d8rm")]
+visible = false
+offset_left = 15.0
+offset_top = -29.0
+offset_right = 75.0
+offset_bottom = -18.0
+
+[node name="Animator" type="AnimationPlayer" parent="." index="6"]
 libraries = {
 "": SubResource("AnimationLibrary_48ed0")
 }
 
-[node name="DamageParticles" type="GPUParticles2D" parent="." index="6"]
+[node name="DamageParticles" type="GPUParticles2D" parent="." index="7"]
 show_behind_parent = true
 position = Vector2(0, -16)
 emitting = false
@@ -346,14 +353,14 @@ texture = ExtResource("3_itp2t")
 one_shot = true
 explosiveness = 0.75
 
-[node name="HealParticles" type="GPUParticles2D" parent="." index="7"]
+[node name="HealParticles" type="GPUParticles2D" parent="." index="8"]
 position = Vector2(0, -16)
 emitting = false
 amount = 2
 process_material = SubResource("ParticleProcessMaterial_mequu")
 texture = ExtResource("4_8otk2")
 
-[node name="MoveParticles" type="GPUParticles2D" parent="." index="8"]
+[node name="MoveParticles" type="GPUParticles2D" parent="." index="9"]
 z_index = -1
 material = ExtResource("5_ggljo")
 emitting = false
@@ -365,17 +372,17 @@ one_shot = true
 explosiveness = 0.9
 local_coords = true
 
-[node name="ExhaustParticles" type="GPUParticles2D" parent="." index="9"]
+[node name="ExhaustParticles" type="GPUParticles2D" parent="." index="10"]
 material = ExtResource("5_ggljo")
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_rr0bj")
 texture = ExtResource("6_ga40n")
 lifetime = 0.5
 one_shot = true
+preprocess = 0.1
 explosiveness = 0.9
 local_coords = true
 
-[connection signal="mouse_entered" from="Trigger" to="Info/Label" method="show"]
-[connection signal="mouse_entered" from="Trigger" to="Info/Traits" method="show"]
-[connection signal="mouse_exited" from="Trigger" to="Info/Label" method="hide"]
-[connection signal="mouse_exited" from="Trigger" to="Info/Traits" method="hide"]
+[connection signal="clicked" from="." to="ActorView" method="show"]
+[connection signal="mouse_entered" from="Trigger" to="Info" method="show"]
+[connection signal="mouse_exited" from="Trigger" to="Info" method="hide"]

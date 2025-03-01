@@ -1,9 +1,10 @@
+@icon("res://assets/editor/character.svg")
 class_name Character
 extends Area2D
 
 signal clicked
 
-const WALK_SPEED: float = 75 ## Navigation speed.
+const WALK_SPEED: float = 75 # Navigation speed.
 
 @export var data: CharacterData
 @export var facing := Vector2i(0, 1)
@@ -15,22 +16,24 @@ var coords: Vector2i:
 var color: Color
 
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var trigger: Trigger = $Trigger
 @onready var nav: NavigationAgent2D = $Nav
 
 
 
 # navigation
 
-## Starts navigating toward a point.
+# Starts navigating toward a point.
 func walk_to(point: Vector2) -> void:
 	nav.target_position = point
 
 
-## Stops navigating.
+# Stops navigating.
 func stop_walking() -> void:
 	nav.target_position = global_position
 
 
+# Navigates.
 func _process(delta: float) -> void:
 	if not nav.is_navigation_finished():
 		global_position = global_position.move_toward(nav.get_next_path_position(), WALK_SPEED * delta)
@@ -39,8 +42,9 @@ func _process(delta: float) -> void:
 
 # cursor
 
+# Sets whether the character recieves mouse events.
 func set_clickable(value: bool) -> void:
-	$Trigger.input_pickable = value
+	trigger.input_pickable = value
 
 
 
@@ -48,11 +52,10 @@ func set_clickable(value: bool) -> void:
 
 func _ready() -> void:
 	load_data(data)
-	$Trigger.walk_redirect = facing * 2
+	trigger.walk_redirect = facing * 2
 
 
 func load_data(data: CharacterData) -> void:
 	color = data.color
 	sprite.sprite_frames = data.sprite_frames
 	sprite.offset = data.sprite_offset
-	$Trigger/Shape.position = data.sprite_offset

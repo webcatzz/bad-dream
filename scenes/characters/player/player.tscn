@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_gtdxj"]
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scenes/characters/actor/actor.tscn" id="1_o3hdy"]
-[ext_resource type="Resource" uid="uid://bvfohu2hods0x" path="res://resources/actor_type/player.tres" id="3_6855m"]
+[ext_resource type="Resource" uid="uid://bvfohu2hods0x" path="res://resources/actor_data/player.tres" id="3_6855m"]
 [ext_resource type="Script" path="res://scenes/battle/path.gd" id="4_3u8x8"]
 [ext_resource type="Shader" path="res://assets/vfx/shader/color.gdshader" id="4_rseu3"]
 [ext_resource type="PackedScene" uid="uid://tpq1kjad2yna" path="res://scenes/camera/camera.tscn" id="5_o0hu7"]
@@ -15,9 +15,6 @@ shader_parameter/color = Color(0, 0, 0, 0)
 [node name="Player" instance=ExtResource("1_o3hdy")]
 script = ExtResource("1_gtdxj")
 data = ExtResource("3_6855m")
-
-[node name="Trigger" parent="." index="1"]
-visible = false
 
 [node name="Sprite" parent="." index="2"]
 material = SubResource("ShaderMaterial_wufy7")

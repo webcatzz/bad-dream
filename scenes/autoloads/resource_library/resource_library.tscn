@@ -1,0 +1,26 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3034821mj1vt"]
+
+[ext_resource type="Script" path="res://scenes/autoloads/resource_library/resource_library.gd" id="1_6tfma"]
+[ext_resource type="Resource" uid="uid://bfybgxwubco0k" path="res://resources/actor_data/default.tres" id="2_fdvt6"]
+[ext_resource type="Resource" uid="uid://mpfs4yurxwsh" path="res://resources/actor_data/larva.tres" id="3_npklu"]
+[ext_resource type="Resource" uid="uid://bvfohu2hods0x" path="res://resources/actor_data/player.tres" id="4_bgows"]
+[ext_resource type="Resource" uid="uid://0vtdvk30luej" path="res://resources/actor_data/termite.tres" id="5_tppu2"]
+[ext_resource type="Resource" uid="uid://k5nxnxlk3tsr" path="res://resources/actor_data/termite_soldier.tres" id="6_2otie"]
+[ext_resource type="Script" path="res://scenes/autoloads/resource_library/actor_type.gd" id="7_vsfkx"]
+[ext_resource type="Resource" uid="uid://boakq1i3tttkh" path="res://resources/character_data/default.tres" id="8_fjmpa"]
+[ext_resource type="PackedScene" uid="uid://bgaca185fhwjl" path="res://scenes/ui/modifier_label/trait_label/trait_label.tscn" id="9_ir2or"]
+
+[node name="ResourceLibrary" type="Node"]
+script = ExtResource("1_6tfma")
+
+[node name="ActorData" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("default", "larva", "player", "termite", "termite_soldier"), [ExtResource("2_fdvt6"), ExtResource("3_npklu"), ExtResource("4_bgows"), ExtResource("5_tppu2"), ExtResource("6_2otie")]]
+script = ExtResource("7_vsfkx")
+
+[node name="CharacterData" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("default"), [ExtResource("8_fjmpa")]]
+
+[node name="ModifierData" type="ResourcePreloader" parent="."]
+
+[node name="UI" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("trait_label"), [ExtResource("9_ir2or")]]

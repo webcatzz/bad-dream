@@ -1,6 +1,8 @@
 class_name Player
 extends Actor
 
+signal num_pressed
+
 var listening: bool = true
 
 var max_stops: int = 5
@@ -16,6 +18,10 @@ var max_stop_length: int = 80
 func _unhandled_input(event: InputEvent) -> void:
 	if not listening:
 		get_viewport().set_input_as_handled()
+		
+		if Game.battle and event is InputEventKey:
+			if event.keycode >= KEY_1 and event.keycode <= KEY_9:
+				num_pressed.emit(event.keycode - KEY_1)
 	
 	elif Game.battle:
 		get_viewport().set_input_as_handled()
@@ -55,9 +61,9 @@ func _turn_logic() -> void:
 		path.start = line.end
 		path.queue_redraw()
 		
-		await move(line.end)
+		await cross(line.end)
 		if line.type == Path.Line.Type.ATTACK:
-			await attack(line.target)
+			await strike(line.target, await num_pressed)
 	
 	animator.queue("exhausted")
 
@@ -76,7 +82,7 @@ func _on_turn_hover() -> void:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
-	elif can_attack(Game.battle.grid.at(point)):
+	elif can_strike(Game.battle.grid.at(point)):
 		var stand_point: Vector2 = point - calc_facing(point - cursor_path.start)
 		cursor_path.set_end(0, stand_point)
 		cursor_path.set_target(0, Game.battle.grid.at(point))

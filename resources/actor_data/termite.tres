@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ActorData" load_steps=2 format=3 uid="uid://0vtdvk30luej"]
+
+[ext_resource type="Script" path="res://resources/actor_data/actor_data.gd" id="1_mgi6h"]
+
+[resource]
+script = ExtResource("1_mgi6h")
+traits = PackedStringArray("piteous", "burrower")
+is_friendly = false
+name = "Termite"
+sprite_offset = Vector2(0, -12)
+color = Color(0, 0, 0, 1)

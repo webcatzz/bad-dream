@@ -6,8 +6,6 @@ signal canvas_redraw_requested
 enum Tool {
 	SELECT,
 	DRAW,
-	LINE,
-	RECT,
 	FILL,
 	REPLACE,
 }
@@ -21,6 +19,7 @@ var tile_ids: Array[Vector2i]
 
 var history: EditorUndoRedoManager
 var staged_coords: Array[Vector2i]
+var selected_coords: Array[Vector2i]
 
 var mouse_held: bool
 var mouse_rect: Rect2i
@@ -48,8 +47,6 @@ func handle_input(event: InputEventMouse) -> void:
 	match tool:
 		Tool.SELECT: _tool_select(event)
 		Tool.DRAW: _tool_draw(event)
-		Tool.LINE: _tool_line(event)
-		Tool.RECT: _tool_rect(event)
 		Tool.FILL: _tool_fill(event)
 		Tool.REPLACE: _tool_replace(event)
 
@@ -62,58 +59,41 @@ func _mouse_coords() -> Vector2i:
 # tools
 
 func _tool_select(event: InputEventMouse) -> void:
-	if event is InputEventMouse:
-		if staged_coords[staged_coords.bsearch(mouse_rect.end)] == mouse_rect.end:
-			pass
-		
-		else:
-			if event.shift_pressed:
-				stage(mouse_rect.end)
-			
-			elif not mouse_held:
-				if mouse_rect.size:
-					var i: int
-					while i < staged_coords.size():
-						if grid.get_cell(staged_coords[i]):
-							i += 1
-						else:
-							staged_coords.remove_at(i)
-					canvas_redraw_requested.emit()
-				else:
-					staged_coords.clear()
-					canvas_redraw_requested.emit()
-	
 	if mouse_held:
-		staged_coords.clear()
-		stage_rect(mouse_rect.abs())
+		if event is InputEventMouseButton and not event.shift_pressed and mouse_rect.position in staged_coords:
+			selected_coords = staged_coords.duplicate()
+		if selected_coords:
+			staged_coords.clear()
+			var displacement: Vector2i = mouse_rect.end - mouse_rect.position
+			for coords: Vector2i in selected_coords:
+				stage(coords + displacement)
+		else:
+			if not event.shift_pressed: staged_coords.clear()
+			var rect: Rect2i = mouse_rect.abs()
+			for x: int in rect.size.x + 1:
+				for y: int in rect.size.y + 1:
+					var coords: Vector2i = rect.position + Vector2i(x, y)
+					if grid.has_tile(coords): stage(coords)
+	
+	elif selected_coords:
+		commit_move(mouse_rect.end - mouse_rect.position)
 
 
 func _tool_draw(event: InputEventMouse) -> void:
 	if mouse_held:
-		stage(mouse_rect.end)
+		if event.shift_pressed: # line
+			staged_coords.clear()
+			var min_axis: int = mouse_rect.size.abs().min_axis_index()
+			mouse_rect.end[min_axis] = mouse_rect.position[min_axis]
+			stage_rect(mouse_rect.abs())
+		elif event.ctrl_pressed: # rect
+			staged_coords.clear()
+			stage_rect(mouse_rect.abs())
+		else:
+			stage(mouse_rect.end)
 	
 	elif event is InputEventMouseButton:
-		commit()
-
-
-func _tool_line(event: InputEventMouse) -> void:
-	if mouse_held:
-		staged_coords.clear()
-		var min_axis: int = mouse_rect.size.abs().min_axis_index()
-		mouse_rect.end[min_axis] = mouse_rect.position[min_axis]
-		stage_rect(mouse_rect.abs())
-	
-	elif event is InputEventMouseButton:
-		commit()
-
-
-func _tool_rect(event: InputEventMouse) -> void:
-	if mouse_held:
-		staged_coords.clear()
-		stage_rect(mouse_rect.abs())
-	
-	elif event is InputEventMouseButton:
-		commit()
+		commit_paint()
 
 
 func _tool_fill(event: InputEventMouse) -> void:
@@ -131,7 +111,7 @@ func _tool_replace(event: InputEventMouse) -> void:
 			for cell: Tile in grid.cells:
 				if cell.source_id == target.source_id and cell.tile_id == target.tile_id:
 					stage(cell.coords)
-			commit()
+			commit_paint()
 
 
 
@@ -150,7 +130,12 @@ func stage_rect(rect: Rect2i) -> void:
 			stage(Vector2i(x, y))
 
 
-func commit() -> void:
+func clear_staged() -> void:
+	staged_coords.clear()
+	canvas_redraw_requested.emit()
+
+
+func commit_paint() -> void:
 	history.create_action("Paint tiles")
 	
 	for coords: Vector2i in staged_coords:
@@ -165,9 +150,29 @@ func commit() -> void:
 			history.add_do_method(grid, "set_tile", coords, source_id, tile_ids.pick_random())
 	
 	history.commit_action()
+	clear_staged()
+
+
+func commit_move(displacement: Vector2i) -> void:
+	history.create_action("Move tiles")
 	
-	staged_coords.clear()
-	canvas_redraw_requested.emit()
+	for coords: Vector2i in selected_coords:
+		if grid.has_tile(coords):
+			var tile: Tile = grid.get_tile(coords)
+			var new_coords: Vector2i = coords + displacement
+			
+			if grid.has_tile(new_coords):
+				var old_tile: Tile = grid.get_tile(new_coords)
+				history.add_undo_method(grid, "set_tile", new_coords, old_tile.source_id, old_tile.tile_id)
+			else:
+				history.add_undo_method(grid, "remove_tile", new_coords)
+			history.add_undo_method(grid, "set_tile", coords, tile.source_id, tile.tile_id)
+			
+			history.add_do_method(grid, "remove_tile", coords)
+			history.add_do_method(grid, "set_tile", new_coords, tile.source_id, tile.tile_id)
+	
+	history.commit_action()
+	selected_coords.clear()
 
 
 
@@ -195,7 +200,7 @@ func handle_draw(overlay: Control) -> void:
 func _populate_sources() -> void:
 	for i: int in grid.tile_set.get_source_count():
 		var source: TileSetAtlasSource = grid.tile_set.get_source(grid.tile_set.get_source_id(i))
-		source_list.add_item(source.texture.resource_path.get_file(), _get_tile_texture(source, source.get_tile_id(0)))
+		source_list.add_item(source.texture.resource_path.get_file(), source.texture)
 	source_list.select(0)
 	_on_source_selected(0)
 
@@ -214,6 +219,7 @@ func _populate_tiles() -> void:
 
 func _on_tool_selected(idx: int) -> void:
 	tool = idx
+	clear_staged()
 
 
 func _on_source_selected(idx: int) -> void:

@@ -26,11 +26,6 @@ func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 		activated.emit()
 
 
-func _on_area_entered(area: Area2D) -> void:
-	assert(area == Game.player)
-	activated.emit()
-
-
 
 # init
 
@@ -46,7 +41,7 @@ func _ready() -> void:
 		Mode.ENTER:
 			collision_layer = 0
 			input_pickable = false
-			area_entered.connect(_on_area_entered)
+			area_entered.connect(activated.emit)
 	
 	if once:
 		activated.connect(queue_free)

@@ -5,24 +5,18 @@ signal attacked
 signal turn_started
 signal turn_ended
 
-enum Trait {
-	ANIMA,
-	PITEOUS,
-	BURROWER,
-	BUCKSHOT,
-}
-
-var type: String
-var traits: Array[Trait]
+var traits: PackedStringArray
 var conditions: Array[Condition]
 
+var behavior := ActorBehavior.new(self)
 var turn_frequency: int = 4
 var evasion: float
 
-var behavior: ActorBehavior
-var friendly: bool
+var is_friendly: bool
 var can_react: bool = true
+var is_defeated: bool
 
+@onready var actor_view: PanelContainer = $ActorView
 @onready var animator: AnimationPlayer = $Animator
 @onready var info_name: Label = $Info/Label
 @onready var info_slots: Slots = $Info/Traits
@@ -38,14 +32,13 @@ func take_turn() -> void:
 
 
 func _turn_logic() -> void:
-	await behavior.act()
-	Actor.new()
+	await behavior.act(self)
 
 
 
 # battle → movement
 
-func move(point: Vector2) -> void:
+func cross(point: Vector2) -> void:
 	call_adjacency(false)
 	
 	if animator.is_playing():
@@ -61,13 +54,13 @@ func move(point: Vector2) -> void:
 
 # battle → attacks
 
-func attack(target: Actor) -> void:
-	target.recieve_attack(self)
+func strike(target: Actor, trait_idx: int = -1) -> void:
+	target.recieve_strike(self, trait_idx)
 	attacked.emit()
 
 
-func recieve_attack(attacker: Actor, trait_idx: int = -1) -> void:
-	if is_defeated(): return
+func recieve_strike(attacker: Actor, trait_idx: int = -1) -> void:
+	if is_defeated: return
 	
 	#if can_evade(attacker):
 		#evade(attacker)
@@ -78,10 +71,7 @@ func recieve_attack(attacker: Actor, trait_idx: int = -1) -> void:
 	
 	animator.play("hurt")
 	
-	if is_defeated():
-		pass
-	elif not friendly:
-		change()
+	if is_defeated: pass
 
 
 
@@ -105,67 +95,54 @@ func call_adjacency(value: bool) -> void:
 
 
 func on_actor_adjacency_changed(actor: Actor, adjacent: bool) -> void:
-	behavior.on_actor_adjacency_changed(actor, adjacent)
+	behavior.on_adjacency_changed(self, actor, adjacent)
 
 
 
 # traits
 
-func add_trait(t: Trait) -> void:
-	traits.append(t)
-	match t:
-		Trait.ANIMA: friendly = true
+func add_trait(t: String) -> void:
+	traits.insert(traits.bsearch(t), t)
 	
-	info_slots.value += 1
+	info_slots.value = traits.size()
 
 
-func remove_trait(t: Trait) -> void:
-	traits.erase(t)
-	match t:
-		Trait.ANIMA: friendly = false
+func remove_trait(t: String) -> void:
+	traits.remove_at(traits.find(t))
 	
-	info_slots.value -= 1
+	if traits:
+		info_slots.value = traits.size()
+		change_type()
+	else:
+		is_defeated = true
 
 
-static func get_trait_name(t: Trait) -> String:
-	return Trait.keys()[t]
-
-
-static func get_trait_icon(t: Trait) -> AtlasTexture:
-	var texture := AtlasTexture.new()
-	texture.atlas = load("res://assets/ui/icon/trait.png")
-	texture.region.size.x = 8
-	texture.region.size.y = 8
-	texture.region.position.x = t * 8
-	return texture
+func has_trait(t: String) -> bool:
+	return traits[traits.bsearch(t)] == t
 
 
 
 # conditions
 
-func add_condition(condition: Condition) -> void:
-	conditions.append(condition)
-	condition.apply(self)
+func add_condition(c: Condition) -> void:
+	conditions.append(c)
+	c.apply(self)
 
 
-func remove_condition(condition: Condition) -> void:
-	conditions.erase(condition)
-	condition.unapply(self)
+func remove_condition(c: Condition) -> void:
+	conditions.erase(c)
+	c.unapply(self)
 
 
 
 # checks & calcs
 
-func is_defeated() -> bool:
-	return traits.is_empty()
-
-
 func can_stand(point: Vector2) -> bool:
 	return Game.battle.grid.are_coords_open(Grid.point_to_coords(point)) or Game.battle.grid.at(point) == self
 
 
-func can_attack(target: Node) -> bool:
-	return target is Actor and target.friendly != friendly
+func can_strike(target: Node) -> bool:
+	return target is Actor and target.is_friendly != is_friendly
 
 
 func can_evade(attacker: Actor) -> bool:
@@ -183,33 +160,27 @@ func calc_facing(motion: Vector2) -> Vector2:
 
 # data
 
+func _ready() -> void:
+	super()
+	info_slots.max_value = data.traits.size()
+	for t: String in data.traits:
+		add_trait(t)
+
+
 func load_data(data: CharacterData) -> void:
 	super(data)
-	
-	for t: Trait in data.traits:
-		add_trait(t)
-	
-	info_slots.max_value = traits.size()
-	
-	read_data()
+	is_friendly = data.is_friendly
+	info_name.text = data.name
+	actor_view.write(data)
 
 
-func read_data() -> void:
-	type = data.name
-	behavior = data.behavior.new(self)
-	
-	info_name.text = type
-	info_slots.value = traits.size()
-
-
-func change() -> void:
-	data = ResourceLibrary.get_actor_type(traits)
-	read_data()
-	super.load_data(data)
+func change_type() -> void:
+	data = ResLib.actor_data.get_resource_by_traits(traits)
+	load_data(data)
 
 
 
 # print
 
 func _to_string() -> String:
-	return "Actor(%s)" % type
+	return "Actor(%s)" % data.name

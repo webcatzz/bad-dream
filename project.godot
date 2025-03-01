@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+ResLib="*res://scenes/autoloads/resource_library/resource_library.tscn"
 Game="*res://scenes/autoloads/game/game.tscn"
-ResourceLibrary="*res://scenes/autoloads/resource_library.gd"
 
 [display]
 

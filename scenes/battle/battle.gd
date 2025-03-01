@@ -49,7 +49,7 @@ func stop() -> void:
 # turns
 
 func run_turn(actor: Actor) -> void:
-	if actor.is_defeated():
+	if actor.is_defeated:
 		remove_actor(actor)
 		return
 	

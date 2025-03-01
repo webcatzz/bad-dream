@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btvib22b87k51"
-path="res://.godot/imported/trigger.svg-34c44acada31d10ecf667885de27d4a9.ctex"
+uid="uid://cl5vl1bbbkpvi"
+path="res://.godot/imported/default.png-2d33688b9b93a3e29a7af6cdde088769.ctex"
 metadata={
-"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/editor/trigger.svg"
-dest_files=["res://.godot/imported/trigger.svg-34c44acada31d10ecf667885de27d4a9.ctex"]
+source_file="res://assets/modifier/default.png"
+dest_files=["res://.godot/imported/default.png-2d33688b9b93a3e29a7af6cdde088769.ctex"]
 
 [params]
 
@@ -33,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=true
-editor/convert_colors_with_editor_theme=true

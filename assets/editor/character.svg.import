@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btvib22b87k51"
-path="res://.godot/imported/trigger.svg-34c44acada31d10ecf667885de27d4a9.ctex"
+uid="uid://dtwjqd3xf2kkc"
+path="res://.godot/imported/character.svg-e4114a45aecac76f0032fd4d3948d18a.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/editor/trigger.svg"
-dest_files=["res://.godot/imported/trigger.svg-34c44acada31d10ecf667885de27d4a9.ctex"]
+source_file="res://assets/editor/character.svg"
+dest_files=["res://.godot/imported/character.svg-e4114a45aecac76f0032fd4d3948d18a.ctex"]
 
 [params]
 

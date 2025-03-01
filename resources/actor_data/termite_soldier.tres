@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ActorData" load_steps=2 format=3 uid="uid://k5nxnxlk3tsr"]
+
+[ext_resource type="Script" path="res://resources/actor_data/actor_data.gd" id="1_yhn4a"]
+
+[resource]
+script = ExtResource("1_yhn4a")
+traits = PackedStringArray()
+is_friendly = false
+name = "Soldier Termite"
+sprite_offset = Vector2(0, -12)
+color = Color(0, 0, 0, 1)

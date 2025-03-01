@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ActorData" load_steps=2 format=3 uid="uid://mpfs4yurxwsh"]
+
+[ext_resource type="Script" path="res://resources/actor_data/actor_data.gd" id="1_ypaom"]
+
+[resource]
+script = ExtResource("1_ypaom")
+traits = PackedStringArray("piteous")
+is_friendly = false
+name = "Larva"
+sprite_offset = Vector2(0, -12)
+color = Color(0, 0, 0, 1)

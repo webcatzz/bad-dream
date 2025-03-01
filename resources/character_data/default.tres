@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_nflhd")
-name = ""
-sprite_offset = Vector2(0, 0)
+name = "Character"
+sprite_offset = Vector2(0, -12)
 color = Color(0, 0, 0, 1)

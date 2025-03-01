@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/editor/grid.svg")
 class_name Grid
 extends Node2D
 ## Manages tiles.
@@ -9,8 +10,7 @@ const LEFT := Vector2(-10, 10)
 const RIGHT := Vector2(10, -10)
 
 @export var tile_set: TileSet
-@export_group("Data")
-@export var _tiles: Array
+@export_storage var _tiles: Array
 
 var _astar := AStarGrid2D.new()
 
@@ -44,9 +44,10 @@ func set_tile(coords: Vector2i, source_id: int, tile_id: Vector2i) -> void:
 	if has_tile(coords): remove_tile(coords)
 	
 	var tile := Tile.new()
-	tile.draw(self, source_id, tile_id)
-	tile.set_coords(coords)
-	tile.set_parent(self)
+	tile.coords = coords
+	tile.source_id = source_id
+	tile.tile_id = tile_id
+	tile.draw(self)
 	
 	_list_add_tile(tile)
 
@@ -156,9 +157,7 @@ func _read_coords_open() -> void:
 
 func _ready() -> void:
 	for tile: Tile in _tiles:
-		tile.draw(self, tile.source_id, tile.tile_id)
-		tile.set_coords(tile.coords)
-		tile.set_parent(self)
+		tile.draw(self)
 		_astar.region = _astar.region.expand(tile.coords)
 	
 	_astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
