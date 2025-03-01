@@ -17,32 +17,33 @@ func start() -> void:
 	cycle()
 
 
-func cycle(idx: int = 0) -> void:
-	var i: int = 0
-	while i < actors.size():
+func cycle() -> void:
+	var idx: int = 0
+	while idx < actors.size():
+		await run_turn(actors[idx])
+		await get_tree().create_timer(0.5).timeout
 		
-		if idx % actors[i].turn_frequency == 0:
-			await run_turn(actors[i])
-			await get_tree().create_timer(0.5).timeout
-		
-		if Game.player not in actors or actors.size() < 2:
+		if is_over():
 			stop()
 			return
 		
-		i += 1
-	cycle(idx + 1)
+		idx += 1
+	
+	cycle()
 
 
 func stop() -> void:
 	Game.battle = null
 	Game.player.listening = true
 	
-	get_tree().set_group("gate", "monitoring", true)
-	
 	while actors:
 		remove_actor(actors.back())
 	
 	queue_free()
+
+
+func is_over() -> bool:
+	return Game.player not in actors or actors.size() < 2
 
 
 
