@@ -18,8 +18,6 @@ var is_defeated: bool
 
 @onready var actor_view: PanelContainer = $ActorView
 @onready var animator: AnimationPlayer = $Animator
-@onready var info_name: Label = $Info/Label
-@onready var info_slots: Slots = $Info/Traits
 
 
 
@@ -103,15 +101,12 @@ func on_actor_adjacency_changed(actor: Actor, adjacent: bool) -> void:
 
 func add_trait(t: String) -> void:
 	traits.insert(traits.bsearch(t), t)
-	
-	info_slots.value = traits.size()
 
 
 func remove_trait(t: String) -> void:
 	traits.remove_at(traits.find(t))
 	
 	if traits:
-		info_slots.value = traits.size()
 		change_type()
 	else:
 		is_defeated = true
@@ -158,11 +153,22 @@ func calc_facing(motion: Vector2) -> Vector2:
 
 
 
+# input
+
+func _on_mouse_entered() -> void:
+	if Game.battle:
+		actor_view.show()
+
+
+func _on_mouse_exited() -> void:
+	actor_view.hide()
+
+
+
 # data
 
 func _ready() -> void:
 	super()
-	info_slots.max_value = data.traits.size()
 	for t: String in data.traits:
 		add_trait(t)
 
@@ -170,7 +176,6 @@ func _ready() -> void:
 func load_data(data: CharacterData) -> void:
 	super(data)
 	is_friendly = data.is_friendly
-	info_name.text = data.name
 	actor_view.write(data)
 
 
