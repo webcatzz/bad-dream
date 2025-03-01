@@ -8,6 +8,8 @@ var listening: bool = true
 var max_stops: int = 5
 var max_stop_length: int = 80
 
+var actor_viewed: Actor
+
 @onready var path: Path = $Path
 @onready var cursor_path: Node2D = $CursorPath
 
@@ -78,15 +80,21 @@ func _on_turn_hover() -> void:
 	cursor_path.set_target(0, null)
 	point = Grid.snap(point)
 	
+	if actor_viewed:
+		actor_viewed.actor_view.hide()
+	
 	if Game.battle.grid.ray(cursor_path.start, point):
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
 	elif can_strike(Game.battle.grid.at(point)):
+		var target: Actor = Game.battle.grid.at(point)
 		var stand_point: Vector2 = point - calc_facing(point - cursor_path.start)
 		cursor_path.set_end(0, stand_point)
-		cursor_path.set_target(0, Game.battle.grid.at(point))
+		cursor_path.set_target(0, target)
 		cursor_path.set_type(0, Path.Line.Type.ATTACK if can_stand(stand_point) else Path.Line.Type.NONE)
+		actor_viewed = target
+		actor_viewed.actor_view.show()
 	else:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 

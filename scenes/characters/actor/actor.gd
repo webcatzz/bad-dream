@@ -157,11 +157,11 @@ func calc_facing(motion: Vector2) -> Vector2:
 
 func _on_mouse_entered() -> void:
 	if Game.battle:
-		actor_view.show()
+		pass
 
 
 func _on_mouse_exited() -> void:
-	actor_view.hide()
+	pass
 
 
 
