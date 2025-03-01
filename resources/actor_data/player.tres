@@ -4,8 +4,7 @@
 
 [resource]
 script = ExtResource("1_1n5a3")
-traits = PackedStringArray("obstinate")
-is_friendly = true
-name = "Player"
+traits = PackedStringArray("obstinate", "obstinate", "obstinate", "obstinate", "obstinate")
+name = "Ana"
 sprite_offset = Vector2(0, -12)
 color = Color(0, 0, 0, 1)

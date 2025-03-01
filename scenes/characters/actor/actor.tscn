@@ -293,6 +293,7 @@ alpha_curve = SubResource("CurveTexture_oad2g")
 
 [node name="Actor" groups=["actor"] instance=ExtResource("1_ebx46")]
 script = ExtResource("2_met84")
+is_friendly = false
 
 [node name="Collision" parent="." index="0"]
 visible = false

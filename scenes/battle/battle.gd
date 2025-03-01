@@ -54,9 +54,9 @@ func run_turn(actor: Actor) -> void:
 		remove_actor(actor)
 		return
 	
-	grid.set_coords_open(actor.coords, true)
+	grid.set_point_enabled(actor.position, true)
 	await actor.take_turn()
-	grid.set_coords_open(actor.coords, false)
+	grid.set_point_enabled(actor.position, false)
 
 
 
@@ -64,9 +64,9 @@ func run_turn(actor: Actor) -> void:
 
 func ready_actor(actor: Actor) -> void:
 	actor.position = Grid.snap(actor.position)
-	grid.set_coords_open(actor.coords, false)
+	grid.set_point_enabled(actor.position, false)
 
 
 func remove_actor(actor: Actor) -> void:
 	actors.erase(actor)
-	grid.set_coords_open(actor.coords, true)
+	grid.set_point_enabled(actor.position, true)

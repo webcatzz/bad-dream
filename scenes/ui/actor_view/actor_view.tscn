@@ -16,7 +16,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_jbi6m")
 text = "Actor"
 
-[node name="Traits" type="HFlowContainer" parent="VBox"]
+[node name="Traits" type="VBoxContainer" parent="VBox"]
 layout_mode = 2
-theme_override_constants/h_separation = 1
-theme_override_constants/v_separation = 1
+theme_override_constants/separation = 1

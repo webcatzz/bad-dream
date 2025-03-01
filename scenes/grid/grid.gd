@@ -10,9 +10,9 @@ const LEFT := Vector2(-10, 10)
 const RIGHT := Vector2(10, -10)
 
 @export var tile_set: TileSet
-@export_storage var _tiles: Array
+@export_storage var _tiles: Array[Tile]
 
-var _astar := AStarGrid2D.new()
+var _astar := AStar2D.new()
 
 
 
@@ -137,19 +137,33 @@ func add_nav_polygon(nav_poly: NavigationPolygon, point: Vector2) -> void:
 
 # astar
 
-func set_coords_open(coords: Vector2i, open: bool) -> void:
-	_astar.set_point_solid(coords, not open)
+func set_point_enabled(point: Vector2, open: bool) -> void:
+	_astar.set_point_disabled(_astar.get_closest_point(point, true), not open)
 
 
-func are_coords_open(coords: Vector2i) -> bool:
-	return _astar.is_in_boundsv(coords) and not _astar.is_point_solid(coords)
+func is_point_enabled(point: Vector2) -> bool:
+	return has_point(point) and not _astar.is_point_disabled(_astar.get_closest_point(point, true))
 
 
-func _read_coords_open() -> void:
-	for x: int in _astar.region.size.x:
-		for y: int in _astar.region.size.y:
-			var coords: Vector2i = Vector2i(x, y) + _astar.region.position
-			set_coords_open(coords, has_tile(coords))
+func has_point(point: Vector2) -> bool:
+	return point == _astar.get_point_position(_astar.get_closest_point(point, true))
+
+
+func get_point_path(from: Vector2, to: Vector2, partial: bool = false) -> PackedVector2Array:
+	return _astar.get_point_path(_astar.get_closest_point(from), _astar.get_closest_point(to), partial)
+
+
+func _generate_astar() -> void:
+	_astar.clear()
+	_astar.reserve_space(_tiles.size())
+	var max_stop_length_squared: float = Actor.MAX_STOP_LENGTH ** 2
+	
+	for i: int in _tiles.size():
+		_astar.add_point(i, coords_to_point(_tiles[i].coords))
+		
+		for j: int in i:
+			if _astar.get_point_position(i).distance_squared_to(_astar.get_point_position(j)) < max_stop_length_squared:
+				_astar.connect_points(i, j)
 
 
 
@@ -158,9 +172,6 @@ func _read_coords_open() -> void:
 func _ready() -> void:
 	for tile: Tile in _tiles:
 		tile.draw(self)
-		_astar.region = _astar.region.expand(tile.coords)
 	
-	_astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-	_astar.region.size += Vector2i.ONE
-	_astar.update()
-	_read_coords_open()
+	if not Engine.is_editor_hint():
+		_generate_astar()

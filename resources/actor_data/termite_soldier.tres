@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_yhn4a")
-traits = PackedStringArray()
+traits = PackedStringArray("burrowing")
 is_friendly = false
 name = "Soldier Termite"
 sprite_offset = Vector2(0, -12)

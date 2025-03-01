@@ -14,6 +14,7 @@ shader_parameter/color = Color(0, 0, 0, 0)
 
 [node name="Player" instance=ExtResource("1_o3hdy")]
 script = ExtResource("1_gtdxj")
+is_friendly = true
 data = ExtResource("3_6855m")
 
 [node name="Sprite" parent="." index="2"]

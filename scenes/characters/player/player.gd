@@ -5,9 +5,6 @@ signal num_pressed
 
 var listening: bool = true
 
-var max_stops: int = 5
-var max_stop_length: int = 80
-
 var actor_viewed: Actor
 
 @onready var path: Path = $Path
@@ -65,7 +62,9 @@ func _turn_logic() -> void:
 		
 		await cross(line.end)
 		if line.type == Path.Line.Type.ATTACK:
+			line.target.actor_view.show()
 			await strike(line.target, await num_pressed)
+			line.target.actor_view.hide()
 	
 	animator.queue("exhausted")
 
@@ -74,27 +73,27 @@ func _turn_logic() -> void:
 # battle → input
 
 func _on_turn_hover() -> void:
-	var point: Vector2 = cursor_path.start + (get_global_mouse_position() - cursor_path.start).limit_length(max_stop_length) * Vector2(1, 0.75)
+	var point: Vector2 = cursor_path.start + (get_global_mouse_position() - cursor_path.start).limit_length(MAX_STOP_LENGTH) * Vector2(1, 0.75)
+	var target: Actor = Game.battle.grid.at(point)
 	
+	# path point
 	cursor_path.set_end(0, point)
 	cursor_path.set_target(0, null)
 	point = Grid.snap(point)
 	
-	if actor_viewed:
-		actor_viewed.actor_view.hide()
+	# actor view
+	_set_actor_view(target if target is Actor else null)
 	
+	# path type
 	if Game.battle.grid.ray(cursor_path.start, point):
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 	if can_stand(point):
 		cursor_path.set_type(0, Path.Line.Type.MOVE)
 	elif can_strike(Game.battle.grid.at(point)):
-		var target: Actor = Game.battle.grid.at(point)
-		var stand_point: Vector2 = point - calc_facing(point - cursor_path.start)
+		var stand_point: Vector2 = point - calc_unit(point - cursor_path.start)
 		cursor_path.set_end(0, stand_point)
 		cursor_path.set_target(0, target)
 		cursor_path.set_type(0, Path.Line.Type.ATTACK if can_stand(stand_point) else Path.Line.Type.NONE)
-		actor_viewed = target
-		actor_viewed.actor_view.show()
 	else:
 		cursor_path.set_type(0, Path.Line.Type.NONE)
 
@@ -107,7 +106,7 @@ func _on_turn_click() -> void:
 	line.end = Grid.snap(line.end)
 	path.add(line)
 	
-	cursor_path.visible = path.lines.size() < max_stops
+	cursor_path.visible = path.lines.size() < MAX_STOPS
 	cursor_path.start = line.end
 	cursor_path.add()
 	_on_turn_hover()
@@ -125,6 +124,15 @@ func _on_turn_right_click() -> void:
 	cursor_path.show()
 	cursor_path.start = path.lines.back().end if path.lines else path.start
 	_on_turn_hover()
+
+
+func _set_actor_view(target: Actor) -> void:
+	if actor_viewed:
+		actor_viewed.actor_view.hide()
+		actor_viewed = null
+	if target:
+		actor_viewed = target
+		actor_viewed.actor_view.show()
 
 
 
