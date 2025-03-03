@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_8oacn")
 traits = PackedStringArray("burrowing", "irate")
-is_friendly = false
-name = "Termite"
+name = "Worker Termite"
 sprite_offset = Vector2(0, -12)
 color = Color(0, 0, 0, 1)

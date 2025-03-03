@@ -1,0 +1,33 @@
+[gd_scene load_steps=16 format=3 uid="uid://c3034821mj1vt"]
+
+[ext_resource type="Script" path="res://scenes/autoloads/reslib/reslib.gd" id="1_blmug"]
+[ext_resource type="Resource" uid="uid://bfybgxwubco0k" path="res://resources/actor_data/default.tres" id="2_1x4n4"]
+[ext_resource type="Resource" uid="uid://mpfs4yurxwsh" path="res://resources/actor_data/larva.tres" id="3_k32tx"]
+[ext_resource type="Resource" uid="uid://bvfohu2hods0x" path="res://resources/actor_data/player.tres" id="4_m562i"]
+[ext_resource type="Resource" uid="uid://0vtdvk30luej" path="res://resources/actor_data/termite.tres" id="5_xhk61"]
+[ext_resource type="Resource" uid="uid://k5nxnxlk3tsr" path="res://resources/actor_data/termite_soldier.tres" id="6_5qakg"]
+[ext_resource type="Resource" uid="uid://dgkbyeuq7mewd" path="res://resources/actor_data/termite_worker.tres" id="7_w344f"]
+[ext_resource type="Script" path="res://scenes/autoloads/reslib/actor_data.gd" id="8_00fhb"]
+[ext_resource type="Resource" uid="uid://boakq1i3tttkh" path="res://resources/character_data/default.tres" id="9_7rtm7"]
+[ext_resource type="Resource" uid="uid://dcor5w70x16cr" path="res://resources/modifier_data/traits/burrowing.tres" id="10_nomki"]
+[ext_resource type="Resource" uid="uid://c865q5hf0074p" path="res://resources/modifier_data/traits/irate.tres" id="11_ker68"]
+[ext_resource type="Resource" uid="uid://dt4u6h65c5joa" path="res://resources/modifier_data/traits/obstinate.tres" id="12_nvivw"]
+[ext_resource type="Resource" uid="uid://qtn4gcarb52u" path="res://resources/modifier_data/traits/piteous.tres" id="13_hso2k"]
+[ext_resource type="PackedScene" uid="uid://bhsgjh0lvhhnr" path="res://scenes/ui/actor_view/actor_view.tscn" id="14_hpk7p"]
+[ext_resource type="PackedScene" uid="uid://bgaca185fhwjl" path="res://scenes/ui/modifier_label/trait_label/trait_label.tscn" id="14_s87fe"]
+
+[node name="ResourceLibrary" type="Node"]
+script = ExtResource("1_blmug")
+
+[node name="ActorData" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("default", "larva", "player", "termite", "termite_soldier", "termite_worker"), [ExtResource("2_1x4n4"), ExtResource("3_k32tx"), ExtResource("4_m562i"), ExtResource("5_xhk61"), ExtResource("6_5qakg"), ExtResource("7_w344f")]]
+script = ExtResource("8_00fhb")
+
+[node name="CharacterData" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("default"), [ExtResource("9_7rtm7")]]
+
+[node name="ModifierData" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("burrowing", "irate", "obstinate", "piteous"), [ExtResource("10_nomki"), ExtResource("11_ker68"), ExtResource("12_nvivw"), ExtResource("13_hso2k")]]
+
+[node name="UI" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("actor_view", "trait_label"), [ExtResource("14_hpk7p"), ExtResource("14_s87fe")]]
