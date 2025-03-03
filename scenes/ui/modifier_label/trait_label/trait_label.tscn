@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgaca185fhwjl"]
 
-[ext_resource type="Script" path="res://scenes/ui/modifier_label/trait_label/trait_label.gd" id="1_37cbx"]
+[ext_resource type="Script" uid="uid://b081osuuwjnag" path="res://scenes/ui/modifier_label/trait_label/trait_label.gd" id="1_37cbx"]
 [ext_resource type="Texture2D" uid="uid://cl5vl1bbbkpvi" path="res://assets/modifier/default.png" id="2_ju7i3"]
 
 [node name="TraitLabel" type="PanelContainer"]

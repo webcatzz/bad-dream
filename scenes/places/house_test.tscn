@@ -1,8 +1,8 @@
 [gd_scene load_steps=46 format=3 uid="uid://dif2spnvtjuy1"]
 
-[ext_resource type="Script" path="res://scenes/grid/grid.gd" id="1_1orhy"]
+[ext_resource type="Script" uid="uid://rtj7ak6mwtr2" path="res://scenes/grid/grid.gd" id="1_1orhy"]
 [ext_resource type="TileSet" uid="uid://bhk45f1fxendq" path="res://assets/tile/house/tileset.tres" id="2_p7gr7"]
-[ext_resource type="Script" path="res://scenes/grid/tile.gd" id="3_1pjl1"]
+[ext_resource type="Script" uid="uid://xpxy6vysmgjy" path="res://scenes/grid/tile.gd" id="3_1pjl1"]
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scenes/characters/player/player.tscn" id="4_rje41"]
 
 [sub_resource type="Resource" id="Resource_6snhr"]

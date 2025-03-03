@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://tpq1kjad2yna"]
 
-[ext_resource type="Script" path="res://scenes/camera/camera.gd" id="1_uevgj"]
+[ext_resource type="Script" uid="uid://cr4m5q08jet84" path="res://scenes/camera/camera.gd" id="1_uevgj"]
 
 [node name="Camera" type="Camera2D"]
 top_level = true

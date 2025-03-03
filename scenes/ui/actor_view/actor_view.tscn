@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhsgjh0lvhhnr"]
 
-[ext_resource type="Script" path="res://scenes/ui/actor_view/actor_view.gd" id="1_dttno"]
+[ext_resource type="Script" uid="uid://clfsljbtnyxbq" path="res://scenes/ui/actor_view/actor_view.gd" id="1_dttno"]
 [ext_resource type="FontVariation" uid="uid://c6oh7kyt6hhch" path="res://assets/ui/font/serifed.tres" id="2_jbi6m"]
 
 [node name="ActorView" type="PanelContainer"]

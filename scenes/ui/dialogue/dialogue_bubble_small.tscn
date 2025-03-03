@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3hl0kl0qddhb"]
 
 [ext_resource type="Texture2D" uid="uid://bik0q0juj7qve" path="res://assets/ui/dialogue/bubble_small.png" id="1_326jl"]
-[ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://assets/vfx/dither.tres" id="1_sq8jk"]
+[ext_resource type="Material" uid="uid://c12aoaul6bx2r" path="res://assets/vfx/shader/dither.tres" id="1_sq8jk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdyrv"]
 content_margin_left = 4.0

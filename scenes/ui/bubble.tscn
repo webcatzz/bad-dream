@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr8abibtqtu5a"]
 
-[ext_resource type="Script" path="res://scenes/ui/bubble.gd" id="1_146gq"]
+[ext_resource type="Script" uid="uid://bnglmx7d5oqyk" path="res://scenes/ui/bubble.gd" id="1_146gq"]
 [ext_resource type="FontVariation" uid="uid://c6oh7kyt6hhch" path="res://assets/ui/font/serifed.tres" id="2_ppsfs"]
 
 [node name="Bubble" type="Control"]

@@ -1,14 +1,13 @@
-[gd_scene load_steps=124 format=3 uid="uid://hw2n2w4o0sh7"]
+[gd_scene load_steps=123 format=3 uid="uid://hw2n2w4o0sh7"]
 
-[ext_resource type="Script" path="res://scenes/grid/grid.gd" id="1_efh2p"]
+[ext_resource type="Script" uid="uid://rtj7ak6mwtr2" path="res://scenes/grid/grid.gd" id="1_efh2p"]
 [ext_resource type="Texture2D" uid="uid://btpupkfs6nv6y" path="res://assets/tile/tile.png" id="2_7mnbx"]
-[ext_resource type="Script" path="res://scenes/grid/tile.gd" id="3_7twtm"]
+[ext_resource type="Script" uid="uid://xpxy6vysmgjy" path="res://scenes/grid/tile.gd" id="3_7twtm"]
 [ext_resource type="PackedScene" uid="uid://bahgmyj4ou7t5" path="res://scenes/battle/battle.tscn" id="4_4v72q"]
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scenes/characters/player/player.tscn" id="6_coark"]
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scenes/characters/actor/actor.tscn" id="7_ofiao"]
 [ext_resource type="Resource" uid="uid://0vtdvk30luej" path="res://resources/actor_data/termite.tres" id="8_1fukf"]
-[ext_resource type="Script" path="res://resources/dialogue/test.gd" id="8_i3t54"]
-[ext_resource type="PackedScene" uid="uid://dr8abibtqtu5a" path="res://scenes/ui/bubble.tscn" id="9_3cype"]
+[ext_resource type="Script" uid="uid://qpgsubnxfdd1" path="res://resources/dialogue/test.gd" id="8_i3t54"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wcn5f"]
 vertices = PackedVector2Array(12, -1.5, 2, 8.5, -12, 1.5, -2, -8.5)
@@ -741,12 +740,6 @@ data = ExtResource("8_1fukf")
 [node name="Dialogue" type="Node" parent="Actor"]
 script = ExtResource("8_i3t54")
 key = "test"
-
-[node name="Bubble" parent="." instance=ExtResource("9_3cype")]
-offset_left = 57.0
-offset_top = -85.0
-offset_right = 97.0
-offset_bottom = -45.0
 
 [connection signal="pressed" from="UI/Button" to="UI/Button" method="queue_free"]
 [connection signal="pressed" from="UI/Button" to="Battle" method="start"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cderx2tagexsh"]
 
-[ext_resource type="Script" path="res://scenes/characters/character/character.gd" id="1_8gmlv"]
+[ext_resource type="Script" uid="uid://7wfh36eo02gv" path="res://scenes/characters/character/character.gd" id="1_8gmlv"]
 [ext_resource type="PackedScene" uid="uid://cqqsbun44o5af" path="res://scenes/tile_collision.tscn" id="2_bey5l"]
 [ext_resource type="Texture2D" uid="uid://cibi3valw22di" path="res://assets/character/default.png" id="2_tyg1n"]
-[ext_resource type="Script" path="res://scenes/triggers/trigger.gd" id="3_qcfb4"]
+[ext_resource type="Script" uid="uid://ca80townjjbwa" path="res://scenes/triggers/trigger.gd" id="3_qcfb4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pkur0"]
 size = Vector2(14, 34)

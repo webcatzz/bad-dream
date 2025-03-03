@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://fdinturxlxnj"]
 
-[ext_resource type="Script" path="res://addons/grid_editor/grid_editor.gd" id="1_6pken"]
+[ext_resource type="Script" uid="uid://dcd74ayaxm30m" path="res://addons/grid_editor/grid_editor.gd" id="1_6pken"]
 
 [node name="GridEditor" type="VBoxContainer"]
 texture_filter = 1
