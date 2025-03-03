@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_ypaom")
 traits = PackedStringArray("piteous")
-is_friendly = false
 name = "Larva"
 sprite_offset = Vector2(0, -12)
 color = Color(0, 0, 0, 1)

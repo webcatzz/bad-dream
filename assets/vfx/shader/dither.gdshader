@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+const float scale = 3.0;
 const mat4 BAYER = mat4(
 	vec4(00.0/16.0, 12.0/16.0, 03.0/16.0, 15.0/16.0),
 	vec4(08.0/16.0, 04.0/16.0, 11.0/16.0, 07.0/16.0),
@@ -9,5 +10,5 @@ const mat4 BAYER = mat4(
 
 
 void fragment() {
-	COLOR.a = step(0.0, BAYER[int(VERTEX.x) % 4][int(VERTEX.y) % 4] + COLOR.a - 1.0);
+	COLOR.a = step(0.0, BAYER[int(VERTEX.x / scale) % 4][int(VERTEX.y / scale) % 4] + COLOR.a - 1.0);
 }

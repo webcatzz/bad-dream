@@ -34,3 +34,5 @@ func save_file() -> void:
 
 func _ready() -> void:
 	load_file()
+	
+	Window

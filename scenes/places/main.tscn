@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://hw2n2w4o0sh7"]
+[gd_scene load_steps=124 format=3 uid="uid://hw2n2w4o0sh7"]
 
 [ext_resource type="Script" path="res://scenes/grid/grid.gd" id="1_efh2p"]
 [ext_resource type="Texture2D" uid="uid://btpupkfs6nv6y" path="res://assets/tile/tile.png" id="2_7mnbx"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://fjmjaf0ynqn4" path="res://scenes/characters/player/player.tscn" id="6_coark"]
 [ext_resource type="PackedScene" uid="uid://df0j5wnvq4v4f" path="res://scenes/characters/actor/actor.tscn" id="7_ofiao"]
 [ext_resource type="Resource" uid="uid://0vtdvk30luej" path="res://resources/actor_data/termite.tres" id="8_1fukf"]
+[ext_resource type="Script" path="res://resources/dialogue/test.gd" id="8_i3t54"]
+[ext_resource type="PackedScene" uid="uid://dr8abibtqtu5a" path="res://scenes/ui/bubble.tscn" id="9_3cype"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wcn5f"]
 vertices = PackedVector2Array(12, -1.5, 2, 8.5, -12, 1.5, -2, -8.5)
@@ -715,8 +717,8 @@ metadata/_edit_lock_ = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -42.0
-offset_bottom = 7.0
+offset_left = -68.0
+offset_bottom = 29.0
 grow_horizontal = 0
 text = "start battle"
 
@@ -736,6 +738,17 @@ actors = [NodePath("../Actor")]
 position = Vector2(70, 35)
 data = ExtResource("8_1fukf")
 
+[node name="Dialogue" type="Node" parent="Actor"]
+script = ExtResource("8_i3t54")
+key = "test"
+
+[node name="Bubble" parent="." instance=ExtResource("9_3cype")]
+offset_left = 57.0
+offset_top = -85.0
+offset_right = 97.0
+offset_bottom = -45.0
+
 [connection signal="pressed" from="UI/Button" to="UI/Button" method="queue_free"]
 [connection signal="pressed" from="UI/Button" to="Battle" method="start"]
 [connection signal="clicked" from="Player" to="Player/ActorView" method="show"]
+[connection signal="clicked" from="Actor" to="Actor/Dialogue" method="run"]
